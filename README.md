@@ -1,109 +1,38 @@
-Spatial Allocator Tools README, 1/20/2017
-D. Yang,  CEMPD, Institute for the Environment, UNC-Chapel Hill
+Spatial Allocator v4.3 (January 20, 2017 release)
+======
 
-==============
-Changes
-==============
+The Spatial Allocator (SA) is a set of tools that helps users manipulate and generate data files related to emissions and air quality modeling. The tools perform functions similar to Geographic Information Systems (GIS), but are provided to the modeling community free of charge. In addition, the tools are designed to support some of the unique aspects of the file formats used for Community Multiscale Air Quality (CMAQ), Sparse Matrix Operator Kernel Emissions (SMOKE), and Weather Research and Forecasting (WRF) modeling.
 
-01/16/2017
-Update notes for SA_v4.3_012017
-        Vector Tools: 
-        (1) Update Earth Radius to 6370000
-        (2) Modify Polar Stereographic Surrogate Header
-        (3) Added New Tool Beld4SMK 
-        (4) Added 64bits version 
-        (5) Update reference data
+The SA is licensed as open-source Linux software that was developed with funding from the U.S. EPA. The SA uses GIS industry standard ESRI shapefiles, image files supported by GDAL, netCDF files and plain text data files as input and output data.
 
-05/31/2016
-Update notes for SA 4.2:
-	Raster Tools:
-	(1) EPIC site info tool update for elevation output
+Getting the Spatial Allocator from GitHub
+---
 
-	Vector Tools:
-	(1) Update projection radius to WRF 6370000
-	(2) Bug fix for make file
+```
+git clone -b 4.3 https://github.com/CMASCenter/Spatial-Allocator.git
+```
+You may also download a tarball of the Spatial Allocator installation from http://www.cmascenter.org.
 
+Getting Test Data for the Spatial Allocator
+---
+Download data to test your Spatial Allocator installation from http:///www.cmascenter.org.
 
-02/05/2016
-Update Update Release Notes for SA 4.2:
+Spatial Allocator Repository Guide
+---
+The SA code, scripts, and executables are organized in the following directories:
 
-	Raster Tools:
-	(1) Updated elevation output format for EPIC site information 
-        (2) Modified EPIC extraction tools for added EPIC output variables
+- **bin** - SA 32-bit and 64-bit Linux executables
+- **docs** - SA Documentation
+- **raster_scripts** - C-shell scripts for running the [Raster Tools](https://github.com/CMASCenter/Spatial-Allocator/docs/User_Manual/SA_ch04_raster.md)
+- **ref** - location of reference data for verifying the SA installation
+- **scripts** - C-shell scripts for running the [Vector Tools](https://github.com/CMASCenter/Spatial-Allocator/docs/User_Manual/SA_ch03_vector.md)
+- **src** - SA source code and 3rd-party libraries
+- **srgtools** - C-shell scripts for running the [Surrogate Tools](https://github.com/CMASCenter/Spatial-Allocator/docs/User_Manual/SA_ch05_surrogate.md)
+- **util** - miscellaneous utility scripts to support the SA tools
 
-	Vector Tools:
-        (1) Fixed an error in polygon surrogate computation
+Documentation
+---
 
+[Spatial Allocator User's Guide](https://github.com/CMASCenter/Spatial-Allocator/docs/User_Manual/README.md)
 
-09/30/2015
-Update Release Notes for SA 4.2:
-	This update release has the following updates:
-
-        Vector Tools:
-        (1) Fixed an error in re-gridding the BELD3 data for CMAQ.
-        (2) Fixed an error in surroagte computation related to holes in polyogns.
-
-	Raster Tools:
-	(1) Updated extraction tools for FEST-C output because of changed format and 
-            variable name definitions.
-
-        Surrogate Tools:
-        (1) Fixed a bug related with polygon surrogate normaliztion when st+county code is 4 digit.
- 	(2) Fixed a bug in surrogate normalization in reading surrogate data lines with leading spaces and no "!" sign.
-        (3) Added QA threshold for reporting.
-        (4) Updated the surrogate Merging Tool to output QA information on the source surrogates.
-        (5) Added leading "0" for one digit state codes in both merging and normalization tools.
-
-==============
-Quick Start
-==============
-
-Complete Documentation: https://www.cmascenter.org/help/documentation.cfm?model=sa-tools&version=4.3
-
-1. Set up the SA environment:
-	(1) Modify paths in ./bin/sa_setup.csh to installation directory
-
-	(2) source sa_setup.csh or include sa_setup.csh in your .cshrc
-
-2. Vector tools are stored in: bin/32bits and sample vector script files are in sa_052014/scripts.  
-   Users normally do not need to recompile the Vector Tools as they are statically compiled.
-   The Raster Tools often need to be re-compiled as they are not statically built.
-
-3. Important Notes:
-   tmp*.* files created under ./raster_script can be deleted after the completion of the run
-
-4. Sample land use and satellite data can be stored in ./data/sat.  See ./data/sat/README for details on where to obtain data for these tools.
-   Sample Raster Tools running script files in ./raster_scripts:
-
-5. SA Raster Tools for Satellite data and land use data processing:
-
-(1) NLCD_MODIS_processor.csh - generate WRF grid NLCD and MODIS landuse data.  
-
-(2) allocateGOES2WRFGrids.csh -- GOES data processing tool.
-
-(3) allocateMODISL2CloudVars2Grids.csh -- MODIS L2 cloud and aerosol product processing tool.
-
-(4) allocateOMIL2vars2Grids.csh - OMI L2 aerosol and NO2 product processing tool.
-
-(5) allocateOMIvar2Grids.csh - OMI L2G and L3 aerosol and NO3 processing tool.
-        The tool is also may also be used process MODIS L3 products (not tested well) from NASA MODIS web site.
-
-(6) landuseTool_WRFCMAQ_BELD4.csh - generate BELD4 data from 2001 or 2006 NLCD/MODIS and crop tables.  
-	Processed crop and tree tables and shapefiles are stored under "data" directory.   
-
-==============
-Troubleshooting
-==============
-
-1. Troubleshooting for library errors in the SA Raster Tools:
-   >Recompile all libraries under src/libs following instructions in the src/libs/README file.
-   >Modiy src/raster/Makefile for correct paths.
-   >Type "make clean" to clean previous compiled programs.
-   >Type "make" to compile the tools.
-   >Type "make -B install" or "make install" to install compiled tools.
-
-2. Troubleshooting for library errors in the SA Vector Tools:
-   >Modiy src/vector/Makefile for correct library paths. Users can use src/vector/libs_32bits
-   >Type "make clean" to clean previous compiled programs.
-   >Type "make" to compile the tools.
-   >Type "make install" to install compiled tools.
+[Spatial Allocator version 4.3 Release Notes](https://github.com/CMASCenter/Spatial-Allocator/docs/Release_Notes/README.md)
