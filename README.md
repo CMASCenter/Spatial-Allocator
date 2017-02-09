@@ -23,16 +23,16 @@ The SA code, scripts, and executables are organized in the following directories
 
 - **bin** - SA 32-bit and 64-bit Linux executables
 - **docs** - SA Documentation
-- **raster_scripts** - C-shell scripts for running the [Raster Tools](https://github.com/CMASCenter/Spatial-Allocator/docs/User_Manual/SA_ch04_raster.md)
+- **raster_scripts** - C-shell scripts for running the [Raster Tools](docs/User_Manual/SA_ch04_raster.md)
 - **ref** - location of reference data for verifying the SA installation
-- **scripts** - C-shell scripts for running the [Vector Tools](https://github.com/CMASCenter/Spatial-Allocator/docs/User_Manual/SA_ch03_vector.md)
+- **scripts** - C-shell scripts for running the [Vector Tools](docs/User_Manual/SA_ch03_vector.md)
 - **src** - SA source code and 3rd-party libraries
-- **srgtools** - C-shell scripts for running the [Surrogate Tools](https://github.com/CMASCenter/Spatial-Allocator/docs/User_Manual/SA_ch05_surrogate.md)
+- **srgtools** - C-shell scripts for running the [Surrogate Tools](docs/User_Manual/SA_ch05_surrogate.md)
 - **util** - miscellaneous utility scripts to support the SA tools
 
 Documentation
 ---
 
-[Spatial Allocator User's Guide](https://github.com/CMASCenter/Spatial-Allocator/docs/User_Manual/README.md)
+[Spatial Allocator User's Guide](docs/User_Manual/README.md)
 
-[Spatial Allocator version 4.3 Release Notes](https://github.com/CMASCenter/Spatial-Allocator/docs/Release_Notes/README.md)
+[Spatial Allocator version 4.3 Release Notes](docs/Release_Notes/README.md)
