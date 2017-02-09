@@ -1,0 +1,66 @@
+REGION,SURROGATE,SURROGATE CODE,GENERATE,QUALITY ASSURANCE
+USA,Population,100,YES,YES
+USA,Housing,110,NO,YES
+USA,Urban Population ,120,NO,YES
+USA,Rural Population,130,NO,YES
+USA,Housing Change,137,NO,YES
+USA,Housing Change and Population,140,NO,YES
+USA,Residential Heating - Natural Gas,150,NO,YES
+USA,Residential Heating - Wood,160,NO,YES
+USA,Residential Heating - Distillate Oil,170,NO,YES
+USA,Residential Heating - Coal,180,NO,YES
+USA,Residential Heating - LP Gas,190,NO,YES
+USA,Urban Primary Road Miles,200,NO,YES
+USA,Rural Primary Road Miles,210,NO,YES
+USA,Urban Secondary Road Miles,220,NO,YES
+USA,Rural Secondary Road Miles,230,NO,YES
+USA,Total Road Miles,240,NO,YES
+USA,Urban Primary plus Rural Primary,250,NO,YES
+USA,0.75 Total Roadway Miles plus 0.25 Population,255,NO,YES
+USA,Total Railroad Miles,260,NO,YES
+USA,Class 1 Railroad Miles,270,NO,YES
+USA,Class 2 and 3 Railroad Miles,280,NO,YES
+USA,Low Intensity Residential,300,NO,YES
+USA,Total Agriculture,310,NO,YES
+USA,Orchards/Vineyards,312,NO,YES
+USA,Forest Land,320,NO,YES
+USA,Strip Mines/Quarries,330,NO,YES
+USA,Land,340,NO,YES
+USA,Water,350,NO,YES
+USA,Rural Land Area,400,NO,YES
+USA,Commercial Land,500,NO,YES
+USA,Industrial Land,505,NO,YES
+USA,Commercial plus Industrial,510,NO,YES
+USA,Commercial plus Institutional Land,515,NO,YES
+USA,Commercial plus Industrial plus Institutional,520,NO,YES
+USA,Golf Courses plus Institutional plus Industrial plus Commercial,525,NO,YES
+USA,Single Family Residential,527,NO,YES
+USA,Residential - High Density ,530,NO,YES
+USA,Residential + Commercial + Industrial + Institutional + Government,535,NO,YES
+USA,Retail Trade (COM1),540,NO,YES
+USA,Personal Repair (COM3),545,NO,YES
+USA,Retail Trade (COM1) plus Personal Repair (COM3),550,NO,YES
+USA,Professional/Technical (COM4) plus General Government (GOV1),555,NO,YES
+USA,Hospital (COM6),560,NO,YES
+USA,Medical Office/Clinic (COM7),565,NO,YES
+USA,Heavy and High Tech Industrial (IND1 + IND5),570,NO,YES
+USA,Light and High Tech Industrial (IND2 + IND5),575,NO,YES
+USA,"Food, Drug, Chemical Industrial (IND3)",580,NO,YES
+USA,Metals and Minerals Industrial (IND4),585,NO,YES
+USA,Heavy Industrial (IND1),590,NO,YES
+USA,Light Industrial (IND2),595,NO,YES
+USA,Industrial plus Institutional plus Hospitals,596,NO,YES
+USA,Gas Stations,600,NO,YES
+USA,Refineries and Tank Farms,650,NO,YES
+USA,Refineries and Tank Farms and Gas Stations,675,NO,YES
+USA,Airport Points,710,NO,YES
+USA,Airport Areas,700,NO,YES
+USA,Military Airports,720,NO,YES
+USA,Navigable Waterway Miles,807,NO,YES
+USA,Marine Ports,800,NO,YES
+USA,Navigable Waterway Activity,810,NO,YES
+USA,Golf Courses,850,NO,YES
+USA,Mines,860,NO,YES
+USA,Wastewater Treatment Facilities,870,NO,YES
+USA,Drycleaners,880,NO,YES
+USA,Commercial Timber,890,NO,YES

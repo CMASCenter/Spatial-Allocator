@@ -1,0 +1,349 @@
+allocate.c:      ncols = g_poly->map->ncols;
+allocate.c:    if (g_poly->map->ctype == 1) 
+allocate.c:                g_poly->map->gridname,
+allocate.c:                g_poly->map->xorig,
+allocate.c:                g_poly->map->yorig,
+allocate.c:                g_poly->map->xcell,
+allocate.c:                g_poly->map->ycell,
+allocate.c:                g_poly->map->ncols,
+allocate.c:                g_poly->map->nrows,
+allocate.c:                cname[g_poly->map->ctype],
+allocate.c:                g_poly->map->p_alp,
+allocate.c:                g_poly->map->p_bet,
+allocate.c:                g_poly->map->p_gam, g_poly->map->xcent, g_poly->map->ycent);
+allocateIoapi.c:    bdesc.gdtyp = d_poly->map->ctype;
+allocateIoapi.c:    bdesc.p_alp = d_poly->map->p_alp;
+allocateIoapi.c:    bdesc.p_bet = d_poly->map->p_bet;
+allocateIoapi.c:    bdesc.p_gam = d_poly->map->p_gam;
+allocateIoapi.c:    bdesc.xcent = d_poly->map->xcent;
+allocateIoapi.c:    bdesc.ycent = d_poly->map->ycent;
+allocateIoapi.c:    bdesc.xorig = d_poly->map->xorig;
+allocateIoapi.c:    bdesc.yorig = d_poly->map->yorig;
+allocateIoapi.c:    bdesc.xcell = d_poly->map->xcell;
+allocateIoapi.c:    bdesc.ycell = d_poly->map->ycell;
+allocateIoapi.c:    strBlankCopy(cdesc.gdnam, d_poly->map->gridname, sizeof(cdesc.gdnam));
+allocateIoapi.c:    bdesc.ncols = d_poly->map->ncols;
+allocateIoapi.c:    bdesc.nrows = d_poly->map->nrows;
+convert_beld.c:    nrows = g_poly->map->nrows;
+EGridReader.c:    map->gridname = (char *) strdup(gname);
+fractionalVegReader.c:    map->p_alp = p_alp;
+fractionalVegReader.c:    map->p_bet = p_bet;
+fractionalVegReader.c:    map->p_gam = p_gam;
+fractionalVegReader.c:    map->xcent = xcent;
+fractionalVegReader.c:    map->ycent = ycent;
+fractionalVegReader.c:    map->xcell = xcell;
+fractionalVegReader.c:    map->ycell = ycell;
+fractionalVegReader.c:    map->xorig = xorig;
+fractionalVegReader.c:    map->yorig = yorig;
+fractionalVegReader.c:    map->ctype = ctype;
+fractionalVegReader.c:    map->gridname = "Fractional Vegetation";
+fractionalVegReader.c:    map->ncols = ncols;
+fractionalVegReader.c:    map->nrows = nrows;
+IoapiInputReader.c:    if ((map->earth_ellipsoid = (char *) strdup(earth_ellipsoid)) == NULL) {
+IoapiInputReader.c:    map->earth_ellipsoid = NULL;
+IoapiInputReader.c:    map->p_alp = bdesc.p_alp;
+IoapiInputReader.c:    map->p_bet = bdesc.p_bet;
+IoapiInputReader.c:    map->p_gam = bdesc.p_gam;
+IoapiInputReader.c:    map->xcent = bdesc.xcent;
+IoapiInputReader.c:    map->ycent = bdesc.ycent;
+IoapiInputReader.c:    map->xcell = xcell;
+IoapiInputReader.c:    map->ycell = ycell;
+IoapiInputReader.c:    map->xorig = xorig;
+IoapiInputReader.c:    map->yorig = yorig;
+IoapiInputReader.c:    map->ctype = bdesc.gdtyp;
+IoapiInputReader.c:    map->gridname = (char *) strdup(cdesc.gdnam);  /* cas - check null termination */
+IoapiInputReader.c:    map->ncols = ncols;
+IoapiInputReader.c:    map->nrows = nrows;
+mims_spatl_proj.c:    if(map->earth_ellipsoid != NULL) 
+mims_spatl_proj.c:      t = (char *) strdup(map->earth_ellipsoid);
+mims_spatl_proj.c:      map->earth_ellipsoid =  (char *) strdup(default_ellipsoid);
+mims_spatl_proj.c:   if (map->ctype != LATGRD3)
+mims_spatl_proj.c:      if (map->ctype == LAMGRD3) {
+mims_spatl_proj.c:      sprintf(args[i++],"%s=%lf","+lon_0",map->p_gam);
+mims_spatl_proj.c:      sprintf(args[i++],"%s=%lf","+lat_1",map->p_alp);
+mims_spatl_proj.c:      sprintf(args[i++],"%s=%lf","+lat_2",map->p_bet);
+mims_spatl_proj.c:      sprintf(args[i++],"%s=%lf","+lat_0",map->ycent);
+mims_spatl_proj.c:    else if (map->ctype == UTMGRD3) {
+mims_spatl_proj.c:      sprintf(args[i++],"%s=%lf","+zone",map->p_alp);
+mims_spatl_proj.c:    else if (map->ctype == MERGRD3) {
+mims_spatl_proj.c:      sprintf(args[i++],"%s=%lf","+lat_ts",map->p_gam);
+mims_spatl_proj.c:      sprintf(args[i++],"%s=%lf","+lat_0",map->p_alp);
+mims_spatl_proj.c:      sprintf(args[i++],"%s=%lf","+lon_0",map->p_bet);
+mims_spatl_proj.c:    else if (map->ctype == STEGRD3) {/*ERROR*******/
+mims_spatl_proj.c:      sprintf(args[i++],"%s=%lf","+lat_0",map->p_alp);
+mims_spatl_proj.c:      sprintf(args[i++],"%s=%lf","+lon_0",map->p_bet);
+mims_spatl_proj.c:    else if (map->ctype == POLGRD3) {  /*ERROR*******/
+mims_spatl_proj.c:      sprintf(args[i++],"%s=%lf","+lat_ts",map->p_bet);
+mims_spatl_proj.c:      if (map->p_alp > 0)  /* north pole */
+mims_spatl_proj.c:      sprintf(args[i++],"%s=%lf","+lon_0",map->p_gam);
+mims_spatl_proj.c:    else if (map->ctype == 11) {
+mims_spatl_proj.c:      sprintf(args[i++],"%s=%lf","+lon_0",map->xcent);
+mims_spatl_proj.c:      sprintf(args[i++],"%s=%lf","+lat_0",map->ycent);
+mims_spatl_proj.c:    else if (map->ctype == CUSTOM3) {
+mims_spatl_proj.c:      if(map->custom_proj_str != NULL) 
+mims_spatl_proj.c:        t = (char *) strdup(map->custom_proj_str);
+mims_spatl_proj.c:        /*sprintf(mesg,"Custom projection string = %s\n",map->custom_proj_str);
+mims_spatl_proj.c:      sprintf(mesg,"Projection type (%d) not implemented yet",map->ctype);
+mims_spatl_proj.c:  if ( argc > 0 && args[0] && map->ctype != LATGRD3) { 
+mims_spatl_proj.c:  if (poly->map->ctype != LATGRD3 && inproj == NULL) {
+mims_spatl_proj.c:  map->earth_ellipsoid = NULL;
+mims_spatl_proj.c:  map->custom_proj_str = NULL;
+mims_spatl_proj.c:  map->gridname = NULL;
+mims_spatl_proj.c:  map->ctype = 0.0;
+mims_spatl_proj.c:  map->ncols = 0.0;
+mims_spatl_proj.c:  map->nrows = 0.0;
+mims_spatl_proj.c:  map->p_alp = 0.0;
+mims_spatl_proj.c:  map->p_bet = 0.0;
+mims_spatl_proj.c:  map->p_gam = 0.0;
+mims_spatl_proj.c:  map->xcent = 0.0;
+mims_spatl_proj.c:  map->ycent = 0.0;
+mims_spatl_proj.c:  map->xorig = 0.0;
+mims_spatl_proj.c:  map->yorig = 0.0;
+mims_spatl_proj.c: /* map->ctype = LATGRD3; get rid of default*/
+mims_spatl_proj.c:        if ((map->earth_ellipsoid = (char *) strdup(earth_ellipsoid)) == NULL) 
+mims_spatl_proj.c:  sprintf(mesg,"Ellipsoid=%s",map->earth_ellipsoid);
+mims_spatl_proj.c:    map->custom_proj_str = NULL; 
+mims_spatl_proj.c:    map->ctype = CUSTOM3; /* we borrowed this type to indicate that user
+mims_spatl_proj.c:    map->custom_proj_str = (char *) strdup(map_projn);
+mims_spatl_proj.c:    map->gridname = NULL;
+mims_spatl_proj.c:    if(!dscgridc(gname, cname, &map->ctype, &map->p_alp, &map->p_bet, &map->p_gam,
+mims_spatl_proj.c:               &map->xcent, &map->ycent, &map->xorig, &map->yorig, &map->xcell, &map->ycell,
+mims_spatl_proj.c:               &map->ncols, &map->nrows, &nthik ))
+mims_spatl_proj.c:       map->earth_ellipsoid = (char *) strdup(inMap->earth_ellipsoid);
+mims_spatl_proj.c:       map->earth_ellipsoid = NULL;
+mims_spatl_proj.c:       map->custom_proj_str = (char *) strdup(inMap->custom_proj_str);
+mims_spatl_proj.c:         map->gridname = NULL;
+mims_spatl_proj.c:   map->custom_proj_str = NULL;
+mims_spatl_proj.c:/*        printf("right before strdup of map->gridname inMap=%s\n", inMap->gridname); */
+mims_spatl_proj.c:       map->gridname = (char *) strdup(inMap->gridname);
+mims_spatl_proj.c:       map->custom_proj_str = NULL;
+mims_spatl_proj.c:      map->gridname = NULL;
+mims_spatl_proj.c:  map->ctype = inMap->ctype;
+mims_spatl_proj.c:  map->ncols = inMap->ncols;
+mims_spatl_proj.c:  map->nrows = inMap->nrows;
+mims_spatl_proj.c:  map->p_alp = inMap->p_alp;
+mims_spatl_proj.c:  map->p_bet = inMap->p_bet;
+mims_spatl_proj.c:  map->p_gam = inMap->p_gam;
+mims_spatl_proj.c:  map->xcent = inMap->xcent;
+mims_spatl_proj.c:  map->ycent = inMap->ycent;
+mims_spatl_proj.c:  map->xorig = inMap->xorig;
+mims_spatl_proj.c:  map->yorig = inMap->yorig;
+mims_spatl_proj.c:   if(map->custom_proj_str != NULL)
+mims_spatl_proj.c:     t = (char *) strdup(map->custom_proj_str);
+mims_spatl_proj.c:     sprintf(mesg,"%d custom projection string: %s\n",j+1,map->custom_proj_str);
+mims_spatl_proj.c:	     if (strstr(map->custom_proj_str, "latlong") != NULL)
+mims_spatl_proj.c:                 map->ctype = LATGRD3;
+mims_spatl_proj.c:                 map->xcent = atof(a_value);
+mims_spatl_proj.c:                 map->ycent = atof(a_value);
+mims_spatl_proj.c:	     if (strstr(map->custom_proj_str, "lcc") != NULL) 
+mims_spatl_proj.c:		 map->ctype = LAMGRD3;       
+mims_spatl_proj.c:                 map->p_alp = atof(a_value);
+mims_spatl_proj.c:                 map->p_bet = atof(a_value);
+mims_spatl_proj.c:                 map->p_gam = atof(a_value);
+mims_spatl_proj.c:                 map->xcent = atof(a_value);
+mims_spatl_proj.c:                 map->ycent = atof(a_value);
+mims_spatl_proj.c:	    if (strstr(map->custom_proj_str, "merc") != NULL)
+mims_spatl_proj.c:		   map->ctype = MERGRD3;
+mims_spatl_proj.c:                  map->p_alp = atof(a_value);
+mims_spatl_proj.c:                  map->p_bet = atof(a_value);               
+mims_spatl_proj.c:                  map->p_gam = atof(a_value);
+mims_spatl_proj.c:	    if (strstr(map->custom_proj_str, "stere") != NULL)
+mims_spatl_proj.c:		   map->ctype = STEGRD3;   /*need to check polar projection later*/
+mims_spatl_proj.c:                   map->p_alp = atof(a_value);
+mims_spatl_proj.c:                  map->p_bet = atof(a_value);               
+mims_spatl_proj.c:                  map->p_gam = atof(a_value);
+mims_spatl_proj.c:	    if (strstr(map->custom_proj_str, "utm") != NULL)
+mims_spatl_proj.c:		   map->ctype = UTMGRD3;
+mims_spatl_proj.c:                  map->p_alp = atof(a_value);
+mims_spatl_proj.c:            if (strstr(map->custom_proj_str, "laea") != NULL)
+mims_spatl_proj.c:		  map->ctype = 11;  /*define a contant*/
+mims_spatl_proj.c:                  map->ycent = atof(a_value);
+mims_spatl_proj.c:                  map->xcent = atof(a_value);               
+mims_spatl_proj.c:      if( map->ctype == STEGRD3 && (map->p_alp == 1.0 || map->p_alp == -1.0))
+mims_spatl_proj.c:	 map->ctype = POLGRD3;   /*need to check polar projection later*/    
+mims_spatl_proj.c:    if(map->gridname != NULL)
+mims_spatl_proj.c:      sprintf(mesg,"%d defined projection in GRIDESC.txt: %s\n",j+1,map->gridname);
+mims_spatl_proj_old1.c:    if(map->earth_ellipsoid != NULL) 
+mims_spatl_proj_old1.c:      t = (char *) strdup(map->earth_ellipsoid);
+mims_spatl_proj_old1.c:      map->earth_ellipsoid =  (char *) strdup(default_ellipsoid);
+mims_spatl_proj_old1.c:   if (map->ctype != LATGRD3)
+mims_spatl_proj_old1.c:      if (map->ctype == LAMGRD3) {
+mims_spatl_proj_old1.c:      sprintf(args[i++],"%s=%lf","+lon_0",map->p_gam);
+mims_spatl_proj_old1.c:      sprintf(args[i++],"%s=%lf","+lat_1",map->p_alp);
+mims_spatl_proj_old1.c:      sprintf(args[i++],"%s=%lf","+lat_2",map->p_bet);
+mims_spatl_proj_old1.c:      sprintf(args[i++],"%s=%lf","+lat_0",map->ycent);
+mims_spatl_proj_old1.c:    else if (map->ctype == UTMGRD3) {
+mims_spatl_proj_old1.c:      sprintf(args[i++],"%s=%lf","+zone",map->p_alp);
+mims_spatl_proj_old1.c:    else if (map->ctype == MERGRD3) {
+mims_spatl_proj_old1.c:      sprintf(args[i++],"%s=%lf","+lat_ts",map->p_gam);
+mims_spatl_proj_old1.c:      sprintf(args[i++],"%s=%lf","+lat_0",map->p_alp);
+mims_spatl_proj_old1.c:      sprintf(args[i++],"%s=%lf","+lon_0",map->p_bet);
+mims_spatl_proj_old1.c:    else if (map->ctype == STEGRD3) {/*ERROR*******/
+mims_spatl_proj_old1.c:      sprintf(args[i++],"%s=%lf","+lat_0",map->p_alp);
+mims_spatl_proj_old1.c:      sprintf(args[i++],"%s=%lf","+lon_0",map->p_bet);
+mims_spatl_proj_old1.c:    else if (map->ctype == POLGRD3) {  /*ERROR*******/
+mims_spatl_proj_old1.c:      sprintf(args[i++],"%s=%lf","+lat_ts",map->p_bet);
+mims_spatl_proj_old1.c:      if (map->p_alp > 0)  /* north pole */
+mims_spatl_proj_old1.c:      sprintf(args[i++],"%s=%lf","+lon_0",map->p_gam);
+mims_spatl_proj_old1.c:    else if (map->ctype == 11) {
+mims_spatl_proj_old1.c:      sprintf(args[i++],"%s=%lf","+lon_0",map->xcent);
+mims_spatl_proj_old1.c:      sprintf(args[i++],"%s=%lf","+lat_0",map->ycent);
+mims_spatl_proj_old1.c:    else if (map->ctype == CUSTOM3) {
+mims_spatl_proj_old1.c:      if(map->custom_proj_str != NULL) 
+mims_spatl_proj_old1.c:        t = (char *) strdup(map->custom_proj_str);
+mims_spatl_proj_old1.c:        /*sprintf(mesg,"Custom projection string = %s\n",map->custom_proj_str);
+mims_spatl_proj_old1.c:      sprintf(mesg,"Projection type (%d) not implemented yet",map->ctype);
+mims_spatl_proj_old1.c:  if ( argc > 0 && args[0] && map->ctype != LATGRD3) { 
+mims_spatl_proj_old1.c:  if (poly->map->ctype != LATGRD3 && inproj == NULL) {
+mims_spatl_proj_old1.c:  map->earth_ellipsoid = NULL;
+mims_spatl_proj_old1.c:  map->custom_proj_str = NULL;
+mims_spatl_proj_old1.c:  map->gridname = NULL;
+mims_spatl_proj_old1.c:  map->ctype = 0.0;
+mims_spatl_proj_old1.c:  map->ncols = 0.0;
+mims_spatl_proj_old1.c:  map->nrows = 0.0;
+mims_spatl_proj_old1.c:  map->p_alp = 0.0;
+mims_spatl_proj_old1.c:  map->p_bet = 0.0;
+mims_spatl_proj_old1.c:  map->p_gam = 0.0;
+mims_spatl_proj_old1.c:  map->xcent = 0.0;
+mims_spatl_proj_old1.c:  map->ycent = 0.0;
+mims_spatl_proj_old1.c:  map->xorig = 0.0;
+mims_spatl_proj_old1.c:  map->yorig = 0.0;
+mims_spatl_proj_old1.c:  map->ctype = LATGRD3;
+mims_spatl_proj_old1.c:     else if ((map->earth_ellipsoid = (char *) strdup(earth_ellipsoid)) == NULL) 
+mims_spatl_proj_old1.c:  if (map->earth_ellipsoid == NULL)
+mims_spatl_proj_old1.c:     map->earth_ellipsoid = (char *)strdup(default_ellipsoid);
+mims_spatl_proj_old1.c:  sprintf(mesg,"Ellipsoid=%s",map->earth_ellipsoid);
+mims_spatl_proj_old1.c:       map->custom_proj_str = NULL;
+mims_spatl_proj_old1.c:       map->gridname = NULL;
+mims_spatl_proj_old1.c:      map->custom_proj_str = NULL; 
+mims_spatl_proj_old1.c:      map->ctype = CUSTOM3; /* we borrowed this type to indicate that user
+mims_spatl_proj_old1.c:      map->custom_proj_str = (char *) strdup(map_projn);
+mims_spatl_proj_old1.c:      map->gridname = NULL;
+mims_spatl_proj_old1.c:    if(!dscgridc(gname, cname, &map->ctype, &map->p_alp, &map->p_bet, &map->p_gam,
+mims_spatl_proj_old1.c:               &map->xcent, &map->ycent, &map->xorig, &map->yorig, &map->xcell, &map->ycell,
+mims_spatl_proj_old1.c:               &map->ncols, &map->nrows, &nthik ))
+mims_spatl_proj_old1.c:       map->earth_ellipsoid = (char *) strdup(inMap->earth_ellipsoid);
+mims_spatl_proj_old1.c:       map->earth_ellipsoid = NULL;
+mims_spatl_proj_old1.c:       map->custom_proj_str = (char *) strdup(inMap->custom_proj_str);
+mims_spatl_proj_old1.c:         map->gridname = NULL;
+mims_spatl_proj_old1.c:   map->custom_proj_str = NULL;
+mims_spatl_proj_old1.c:/*        printf("right before strdup of map->gridname inMap=%s\n", inMap->gridname); */
+mims_spatl_proj_old1.c:       map->gridname = (char *) strdup(inMap->gridname);
+mims_spatl_proj_old1.c:       map->custom_proj_str = NULL;
+mims_spatl_proj_old1.c:      map->gridname = NULL;
+mims_spatl_proj_old1.c:  map->ctype = inMap->ctype;
+mims_spatl_proj_old1.c:  map->ncols = inMap->ncols;
+mims_spatl_proj_old1.c:  map->nrows = inMap->nrows;
+mims_spatl_proj_old1.c:  map->p_alp = inMap->p_alp;
+mims_spatl_proj_old1.c:  map->p_bet = inMap->p_bet;
+mims_spatl_proj_old1.c:  map->p_gam = inMap->p_gam;
+mims_spatl_proj_old1.c:  map->xcent = inMap->xcent;
+mims_spatl_proj_old1.c:  map->ycent = inMap->ycent;
+mims_spatl_proj_old1.c:  map->xorig = inMap->xorig;
+mims_spatl_proj_old1.c:  map->yorig = inMap->yorig;
+mims_spatl_proj_old1.c:   if(map->custom_proj_str != NULL)
+mims_spatl_proj_old1.c:     t = (char *) strdup(map->custom_proj_str);
+mims_spatl_proj_old1.c:     sprintf(mesg,"%d custom projection string: %s\n",j+1,map->custom_proj_str);
+mims_spatl_proj_old1.c:	     if (strstr(map->custom_proj_str, "latlong") != NULL)
+mims_spatl_proj_old1.c:                 map->ctype = LATGRD3;
+mims_spatl_proj_old1.c:                 map->xcent = atof(a_value);
+mims_spatl_proj_old1.c:                 map->ycent = atof(a_value);
+mims_spatl_proj_old1.c:	     if (strstr(map->custom_proj_str, "lcc") != NULL) 
+mims_spatl_proj_old1.c:		 map->ctype = LAMGRD3;       
+mims_spatl_proj_old1.c:                 map->p_alp = atof(a_value);
+mims_spatl_proj_old1.c:                 map->p_bet = atof(a_value);
+mims_spatl_proj_old1.c:                 map->p_gam = atof(a_value);
+mims_spatl_proj_old1.c:                 map->xcent = atof(a_value);
+mims_spatl_proj_old1.c:                 map->ycent = atof(a_value);
+mims_spatl_proj_old1.c:	    if (strstr(map->custom_proj_str, "merc") != NULL)
+mims_spatl_proj_old1.c:		   map->ctype = MERGRD3;
+mims_spatl_proj_old1.c:                  map->p_alp = atof(a_value);
+mims_spatl_proj_old1.c:                  map->p_bet = atof(a_value);               
+mims_spatl_proj_old1.c:                  map->p_gam = atof(a_value);
+mims_spatl_proj_old1.c:	    if (strstr(map->custom_proj_str, "stere") != NULL)
+mims_spatl_proj_old1.c:		   map->ctype = STEGRD3;   /*need to check polar projection later*/
+mims_spatl_proj_old1.c:                   map->p_alp = atof(a_value);
+mims_spatl_proj_old1.c:                  map->p_bet = atof(a_value);               
+mims_spatl_proj_old1.c:                  map->p_gam = atof(a_value);
+mims_spatl_proj_old1.c:	    if (strstr(map->custom_proj_str, "utm") != NULL)
+mims_spatl_proj_old1.c:		   map->ctype = UTMGRD3;
+mims_spatl_proj_old1.c:                  map->p_alp = atof(a_value);
+mims_spatl_proj_old1.c:            if (strstr(map->custom_proj_str, "laea") != NULL)
+mims_spatl_proj_old1.c:		  map->ctype = 11;  /*define a contant*/
+mims_spatl_proj_old1.c:                  map->ycent = atof(a_value);
+mims_spatl_proj_old1.c:                  map->xcent = atof(a_value);               
+mims_spatl_proj_old1.c:      if( map->ctype == STEGRD3 && (map->p_alp == 1.0 || map->p_alp == -1.0))
+mims_spatl_proj_old1.c:	 map->ctype = POLGRD3;   /*need to check polar projection later*/    
+mims_spatl_proj_old1.c:    if(map->gridname != NULL)
+mims_spatl_proj_old1.c:      sprintf(mesg,"%d defined projection in GRIDESC.txt: %s\n",j+1,map->gridname);
+overlay.c:       ncols = o_poly->map->ncols;
+PolyReader.c:    if(!dscgridc(gname, cname, &map->ctype, &map->p_alp, &map->p_bet, &map->p_gam,
+PolyReader.c:               &map->xcent, &map->ycent, &map->xorig, &map->yorig, &map->xcell, &map->ycell,
+PolyReader.c:               &map->ncols, &map->nrows, &nthik ))
+regex.c:               end of the map.  Decrease the map-length byte too.  */
+regularGridReader.c:    map->p_alp = p_alp;
+regularGridReader.c:    map->p_bet = p_bet;
+regularGridReader.c:    map->p_gam = p_gam;
+regularGridReader.c:    map->xcent = xcent;
+regularGridReader.c:    map->ycent = ycent;
+regularGridReader.c:    map->xcell = xcell;
+regularGridReader.c:    map->ycell = ycell;
+regularGridReader.c:    map->xorig = xorig;
+regularGridReader.c:    map->yorig = yorig;
+regularGridReader.c:    map->ctype = ctype;
+regularGridReader.c:    map->ncols = ncols;
+regularGridReader.c:    map->nrows = nrows;
+regularGridReader.c:    map->gridname = (char *) strdup(gname);
+surrogate.c:/*     nrows = g_poly->map->nrows; */
+surrogate.c:      ncols = g_poly->map->ncols;
+testPolyReader.c:    if ((map->earth_ellipsoid = (char *) strdup(earth_ellipsoid)) == NULL) {
+testPolyReader.c:    map->earth_ellipsoid = NULL;
+testPolyReader.c:  map->p_alp = mpinfo->p_alp;
+testPolyReader.c:  map->p_bet = mpinfo->p_bet;
+testPolyReader.c:  map->p_gam = mpinfo->p_gam;
+testPolyReader.c:  map->xcent = mpinfo->xcent;
+testPolyReader.c:  map->ycent = mpinfo->ycent;
+testPolyReader.c:  map->xcell = mpinfo->xcell;
+testPolyReader.c:  map->ycell = mpinfo->ycell;
+testPolyReader.c:  map->xorig = mpinfo->xorig;
+testPolyReader.c:  map->yorig = mpinfo->yorig;
+testPolyReader.c:  map->ctype = mpinfo->ctype;
+testPolyReader.c:  map->gridname = (char *) strdup(mpinfo->gridname);
+testPolyReader.c:  map->ncols = mpinfo->ncols;
+testPolyReader.c:  map->nrows = mpinfo->nrows;
+variableGridReader.c:    if ((map->earth_ellipsoid = (char *) strdup(earth_ellipsoid)) == NULL) {
+variableGridReader.c:    map->earth_ellipsoid = NULL;
+variableGridReader.c:  map->p_alp = p_alp;
+variableGridReader.c:  map->p_bet = p_bet;
+variableGridReader.c:  map->p_gam = p_gam;
+variableGridReader.c:  map->xcent = xcent;
+variableGridReader.c:  map->ycent = ycent;
+variableGridReader.c:  map->xcell = xcell;
+variableGridReader.c:  map->ycell = ycell;
+variableGridReader.c:  map->xorig = xorig;
+variableGridReader.c:  map->yorig = yorig;
+variableGridReader.c:  map->ctype = ctype;
+variableGridReader.c:  map->gridname=(char *) strdup(gname);
+variableGridReader.c:  map->ncols = ncols;
+variableGridReader.c:  map->nrows = nrows;
+variableGridReader.c:  map->ncols = numVarDotCols-1;  /* subtract 1 because we want # cells, not lines */
+variableGridReader.c:  map->nrows = numVarDotRows-1;
+variableGridReader.c:    if ((map->earth_ellipsoid = (char *) strdup(earth_ellipsoid)) == NULL) {
+variableGridReader.c:    map->earth_ellipsoid = NULL;
+variableGridReader.c:  map->p_alp = p_alp;
+variableGridReader.c:  map->p_bet = p_bet;
+variableGridReader.c:  map->p_gam = p_gam;
+variableGridReader.c:  map->xcent = xcent;
+variableGridReader.c:  map->ycent = ycent;
+variableGridReader.c:  map->xcell = xcell;
+variableGridReader.c:  map->ycell = ycell;
+variableGridReader.c:  map->xorig = xorig;
+variableGridReader.c:  map->yorig = yorig;
+variableGridReader.c:  map->ctype = ctype;
+variableGridReader.c:  map->gridname=(char *) strdup(gname);
+variableGridReader.c:  map->ncols = ncols;
+variableGridReader.c:  map->nrows = nrows;
+variableGridReader.c:  /*map->ncols = numVarCols;
+variableGridReader.c:  map->nrows = numVarRows;
+variableGridReader.c:  map->xcell = 0;
+variableGridReader.c:  map->ycell = 0;*/

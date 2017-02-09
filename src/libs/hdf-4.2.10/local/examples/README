@@ -1,0 +1,22 @@
+                               HDF4 Examples
+
+This directory contains example programs for the installed APIs and scripts to 
+compile and run them.  Examples in the c subdirectory are always 
+installed, and those in the fortan subdirectory will be installed 
+when fortran is enabled.
+
+Running the run-all-ex.sh script in this directory will run the scripts and in 
+turn the examples in the subdirectories where examples are installed.  The 
+scripts can also be run individually.  The appropriate compile scripts in the 
+bin directory for this install will be used by default to compile and link the 
+example programs.  Note that h5redeploy must be run if these binaries are 
+copied or extracted in a directory other than the one where they were initially 
+installed.  Compile scripts from other locations can be used by setting an 
+environment variable prefix to the path of the directory containing the bin 
+directory with the compile scripts h4cc and h4fc.  For example, export 
+prefix=/usr/local/hdf4 to use h4cc and h5fc in /usr/local/hdf4/bin.
+
+Running HDF4 examples built with shared libraries not in system locations may 
+result in an error message "...error while loading shared libraries: ...".  
+Setting LD_LIBRARY_PATH to include the directory containing the missing library
+should allow the examples to run.

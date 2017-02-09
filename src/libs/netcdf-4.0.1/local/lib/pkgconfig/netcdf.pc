@@ -1,0 +1,16 @@
+prefix=/nas01/depts/ie/cempd/apps/sallocator/sa_052013/src/libs/netcdf-4.0.1/local
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+ccompiler=cc
+cppcompiler=c++
+fcompiler=ifort
+fflags=-g -I${includedir}
+flibs=@FLIBS@ -lnetcdf
+
+Name: netcdf
+Description: NetCDF Client Library
+Version: 4.0.1
+Libs: -L${libdir} -lnetcdf
+Cflags: -I${includedir}
+

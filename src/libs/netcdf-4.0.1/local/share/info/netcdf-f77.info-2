@@ -1,0 +1,189 @@
+This is netcdf-f77.info, produced by makeinfo version 4.6 from
+netcdf-f77.texi.
+
+Copyright (C) 2005-2006 University Corporation for Atmospheric Research
+
+
+
+   Permission is granted to make and distribute verbatim copies of this
+manual provided that the copyright notice and these paragraphs are
+preserved on all copies.  The software and any accompanying written
+materials are provided "as is" without warranty of any kind.  UCAR
+expressly disclaims all warranties of any kind, either expressed or
+implied, including but not limited to the implied warranties of
+merchantability and fitness for a particular purpose.
+
+   The Unidata Program Center is managed by the University Corporation
+for Atmospheric Research and sponsored by the National Science
+Foundation.  Any opinions, findings, conclusions, or recommendations
+expressed in this publication are those of the author(s) and do not
+necessarily reflect the views of the National Science Foundation.
+
+   Mention of any commercial company or product in this document does
+not constitute an endorsement by the Unidata Program Center.  Unidata
+does not authorize any use of information from this publication for
+advertising or publicity purposes.
+INFO-DIR-SECTION netCDF scientific data format
+START-INFO-DIR-ENTRY
+* netcdf-f77: (netcdf-f77).         The NetCDF Fortran 77 Interface Guide
+END-INFO-DIR-ENTRY
+
+
+File: netcdf-f77.info,  Node: Combined Index,  Prev: Summary of FORTRAN 77 Interface,  Up: Top
+
+Index
+*****
+
+* Menu:
+
+* attributes, adding:                    Adding New Dimensions.
+* big-endian:                            NF_DEF_VAR_ENDIAN.
+* checksum:                              NF_DEF_VAR_FLETCHER32.
+* chunking:                              NF_DEF_VAR_CHUNKING.
+* chunksizes:                            NF_DEF_VAR_CHUNKING.
+* compiling with netCDF library:         Compiling and Linking with the NetCDF Library.
+* compound types, overview:              Compound Types.
+* compression, setting parameters:       NF_DEF_VAR_DEFLATE.
+* contiguous:                            NF_DEF_VAR_CHUNKING.
+* creating dataset:                      Creating a NetCDF Dataset.
+* datasets, introduction:                Datasets Introduction.
+* deflate:                               NF_DEF_VAR_DEFLATE.
+* dimensions, adding:                    Adding New Dimensions.
+* endianness:                            NF_DEF_VAR_ENDIAN.
+* enum type:                             Enum Type.
+* fill:                                  NF_DEF_VAR_FILL.
+* fletcher32:                            NF_DEF_VAR_FLETCHER32.
+* groups, overview:                      Groups.
+* interface descriptions:                NetCDF Library Interface Descriptions.
+* linking to netCDF library:             Compiling and Linking with the NetCDF Library.
+* little-endian:                         NF_DEF_VAR_ENDIAN.
+* NF__CREATE:                            NF__CREATE.
+* NF__ENDDEF:                            NF__ENDDEF.
+* NF__OPEN:                              NF__OPEN.
+* NF_ABORT:                              NF_ABORT.
+* NF_CLOSE:                              NF_CLOSE.
+* NF_CLOSE, typical use:                 Creating a NetCDF Dataset.
+* NF_COPY_ATT:                           NF_COPY_ATT.
+* NF_CREATE:                             NF_CREATE.
+* NF_CREATE, typical use:                Creating a NetCDF Dataset.
+* NF_CREATE_PAR:                         NF_CREATE_PAR.
+* NF_DEF_COMPOUND:                       NF_DEF_COMPOUND.
+* NF_DEF_DIM:                            NF_DEF_DIM.
+* NF_DEF_DIM, typical use:               Creating a NetCDF Dataset.
+* NF_DEF_ENUM:                           NF_DEF_ENUM.
+* NF_DEF_GRP:                            NF_DEF_GRP.
+* NF_DEF_OPAQUE:                         NF_DEF_OPAQUE.
+* NF_DEF_VAR:                            NF_DEF_VAR.
+* NF_DEF_VAR, typical use:               Creating a NetCDF Dataset.
+* NF_DEF_VAR_CHUNKING:                   NF_DEF_VAR_CHUNKING.
+* NF_DEF_VAR_DEFLATE:                    NF_DEF_VAR_DEFLATE.
+* NF_DEF_VAR_ENDIAN:                     NF_DEF_VAR_ENDIAN.
+* NF_DEF_VAR_FILL:                       NF_DEF_VAR_FILL.
+* NF_DEF_VAR_FLETCHER32:                 NF_DEF_VAR_FLETCHER32.
+* NF_DEF_VLEN <1>:                       NF_INQ_VLEN.
+* NF_DEF_VLEN:                           NF_DEF_VLEN.
+* NF_DEL_ATT:                            NF_DEL_ATT.
+* NF_ENDDEF:                             NF_ENDDEF.
+* NF_ENDDEF, typical use:                Creating a NetCDF Dataset.
+* NF_FREE_VLEN:                          NF_FREE_VLEN.
+* NF_GET_ATT, typical use:               Reading a NetCDF Dataset with Known Names.
+* NF_GET_ATT_ type:                      NF_GET_ATT_ type.
+* NF_GET_VAR, typical use:               Reading a NetCDF Dataset with Known Names.
+* NF_GET_VAR1_ type:                     NF_GET_VAR1_ type.
+* NF_GET_VAR_ type:                      NF_GET_VAR_ type.
+* NF_GET_VARA_ type:                     NF_GET_VARA_ type.
+* NF_GET_VARM_ type:                     NF_GET_VARM_ type.
+* NF_GET_VARS_ type:                     NF_GET_VARS_ type.
+* NF_GET_VLEN_ELEMENT:                   NF_GET_VLEN_ELEMENT.
+* NF_INQ Family:                         NF_INQ Family.
+* NF_INQ, typical use:                   Reading a netCDF Dataset with Unknown Names.
+* NF_INQ_ATT Family:                     NF_INQ_ATT Family.
+* NF_INQ_ATTNAME, typical use:           Reading a netCDF Dataset with Unknown Names.
+* NF_INQ_COMPOUND:                       NF_INQ_COMPOUND.
+* NF_INQ_COMPOUND_FIELD:                 NF_INQ_COMPOUND_FIELD.
+* NF_INQ_COMPOUND_FIELDDIM_SIZES:        NF_INQ_COMPOUND_FIELD.
+* NF_INQ_COMPOUND_FIELDINDEX:            NF_INQ_COMPOUND_FIELD.
+* NF_INQ_COMPOUND_FIELDNAME:             NF_INQ_COMPOUND_FIELD.
+* NF_INQ_COMPOUND_FIELDNDIMS:            NF_INQ_COMPOUND_FIELD.
+* NF_INQ_COMPOUND_FIELDOFFSET:           NF_INQ_COMPOUND_FIELD.
+* NF_INQ_COMPOUND_FIELDTYPE:             NF_INQ_COMPOUND_FIELD.
+* NF_INQ_COMPOUND_NAME:                  NF_INQ_COMPOUND.
+* NF_INQ_COMPOUND_NFIELDS:               NF_INQ_COMPOUND.
+* NF_INQ_COMPOUND_SIZE:                  NF_INQ_COMPOUND.
+* NF_INQ_DIM Family:                     NF_INQ_DIM Family.
+* NF_INQ_DIMID:                          NF_INQ_DIMID.
+* NF_INQ_DIMID, typical use:             Reading a NetCDF Dataset with Known Names.
+* NF_INQ_DIMIDS:                         NF_INQ_DIMIDS.
+* NF_INQ_ENUM:                           NF_INQ_ENUM.
+* NF_INQ_ENUM_IDENT:                     NF_INQ_ENUM_IDENT.
+* nf_inq_enum_member:                    NF_INQ_ENUM_MEMBER.
+* NF_INQ_FORMAT:                         NF_INQ Family.
+* NF_INQ_GRP_PARENT:                     NF_INQ_GRP_PARENT.
+* NF_INQ_GRPNAME:                        NF_INQ_GRPNAME.
+* NF_INQ_GRPNAME_FULL:                   NF_INQ_GRPNAME_FULL.
+* NF_INQ_GRPNAME_LEN:                    NF_INQ_GRPNAME_LEN.
+* NF_INQ_GRPS:                           NF_INQ_GRPS.
+* NF_INQ_LIBVERS:                        NF_INQ_LIBVERS.
+* NF_INQ_NATTS:                          NF_INQ Family.
+* NF_INQ_NCID:                           NF_INQ_NCID.
+* NF_INQ_NDIMS:                          NF_INQ Family.
+* NF_INQ_NVARS:                          NF_INQ Family.
+* NF_INQ_OPAQUE:                         NF_INQ_OPAQUE.
+* NF_INQ_TYPE:                           NF_INQ_TYPE.
+* NF_INQ_TYPEIDS:                        NF_INQ_TYPEIDS.
+* NF_INQ_UNLIMDIM:                       NF_INQ Family.
+* NF_INQ_USER_TYPE:                      NF_INQ_USER_TYPE.
+* NF_INQ_VAR family:                     NF_INQ_VAR family.
+* NF_INQ_VAR_CHUNKING:                   NF_INQ_VAR_CHUNKING.
+* NF_INQ_VAR_DEFLATE:                    NF_INQ_VAR_DEFLATE.
+* NF_INQ_VAR_ENDIAN:                     NF_INQ_VAR_ENDIAN.
+* NF_INQ_VAR_FILL:                       NF_INQ_VAR_FILL.
+* NF_INQ_VAR_FLETCHER32:                 NF_INQ_VAR_FLETCHER32.
+* NF_INQ_VARID:                          NF_INQ_VARID.
+* NF_INQ_VARID, typical use:             Reading a NetCDF Dataset with Known Names.
+* NF_INQ_VARIDS:                         NF_INQ_VARIDS.
+* NF_INSERT_ARRAY_COMPOUND:              NF_INSERT_ARRAY_COMPOUND.
+* NF_INSERT_COMPOUND:                    NF_INSERT_COMPOUND.
+* NF_INSERT_ENUM:                        NF_INSERT_ENUM.
+* NF_OPEN:                               NF_OPEN.
+* NF_OPEN_PAR:                           NF_OPEN_PAR.
+* NF_PUT_ATT, typical use:               Creating a NetCDF Dataset.
+* NF_PUT_ATT_ type:                      NF_PUT_ATT_ type.
+* NF_PUT_VAR, typical use:               Creating a NetCDF Dataset.
+* NF_PUT_VAR1_  type:                    NF_PUT_VAR1_ type.
+* NF_PUT_VAR_ type:                      NF_PUT_VAR_ type.
+* NF_PUT_VARA_ type:                     NF_PUT_VARA_ type.
+* NF_PUT_VARM_ type:                     NF_PUT_VARM_ type.
+* NF_PUT_VARS_ type:                     NF_PUT_VARS_ type.
+* NF_PUT_VLEN_ELEMENT:                   NF_PUT_VLEN_ELEMENT.
+* NF_REDEF:                              NF_REDEF.
+* NF_RENAME_ATT:                         NF_RENAME_ATT.
+* NF_RENAME_DIM:                         NF_RENAME_DIM.
+* NF_RENAME_VAR:                         NF_RENAME_VAR.
+* NF_SET_DEFAULT_FORMAT:                 NF_SET_DEFAULT_FORMAT.
+* NF_SET_FILL:                           NF_SET_FILL.
+* NF_STRERROR:                           NF_STRERROR.
+* NF_SYNC:                               NF_SYNC.
+* NF_VAR_PAR_ACCESS:                     NF_VAR_PAR_ACCESS.
+* NF_VAR_PAR_ACCESS, example:            NF_VAR_PAR_ACCESS.
+* opaque type:                           Opaque Type.
+* reading dataset with unknown names:    Reading a netCDF Dataset with Unknown Names.
+* reading datasets with known names:     Reading a NetCDF Dataset with Known Names.
+* user defined types:                    User Defined Data Types.
+* user defined types, overview:          User Defined Types.
+* variable length array type, overview:  User Defined Data Types.
+* variable length arrays:                Variable Length Array.
+* variables, adding:                     Adding New Dimensions.
+* variables, checksum:                   NF_DEF_VAR_FLETCHER32.
+* variables, chunking:                   NF_DEF_VAR_CHUNKING.
+* variables, contiguous:                 NF_DEF_VAR_CHUNKING.
+* variables, endian:                     NF_DEF_VAR_ENDIAN.
+* variables, fill:                       NF_DEF_VAR_FILL.
+* variables, fletcher32:                 NF_DEF_VAR_FLETCHER32.
+* variables, setting deflate:            NF_DEF_VAR_DEFLATE.
+* VLEN:                                  Variable Length Array.
+* VLEN, defining <1>:                    NF_FREE_VLEN.
+* VLEN, defining <2>:                    NF_INQ_VLEN.
+* VLEN, defining:                        NF_DEF_VLEN.
+
+

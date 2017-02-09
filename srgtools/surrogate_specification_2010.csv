@@ -1,0 +1,69 @@
+REGION,SURROGATE,SURROGATE CODE,DATA SHAPEFILE,DATA ATTRIBUTE,WEIGHT SHAPEFILE,WEIGHT ATTRIBUTE,WEIGHT FUNCTION,FILTER FUNCTION,MERGE FUNCTION,SECONDARY SURROGATE,TERTIARY SURROGATE,QUARTERNARY SURROGATE,DETAILS
+USA,Population,100,county_pophu02,FIPSSTCO,pophu2k_tnnc,POP2000,,,,,,,Total population from Census 2000 blocks
+USA,Housing,110,county_pophu02,FIPSSTCO,pophu2k_tnnc,HSE_UNITS,,,,,,,Total Housing Units from Census 2000
+USA,Urban Population,120,county_pophu02,FIPSSTCO,pophu2k_tnnc,URBAN,,,,Population,,,Total urban population from Census 2000
+USA,Rural Population,130,county_pophu02,FIPSSTCO,pophu2k_tnnc,RURAL,,,,Population,,,Total rural population from Census 2000
+USA,Housing Change,137,county_pophu02,FIPSSTCO,pophu_0090,HUCH0090,,,,,,,"Housing change from 1990 to 2000 census blocks.  If housing change from 2000 to 1990 is less than 0, it is set to 0. Used for surrogate merging."
+USA,Housing Change and Population,140,county_pophu02,FIPSSTCO,,,,,0.5*Housing Change+0.5*Population,Population,,,Combination of the change in housing between 1990 and 2000 and year 2000 population
+USA,Residential Heating - Natural Gas,150,county_pophu02,FIPSSTCO,us_heat,UTIL_GAS,,,,Housing,,,Number of Housing Units using Utility Gas for primary heating
+USA,Residential Heating - Wood,160,county_pophu02,FIPSSTCO,us_heat,WOOD,,,,Housing,,,Number of Housing Units using Wood for primary heating
+USA,Residential Heating - Distillate Oil,170,county_pophu02,FIPSSTCO,us_heat,FUEL_OIL,,,,Housing,,,Number of Housing Units using Fuel Oil for primary heating
+USA,Residential Heating - Coal,180,county_pophu02,FIPSSTCO,us_heat,COAL,,,,Housing,,,Number of Housing Units using Coal for primary heating
+USA,Residential Heating - LP Gas,190,county_pophu02,FIPSSTCO,us_heat,LP_GAS,,,,Housing,,,Number of Housing Units using Bottled Gas for primary heating
+USA,Urban Primary Road Miles,200,county_pophu02,FIPSSTCO,tnnc_usrds_2000,NONE,,NEWRD_CLAS = 1,,Total Road Miles,Population,,Road Miles of Urban Primary Roads
+USA,Rural Primary Road Miles,210,county_pophu02,FIPSSTCO,tnnc_usrds_2000,NONE,,NEWRD_CLAS = 2,,Total Road Miles,Population,,Road Miles of Rural Primary Roads
+USA,Urban Secondary Road Miles,220,county_pophu02,FIPSSTCO,tnnc_usrds_2000,NONE,,NEWRD_CLAS = 3,,Total Road Miles,Population,,Road Miles of Urban Secondary Roads
+USA,Rural Secondary Road Miles,230,county_pophu02,FIPSSTCO,tnnc_usrds_2000,NONE,,NEWRD_CLAS = 4,,Total Road Miles,Population,,Road Miles of Rural Secondary Roads
+USA,Total Road Miles,240,county_pophu02,FIPSSTCO,tnnc_usrds_2000,NONE,,,,Population,,,"Sum of rural primary, urban primary, rural secondary and urban secondary road miles.  "
+USA,Urban Primary plus Rural Primary,250,county_pophu02,FIPSSTCO,tnnc_usrds_2000,NONE,,"NEWRD_CLAS=1,2",,Total Road Miles,Population,,Sum of rural primary and urban primary road miles
+USA,0.75 Total Roadway Miles plus 0.25 Population,255,county_pophu02,FIPSSTCO,,,,,0.75*Total Road Miles+0.25*Population,Population,,,Combination of 3/4 total road miles surrogate ratio and 1/4 population surrogate ratio
+USA,Total Railroad Miles,260,county_pophu02,FIPSSTCO,us_rail2k,NONE,,"RR_CLASS=U,1,2,3",,Total Road Miles,Population,,"Sum of Railroad Miles of Class 1 railroads, Classes 2 and 3 railroads, and unknown classified railroads"
+USA,Class 1 Railroad Miles,270,county_pophu02,FIPSSTCO,us_rail2k,NONE,,RR_CLASS=1,,Total Railroad Miles,Total Road Miles,Population,Railroad Miles of Class 1 railroads
+USA,Class 2 and 3 Railroad Miles,280,county_pophu02,FIPSSTCO,us_rail2k,NONE,,"RR_CLASS=2,3",,Total Railroad Miles,Total Road Miles,Population,Railroad Miles of Class 2 and 3 railroads
+USA,Low Intensity Residential,300,county_pophu02,FIPSSTCO,us_lowres,NONE,,GRID_CODE=21,,Single Family Residential,Rural Population,Land,Area of NLCD Low Intensity Residential Land
+USA,Total Agriculture,310,county_pophu02,FIPSSTCO,us_ag2k,NONE,,"GRID_CODE=61,81,82,83,84",,Rural Land Area,Land,,"sum of the following NLCD areas:   Pasture/Hay,  Grains, Row Crops, Fallow Land and Orchards/Vineyards"
+USA,Orchards/Vineyards,312,county_pophu02,FIPSSTCO,us_ag2k,NONE,,GRID_CODE=61,,Total Agriculture,Rural Land Area,Land,Area of Orchards/Vineyards
+USA,Forest Land,320,county_pophu02,FIPSSTCO,us_for2k,NONE,,"GRID_CODE=41,42,43,91",,Rural Land Area,Land,,"sum of the following NLCD areas:   Evergreen Forest,  Mixed Forest,  Woody Wetland,  Deciduous Forest"
+USA,Strip Mines/Quarries,330,county_pophu02,FIPSSTCO,mines_nlcd,NONE,,,,Mines,Rural Land Area,Land,Area of Mines
+USA,Land  ,340,county_pophu02,FIPSSTCO,us_lw2k,NONE,,H20_CODE=2,,,,,"Land Area *data for this surrogate is contained in SMOKE-ready bgpro files,  not ampro files.  This is because there are no source categories that use this surrogate to allocate county-level emissions.  However, it is needed for biogenic processing."
+USA,Water,350,county_pophu02water,FIPSSTCO,us_lw2k,NONE,,H20_CODE!=2,,Navigable Waterway Activity,Navigable Waterway Miles,Land,Water Area
+USA,Rural Land Area,400,county_pophu02,FIPSSTCO,rural_land,NONE,,RL_FLAG=Rural Land,,Land,,,Land Area that is not within an area designated as an Urbanized Area or an Urban Cluster.  Determined by intersecting NLCD land area with US Census spatial information representing areas not classified as Urbanized Area or as Urban Clusters 
+USA,Commercial Land,500,county_pophu02,FIPSSTCO,us_lu2k,,COM1+COM2+COM3+COM4+COM5+COM6+COM7+COM8+COM9,,,Population,,,Sum of building square footage from the following FEMA categories:  COM1 + COM2 + COM3 + COM4 + COM5 + COM6 + COM7 + COM8 + COM9
+USA,Industrial Land,505,county_pophu02,FIPSSTCO,us_lu2k,,IND1+IND2+IND3+IND4+IND5+IND6,,,Urban Population,Land,Population,Sum of building square footage from the following FEMA categories:  IND1 + IND2 + IND3 + IND4 + IND5 + IND6
+USA,Commercial plus Industrial,510,county_pophu02,FIPSSTCO,us_lu2k,,COM1+COM2+COM3+COM4+COM5+COM6+COM7+COM8+COM9+IND1+IND2+IND3+IND4+IND5+IND6,,,Population,,,Sum of building square footage from the following FEMA categories:  COM1 + COM2 + COM3 + COM4 + COM5 + COM6 + COM7 + COM8 + COM9 + IND1 + IND2 + IND3 + IND4 + IND5 + IND6
+USA,Commercial plus Institutional Land,515,county_pophu02,FIPSSTCO,us_lu2k,,COM1 + COM2 + COM3 + COM4 + COM5 + COM6 + COM7 + COM8 + COM9 + RES5 + RES6 + EDU1 + EDU2 + REL1,,,Population,,,Sum of building square footage from the following FEMA categories:  COM1 + COM2 + COM3 + COM4 + COM5 + COM6 + COM7 + COM8 + COM9 + RES5 + RES6 + EDU1 + EDU2 + REL1
+USA,Commercial plus Industrial plus Institutional,520,county_pophu02,FIPSSTCO,us_lu2k,,COM1 + COM2 + COM3 + COM4 + COM5 + COM6 + COM7 + COM8 + COM9 + IND1 + IND2 + IND3 + IND4 + IND5 + IND6 + RES5 + RES6 + EDU1 + EDU2 + REL1,,,Population,,,Sum of building square footage from the following FEMA categories:  COM1 + COM2 + COM3 + COM4 + COM5 + COM6 + COM7 + COM8 + COM9 + IND1 + IND2 + IND3 + IND4 + IND5 + IND6 + RES5 + RES6 + EDU1 + EDU2 + REL1
+USA,Golf Courses plus Institutional plus Industrial plus Commercial,525,county_pophu02,FIPSSTCO,,,,,0.5*Commercial plus Industrial plus Institutional+0.5*Golf Courses,Golf Courses,Commercial plus Industrial plus Institutional,Population,Combination of the golf courses ratio with the following FEMA categories:  COM1 + COM2 + COM3 + COM4 + COM5 + COM6 + COM7 + COM8 + COM9 + IND1 + IND2 + IND3 + IND4 + IND5 + IND6 + RES5 + RES6 + EDU1 + EDU2 + REL1 
+USA,Single Family Residential,527,county_pophu02,FIPSSTCO,us_lu2k,RES1,,,,,,,building square footage from single family dwellings (RES1) .  Used for gapfilling.
+USA,Residential - High Density ,530,county_pophu02,FIPSSTCO,us_lu2k,,RES3+RES4+RES5+RES6,,,Housing,,,sum of building square footage from the following FEMA residential categories:  RES3 + RES4 + RES5 + RES6
+USA,Residential + Commercial + Industrial + Institutional + Government,535,county_pophu02,FIPSSTCO,us_lu2k,,COM1 + COM2 + COM3 + COM4 + COM5 + COM6 + COM7 + COM8 + COM9 +  IND1 +I ND2 + IND3 +  IND4 + IND5 + IND6 + EDU1 + EDU2 + REL1 + GOV1 + GOV2 + RES1 + RES2 + RES3 + RES4,,,Population,,,sum of building square footage from the following FEMA categories:  COM1 + COM2 + COM3 + COM4 + COM5 + COM6 + COM7 + COM8 + COM9 +  IND1 +I ND2 + IND3 +  IND4 + IND5 + IND6 + EDU1 + EDU2 + REL1 + GOV1 + GOV2 + RES1 + RES2 + RES3 + RES4
+USA,Retail Trade (COM1),540,county_pophu02,FIPSSTCO,us_lu2k,COM1,,,,Personal Repair (COM3),Commercial Land,Population,"building square footage from Retail Trade:  SIC Codes:  52,53,54,55,56,57,59"
+USA,Personal Repair (COM3),545,county_pophu02,FIPSSTCO,us_lu2k,COM3,,,,Retail Trade (COM1),Commercial Land,Population,"building square footage from Personal/Repair Services:  SIC Codes:  72,75,76,83,88"
+USA,Retail Trade (COM1) plus Personal Repair (COM3),550,county_pophu02,FIPSSTCO,us_lu2k,,COM1+COM3,,,Commercial Land,Population,,sum of building square footage from the following FEMA categories:  COM1 + COM3
+USA,Professional/Technical (COM4) plus General Government (GOV1),555,county_pophu02,FIPSSTCO,us_lu2k,,COM4+GOV1,,,Commercial Land,Residential + Commercial + Industrial + Institutional + Government,Population,sum of building square footage from the following FEMA categories:  COM4 + GOV1
+USA,Hospital (COM6),560,county_pophu02,FIPSSTCO,us_lu2k,COM6,,,,Medical Office/Clinic (COM7),Commercial Land,Population,"building square footage from Hospitals:  SIC Codes:  8062,8063,8069"
+USA,Medical Office/Clinic (COM7),565,county_pophu02,FIPSSTCO,us_lu2k,COM7,,,,Hospital (COM6),Commercial Land,Population,"building square footage from Medical Office/Clinics:  SIC Codes:  80 (except 8051,8052,8059,8062,8063,8069)"
+USA,Heavy and High Tech Industrial (IND1 + IND5),570,county_pophu02,FIPSSTCO,us_lu2k,,IND1+IND5,,,Industrial Land,Urban Population,Population,sum of building square footage from the following FEMA categories:  IND1 + IND5
+USA,Light and High Tech Industrial (IND2 + IND5),575,county_pophu02,FIPSSTCO,us_lu2k,,IND2+IND5,,,Industrial Land,Urban Population,Population,sum of building square footage from the following FEMA categories:  IND2 + IND5
+USA,"Food, Drug, Chemical Industrial (IND3)",580,county_pophu02,FIPSSTCO,us_lu2k,IND3,,,,Industrial Land,Urban Population,Population,"building square footage from Food/Drugs/Chemical Factories:  SIC Codes:  20,21,28,29"
+USA,Metals and Minerals Industrial (IND4),585,county_pophu02,FIPSSTCO,us_lu2k,IND4,,,,Industrial Land,Urban Population,Population,"building square footage from Metals/Minerals Processing Factories:  SIC Codes:  10,12,13,14,33"
+USA,Heavy Industrial (IND1),590,county_pophu02,FIPSSTCO,us_lu2k,IND1,,,,Industrial Land,Urban Population,Population,"building square footage from Heavy Industrial Factories - SIC Codes:  22,24,26,32,34,35 (except 3571,3572), 37"
+USA,Light Industrial (IND2),595,county_pophu02,FIPSSTCO,us_lu2k,IND2,,,,Industrial Land,Urban Population,Population,"building square footage from Light Industrial Factories:  SIC Codes:  23,25,27,30,31,36 (except 3671,3672,3674), 38,39"
+USA,Industrial plus Institutional plus Hospitals ,596,county_pophu02,FIPSSTCO,us_lu2k,,IND1+IND2+IND3+IND4+IND5+IND6+COM6+EDU1+EDU2+REL1+RES5+RES6,,,Population,,,"sum of building square footage from IND1, IND2, IND3, IND4, IND5, IND6, COM6, EDU1, EDU2, REL1, RES5, RES6"
+USA,Gas Stations,600,county_pophu02,FIPSSTCO,us_gas_sta,NUM_OF_GAS,,,,Commercial Land,Population,,Number of Gas Stations 
+USA,Refineries and Tank Farms,650,county_pophu02,FIPSSTCO,us_oil,NONE,,"FUNCTION=TANKFARM,REFINERY",,Industrial Land,Population,,Number of Oil Refineries and Tank Farms
+USA,Refineries and Tank Farms and Gas Stations,675,county_pophu02,FIPSSTCO,us_oilgas,NUM_OILGAS,,,,Commercial plus Industrial,Population,,"Number of Oil Refineries, Tank Farms and Gas Stations"
+USA,Airport Points,710,county_pophu02,FIPSSTCO,airport_point,NONE,,,,,,,Number of Airports
+USA,Airport Areas,700,county_pophu02,FIPSSTCO,airport-area,NONE,,,,Airport Points,Population,,Area of Commercial Airports
+USA,Military Airports,720,county_pophu02,FIPSSTCO,military_air,NONE,,,,Airport Points,Rural Land Area,Land,Number of Military Airports
+USA,Marine Ports,800,county_pophu02,FIPSSTCO,ports2004,NONE,,,,Navigable Waterway Miles,Water,Land,Number of Marine Ports
+USA,Navigable Waterway Miles,807,county_pophu02,FIPSSTCO,nav_water_activity,LENGTH,,,,,,,Miles of waterways - navigable inland and intracoastal waterways.  Used for gapfilling.
+USA,Navigable Waterway Activity,810,county_pophu02,FIPSSTCO,nav_water_activity,CTY_ACTIV,,,,Navigable Waterway Miles,Marine Ports,Water,Activity for each river segment
+USA,Golf Courses,850,county_pophu02,FIPSSTCO,us_golf,NONE,,,,Housing,,,Number of Golf Courses
+USA,Mines,860,county_pophu02,FIPSSTCO,mines_usgs,NONE,,,,Strip Mines/Quarries,Rural Land Area,Land,Number of mines
+USA,Wastewater Treatment Facilities,870,county_pophu02,FIPSSTCO,us_wwtp,NONE,,,,Commercial plus Industrial,Water,Land,Number of Wastewater Treatment Plants (WWTP)
+USA,Drycleaners,880,county_pophu02,FIPSSTCO,us_dryclean,NO_EST,,,,Commercial Land,Population,,Number of Dry Cleaners
+USA,Commercial Timber,890,county_pophu02,FIPSSTCO,us_timb,NONE,,,,Forest Land,Rural Land Area,Land,Number of Possible Timber Removal Locations
+CA,Population,100,ca_pbnd_lam,FIPS_CODE,can_se_nad83,TOTPOPUL,,,,,,,Total population for Canada grids from EPA emission web site canada shapfile 
+CA,Land  ,340,ca_pbnd_lam,FIPS_CODE,ca_land93_lam,NONE,,F_CODE!=3,,,,,Not water classes from Canada landuse data set
+CA,Water,350,ca_pbnd_lam,FIPS_CODE,ca_land93_lam,NONE,,F_CODE=3,,,,Land,Water Area

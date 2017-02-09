@@ -1,0 +1,175 @@
+# for Linux or any gcc/g++ compiler
+CC = gcc
+CPP = g++
+
+#Optional flags - uncomment one OPTFLAGS line
+#OPTFLAGS = -O2
+OPTFLAGS = -O -DDEBUG 
+
+#set GDAL library and include directory compiled using gcc
+GDAL = ../libs/gdal-1.6.1/local
+GDAL_LIB = ${GDAL}/lib
+GDAL_INCLUDE = ${GDAL}/include
+
+# Set netCDF library and include directory compiled using gcc
+NETCDF = ../libs/netcdf-4.0.1/local
+NETCDF_LIB = ${NETCDF}/lib 
+NETCDF_INCLUDE = ${NETCDF}/include
+
+# Set HDF4 library and include directory compiled using gcc
+HDF4 = ../libs/hdf-4.2.5/local
+HDF4_LIB = ${HDF4}/lib
+HDF4_INCLUDE = ${HDF4}/include
+
+# Set HDF5 library and include directory compiled using gcc
+HDF5 = ../libs/hdf5-1.8.4/local
+HDF5_LIB = ${HDF5}/lib
+HDF5_INCLUDE = ${HDF5}/include
+
+#set PROJ4 libary and share data directories compiled using gcc
+PROJ4 = ../libs/proj-4.7.0/local
+PROJ_LIB = ${PROJ4}/lib
+PROJ_INCLUDE = ${PROJ4}/include
+
+# set the following environment variable in .cshrc file or control file
+#PROJ_LIB = ../libs/proj4/local/share/proj
+
+
+#set ANN libary compiled using gcc
+ANN111 = ../libs/ann_1.1.1
+ANN_LIB = ${ANN111}/lib
+ANN_INCLUDE = ${ANN111}/include
+
+
+# Library paths
+LIBPATH = -L$(GDAL_LIB) 
+LIBPATH_NCF = -L$(NETCDF_LIB)
+LIBPATH_PROJ = -L$(PROJ_LIB)
+LIBPATH_HDF4 = -L$(HDF4_LIB)
+LIBPATH_HDF5 = -L$(HDF5_LIB)
+LIBPATH_ANN = -L$(ANN_LIB)
+LIBPATH_JPEG = -L/afs/isis/pkg/jpeg-6/.install/amd64_linux26_rh5/lib
+
+#LIBS = -lm $(LIBPATH) -lgdal $(LIBPATH_PROJ) -lproj $(LIBPATH_NCF) -lnetcdf_c++ -lnetcdf $(LIBPATH_HDF4) -lmfhdf -ldf $(LIBPATH_HDF5) -lhdf5_cpp -lhdf5_hl_cpp -hdf5_hl_cpp -ljpeg -lz $(LIBPATH_ANN) -lANN
+
+#LIBS = -lm $(LIBPATH) -lgdal $(LIBPATH_PROJ) -lproj $(LIBPATH_NCF) -lnetcdf_c++ -lnetcdf $(LIBPATH_HDF4) -lmfhdf -ldf $(LIBPATH_HDF5) -lhdf5 -lhdf5_hl -lhdf5_cpp -lhdf5_hl_cpp $(LIBPATH_JPEG) -ljpeg -lz $(LIBPATH_ANN) -lANN   -Bstatic
+
+LIBS = -lm $(LIBPATH) -lgdal $(LIBPATH_PROJ) -lproj $(LIBPATH_NCF) -lnetcdf_c++ -lnetcdf $(LIBPATH_HDF4) -lmfhdf -ldf $(LIBPATH_HDF5) -lhdf5 $(LIBPATH_JPEG) -ljpeg -lz $(LIBPATH_ANN) -lANN   -Bstatic
+
+
+LDFLAGS = -static 
+
+#on Linux
+CPPFLAGS = -g $(OPTFLAGS) -I${GDAL_INCLUDE} -I${PROJ_INCLUDE} -I${NETCDF_INCLUDE} -I${HDF4_INCLUDE} -I${HDF5_INCLUDE} -I${ANN_INCLUDE}
+
+
+#.cpp.o:
+##	$(CPP) $(CFLAGS) -c $<
+#
+#.c.o:
+#	$(CC) $(CFLAGS) -c $<
+
+
+all: create_gridPolygon.exe toNLCDRaster.exe preProcessNLCD.exe computeGridLandUse.exe rasterWtoPolygons.exe txt2ncf.exe toDataAssimilationFMT.exe readWRFNetcdfVars2shapefile.exe toGOESRaster.exe computeGridGOES.exe create_roadLink.exe computeGridOMI.exe computeGridOMIL2.exe computeGridMODISL2Clouds.exe computeSiteDailyWeather.exe extractEPICYearlyAverage2CMAQ.exe example.exe computeGridLULC.exe
+
+create_gridPolygon.exe:  create_gridPolygon.o geo_functions.o utilities.o
+	$(CPP) -o $@  create_gridPolygon.o geo_functions.o utilities.o $(LIBS)
+
+toNLCDRaster.exe:  toNLCDRaster.o utilities.o
+	$(CPP) -o $@ toNLCDRaster.o  utilities.o $(LIBS)
+
+preProcessNLCD.exe:  preProcessNLCD.o utilities.o
+	$(CPP) -o $@ preProcessNLCD.o utilities.o $(LIBS)
+
+computeGridLandUse.exe:  computeGridLandUse.o geo_functions.o  utilities.o
+	$(CPP) -o $@ computeGridLandUse.o geo_functions.o  utilities.o $(LIBS)
+
+computeGridLULC.exe:  computeGridLULC.o geo_functions.o  utilities.o
+	$(CPP) -o $@ computeGridLULC.o geo_functions.o  utilities.o $(LIBS)
+
+rasterWtoPolygons.exe:  rasterWtoPolygons.o utilities.o
+	$(CPP) -o $@ rasterWtoPolygons.o utilities.o $(LIBS)
+
+txt2ncf.exe:  txt2ncf.o geo_functions.o utilities.o
+	$(CPP) -o $@ txt2ncf.o geo_functions.o utilities.o $(LIBS)
+
+toDataAssimilationFMT.exe:  toDataAssimilationFMT.o geo_functions.o  utilities.o
+	$(CPP) -o $@ toDataAssimilationFMT.o geo_functions.o utilities.o $(LIBS)
+
+readWRFNetcdfVars2shapefile.exe:  readWRFNetcdfVars2shapefile.o utilities.o
+	$(CPP) -o $@ readWRFNetcdfVars2shapefile.o utilities.o $(LIBS)
+
+toGOESRaster.exe:  toGOESRaster.o utilities.o
+	$(CPP) -o $@ toGOESRaster.o utilities.o $(LIBS)
+
+computeGridGOES.exe:  computeGridGOES.o geo_functions.o utilities.o
+	$(CPP) -o $@ computeGridGOES.o geo_functions.o utilities.o $(LIBS)
+
+computeGridOMI.exe:  computeGridOMI.o geo_functions.o utilities.o
+	$(CPP) -o $@ computeGridOMI.o geo_functions.o utilities.o $(LIBS)
+
+computeGridOMIL2.exe:  computeGridOMIL2.o geo_functions.o utilities.o
+	$(CPP) -o $@ computeGridOMIL2.o geo_functions.o utilities.o $(LIBS)
+
+computeGridMODISL2Clouds.exe:  computeGridMODISL2Clouds.o geo_functions.o utilities.o
+	$(CPP) -o $@ computeGridMODISL2Clouds.o geo_functions.o utilities.o $(LIBS)
+
+computeSiteDailyWeather.exe:  computeSiteDailyWeather.o geo_functions.o utilities.o
+	$(CPP) -o $@ computeSiteDailyWeather.o geo_functions.o utilities.o $(LIBS)
+
+extractEPICYearlyAverage2CMAQ.exe:  extractEPICYearlyAverage2CMAQ.o geo_functions.o utilities.o m3io.o
+	$(CPP) -o $@ extractEPICYearlyAverage2CMAQ.o geo_functions.o utilities.o m3io.o $(LIBS)
+
+create_roadLink.exe:  create_roadLink.o utilities.o
+	$(CPP) -o $@ create_roadLink.o utilities.o $(LIBS)
+
+example.exe:  example.o m3io.o
+	$(CPP) -o $@ example.o m3io.o $(LIBS)
+
+install:
+	if test ! -d ../../bin/64bits; then mkdir ../../bin/64bits; fi
+	cp -f *.exe ../../bin/64bits
+
+clean:
+	 -rm *.o *.exe
+
+create_gridPolygon.o: create_gridPolygon.cpp
+	$(CPP) $(CPPFLAGS) -c create_gridPolygon.cpp
+toNLCDRaster.o: toNLCDRaster.cpp
+	$(CPP) $(CPPFLAGS) -c toNLCDRaster.cpp
+preProcessNLCD.o: preProcessNLCD.cpp
+	$(CPP) $(CPPFLAGS) -c preProcessNLCD.cpp
+computeGridLandUse.o: computeGridLandUse.cpp
+	$(CPP) $(CPPFLAGS) -c computeGridLandUse.cpp
+computeGridLULC.o: computeGridLULC.cpp
+	$(CPP) $(CPPFLAGS) -c computeGridLULC.cpp
+rasterWtoPolygons.o: rasterWtoPolygons.cpp
+	$(CPP) $(CPPFLAGS) -c rasterWtoPolygons.cpp
+txt2ncf.o: txt2ncf.cpp
+	$(CPP) $(CPPFLAGS) -c txt2ncf.cpp
+toDataAssimilationFMT.o: toDataAssimilationFMT.cpp
+	$(CPP) $(CPPFLAGS) -c toDataAssimilationFMT.cpp
+readWRFNetcdfVars2shapefile.o: readWRFNetcdfVars2shapefile.cpp
+	$(CPP) $(CPPFLAGS) -c readWRFNetcdfVars2shapefile.cpp
+toGOESRaster.o: toGOESRaster.cpp
+	$(CPP) $(CPPFLAGS) -c toGOESRaster.cpp
+computeGridGOES.o: computeGridGOES.cpp
+	$(CPP) $(CPPFLAGS) -c computeGridGOES.cpp
+computeGridOMI.o: computeGridOMI.cpp
+	$(CPP) $(CPPFLAGS) -c computeGridOMI.cpp
+computeGridOMIL2.o: computeGridOMIL2.cpp
+	$(CPP) $(CPPFLAGS) -c computeGridOMIL2.cpp
+computeGridMODISL2Clouds.o: computeGridMODISL2Clouds.cpp
+	$(CPP) $(CPPFLAGS) -c computeGridMODISL2Clouds.cpp
+computeSiteDailyWeather.o: computeSiteDailyWeather.cpp
+	$(CPP) $(CPPFLAGS) -c computeSiteDailyWeather.cpp
+extractEPICYearlyAverage2CMAQ.o: extractEPICYearlyAverage2CMAQ.cpp
+	$(CPP) $(CPPFLAGS) -c extractEPICYearlyAverage2CMAQ.cpp
+create_roadLink.o: create_roadLink.cpp
+	$(CPP) $(CPPFLAGS) -c create_roadLink.cpp
+utilities.o: utilities.cpp
+	$(CPP) -c utilities.cpp
+geo_functions.o: geo_functions.cpp
+	$(CPP) $(CPPFLAGS) -c geo_functions.cpp
+m3io.o: m3io.cpp
+	$(CPP) $(CPPFLAGS) -c m3io.cpp

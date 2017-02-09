@@ -1,0 +1,47 @@
+SHAPEFILE NAME,DIRECTORY,ELLIPSOID,PROJECTION,DESCRIPTION,DATA SOURCE,QUESTION
+county_pophu02,../data/emiss_shp2003/us,"+a=6370997.0,+b=6370997.0","proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97",US county boundary GIS data from EPA pophu2k with CO and VA counties revised,,
+county_pophu02water,../data/emiss_shp2003/us,"+a=6370997.0,+b=6370997.0","proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97",US county boundary GIS data from EPA pophu2k with CO and VA counties revised and 1/2 miles coastal line clipping,,
+county_lu2k,../data/emiss_shp2003/us,"+a=6370997.0,+b=6370997.0","proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97",US county boundary GIS data from EPA us_lu2k,,
+tnnc_county_pophu02,../data/emiss_shp2003/us,"+a=6370997.0,+b=6370997.0","proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97",TN and NC county tract boundary GIS data from EPA,,
+pophu2k,../data/emiss_shp2003/us,"+a=6370997.0,+b=6370997.0","proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97",Population and housing units from Census 2000,US Census Bureau,
+pophu2k_tnnc,../data/emiss_shp2003/us,"+a=6370997.0,+b=6370997.0","proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97",Population and housing units from Census 2000,US Census Bureau,
+vi_pophu2k,../data/emiss_shp2003/us,"+a=6370997.0,+b=6370997.0","proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97",Population and housing units from Census 2000 for Virginia Islands,,Right Projection?
+pophu_0090,../data/emiss_shp2003/us,"+a=6370997.0,+b=6370997.0","proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97",The change in housing and population between 1990 and 2000,US Census Bureau and computed,Computed pop90 and hu90 in 2000 census blocks from the union shapefile of pophu2k and us_pop90 shapefiles using area wieght method.  Merged pop90 and hu90 to pophu2k to generate pophu_0090 shapefile.
+us_heat,../data/emiss_shp2003/us,"+a=6370997.0,+b=6370997.0","proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97",Number of housing units in primary heating categories for each census block,US Census Bureau,1990 or 2000 census tracts?
+usrds_2000,../data/emiss_shp2003/us,"+a=6370997.0,+b=6370997.0","proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97",primary and secondary roads for urban and rural areas,US Census Bureau - TIGER,Right Projection?
+tnnc_usrds_2000,../data/emiss_shp2003/us,"+a=6370997.0,+b=6370997.0","proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97",primary and secondary roads for urban and rural areas,US Census Bureau - TIGER,Right Projection?
+vi_rds2k,../data/emiss_shp2003/us,"+a=6370997.0,+b=6370997.0","proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97",primary and secondary roads for urban and rural areas for Virgin Islands,,Right Projection?
+us_rail2k,../data/emiss_shp2003/us,"+a=6370997.0,+b=6370997.0","proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97",Class 1-3 and unknown classified railroads,Bureau of Transportation Statistics - National Transportation Atlas Data & Census 2000 TIGER data,Right Projection?
+us_lowres,../data/emiss_shp2003/us,"+a=6370997.0,+b=6370997.0","proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97",Area of NLCD Low Intensity Residential Land,NLCD,Right Projection?
+us_ag2k,../data/emiss_shp2003/us,"+a=6370997.0,+b=6370997.0","proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97","Agricultural lands--Pasture/Hay,  Grains, Row Crops, Fallow Land and Orchards/Vineyards NLCD areas",NLCD,Right Projection?
+us_for2k,../data/emiss_shp2003/us,"+a=6370997.0,+b=6370997.0","proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97",NLCD forest areas,NLCD,Right Projection?
+mines_nlcd,../data/emiss_shp2003/us,"+a=6370997.0,+b=6370997.0","proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97",Strip Mines/Quarries from NLCD,NLCD,Right Projection?
+us_lw2k,../data/emiss_shp2003/us,"+a=6370997.0,+b=6370997.0","proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97",NLCD land and water areas,NLCD,Right Projection?
+rural_land,../data/emiss_shp2003/us,"+a=6370997.0,+b=6370997.0","proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97",Rural Land -- Land Area that is not within an area designated as an Urbanized Area or an Urban Cluster. ,US Census Bureau and NLCD,Right Projection?
+us_lu2k,../data/emiss_shp2003/us,"+a=6370997.0,+b=6370997.0","proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97",Building square footage for FEMA categories in 1990-based census tracts,FEMA,No projection info
+us_golf,../data/emiss_shp2003/us,"+a=6370997.0,+b=6370997.0","proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97",Point locations of golf courses-very incomplete data,FEMA,No projection info
+us_gas_sta,../data/emiss_shp2003/us,"+a=6370997.0,+b=6370997.0","proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97",Number of gas stations in 2000 census blocks,Spatial Insights - Business Counts Database,Right Projection?
+us_oil,../data/emiss_shp2003/us,"+a=6370997.0,+b=6370997.0","proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97",Point locations of oil refineries and tank farms,FEMA,No projection info
+us_oilgas,../data/emiss_shp2003/us,"+a=6370997.0,+b=6370997.0","proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97",Point locations of oil refineries and tank farms and gas stations,FEMA and Spatial Insights - Business Counts Database,Computed NUM_OIL in census blocks based on the identify shapefile of us_oil and us_gas_sta shapefiles.  Merged NUM_OIL in census blocks back to us_gas_sta.  NUM_OILGAS = NUM_OIL + NUM_OF_GAS
+airport_point,../data/emiss_shp2003/us,"+a=6370997.0,+b=6370997.0","proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97",Point locations of airports,variety of sources:  see Airport Points Documentation tab in this workbook,
+airport-area,../data/emiss_shp2003/us,"+a=6370997.0,+b=6370997.0","proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97",Areas for commercial airports plus runways,ESRI CD,
+military_air,../data/emiss_shp2003/us,"+a=6370997.0,+b=6370997.0","proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97",Point locations of military airports,BTS,Right Projection?
+ports2004,../data/emiss_shp2003/us,"+a=6370997.0,+b=6370997.0","proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97",Point locations of marine ports,"Bureau of Tranportation Statistics, USACE (US Army Corps of Engineers)",Right Projection?
+us_nav_h20,../data/emiss_shp2003/us,"+a=6370997.0,+b=6370997.0","proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97",Miles of waterways - navigable inland and intracoastal waterways,Bureau of Transportation Statistics - US Army Corps or Engineers,Right Projection?
+nav_water_activity,../data/emiss_shp2003/us,"+a=6370997.0,+b=6370997.0","proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97",Miles and activity for each river segment--navigable island and intracoastal waterways.,Bureau of Transportation Statistics - US Army Corps or Engineers,How to use LENGTH and CTY_ACTIV?
+mines_usgs,../data/emiss_shp2003/us,"+a=6370997.0,+b=6370997.0","proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97",Point locations of mineral operations and mines.,Minerals Information team of USGS,Right Projection?
+us_wwtp,../data/emiss_shp2003/us,"+a=6370997.0,+b=6370997.0","proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97",Point locations of wastewater treatment facilities (over 1200),FEMA,Right Projection?
+us_dryclean,../data/emiss_shp2003/us,"+a=6370997.0,+b=6370997.0","proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97",Number of dry cleaners in zipcode areas,US Census Bureau,Right Projection?
+us_timb,../data/emiss_shp2003/us,"+a=6370997.0,+b=6370997.0","proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97",Possible Timber Removal Locations,FIA - Forest Inventory Analysis - USFS,Right Projection?
+ca_pbnd_lam,../data/emiss_shp2003/canada,"+datum=NAD83","proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97",Canada boundary shapefile,,
+ca_land93_lam,../data/emiss_shp2003/canada,"+datum=NAD83","proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97",Canada landuse shapefile,,
+can_se_nad83,../data/emiss_shp2003/canada,"+datum=NAD83","proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97",Grided socio-economic data and total labor force 15 years and over by industry source,Extracted from 1996 Census of Population,
+can_socio_econ,../data/emiss_shp2003/canada,"+a=6370997.0,+b=6370997.0","proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97",Grided socio-economic data and total labor force 15 years and over by industry source,Extracted from 1996 Census of Population,
+can_rds,../data/emiss_shp2003/canada,"+a=6370997.0,+b=6370997.0","proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97",Length of roads in km in grid cell,Provided by Environment Canada,
+mexmunic_new,../data/emiss_shp2003/mexico,"+a=6371200.00,+b=6371200.00","proj=latlong",Mexico municipal boundaries and with population data,,
+mexico_rr,../data/emiss_shp2003/mexico,"+a=6371200.00,+b=6371200.00","proj=latlong",Mexico rail road data at 1m scale,,
+mexico_roads,../data/emiss_shp2003/mexico,"+a=6371200.00,+b=6371200.00","proj=latlong",Mexico road data at 1m scale,,
+mexico_rivers,../data/emiss_shp2003/mexico,"+a=6371200.00,+b=6371200.00","proj=latlong",Mexico river data at 1m scale,,
+mexico_ports,../data/emiss_shp2003/mexico,"+a=6371200.00,+b=6371200.00","proj=latlong",Mexico port data at 1m scale,,
+mexico_hh,../data/emiss_shp2003/mexico,"+a=6371200.00,+b=6371200.00","proj=latlong",Mexico population and housing unit data at 1m scale,,
+mexico_air,../data/emiss_shp2003/mexico,"+a=6371200.00,+b=6371200.00","proj=latlong",Mexico airport data at 1m scale,,

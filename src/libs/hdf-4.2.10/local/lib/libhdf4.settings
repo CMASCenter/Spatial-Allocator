@@ -1,0 +1,36 @@
+	    SUMMARY OF THE HDF4 CONFIGURATION
+	    =================================
+
+General Information:
+-------------------
+		   HDF4 Version: 4.2.10
+		  Configured on: Mon May 19 10:31:43 EDT 2014
+		  Configured by: lran@killdevil-login1.kd.unc.edu
+		 Configure mode: production
+		    Host system: x86_64-unknown-linux-gnu
+              Uname information: Linux killdevil-login1.kd.unc.edu 2.6.18-238.12.1.el5 #1 SMP Sat May 7 20:18:50 EDT 2011 x86_64 x86_64 x86_64 GNU/Linux
+		      Libraries: 
+	     Installation point: /nas01/depts/ie/cempd/apps/sallocator/sa_052014/src/libs/hdf-4.2.10/local
+
+Compiling Options:
+------------------
+               Compilation Mode: production
+                     C compiler: /usr/bin/gcc ( gcc (GCC) 4.1.2 20080704 )
+                         CFLAGS:  -O3 -fomit-frame-pointer
+                       CPPFLAGS:  -DBIG_LONGS -DSWAP 
+               Shared Libraries: no
+               Static Libraries: yes
+  Statically Linked Executables: no
+                        LDFLAGS: 
+ 	 	Extra libraries: -ljpeg -lz  -lm
+ 		       Archiver: ar
+ 		 	 Ranlib: ranlib
+
+Languages:
+----------
+                        Fortran: no
+
+Features:
+---------
+               SZIP compression: disabled
+   Support for netCDF API 2.3.2: no

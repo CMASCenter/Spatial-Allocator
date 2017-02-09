@@ -1,0 +1,37 @@
+09/2015
+SA 4.2 update release
+        1. Modified the extraction tools for FEST-C.
+
+05/2014
+SA 4.2 release
+	1. Updated computeGridLandUse_beld4.cpp for 2001 BELD4 generation
+	2. Updated extractEPICYearlyAverage2CMAQ.cpp for crop area weighted variables
+
+
+05/2012
+1. preProcessNLCD.exe
+   (1) Images have to be GByte format.
+   (2) Created no-overlapping images in ESRI BIL format - EHdr -- ESRI .hdr Labelled inlimited size.
+
+2. gl_sin  -- global MODIS data.  If you convert it to NLCD Albers projection.  It shift to NW around 25km.  
+          Extract out NA area from gl_sin, then project it to Laea and then to NLCD aea.  It got rid of shift.
+          Use projected MODIS data in NLCD for North American and check the shifting.
+          Defined the data projection by (due to error in reading projection )
+          ../src/libs/gdal-1.5.2/local/bin/gdal_translate -of EHdr -a_srs "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=23 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs" na_modis.bil na_modis_nlcd.bil
+
+3 Processed NOAA wa_01 image by ../src/libs/gdal-1.5.2/local/bin/gdal_translate -a_ullr -2144475 3177765 -1736265 2777085 -outsize 13607 13356  wa_01.img wa_01_regrided.img
+
+4. toNLCDRaster program needs at least one image file in DATADIR to obtain the standard NLCD projection info.
+
+5. src/libs/gdal-1.5.2/local/bin/gdal_rasterize -a GRIDID -l temp_grdshape_nlcd.shp ../output/wrf12km_nc_30m.bil can not take input
+   shapefile in other directory (ONLY CURRENT).
+
+6. test test_geos.cpp
+g++ -I/nas01/depts/ie/cempd/SA/sa_06_2009/src/libs/gdal-1.9.1/local/include -I/nas01/depts/ie/cempd/SA/sa_06_2009/src/libs/geos-3.3.6/local/include test_geos.cpp -o test_geos -L/nas01/depts/ie/cempd/SA/sa_06_2009/src/libs/gdal-1.9.1/local/lib -lgdal -L/nas01/depts/ie/cempd/SA/sa_06_2009/src/libs/geos-3.3.6/local/lib -lgeos_c
+
+
+g++ -I/nas01/depts/ie/cempd/SA/sa_06_2009/src/libs/gdal-1.9.1/local/include -I/nas01/depts/ie/cempd/SA/sa_06_2009/src/libs/geos-3.3.6/local/include -I/nas01/depts/ie/cempd/SA/sa_06_2009/src/libs/proj-4.8.0/local/include test_geos.cpp -o test_geos -static -pthread -L/nas01/depts/ie/cempd/SA/sa_06_2009/src/libs/gdal-1.9.1/local/lib -lgdal -L/nas01/depts/ie/cempd/SA/sa_06_2009/src/libs/geos-3.3.6/local/lib -lgeos_c -lgeos -L/nas01/depts/ie/cempd/SA/sa_06_2009/src/libs/proj-4.8.0/local/lib -lproj -ldl
+
+
+
+http://trac.osgeo.org/geos/browser/trunk/tests/unit/geom/

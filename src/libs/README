@@ -1,0 +1,180 @@
+Projection library and all libraries required by the Spatial Allocator Raster Tools are 
+installed in src/libs directory.  Each software is installed in local directory under each package.  
+If users install the software in different directories, Makefile under src/vector and src/raster
+must be modified for compiling.  
+
+=========================
+GDAL
+HDF55
+HDF4
+GEOS
+PROJ
+NETCDF
+ann
+========================
+
+All libraried under ./libs were compiled in gcc.  Howerver, ioapi and netcdf libraries needed in ../src/Makefile 
+for vector Spatial Allocator compiling are pointed to files compiled using pgcc compiler.       
+
+The system comes with open source packages.  If users have problems running the tools using existing libraries, do:
+
+1. Recompile each open source following the compiling steps.  GDAL should be the last one to compile.
+   Different machines may have different setups.  Users can use:
+   ./configure -help 
+   under each package (except ann) to see options on configuring the package.
+
+2. Users can donwload different version of open source packages and compile them follow the instruction.
+   After that, users have to modify path setup in:
+   ./bin/sa_setup.csh 
+   ./src/raster/Makefile
+
+
+****************************
+Install PROJ4 for Raster Tools
+(http://trac.osgeo.org/proj/)
+
+1. Go to proj4 directory and do:
+   >make clean
+   >rm -rf ./local
+   >./configure --prefix={PROJ_PATH}/local
+   >make
+   >make install
+ 
+   On PC can be built wit MS Visual C/C++:
+   >go to src dir under PROJ4
+   >edit makefile.vc for modifying PROJ_LIB_DIR to nad directory
+   >Set pc environment variables: LIB to VB's lib, Path to VB's bin, and INCLUDE to VB's include dir.
+   >nmake /f makefile.vc nadshift
+   >nmake /f makefile.vc all
+   >created files: *.exe, proj_fw.dll, proj.lib, proj_i.lib
+
+2. Test datum transformation in {PROJ4 PATH}/local/bin by:
+   >./cs2cs +proj=latlong +datum=NAD27 +to +proj=latlong +datum=NAD83 
+   -117 30
+   Which should produce:
+   117d0'2.901"W   30d0'0.407"N 0.000
+
+   >./cs2cs +proj=latlong +a=6370000.0 +b=6370000.0 +to +proj=lcc +a=6370000.0 +b=6370000.0 +lat_1=33 +lat_2=45 +lat_0=40 +lon_0=-97 
+
+
+
+Installed: proj-4.6.1_32bits is used for compiling Vector Tools
+
+***************************************
+Install netCDF for C and C++ 
+(http://www.unidata.ucar.edu/software/netcdf/)
+
+1. Go to netcdf directory and do:
+   >make clean
+   >rm -rf ./local
+   >./configure --prefix={NETCDF_PATH}/local
+   >make check
+   >make install
+
+
+***************************************
+Install HDF5 
+(http://www.hdfgroup.org/ftp/HDF5/current/src/)
+
+1. GO to hdf5 directory and do:
+        >make clean
+	>rm -rf ./local
+	>./configure --prefix={HDF5_PATH}/local --enable-cxx 
+	>make
+	>make check                # run test suite.
+	>make install
+	>make check-install        # verify installation.
+
+
+***************************************
+Install HDF4 
+(http://www.hdfgroup.org/ftp/HDF/HDF_Current/src/)
+
+1. Go to hdf4 directory and do:
+        >make clean
+        >rm -rf ./local
+	>./configure --prefix={HDF4_PATH}/local --disable-netcdf --disable-fortran
+	>gmake check >& check.out
+	>gmake install
+
+
+***************************************
+Install GEOS - Geometry Engine, Open Source
+(http://trac.osgeo.org/geos/)
+
+1. Go ro geos directory and do:
+   >make clean
+   >rm -rf ./local
+   >./configure --prefix={GEOS_PATH}/local
+   >make
+   >make check
+   >make install
+
+Notes:
+  If "make check" fails with information: 
+	FAIL: testrunner ================== 1 of 1 test failed ================== make[4]: *** [check-TESTS] Error 1
+  try to set:
+  >setenv CFLAGS -m64
+  >setenv CPPFLAGS -m64
+  >setenv CXXFLAGS -m64
+  >setenv LDFLAGS "-L/usr/lib64/"
+  and go through step 1 again
+
+
+***************************************
+Install GDAL for raster Spatial Allocator
+(http://download.osgeo.org/gdal/daily/gdal-svn-trunk*.tar.gz)
+
+1. Go to gdal directory and do:
+   >make clean
+   >rm -rf ./local
+   >setenv CFLAGS "-fPIC"    //for Linux 64bits
+   >./configure -help
+
+   #without orcale and not shared - current configuration on terra and killdevil
+   >./configure --prefix={GDAL_PATH}/local --with-static-proj4={PROP4_PATH}/local --with-geos={GEOS_PATH}/local/bin/geos-config  --with-libtiff=internal --with-png=internal --with-jpeg=internal --with-libz=internal --enable-static  --without-curl --without-expat --without-mysql --without-dwgdirect --without-odbc --without-python --without-oci --without-sqlite3 --without-oci-include --without-oci-lib --without-ld-shared
+
+   #without orcale and not shared, use internal libraries
+   >./configure --prefix={GDAL_PATH}/local --with-static-proj4={PROP4_PATH}/local --with-geos={GEOS_PATH}/local/bin/geos-config  --with-libtiff=internal --with-png=internal --with-jpeg=internal --with-libz=internal --with-png=internal --with-geotiff=internal --with-libtiff=internal --enable-static  --without-curl --without-expat --without-mysql --without-dwgdirect --without-odbc --without-python --without-oci --without-sqlite3 --without-oci-include --without-oci-lib --disable-shared --without-ld-shared
+
+   #without orcale and for single Linux box
+   >./configure --prefix={GDAL_PATH}/local --with-static-proj4={PROP4_PATH}/local --with-geos={GEOS_PATH}/local/bin/geos-config  --with-libtiff=internal --with-png=internal --with-jpeg=internal --with-libz=internal --with-png=internal --with-geotiff=internal --with-libtiff=internal --enable-static  --without-curl --without-expat --without-mysql --without-dwgdirect --without-odbc --without-python --without-oci --without-sqlite3 --without-oci-include --without-oci-lib --without-pg --without-ld-shared
+
+   #without orcale and not shared, with python configuration
+   # >./configure --prefix={GDAL_PATH}/local --with-static-proj4={PROP4_PATH}/local --with-geos={GEOS_PATH}/local/bin/geos-config  --with-libtiff=internal --with-png=internal --with-jpeg=internal --with-libz=internal --enable-static  --without-curl --without-expat --without-mysql --without-dwgdirect --without-odbc --with-python --with-pymoddir={GDAL_PATH}/local_py --without-oci --without-sqlite3 --without-oci-include --without-oci-lib --without-ld-shared
+
+   >make
+   >make install
+
+
+   #for Python applications
+   >setenv PYTHONPATH ${GDALHOME}/lib64/python2.4/site-packages
+   >${gdal_dir}/swig/python/samples/gdal_edit.py
+
+	   
+
+2. In order to run GDAL after installing it is necessary for the shared library to be found. This can often be accomplished by setting LD_LIBRARY_PATH to include <install_dir>/lib.
+
+3. ogr2ogr does not take: +a=6370000.0 +es=0.0.  Only +a=6370000.0 +b=6370000.0 works for sphere.  But, PROJ4 cs2cs works for both
+
+
+4. Note:
+(1). check formats for read and write
+gdalwarp --formats
+
+(2). ogr2ogr -t_srs "+proj=latlong +datum=NAD27" tttt.shp testp_nlcd.shp
+  >ogr2ogr -t_srs "+proj=aea +datum=NAD83 +lat_1=29.5 +lat_2=45.5 +lat_0=23 +lon_0=-96" wrf12km.shp wrf12km_nlcd.shp
+
+(3). gdaltransform -s_srs '+proj=lcc +a=6370997.0 +b=6370997.0 +lat_1=33 +lat_2=45 +lat_0=40 +lon_0=-97' -t_srs '+proj=lcc +datum=NAD83 +lat_1=30.000000 +lat_2=60.000000 +lon_0=-100.000000 +lat_0=40.000000 +units=m'
+177502 311865
+
+
+***************************************
+Install ann_1.1.1
+(http://www.cs.umd.edu/~mount/ANN/)
+
+1. Go to ann directory and do:
+        >make realclean 
+	>make  linux-g++
+
+***************************************
