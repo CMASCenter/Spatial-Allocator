@@ -174,28 +174,28 @@ The tool generates one ASCII file and one NetCDF file:
 **Table 1. NLCD/MODIS output land cover classes from the
 computeGridLandUse tool.**
 
-  Array Index   MODIS Class IGBP (Type 1)   Class Name                           Array Index   NLCD Class   Class Name
-  ------------- --------------------------- ------------------------------------ ------------- ------------ ------------------------------
-  1             1                           Evergreen Needleleaf forest          21            11           Open Water
-  2             2                           Evergreen Broadleaf forest           22            12           Perennial Ice/Snow
-  3             3                           Deciduous Needleleaf forest          23            21           Developed - Open Space
-  4             4                           Deciduous Broadleaf forest           24            22           Developed - Low Intensity
-  5             5                           Mixed forest                         25            23           Developed - Medium Intensity
-  6             6                           Closed shrublands                    26            24           Developed High Intensity
-  7             7                           Open shrublands                      27            31           Barren Land (Rock/Sand/Clay)
-  8             8                           Woody savannas                       28            41           Deciduous Forest
-  9             9                           Savannas                             29            42           Evergreen Forest
-  10            10                          Grasslands                           30            43           Mixed Forest
-  11            11                          Permanent wetlands                   31            51           Dwarf Scrub
-  12            12                          Croplands                            32            52           Shrub/Scrub
-  13            13                          Urban and built-up                   33            71           Grassland/Herbaceous
-  14            14                          Cropland/Natural vegetation mosaic   34            72           Sedge/Herbaceous
-  15            15                          Snow and ice                         35            73           Lichens
-  16            16                          Barren or sparsely vegetated         36            74           Moss
-  17            0                           Water                                37            81           Pasture/Hay
-  18            18                          Reserved (e.g., Unclassified)        38            82           Cultivated Crops
-  19            19                          Reserved (e.g., Fill Value )         39            90           Woody Wetlands
-  20            20                          Reserved                             40            95           Emergent Herbaceous Wetlands
+|**Array Index**|**MODIS Class IGBP (Type 1)**|** Class Name**|**Array Index**|**NLCD Class**|**Class Name**|
+|---|---|---|---|---|---|
+|1|1|Evergreen Needleleaf forest|21| 11|Open Water
+|2|2|Evergreen Broadleaf forest | 22 | 12  | Perennial Ice/Snow|
+|3|3|Deciduous Needleleaf forest | 23 |           21|Developed - Open Space|
+|4 |4 |Deciduous Broadleaf forest | 24 |22 |Developed - Low Intensity|
+|5|5 | Mixed forest| 25|23|Developed - Medium Intensity|
+|6|6|Closed shrublands| 26| 24| Developed High Intensity|
+|7|7 |Open shrublands| 27|31|Barren Land (Rock/Sand/Clay)|
+|8|8 |Woody savannas| 28|41|Deciduous Forest
+|9|9|Savannas| 29|42|Evergreen Forest
+|10|10| Grasslands| 30 |43| Mixed Forest|
+|11|11|Permanent wetlands|31|51|Dwarf Scrub
+|12|12| Croplands| 32|52|Shrub/Scrub|
+|13|13 |Urban and built-up|33|71| Grassland/Herbaceous|
+|14|14 |Cropland/Natural vegetation mosaic |  34|72 |Sedge/Herbaceous|
+|15 |15|Snow and ice| 35|73|Lichens|
+|16 |16|Barren or sparsely vegetated |        36|74|Moss|
+|17 |0| Water | 37 |81|Pasture/Hay|
+|18|18|Reserved (e.g., Unclassified)|  38| 82 |Cultivated Crops|
+|19|19 |Reserved (e.g., Fill Value ) |  39 |90|Woody Wetlands|
+|20|20| Reserved| 40 | 95|Emergent Herbaceous Wetlands|
 
 [[[[[[[[[[[[[]{#_Toc357440520 .anchor}]{#_Toc357435005
 .anchor}]{#_Toc357192619 .anchor}]{#_Toc357176048
@@ -279,40 +279,40 @@ the crop percentage variable contains the 42 crops listed in Table 3.
 
 **Table 2. BELD4 tree classes.**
 
-  In­dex   Variable            In­dex   Variable             In­dex   Variable             In­dex   Variable             In­dex   Variable
-  -------- ------------------- -------- -------------------- -------- -------------------- -------- -------------------- -------- -------------------
-  1        Acacia              40       Hackberry            79       Oak\_bur             118      Paulownia            157      Pine\_whitebark
-  2        Ailanthus           41       Hawthorn             80       Oak\_CA\_black       119      Pawpaw               158      Pine\_Wwhite
-  3        Alder               42       Hemlock              81       Oak\_CA\_live        120      Persimmon            159      Pine\_yellow
-  4        Apple               43       Hickory              82       Oak\_CA\_white       121      Pine\_Apache         160      Populus
-  5        Ash                 44       Holly\_American      83       Oak\_canyon\_live    122      Pine\_Austrian       161      Prunus
-  6        Basswood            45       Hornbeam             84       Oak\_chestnut        123      Pine\_AZ             162      Redbay
-  7        Beech               46       Incense\_cedar       85       Oak\_chinkapin       124      Pine\_Bishop         163      Robinia\_locust
-  8        Birch               47       Juniper              86       Oak\_delta\_post     125      Pine\_blackjack      164      Sassafras
-  9        Bumelia\_gum        48       KY\_coffeetree       87       Oak\_Durand          126      Pine\_brstlcone      165      Sequoia
-  10       Cajeput             49       Larch                88       Oak\_Emery           127      Pine\_chihuahua      166      Serviceberry
-  11       Califor-laurel      50       Loblolly\_bay        89       Oak\_Engelmann       128      Pine\_Coulter        167      Silverbell
-  12       Cascara-buckthor    51       Madrone              90       Oak\_evergreen\_sp   129      Pine\_digger         168      Smoketree
-  13       Castanea            52       Magnolia             91       Oak\_Gambel          130      Pine\_Ewhite         169      Soapberry\_westrn
-  14       Catalpa             53       Mahogany             92       Oak\_interio\_live   131      Pine\_foxtail        170      Sourwood
-  15       Cedar\_chamaecyp    54       Maple\_bigleaf       93       Oak\_laurel          132      Pine\_jack           171      Sparkleberry
-  16       Cedar\_thuja        55       Maple\_bigtooth      94       Oak\_live            133      Pine\_Jeffrey        172      Spruce\_black
-  17       Chestnut\_buckeye   56       Maple\_black         95       Oak\_Mexicanblue     134      Pine\_knobcone       173      Spruce\_blue
-  18       Chinaberry          57       Maple\_boxelder      96       Oak\_Northrn\_pin    135      Pine\_limber         174      Spruce\_Brewer
-  19       Cypress\_cupress    58       Maple\_FL            97       Oak\_Northrn\_red    136      Pine\_loblolly       175      Spruce\_Englemann
-  20       Cypress\_taxodium   59       Maple\_mtn           98       Oak\_nuttall         137      Pine\_lodgepole      176      Spruce\_Norway
-  21       Dogwood             60       Maple\_Norway        99       Oak\_OR\_white       138      Pine\_longleaf       177      Spruce\_red
-  22       Douglas\_fir        61       Maple\_red           100      Oak\_overcup         139      Pine\_Monterey       178      Spruce\_Sitka
-  23       East\_hophornbean   62       Maple\_RkyMtn        101      Oak\_pin             140      Pine\_pinyon         179      Spruce\_spp
-  24       Elder               63       Maple\_silver        102      Oak\_post            141      Pine\_pinyon\_brdr   180      Spruce\_white
-  25       Elm                 64       Maple\_spp           103      Oak\_scarlet         142      Pine\_pinyon\_cmn    181      Sweetgum
-  26       Eucalyptus          65       Maple\_striped       104      Oak\_scrub           143      Pine\_pitch          182      Sycamore
-  27       Fir\_balsam         66       Maple\_sugar         105      Oak\_shingle         144      Pine\_pond           183      Tallowtree-chins
-  28       Fir\_CA\_red        67       Mesquite             106      Oak\_Shumrd\_red     145      Pine\_ponderosa      184      Tamarix
-  29       Fir\_corkbark       68       Misc-hardwoods       107      Oak\_silverleaf      146      Pine\_red            185      Tanoak
-  30       Fir\_fraser         69       Mixed\_conifer\_sp   108      Oak\_Southrn\_red    147      Pine\_sand           186      Torreya
-  31       Fir\_grand          70       Mountain\_ash        109      Oak\_spp             148      Pine\_scotch         187      Tung-oil-tree
-  32       Fir\_noble          71       Mulberry             110      Oak\_swamp\_cnut     149      Pine\_shortleaf      188      Unknown\_tree
+|***In­dex***|***Variable***|***           In­dexx***|***Variable***|***In­dex***|*** Variable***|***In­dex***|***Variable***|*** In­dex***|***Variable***|
+|---|---|---|---|---|---|---|---|---|---|
+|1|Acacia|40|Hackberry|79|Oak_bur|118| Paulownia|157|Pine_whitebark|
+|2|Ailanthus|41|Hawthorn|80|Oak_CA_black|       119|Pawpaw|158|Pine_white|
+|3|Alder|42|Hemlock|81|Oak_CA_live|120| Persimmon|159|Pine_yellow|
+|4|Apple|43|Hickory|82|Oak_CA_white|121| Pine_Apache|160|Populus|
+|5|Ash|44|Holly_American|83|Oak_canyon_live|    122|Pine_Austrian|161|Prunus|
+|6|Basswood|45|Hornbeam|84|Oak_chestnut|123|     Pine_AZ|162|Redbay|
+|7|Beech|46|Incense_cedar|85|Oak_chinkapin|       124|Pine_Bishop|163|Robinia_locust|
+|8|Birch|47|Juniper|86|Oak_delta_post|125|      Pine_blackjack|164|Sassafras|
+|9|Bumelia_gum|48|KY_coffeetree|87| Oak_Durand|126|Pine_brstlcone|165|Sequoia|
+|10|Cajeput|49|Larch|88|Oak_Emery|127|Pine_chihuahua|166|Serviceberry|
+|11|Califor-laurel|50|Loblolly_bay|89       Oak_Engelmann|128|Pine_Coulter|167|Silverbell|
+|12|Cascara-buckthor|51|Madrone|90       Oak_evergreen_sp|129|Pine_digger|168|Smoketree|
+|13|Castanea|52|Magnolia|91|Oak_Gambel|130|Pine_Ewhite|169|Soapberry_westrn|
+|14|Catalpa|53|Mahogany|92|Oak_interio_live|131|Pine_foxtail|170|Sourwood|
+|15|Cedar_chamaecyp|54|Maple_bigleaf|93       Oak_laurel|132|Pine_jack|171|Sparkleberry|
+|16|Cedar_thuja|55|Maple_bigtooth|94|Oak_live|133|Pine_Jeffrey|172|Spruce_black|
+|17|Chestnut_buckeye|56|Maple_black|95|Oak_Mexicanblue|134|Pine_knobcone|173|Spruce_blue|
+|18|Chinaberry|57|Maple_boxelder|96|Oak_Northrn_pin|135|Pine_limber|174|Spruce_Brewer|
+|19|Cypress_cupress|58|Maple_FL|97|Oak_Northrn_red|136|Pine_loblolly|175|Spruce_Englemann|
+|20|Cypress_taxodium|59|Maple_mtn|98       Oak_nuttall|137|Pine_lodgepole|176|Spruce_Norway
+|21|Dogwood|60|Maple_Norway|99|Oak_OR_white|138|Pine_longleaf|177|Spruce_red|
+|22|Douglas_fir|61|Maple_red|100|Oak_overcup|139|Pine_Monterey|178|Spruce_Sitka|
+|23|East_hophornbean|62|Maple_RkyMtn|101|Oak_pin|140|Pine_pinyon|179|Spruce_spp|
+|24|Elder|63|Maple_silver|102|Oak_post|141      Pine_pinyon_brdr|180|Spruce_white|
+25|Elm|64|Maple_spp|103|Oak_scarlet|142|Pine_pinyon_cmn|181|Sweetgum|
+|26|Eucalyptus|65|Maple_striped|104|Oak_scrub|143|Pine_pitch|182|Sycamore|
+|27|Fir_balsam|66|Maple_sugar|105|Oak_shingle|144|Pine_pond|183|Tallowtree-chins|
+|28|Fir_CA_red|67|Mesquite|106|Oak_Shumrd_red|145|Pine_ponderosa|184|Tamarix|
+|29|Fir_corkbark|68|Misc-hardwoods|107|Oak_silverleaf|146|Pine_red|185|Tanoak|
+|30|Fir_fraser|69|Mixed_conifer_sp|108|Oak_Southrn_red|147|Pine_sand|186|Torreya|
+|31|Fir_grand|70|Mountain_ash|109|Oak_spp|148|Pine_scotch|187|Tung-oil-tree|
+|32|Fir_noble|71Mulberry             110      Oak\_swamp\_cnut     149      Pine\_shortleaf      188      Unknown\_tree
   33       Fir\_Pacf\_silver   72       Nyssa                111      Oak\_swamp\_red      150      Pine\_slash          189      Walnut
   34       Fir\_SantaLucia     73       Oak\_AZ\_white       112      Oak\_swamp\_white    151      Pine\_spruce         190      Water-elm
   35       Fir\_Shasta\_red    74       Oak\_bear            113      Oak\_turkey          152      Pine\_sugar          191      Willow
