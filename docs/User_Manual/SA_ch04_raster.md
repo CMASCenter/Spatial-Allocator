@@ -681,9 +681,8 @@ can be modified and run at the command line:
 
 **Table 6. EPIC for CMAQ daily output variables.**
 
-
 |***Index***|***Name***|***Variable***|***Index***|***Name***|***Variable***|
-|---|
+|---|---|---|---|---|---|
 |1|QNO3|N Loss in Surface Runoff (kg/ha)|30|L2_ON|Layer2 Organic N (kg/ha)|
 |2|SSFN|N in Subsurface Flow (kg/ha)|31|      L2_P|Layer2 Mineral P (kg/ha)|
 |3|PRKN|N Loss in Percolate (kg/ha)|32|      L2_OP|Layer2 Organic P (kg/ha)|
