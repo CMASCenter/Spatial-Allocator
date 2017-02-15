@@ -41,11 +41,12 @@ should do the following:
 
 5)  in ./src/raster, do the following:
 
--   make clean
 
--   make
+`   make clean `
 
--   make install
+`   make `
+
+`   make install`
 
 Domain Description in SA Raster Tools
 =====================================
@@ -813,7 +814,7 @@ lower left corner of the domain to the maximum number of cells for the
 grid cell in the upper right. The following sample script file can be
 modified for domain shapefile generation:
 
-> **generateGridShapefile.csh **
+> **generateGridShapefile.csh**
 
 Other Utilities
 ----------------
