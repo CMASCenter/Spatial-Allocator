@@ -154,9 +154,9 @@ the Surrogate Tool. The columns VARIABLE and VALUE are required. Any
 additional columns are optional and are ignored by the Surrogate Tool.
 There are a number of variables that should be set in the global control
 variables file. The contents of the global control variables file for
-the RegularGrid output type are shown in [Tables 1](#Table-1) and [Table 2](Table-2). (Tables 1
-through 5 are shown together following this discussion). [Table 1](Table-1) shows
-the file as it would appear loaded into a spreadsheet. [Table 2](Table-2) shows the
+the RegularGrid output type are shown in [Tables 1](#Table-1) and [Table 2](#Table-2). (Tables 1
+through 5 are shown together following this discussion). [Table 1](#Table-1) shows
+the file as it would appear loaded into a spreadsheet. [Table 2](#Table-2) shows the
 file as it would appear loaded into a standard text editor. The
 following variables (listed in capital letters below) are recognized by
 the Surrogate Tool in the global control variables file:
@@ -347,7 +347,7 @@ in the shapefile catalog file to verify that they are consistent with
 the locations on your computer.
 
 An example of a shapefile catalog file as it would look loaded into a
-spreadsheet is shown in [Table 3](Table-3). Note that this file could also be
+spreadsheet is shown in [Table 3](#Table-3). Note that this file could also be
 edited using a standard text editor, but that view of it is not shown
 here. There are four columns that must be specified for each line of the
 shapefile catalog: SHAPEFILE NAME, DIRECTORY, ELLIPSOID, and MAP
@@ -382,7 +382,7 @@ be gap-filled. The value of the SURROGATE SPECIFICATION FILE variable in
 the global control variables file sets the file location and name of the
 SSF that the Surrogate Tool will use during a given run. An example
 surrogate specification file as it would look loaded into a spreadsheet
-is shown in [Table 4a](Table-4a) and [Table 4b](Table-4b) (note that the format of each row is split
+is shown in [Table 4a](#Table-4a) and [Table 4b](#Table-4b) (note that the format of each row is split
 into parts (a) and (b) so that the information fits on the pages of this
 document). The sample specification file provided with the tool – is
 named “surrogate_specification_2002.csv”. It can be modified by adding
@@ -593,7 +593,7 @@ The *generation control file* is a CSV file that specifies the
 surrogates to create for a specific run of the Surrogate Tool. Users can
 modify the sample generation control file provided with the Surrogate
 Tool, named “surrogate_generation_grid.csv”, for their computation
-(see [Table 5](Table-5)). The columns REGION, SURROGATE, SURROGATE CODE, GENERATE,
+(see [Table 5](#Table-5)). The columns REGION, SURROGATE, SURROGATE CODE, GENERATE,
 and QUALITY ASSURANCE are required to be included in the file. If the
 value in the GENERATE column is YES, the surrogate will be generated. If
 the value in the QUALITY ASSURANCE column is YES, surrogate ratios will
@@ -714,7 +714,7 @@ it.
 | USA   | Rural Land Area| …     |       | Land | | | Land Area that is not within an area designated as an Urbanized Area or an Urban Cluster.    |   |    
 | USA   | Total Agriculture | …     |       | Rural Land Area| Land  | | Sum of: Pasture/Hay,  Grains, Row Crops, Fallow Land and Orchards/Vineyards| |
 | USA   | Industrial Land | …     |       | Urban Population | Land  | Popululation | Sum of building square footage:  IND1 + IND2 + IND3 + IND4 + IND5 + IND6  |       |
-|USA| Heavy and High Tech Industrial (IND1 + IND5)|…| |Industrial Land|Urban Population|Population|Sum of building square footage from FEMA categories:  IND1 + IND5|Total Industrial in [Table1](Table-1). Same as Industrial Land?|
+|USA| Heavy and High Tech Industrial (IND1 + IND5)|…| |Industrial Land|Urban Population|Population|Sum of building square footage from FEMA categories:  IND1 + IND5|Total Industrial in [Table1](#Table-1). Same as Industrial Land?|
 | USA   | Forest External | …     | 0.5/*../output/US36KM_20X20/forest.txt Forest External+0.5*Rural Land Area | ./output/US36KM_20X20/ mypop_100.txt/My Population |       |       |       |       |
 | NA    | Population | …     | Population[USA];Population[Canada]; Population[Mexico] |  |    | | | |   |
 
@@ -882,8 +882,8 @@ MGPRO files, which are now read by SMOKE from the SRGDESC file. There
 are two output formats for computed surrogate ratios: one for grids
 (used for both Regular Grid and EGrid formats) and the other for
 polygon-based data such as census tracts. The format of the output
-surrogate file for regular grid surrogates is described in [Table 6](Table-6), and
-an example is provided in the [Table 7](Table-7). External surrogates input to the
+surrogate file for regular grid surrogates is described in [Table 6](#Table-6), and
+an example is provided in the [Table 7](#Table-7). External surrogates input to the
 tool are also assumed to be in this format. At the time that this
 document was written, SMOKE does not support polygon surrogates.
 
@@ -898,7 +898,7 @@ denominator are values used to compute the surrogate fraction, and the
 QA sum is a running sum of the fractions for a given county. Typically
 this should be 1 for the last entry (e.g., the last grid cell or polygon
 listed) for a given county. The output file format for polygon-based
-surrogates is shown in [Table 8](Table-8), followed by an example in [Table 9](Table-9).
+surrogates is shown in [Table 8](#Table-8), followed by an example in [Table 9](#Table-9).
 
 The surrogate files output from the srgcreate and merge tool programs
 are named according to the format: *region_code_*NOFILL.txt. If a
@@ -919,7 +919,7 @@ known to SMOKE as the SRGDESC file. If a surrogate was not gapfilled,
 this file contains the name of the NOFILL surrogate file for that
 surrogate ID, otherwise it contains the name of the FILL surrogate file.
 This is illustrated in the example of this file that is given in
-[Table 10](Table-10).
+[Table 10](#Table-10).
 
 ### 5.2 Log File
 
@@ -931,7 +931,7 @@ computation with the regions, names, and codes are output to the end of
 the log file. So, users should check the end of the log file first to
 see the status of all surrogate computation. If some surrogate
 computations fail, users can check the detailed log information above.
-An example is given in [Table 11](Table-11).
+An example is given in [Table 11](#Table-11).
 
 ### 5.3 Output Surrogate File
 
@@ -1570,7 +1570,7 @@ The Surrogate Tool software takes the following steps when it runs:
 
 16. Information is written to a log file, which includes a summary table
     of the surrogate computation that is written to the bottom of the
-    log file (see [Table 11](Table-11)). This lists the region, name, and code for
+    log file (see [Table 11](#Table-11)). This lists the region, name, and code for
     each of the surrogates that were requested to be generated. It also
     indicates whether the computation of srgcreate, merging or
     gapfilling was successful or failed for each surrogate.
