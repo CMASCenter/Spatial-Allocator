@@ -606,6 +606,7 @@ To ensure consistency, you may wish to copy these columns directly from
 the surrogate specification file and paste them into this file to create
 it.
 
+
 **Table 1. Example of a Global Control Variables File for RegularGrid Loaded into a Spreadsheet(control_variables_grid.csv)**
 
 |**VARIABLE**|**VALUE**|**DESCRIPTION**|
