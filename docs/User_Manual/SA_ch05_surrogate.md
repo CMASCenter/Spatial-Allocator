@@ -489,86 +489,88 @@ supports reading all surrogates with the same code from the SRGDESC
 file, so the surrogate files for each region do not need to be
 concatenated.
 
-> For surrogates generated directly from shapefiles, the DATA SHAPEFILE
-> column specifies the name of the base polygons for emission sources,
-> such as county, census tract, or other polygons. The DATA ATTRIBUTE
-> column specifies the name of the attribute to uniquely identify the
-> base polygons (e.g., county FIPS code). The WEIGHT SHAPEFILE column
-> specifies the name of the weight (surrogate) shapefile for surrogate
-> ratio computation, such as population, road, or land use shapefiles.
-> The WEIGHT ATTRIBUTE column specifies the name of the attribute to use
-> for the surrogate computation (e.g., population). When the WEIGHT
-> ATTRIBUTE is specified as NONE, the value input as the weight for a
-> shape is its area for polygon weight shapefile, length for line weight
-> shapefile, or point count for a point weight shapefile.
->
-> If a function of multiple attributes is to be used for the weight,
-> this is specified in the WEIGHT_FUNCTION column (e.g.,
-> COM1+COM2+COM3). In cases where not all shapes from the shapefile are
-> to be used to generate the surrogate, a FILTER FUNCTION is specified
-> (e.g., ROAD_TYPE=1,2,3 to use only shapes with road types of 1, 2, or
-> 3; or ROAD_TYPE != 1 with road type not equal to 1). Multiple filters
-> can be specified if they are separated by semicolons (e.g.,
-> LENGTH=100-200;NAME=C*).
->
-> Gap filling will be performed if surrogates are given in the SECONDARY
-> SURROGATE, TERTIARY SURROGATE, or QUARTERNARY SURROGATE columns. Gap
-> filling is used when a surrogate does not have values for a base data
-> polygon in the modeling domain. A county will not have any surrogate
-> ratios when the value of the weight attributes for the county are
-> zero, there are no weight shapes that intersect the county, or the
-> total weight surrogate of this county (denominator in surrogate ratio
-> computation) is less than DENOMINATOR_THRESHOLD). Gapfilling ensures
-> that every county with emission inventory data has the surrogate
-> ratios to distribute the emission data. For example, the inventory
-> could have railroad emissions in a county, even if the weight
-> shapefile used to create a railroad surrogate did not have data in
-> that county for any railroads. In this case, the roads surrogate could
-> be used as the secondary surrogate.
->
-> If the surrogate to be computed is a function of other surrogates, a
-> MERGE FUNCTION should be specified (e.g., 0.75*Roadway Miles +
-> 0.25*Population). Careful consideration needs to be given regarding
-> how to gapfill surrogates that use a merge function. This is because
-> when merging, the srgmerge program does not output values for any
-> counties that do not have values for *all* surrogates that are
-> referenced in the merge function. To extend the 0.75 Total Roadway
-> Miles plus 0.25 Population surrogate example, if Total Roadway Miles
-> were missing for a particular county, srgmerge cannot know that the
-> solution is to use 1 * Population. You can account for this by
-> gapfilling your merged surrogate with the input surrogates in the
-> order that you prefer (e.g., you might gapfill the 0.75 Total Roadway
-> Miles plus 0.25 Population surrogate with Total Roadway Miles and then
-> Population).
->
-> Surrogates can be concatenated into a single output file by writing a
-> MERGE FUNCTION that has the individual surrogates separated with
-> semicolons. If the region for the source surrogates is different from
-> the region of the output surrogate, the syntax:
-> *surrogate*[*region*] is used. Note that the headers for the
-> concatenated surrogates will appear at the top of each surrogate. An
-> example of concatenation is to merge population surrogates from North
-> America. To do this, one would use the following syntax in the MERGE
-> FUNCTION column:
->
-> Population[USA];Population[MEXICO];Population[CANADA].
->
-> External surrogates can be specified as input for merging or gap
-> filling using the following syntax: *file name* | *surrogate name*. If
-> the merging and gapfilling tools are updated to accept codes in
-> addition to names in its input file, the syntax*: file name* |
-> *surrogate code* will also be supported. Until that time, the
-> surrogate names should be specified in the surrogate code CSV file
-> using the syntax:
->
-> #SRGDESC=*surrogate code, surrogate name*
->
-> For example, you might have the following records in your surrogate
-> file:
->
-> #SRGDESC=100,Population
-> #SRGDESC=110,Housing
-> #SRGDESC=120,Half population half housing
+For surrogates generated directly from shapefiles, the DATA SHAPEFILE
+column specifies the name of the base polygons for emission sources,
+such as county, census tract, or other polygons. The DATA ATTRIBUTE
+column specifies the name of the attribute to uniquely identify the
+base polygons (e.g., county FIPS code). The WEIGHT SHAPEFILE column
+specifies the name of the weight (surrogate) shapefile for surrogate
+ratio computation, such as population, road, or land use shapefiles.
+The WEIGHT ATTRIBUTE column specifies the name of the attribute to use
+for the surrogate computation (e.g., population). When the WEIGHT
+ATTRIBUTE is specified as NONE, the value input as the weight for a
+shape is its area for polygon weight shapefile, length for line weight
+shapefile, or point count for a point weight shapefile.
+
+If a function of multiple attributes is to be used for the weight,
+this is specified in the WEIGHT_FUNCTION column (e.g.,
+COM1+COM2+COM3). In cases where not all shapes from the shapefile are
+to be used to generate the surrogate, a FILTER FUNCTION is specified
+(e.g., ROAD_TYPE=1,2,3 to use only shapes with road types of 1, 2, or
+3; or ROAD_TYPE != 1 with road type not equal to 1). Multiple filters
+can be specified if they are separated by semicolons (e.g.,
+LENGTH=100-200;NAME=C*).
+
+Gap filling will be performed if surrogates are given in the SECONDARY
+SURROGATE, TERTIARY SURROGATE, or QUARTERNARY SURROGATE columns. Gap
+filling is used when a surrogate does not have values for a base data
+polygon in the modeling domain. A county will not have any surrogate
+ratios when the value of the weight attributes for the county are
+zero, there are no weight shapes that intersect the county, or the
+total weight surrogate of this county (denominator in surrogate ratio
+computation) is less than DENOMINATOR_THRESHOLD). Gapfilling ensures
+that every county with emission inventory data has the surrogate
+ratios to distribute the emission data. For example, the inventory
+could have railroad emissions in a county, even if the weight
+shapefile used to create a railroad surrogate did not have data in
+that county for any railroads. In this case, the roads surrogate could
+be used as the secondary surrogate.
+
+If the surrogate to be computed is a function of other surrogates, a
+MERGE FUNCTION should be specified (e.g., 0.75*Roadway Miles +
+0.25*Population). Careful consideration needs to be given regarding
+how to gapfill surrogates that use a merge function. This is because
+when merging, the srgmerge program does not output values for any
+counties that do not have values for *all* surrogates that are
+referenced in the merge function. To extend the 0.75 Total Roadway
+Miles plus 0.25 Population surrogate example, if Total Roadway Miles
+were missing for a particular county, srgmerge cannot know that the
+solution is to use 1 * Population. You can account for this by
+gapfilling your merged surrogate with the input surrogates in the
+order that you prefer (e.g., you might gapfill the 0.75 Total Roadway
+Miles plus 0.25 Population surrogate with Total Roadway Miles and then
+Population).
+
+Surrogates can be concatenated into a single output file by writing a
+MERGE FUNCTION that has the individual surrogates separated with
+semicolons. If the region for the source surrogates is different from
+the region of the output surrogate, the syntax:
+*surrogate*[*region*] is used. Note that the headers for the
+concatenated surrogates will appear at the top of each surrogate. An
+example of concatenation is to merge population surrogates from North
+America. To do this, one would use the following syntax in the MERGE
+FUNCTION column:
+
+`Population[USA];Population[MEXICO];Population[CANADA]`
+
+External surrogates can be specified as input for merging or gap
+filling using the following syntax: *file name* | *surrogate name*. If
+the merging and gapfilling tools are updated to accept codes in
+addition to names in its input file, the syntax*: file name* |
+*surrogate code* will also be supported. Until that time, the
+surrogate names should be specified in the surrogate code CSV file
+using the syntax:
+
+`#SRGDESC=*surrogate code, surrogate name*`
+
+For example, you might have the following records in your surrogate
+file:
+
+`
+SRGDESC=100,Population
+SRGDESC=110,Housing
+SRGDESC=120,Half population half housing
+`
 
 ### 3.5 Surrogate Code File
 
@@ -604,7 +606,7 @@ To ensure consistency, you may wish to copy these columns directly from
 the surrogate specification file and paste them into this file to create
 it.
 
-**Table 1. Example of a Global Control Variables File for RegularGrid Loaded into a Spreadsheet(control_variables_grid.csv) **
+**Table 1. Example of a Global Control Variables File for RegularGrid Loaded into a Spreadsheet(control_variables_grid.csv)**
 
 |**VARIABLE**|**VALUE**|**DESCRIPTION**|
 |---|---|---|
@@ -632,8 +634,7 @@ it.
 |GAPFILL SURROGATES|YES|If set toYES, the surrogates will be gapfilled|
 
 
-**Table 2. The Global Control Variables File for RegularGrid as A CSV
-File (control_variables_grid.csv)**
+**Table 2. The Global Control Variables File for RegularGrid as A CSV File (control_variables_grid.csv)**
 
 |***VARIABLE***|***VALUE***|***DESCRIPTION***|
 |---|---|---|
@@ -660,9 +661,7 @@ File (control_variables_grid.csv)**
 |MERGE SURROGATES|YES|" If set to YES, the surrogates will be merged."|
 |GAPFILL SURROGATES|YES|" If set to YES, gapfilling will be performed."
 
-**
-Table 3. Example of a Shapefile Catalog Loaded into a Spreadsheet
-(shapefile_catalog.csv). **
+**Table 3. Example of a Shapefile Catalog Loaded into a Spreadsheet (shapefile_catalog.csv).**
 
 |**SHAPEFILE NAME**|**DIRECTORY**|**ELLIPSOID**|**PROJECTION**|**SHAPE TYPE**|**DESCRIPTION**|**DATA SOURCE**|
 |---|---|---|---|---|---|---|
@@ -678,8 +677,7 @@ Table 3. Example of a Shapefile Catalog Loaded into a Spreadsheet
 |us_ag2k|../data/emiss_shp2003/us   +a=6370997.0,+b=6370997.0|proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97|Polygon          Agricultural lands—areas of Pasture/Hay, Grains, Row Crops, Fallow Land and Orchards/Vineyards|NLCD
 
 
-**Table 4a. Example of the Left Columns of the Surrogate Specification
-File Loaded into a Spreadsheet (surrogate_specification_2002.csv)**
+**Table 4a. Example of the Left Columns of the Surrogate Specification File Loaded into a Spreadsheet (surrogate_specification_2002.csv)**
 
 |***REGION***|***SURROGATE***|***SURROGATE CODE***|***DATA SHAPEFILE***|***DATA ATTRIBUTE***|***WEIGHT SHAPEFILE***|***WEIGHT ATTRIBUTE***|***WEIGHT FUNCTION***|***FILTER FUNCTION***|
 |---|---|---|---|---|---|---|---|---|
@@ -697,8 +695,7 @@ File Loaded into a Spreadsheet (surrogate_specification_2002.csv)**
 |USA|Heavy and High Tech Industrial (IND1 + IND5)|570|county_pophu02|FIPSSTCO|us_lu2k|IND1+IND5|
 |USA|Forest External|328|NA|Population|100|                                                                                                                           
 
-**Table 4b. Example of the Right Columns of the Surrogate Specification
-File Loaded into a Spreadsheet (surrogate_specification_2002.csv)**
+**Table 4b. Example of the Right Columns of the Surrogate Specification File Loaded into a Spreadsheet (surrogate_specification_2002.csv)**
 
 |***REGION***|***SURROGATE***|***Cols 3-9***  |***MERGE FUNCT***|***SECONDARY SURROGATE***|***TERTIARY SURROGATE***|***QUARTERNARY SURROGATE***|***DETAILS***|***COMMENTS***|
 |---|---|---|---|---|---|---|---|---|
@@ -717,8 +714,7 @@ File Loaded into a Spreadsheet (surrogate_specification_2002.csv)**
 | USA   | Forest External | …     | 0.5*../output/US36KM_20X20/forest.txtForest External+0.5*Rural Land Area | ./output/US36KM_20X20/ mypop_100.txt/My Population |       |       |       |       |
 | NA    | Population | …     | Population[USA];Population[Canada]; Population[Mexico] |  |    | | | |   |
 
-**Table 5. Example of a Surrogate Generation Control File Loaded into a
-Spreadsheet **
+**Table 5. Example of a Surrogate Generation Control File Loaded into a Spreadsheet **
 
 |***REGION***|***SURROGATE***|***SURROGATE CODE***|***GENERATE***|***QUALITY ASSURANCE***|
 |---|---|---|---|---|
