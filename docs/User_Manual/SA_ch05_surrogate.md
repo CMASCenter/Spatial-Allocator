@@ -964,34 +964,34 @@ file will probably need to be removed.
 
 **Table 6. Format of a Regular Grid Output Surrogate File **
 
-  |***Line***|***Column***|***Description***|
-  |---|---|---|
-  | 1 | A  | #GRID|
-  |   | B  | Grid name|
-  | |C | X origin in units of the projection|
-  | |D | Y origin in units of the projection|
-  | |E | X direction cell length in units of the projection|
-  | |F | Y direction cell length in units of the projection|
-  | |G |Number of columns|
-  | |H |Number of rows|
-  | |I |Number of boundary cells|
-  | |J |Projection types (LAT-LON or LATGRD3, LAMBERT or LAMGRD3, UTM or UTMGRD3)|
-  | |K |Projection units|
-  | |L |Projection alpha value|
-  | |M |Projection beta value|
-  | |N |Projection gamma value|
-  | |O |X-dir projection center in units of the projection|
-  | |P |Y-dir projection center in units of the projection|
-  |2|A|#SRGDESC=|
-  | |B|Surrogate code|
-  | |C|Surrogate name|
-  |Remaining comment lines|A|#[Surrogate Generation Variable] =|
-  | |B|Value|
-  |Remaining lines|A|Spatial Surrogate code|
-  | |B|Country/State/County Code (Text or Integer)|
-  | |C|Grid column number (Integer)|
-  | |D|Grid row number (Integer)|
-  | |E|Spatial surrogate ratio|
+|***Line***|***Column***|***Description***|
+|---|---|---|
+|1|A|#GRID|
+| |B| Grid name|
+| |C| X origin in units of the projection|
+| |D| Y origin in units of the projection|
+| |E| X direction cell length in units of the projection|
+| |F| Y direction cell length in units of the projection|
+| |G|Number of columns|
+| |H|Number of rows|
+| |I|Number of boundary cells|
+| |J|Projection types (LAT-LON or LATGRD3, LAMBERT or LAMGRD3, UTM or UTMGRD3)|
+| |K|Projection units|
+| |L|Projection alpha value|
+| |M|Projection beta value|
+| |N|Projection gamma value|
+| |O|X-dir projection center in units of the projection|
+| |P|Y-dir projection center in units of the projection|
+|2|A|#SRGDESC=|
+| |B|Surrogate code|
+| |C|Surrogate name|
+|Remaining comment lines|A|#[Surrogate Generation Variable] =|
+| |B|Value|
+|Remaining lines|A|Spatial Surrogate code|
+| |B|Country/State/County Code (Text or Integer)|
+| |C|Grid column number (Integer)|
+| |D|Grid row number (Integer)|
+| |E|Spatial surrogate ratio|
 
 **
 Table 7. A Sample Output Regular Grid Spatial Surrogate File**
