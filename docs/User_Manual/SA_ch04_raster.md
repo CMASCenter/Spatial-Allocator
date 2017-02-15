@@ -173,7 +173,7 @@ The tool generates one ASCII file and one NetCDF file:
 **Table 1. NLCD/MODIS output land cover classes from the
 computeGridLandUse tool.**
 
-|**Array Index**|**MODIS Class IGBP (Type 1)**|** Class Name**|**Array Index**|**NLCD Class**|**Class Name**|
+|**Array Index**|**MODIS Class IGBP (Type 1)**|**Class Name**|**Array Index**|**NLCD Class**|**Class Name**|
 |---|---|---|---|---|---|
 |1|1|Evergreen Needleleaf forest|21| 11|Open Water
 |2|2|Evergreen Broadleaf forest | 22 | 12  | Perennial Ice/Snow|
@@ -279,7 +279,7 @@ the crop percentage variable contains the 42 crops listed in [Table 3](#Table-3)
 <a id=Table-2></a>
 **Table 2. BELD4 tree classes.**
 
-|***Index***|***Variable***|***Index***|***Variable***|***Index***|***Variable***|***Index***|***Variable***|
+|**Index**|**Variable**|**Index**|**Variable**|**Index**|**Variable**|**Index**|**Variable**|
 |---|---|---|---|---|---|---|---|
 |1|Acacia|40|Hackberry|79|Oak_bur|118| Paulownia|157|Pine_whitebark|
 |2|Ailanthus|41|Hawthorn|80|Oak_CA_black|119|Pawpaw|158|Pine_white|
@@ -324,7 +324,7 @@ the crop percentage variable contains the 42 crops listed in [Table 3](#Table-3)
 <a id=Table-3></a>
 **Table 3. BELD4 crop classes.**
 
-|***Index***|***Variable***|***Index***|***Variable***|***Index***|***Variable***|
+|**Index**|**Variable**|**Index**|**Variable**|**Index**|**Variable**|
 |---|---|---|---|---|---|
 |1|Hay|15|Cotton|29|SorghumSilage|
 |2|Hay_ir|16|Cotton_ir|30|SorghumSilage_ir|
@@ -630,7 +630,7 @@ The tool generates three outputs:
 <a id=Table-4></a>
 **Table 4. EPIC daily weather and nitrogen deposition variables.**
 
-|***Index***|***Variable***|***Index***|***Variable***|
+|**Index**|**Variable**|**Index**|**Variable**|
 |---|---|---|---|
 |1|Year|8|Daily Average Relative Humidity|
 |2|Month|9|Daily Average 10m Windspeed (m s^-1)|
@@ -662,7 +662,7 @@ The 13 variables contained in the soil output file are listed in [Table 5](#Tabl
 <a id=Table-5></a>
 **Table 5. EPIC-to-CMAQ soil output variables.**
 
-|***Index***|***Name***|***Soil Variable***|***Index***|***Name***|***Soil Variable***|
+|**Index**|**Name**|**Soil Variable**|**Index**|**Name**|**Soil Variable**|
 |---|---|---|---|---|---|
 |1|L1_SoilNum|Soil Number (none)|8|L2_Bulk_D|Layer2 Bulk Density (t/m**3)|
 |2|L1_Bulk_D|Layer1 Bulk Density (t/m**3)|9|L2_Wilt_P|Layer2 Wilting Point (m/m)|
@@ -683,7 +683,7 @@ can be modified and run at the command line:
 <a id=Table-6></a>
 **Table 6. EPIC for CMAQ daily output variables.**
 
-|***Index***|***Name***|***Variable***|***Index***|***Name***|***Variable***|
+|**Index**|**Name**|**Variable**|**Index**|**Name**|**Variable**|
 |---|---|---|---|---|---|
 |1|QNO3|N Loss in Surface Runoff (kg/ha)|30|L2_ON|Layer2 Organic N (kg/ha)|
 |2|SSFN|N in Subsurface Flow (kg/ha)|31|      L2_P|Layer2 Mineral P (kg/ha)|
@@ -744,7 +744,7 @@ shows the two lists of variables.
 
 epic2cmaqyear.nc - crop specific output
 
-|***Index***|***Name***|***Variable***|***Index***|***Name***|***Variable***|
+|**Index**|**Name**|**Variable**|**Index**|**Name**|**Variable**|
 |---|---|---|---|---|---|
 |1|GMN|N Mineralized (kg/ha)|19|T_YLDG|T-Grain Yield (1000ton)|
 |2|NMN|Humus Mineralization (kg/ha)|20|YLDF|Forage Yield (t/ha)|
@@ -767,7 +767,7 @@ epic2cmaqyear.nc - crop specific output
 
 **epic2cmaq_year_total.nc - crop weighted output
 
-|***Index***|***Name***|***Variable***|
+|**Index**|**Name**|**Variable**|
 |---|---|---|
 |1|T_GMN|N Mineralized (mt - metric ton)|
 |2|T_NMN|Humus Mineralization (mt)|
