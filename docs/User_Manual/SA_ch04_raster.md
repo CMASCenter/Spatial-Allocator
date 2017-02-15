@@ -60,16 +60,13 @@ environment variables:
     sample projection descriptions are used to match the projections in
     WRF:
 
-    -   Lambert Conformal Conic: "+proj=lcc +a=6370000.0 +b=6370000.0
-        +lat_1=33 +lat_2=45 +lat_0=40 +lon_0=-97"
+    -   Lambert Conformal Conic: `+proj=lcc +a=6370000.0 +b=6370000.0 +lat_1=33 +lat_2=45 +lat_0=40 +lon_0=-97`
 
-    -   Polar stereographic: "+proj=stere +a=6370000.0 +b=6370000.0
-        +lat_ts=33 +lat_0=90 +lon_0=-97 +k_0=1.0"
+    -   Polar stereographic: `+proj=stere +a=6370000.0 +b=6370000.0 +lat_ts=33 +lat_0=90 +lon_0=-97 +k_0=1.0`
 
-    -   Mercator: "+proj=merc +a=6370000.0 +b=6370000.0 +lat_ts=33
-        +lon_0=0"
+    -   Mercator: `+proj=merc +a=6370000.0 +b=6370000.0 +lat_ts=33 +lon_0=0`
 
-    -   Geographic: "+proj=latlong +a=6370000.0 +b=6370000.0"
+    -   Geographic: `+proj=latlong +a=6370000.0 +b=6370000.0`
 
 -   GRID_ROWS – number of rows of grid cells in the domain
 
