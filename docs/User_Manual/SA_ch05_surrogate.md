@@ -154,7 +154,7 @@ the Surrogate Tool. The columns VARIABLE and VALUE are required. Any
 additional columns are optional and are ignored by the Surrogate Tool.
 There are a number of variables that should be set in the global control
 variables file. The contents of the global control variables file for
-the RegularGrid output type are shown in [Tables 1](Table-1) and [Table 2](Table-2). (Tables 1
+the RegularGrid output type are shown in [Tables 1](#Table-1) and [Table 2](Table-2). (Tables 1
 through 5 are shown together following this discussion). [Table 1](Table-1) shows
 the file as it would appear loaded into a spreadsheet. [Table 2](Table-2) shows the
 file as it would appear loaded into a standard text editor. The
