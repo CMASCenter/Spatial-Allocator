@@ -95,7 +95,7 @@ The title of each column describes the meaning of the data in the column
 and also notifies the Tool of the contents of the column. These CSV
 files can easily be viewed and edited by any spreadsheet software.
 Examples of each of the input files are provided with the Surrogate Tool
-installation in the \$SA\_HOME/srgtools directory and can be customized
+installation in the $SA_HOME/srgtools directory and can be customized
 to meet your needs. Detailed descriptions of each of the input files are
 in the subsections of this section. The high-level descriptions of the
 input files are as follows:
@@ -103,16 +103,16 @@ input files are as follows:
 1.  The *global “control variables” file* is a CSV file that specifies
     information common to the generation of all surrogates (e.g., output
     directory, output grid or polygons, and names of the other input
-    files). The sample file names are control\_variables\_grid.csv for a
-    regular grid example, control\_variables\_egrid.csv for an egrid
-    example, and control\_variables\_poly.csv for a polygon-based
+    files). The sample file names are control_variables_grid.csv for a
+    regular grid example, control_variables_egrid.csv for an egrid
+    example, and control_variables_poly.csv for a polygon-based
     example. The variables that should be set in the global control
     variables file are described in detail in the section 3.2.
 
 2.  The *shapefile catalog file* is a CSV file that provides location,
     map projection and source information about the shapefiles to be
     used during surrogate generation. The sample file name is
-    shapefile\_catalog.csv. The content of this file is described in
+    shapefile_catalog.csv. The content of this file is described in
     more detail in section 3.3.
 
 3.  The *surrogate specification file* (SSF) is a CSV file that provides
@@ -120,26 +120,26 @@ input files are as follows:
     shapefiles or previously computed surrogates, weight attributes or
     merge functions to use, shapefile filter selections to apply, and
     how the surrogates should be gap-filled. The sample file name is
-    surrogate\_specification\_2002.csv. The content of this file is
+    surrogate_specification_2002.csv. The content of this file is
     described in more detail in section 3.4.
 
 4.  The *surrogate code file* is a CSV file that provides surrogate
     names and codes that are used to map surrogate names to surrogate
     codes, which is needed during surrogate merging and gapfilling. The
-    sample file name is surrogate\_codes.csv. The content of this file
+    sample file name is surrogate_codes.csv. The content of this file
     is described in more detail in section 3.5.
 
 5.  The *generation control file* is a CSV file that specifies the
     surrogates to create for a specific run of the Surrogate Tool and
     whether to output quality assurance data for those surrogates (i.e.,
     numerators, denominators, and sums of fractions for the county). The
-    sample file name is surrogate\_generation\_grid.csv. The content of
+    sample file name is surrogate_generation_grid.csv. The content of
     this file is described in more detail in section 3.6.
 
 6.  The *grid description file* is a text file that provides grid
     description for a grid name. The sample file included is
     GRIDDESC.txt. The grid used in the sample is named
-    “US36KM\_148X112”. Users can add new grid name and grid description
+    “US36KM_148X112”. Users can add new grid name and grid description
     to this file for their own computation. For more information on the
     format of the GRIDDESC file, see
     <http://www.baronams.com/products/ioapi/GRIDDESC.html>.
@@ -179,35 +179,35 @@ the Surrogate Tool in the global control variables file:
 -   SRGCREATE EXECUTABLE gives the directory and name of the srgcreate
     > executable to use for the run.
 
--   DEBUG\_OUTPUT specifies whether srgcreate will output debugging
+-   DEBUG_OUTPUT specifies whether srgcreate will output debugging
     > information as it runs (specify Y for yes and N for no).
 
--   OUTPUT\_FORMAT specifies the format for the output files (currently
+-   OUTPUT_FORMAT specifies the format for the output files (currently
     > SMOKE is the only allowable value).
 
--   OUTPUT\_FILE\_TYPE specifies the type of output file to create
+-   OUTPUT_FILE_TYPE specifies the type of output file to create
     > (currently RegularGrid, EGrid, and Polygon are the allowable
     > values). The RegularGrid option should be used to generate
     > surrogates for Eulerian grid-based models such as CMAQ. EGrid
     > should be used only for the WRF/NMM-CMAQ system, whereas the
     > Polygon option is used for non-grid-based models such as ASPEN.
 
--   OUTPUT\_GRID\_NAME specifies the name of the output grid (valid only
-    > when OUTPUT\_FILE\_TYPE is RegularGrid or EGrid).
+-   OUTPUT_GRID_NAME specifies the name of the output grid (valid only
+    > when OUTPUT_FILE_TYPE is RegularGrid or EGrid).
 
 -   GRIDDESC specifies the directory and name of the grid description
-    > file (valid only when OUTPUT\_FILE\_TYPE is RegularGrid or EGrid).
+    > file (valid only when OUTPUT_FILE_TYPE is RegularGrid or EGrid).
 
--   OUTPUT\_FILE\_ELLIPSOID specifies the ellipsoid of the output grid
-    > (valid only when OUTPUT\_FILE\_TYPE is RegularGrid or EGrid).
+-   OUTPUT_FILE_ELLIPSOID specifies the ellipsoid of the output grid
+    > (valid only when OUTPUT_FILE_TYPE is RegularGrid or EGrid).
 
--   OUTPUT\_POLY\_FILE specifies the name of an ArcGIS polygon text file
+-   OUTPUT_POLY_FILE specifies the name of an ArcGIS polygon text file
     > or the name of a shapefile containing the polygon shapes to use
-    > (valid only when OUTPUT\_FILE\_TYPE is EGrid or Polygon).
+    > (valid only when OUTPUT_FILE_TYPE is EGrid or Polygon).
 
--   OUTPUT\_POLY\_ATTR specifies the name of the attribute in the
-    > OUTPUT\_POLY\_FILE that is a unique ID for each shape (valid only
-    > when OUTPUT\_FILE\_TYPE is Polygon).
+-   OUTPUT_POLY_ATTR specifies the name of the attribute in the
+    > OUTPUT_POLY_FILE that is a unique ID for each shape (valid only
+    > when OUTPUT_FILE_TYPE is Polygon).
 
 -   OUTPUT DIRECTORY specifies the name of the directory into which the
     > output surrogate files will be placed.
@@ -233,7 +233,7 @@ the Surrogate Tool in the global control variables file:
 -   LOG FILE NAME specifies the directory and name (full path) of the
     > Surrogate Tool log file.
 
--   DENOMINATOR\_THRESHOLD specifies the value of a threshold under
+-   DENOMINATOR_THRESHOLD specifies the value of a threshold under
     > which the surrogate values will not be used (but may be replaced
     > with a gap-filled value, if gap filling is used). The default
     > value is 0.00001. Denominators of this size occur when the
@@ -265,11 +265,11 @@ These variables can be specified in any order, one per line. The Tool
 writes a warning to the log file if there are unrecognized variable
 names. Users can customize the sample control CSV files that are
 provided with the Surrogate Tool for their application: the sample file
-“control\_variables\_grid.csv” is for regular-grid-based surrogates,
-“control\_variables\_egrid.csv” is for egrid-based surrogates, and
-“control\_variables\_poly.csv” is for polygon-based surrogates.
+“control_variables_grid.csv” is for regular-grid-based surrogates,
+“control_variables_egrid.csv” is for egrid-based surrogates, and
+“control_variables_poly.csv” is for polygon-based surrogates.
 
-The variable DENOMINATOR\_THRESHOLD is used to prevent surrogates from
+The variable DENOMINATOR_THRESHOLD is used to prevent surrogates from
 being output for tiny areas that result from offsets of the same
 boundaries that appear in both data and weight shapefiles due to
 different data sources and processes (e.g. county data versus population
@@ -282,8 +282,8 @@ Surrogate Tool runs the srgcreate program which overlays the modeling
 polygons (such as grids) with the base data polygons (such as county
 polygons) and weight shapes (such a census tracts for population, roads,
 or airports) to perform the surrogate ratio computation. If the
-denominator is smaller than the specified DENOMINATOR\_THRESHOLD, the
-surrogate ratio is output as a comment line starting with \# (which
+denominator is smaller than the specified DENOMINATOR_THRESHOLD, the
+surrogate ratio is output as a comment line starting with # (which
 causes the line to be ignored by SMOKE and the surrogate merging and
 gapfilling tools).
 
@@ -305,9 +305,9 @@ extends beyond the grid domain, due to numerical rounding in calculation
 or for any other reason. **Note that all comment lines in the original
 surrogate data are lost in merged or gapfilled surrogate output files
 because the merging and gapfilling tools remove any lines starting with
-a ‘\#’.**
+a ‘#’.**
 
-An example of the problem that the DENOMINATOR\_THRESHOLD prevents is as
+An example of the problem that the DENOMINATOR_THRESHOLD prevents is as
 follows. During development of the Surrogate Tool (prior to implementing
 this feature), we observed that surrogate ratios were computed for
 counties that had very small values for the denominators. This occurred
@@ -325,7 +325,7 @@ county boundaries not matching exactly in the two files so that small
 portions of counties with non-zero urban population would be allocated
 to adjacent counties with zero urban populations. As a result, surrogate
 values would be output for those counties. This type of problem can now
-be eliminated using the DENOMINATOR\_THRESHOLD variable.
+be eliminated using the DENOMINATOR_THRESHOLD variable.
 
 ### 3.3 Shapefile Catalog
 
@@ -335,10 +335,10 @@ surrogate generation. You can specify the path for all shapefiles in the
 control variable CSV file using SHAPEFILE DIRECTORY variable. If the
 variable is not defined in the control file, the path specified in the
 shapefile catalog will be used. The sample shapefile catalog provided
-with the Surrogate Tool is shapefile\_catalog.csv. The shapefiles used
+with the Surrogate Tool is shapefile_catalog.csv. The shapefiles used
 by this catalog are available as a gzipped tar file
-(emiss\_shp2003.tar.gz), that will be installed under the
-\$SA\_HOME/data/emiss\_shp2003 directory. This data includes US
+(emiss_shp2003.tar.gz), that will be installed under the
+$SA_HOME/data/emiss_shp2003 directory. This data includes US
 shapefiles. You can download additional shapefiles for Canada from the
 EPA Emission Inventory web site
 (<ftp://ftp.epa.gov/EmisInventory/emiss_shp2003/>). Check the SHAPEFILE
@@ -353,7 +353,7 @@ here. There are four columns that must be specified for each line of the
 shapefile catalog: SHAPEFILE NAME, DIRECTORY, ELLIPSOID, and MAP
 PROJECTION. Any subsequent columns are optional and are ignored by the
 Surrogate Tool. Note that the entries in the DIRECTORY column can be
-used to specify relative paths beneath your main SHAPEFILE\_DIRECTORY,
+used to specify relative paths beneath your main SHAPEFILE_DIRECTORY,
 which is specified in the control variable file. Some recommended
 additional columns for metadata purposes are SHAPE TYPE (point, line, or
 polygon), DESCRIPTION, DATA SOURCE (the source of the shapefile),
@@ -385,7 +385,7 @@ surrogate specification file as it would look loaded into a spreadsheet
 is shown in Tables 4a and 4b (note that the format of each row is split
 into parts (a) and (b) so that the information fits on the pages of this
 document). The sample specification file provided with the tool – is
-named “surrogate\_specification\_2002.csv”. It can be modified by adding
+named “surrogate_specification_2002.csv”. It can be modified by adding
 new surrogates to the table or by changing the attributes used for
 surrogate computation. This file can be edited using a standard text
 editor; however, due to the large number of columns, we believe that a
@@ -405,7 +405,7 @@ columns are:
     the combination of REGION and SURROGATE CODE must be unique in the
     SSF.
 
-4.  DATA SHAPEFILE: the name shapefile to use for the base \[data\]
+4.  DATA SHAPEFILE: the name shapefile to use for the base [data]
     polygons (e.g., counties, provinces). The name of this shapefile
     must appear in the SHAPEFILE NAME column of the shapefile catalog.
 
@@ -433,22 +433,22 @@ columns are:
 8.  WEIGHT FUNCTION: a function to use for computing the weight of the
     surrogate. The attributes used in the function should exist in the
     weight shapefile. The weight function can be any arithmetic equation
-    containing the operators +, -, \*, /, (, ), numeric constants, and
+    containing the operators +, -, *, /, (, ), numeric constants, and
     names of attributes that exist in the weight shapefile. Exponential
     notation and power functions are not currently supported, nor are
     unary negative numbers used as constants (e.g., X1 + -5 should be
     X1 - 5). Examples of acceptable weight functions are:
-    WEIGHT\_FUNCTION=(IND1+IND2+IND3+IND4+IND5) or
-    WEIGHT\_FUNCTION=0.75\*urban+0.25\*rural (see
+    WEIGHT_FUNCTION=(IND1+IND2+IND3+IND4+IND5) or
+    WEIGHT_FUNCTION=0.75*urban+0.25*rural (see
     <http://www.ie.unc.edu/cempd/projects/mims/spatial/weight_func.html>
     for more information).
 
 9.  FILTER FUNCTION: specifies “filter” or selection criteria for shapes
     to include or not include in the surrogate computation (e.g.,
-    ROAD\_TYPE!=2) excludes all shapes for which ROAD\_TYPE does not
-    equal 2, and GRID\_CODE=61,81,82 includes all shapes for which the
-    GRID\_CODE is 61, 81, or 82). Multiple filters can be specified if
-    they are separated by semicolons (e.g., LENGTH=100-200;NAME=C\*).
+    ROAD_TYPE!=2) excludes all shapes for which ROAD_TYPE does not
+    equal 2, and GRID_CODE=61,81,82 includes all shapes for which the
+    GRID_CODE is 61, 81, or 82). Multiple filters can be specified if
+    they are separated by semicolons (e.g., LENGTH=100-200;NAME=C*).
     This function is not used if this surrogate is being created by
     merging existing surrogates **(see
     <http://www.ie.unc.edu/cempd/projects/mims/spatial/filters.html> for
@@ -457,8 +457,8 @@ columns are:
 10. MERGE FUNCTION: specifies a function to use when creating a
     surrogate by merging or concatenating existing surrogates.
     Referenced surrogates can be in the SSF or external (e.g.,
-    0.5\*../data/surrogate\_file|Forest+0.5\*Rural Land,
-    Population\[US\];Population\[Canada\],Population\[Mexico\]) where
+    0.5*../data/surrogate_file|Forest+0.5*Rural Land,
+    Population[US];Population[Canada],Population[Mexico]) where
     the ‘|’ character separates the name of the file containing the
     surrogate(s) from the name of the surrogate itself, and the string
     within the brackets corresponds to a region name. A further
@@ -467,18 +467,18 @@ columns are:
 11. SECONDARY SURROGATE: the name of a surrogate to use as a secondary
     surrogate to gapfill the values of the primary surrogate. Referenced
     surrogates can be in the SSF or external (e.g., Population,
-    ../data/surrogate\_file|surrogate\_name).
+    ../data/surrogate_file|surrogate_name).
 
 12. TERTIARY SURROGATE: the name of a surrogate to use as a tertiary
     surrogate to gapfill the values of the primary surrogate. Referenced
     surrogates can be in the SSF or external (e.g.,
-    Population\[Mexico\], ../data/surrogate\_file|surrogate\_name).
+    Population[Mexico], ../data/surrogate_file|surrogate_name).
 
 13. QUARTERNARY SURROGATE: the name of a surrogate to use as a
     quarternary surrogate to gapfill the values of the primary
     surrogate. Referenced surrogates can be in the SSF or external
-    (e.g., Population\[Mexico\],
-    ../data/surrogate\_file|surrogate\_name).
+    (e.g., Population[Mexico],
+    ../data/surrogate_file|surrogate_name).
 
 Recall that the combination of REGION and SURROGATE CODE values must be
 unique in the SSF. For example, you may wish to generate population
@@ -503,13 +503,13 @@ concatenated.
 > shapefile, or point count for a point weight shapefile.
 >
 > If a function of multiple attributes is to be used for the weight,
-> this is specified in the WEIGHT\_FUNCTION column (e.g.,
+> this is specified in the WEIGHT_FUNCTION column (e.g.,
 > COM1+COM2+COM3). In cases where not all shapes from the shapefile are
 > to be used to generate the surrogate, a FILTER FUNCTION is specified
-> (e.g., ROAD\_TYPE=1,2,3 to use only shapes with road types of 1, 2, or
-> 3; or ROAD\_TYPE != 1 with road type not equal to 1). Multiple filters
+> (e.g., ROAD_TYPE=1,2,3 to use only shapes with road types of 1, 2, or
+> 3; or ROAD_TYPE != 1 with road type not equal to 1). Multiple filters
 > can be specified if they are separated by semicolons (e.g.,
-> LENGTH=100-200;NAME=C\*).
+> LENGTH=100-200;NAME=C*).
 >
 > Gap filling will be performed if surrogates are given in the SECONDARY
 > SURROGATE, TERTIARY SURROGATE, or QUARTERNARY SURROGATE columns. Gap
@@ -518,7 +518,7 @@ concatenated.
 > ratios when the value of the weight attributes for the county are
 > zero, there are no weight shapes that intersect the county, or the
 > total weight surrogate of this county (denominator in surrogate ratio
-> computation) is less than DENOMINATOR\_THRESHOLD). Gapfilling ensures
+> computation) is less than DENOMINATOR_THRESHOLD). Gapfilling ensures
 > that every county with emission inventory data has the surrogate
 > ratios to distribute the emission data. For example, the inventory
 > could have railroad emissions in a county, even if the weight
@@ -527,15 +527,15 @@ concatenated.
 > be used as the secondary surrogate.
 >
 > If the surrogate to be computed is a function of other surrogates, a
-> MERGE FUNCTION should be specified (e.g., 0.75\*Roadway Miles +
-> 0.25\*Population). Careful consideration needs to be given regarding
+> MERGE FUNCTION should be specified (e.g., 0.75*Roadway Miles +
+> 0.25*Population). Careful consideration needs to be given regarding
 > how to gapfill surrogates that use a merge function. This is because
 > when merging, the srgmerge program does not output values for any
 > counties that do not have values for *all* surrogates that are
 > referenced in the merge function. To extend the 0.75 Total Roadway
 > Miles plus 0.25 Population surrogate example, if Total Roadway Miles
 > were missing for a particular county, srgmerge cannot know that the
-> solution is to use 1 \* Population. You can account for this by
+> solution is to use 1 * Population. You can account for this by
 > gapfilling your merged surrogate with the input surrogates in the
 > order that you prefer (e.g., you might gapfill the 0.75 Total Roadway
 > Miles plus 0.25 Population surrogate with Total Roadway Miles and then
@@ -545,13 +545,13 @@ concatenated.
 > MERGE FUNCTION that has the individual surrogates separated with
 > semicolons. If the region for the source surrogates is different from
 > the region of the output surrogate, the syntax:
-> *surrogate*\[*region*\] is used. Note that the headers for the
+> *surrogate*[*region*] is used. Note that the headers for the
 > concatenated surrogates will appear at the top of each surrogate. An
 > example of concatenation is to merge population surrogates from North
 > America. To do this, one would use the following syntax in the MERGE
 > FUNCTION column:
 >
-> Population\[USA\];Population\[MEXICO\];Population\[CANADA\].
+> Population[USA];Population[MEXICO];Population[CANADA].
 >
 > External surrogates can be specified as input for merging or gap
 > filling using the following syntax: *file name* | *surrogate name*. If
@@ -561,14 +561,14 @@ concatenated.
 > surrogate names should be specified in the surrogate code CSV file
 > using the syntax:
 >
-> \#SRGDESC=*surrogate code, surrogate name*
+> #SRGDESC=*surrogate code, surrogate name*
 >
 > For example, you might have the following records in your surrogate
 > file:
 >
-> \#SRGDESC=100,Population\
-> \#SRGDESC=110,Housing\
-> \#SRGDESC=120,Half population half housing
+> #SRGDESC=100,Population
+> #SRGDESC=110,Housing
+> #SRGDESC=120,Half population half housing
 
 ### 3.5 Surrogate Code File
 
@@ -576,10 +576,10 @@ A *surrogate code file* is a CSV file used by surrogate merging and
 gapfilling tools that specifies the mapping of surrogates names to
 surrogate codes. This is required because merging and gapfilling use the
 names of surrogates in their text input files. The syntax of this file
-is just a collection of \#SRGDESC lines, as shown at the end of the
+is just a collection of #SRGDESC lines, as shown at the end of the
 preceding section. The Surrogate Tool will find surrogate codes from
 this CSV file using the surrogate names. The sample surrogate code CSV
-file named “surrogate\_codes.csv” is included with the Surrogate Tool
+file named “surrogate_codes.csv” is included with the Surrogate Tool
 and contains surrogate names and codes from 100 to 940 used by the US
 EPA for the USA and Canada regions. When external surrogates are used in
 merge and gapfill functions, users need to add external surrogate
@@ -590,7 +590,7 @@ entries to the CSV file.
 The *generation control file* is a CSV file that specifies the
 surrogates to create for a specific run of the Surrogate Tool. Users can
 modify the sample generation control file provided with the Surrogate
-Tool, named “surrogate\_generation\_grid.csv”, for their computation
+Tool, named “surrogate_generation_grid.csv”, for their computation
 (see Table 5). The columns REGION, SURROGATE, SURROGATE CODE, GENERATE,
 and QUALITY ASSURANCE are required to be included in the file. If the
 value in the GENERATE column is YES, the surrogate will be generated. If
@@ -604,399 +604,140 @@ To ensure consistency, you may wish to copy these columns directly from
 the surrogate specification file and paste them into this file to create
 it.
 
-**Table 1. Example of a Global Control Variables File for RegularGrid
-Loaded into a Spreadsheet (control\_variables\_grid.csv) **
+**Table 1. Example of a Global Control Variables File for RegularGrid Loaded into a Spreadsheet(control_variables_grid.csv) **
 
-  ------------------------------------ -------------------------------------- ------------------------------------------------------------------------------------------------------------------------------------------------
-  **VARIABLE**                         **VALUE**                              **DESCRIPTION**
-  GENERATION CONTROL FILE              ./surrogate\_generation\_grid.csv      File containing surrogates for computation
-  SURROGATE SPECIFICATION FILE         ./surrogate\_specification\_2002.csv   File containing settings for generating surrogates
-  SHAPEFILE CATALOG                    ./shapefile\_catalog.csv               Shapefile names and map projection information
-  SHAPEFILE DIRECTORY                  ../data/emiss\_shp2003/us              Directory containing all shapefiles needed
-  SURROGATE CODE FILE                  ./surrogate\_codes.csv                 List of surrogate codes and names
-  SRGCREATE EXECUTABLE                 ../bin/srgcreate.exe                   Location of srgcreate executable
-  SRGMERGE EXECUTABLE                  Java                                   ( use Java merge and gapfill)
-  DEBUG\_OUTPUT                        Y                                      Output debug control
-  OUTPUT\_FORMAT                       SMOKE                                  Output files used for SMOKE
-  OUTPUT\_FILE\_TYPE                   RegularGrid                            Type of output shapes being generated - RegularGrid or Polygon
-  OUTPUT\_GRID\_NAME                   M08\_NASH                              This is a grid name for regular grid output area
-  GRIDDESC                             ./GRIDDESC.txt                         It is the file containing the list of available of grids (needed only for SMOKE surrogates)
-  OUTPUT\_FILE\_ELLIPSOID              "+a=6370000.0,+b=6370000.0"            Output grid projection ellipsoid
-  OUTPUT DIRECTORY                     ../output/M08\_NASH                    Directory for individual surrogate files
-  OUTPUT SURROGATE FILE                ../output/M08\_NASH/srg\_total.txt     Name and path for the final merged surrogate file output from srgtool
-  OUTPUT SRGDESC FILE                  ../output/M08\_NASH/SRGDESC.txt        File with surrogate codes and description
-  OVERWRITE OUTPUT FILES               YES                                    Users can choose YES to overwrite the individual and total output surrogate ratio files
-  LOG FILE NAME                        srg\_grid.log                          Log file to store all information from running the program
-  DENOMINATOR\_THRESHOLD               0.0005                                 Surrogate ratio is output as comment line with \# sign if denominator of surrogate ratio computation is less than the threshold (default=1E-5)
-  COMPUTE SURROGATES FROM SHAPEFILES   YES                                    If set to YES, srgcreate is called to compute surrogates
-  MERGE SURROGATES                     YES                                    If set to YES the surrogates will be merged
-  GAPFILL SURROGATES                   YES                                    If set toYES, the surrogates will be gapfilled
-  ------------------------------------ -------------------------------------- ------------------------------------------------------------------------------------------------------------------------------------------------
+|**VARIABLE**|**VALUE**|**DESCRIPTION**|
+|---|---|---|
+|GENERATION CONTROL FILE|./surrogate_generation_grid.csv|File containing surrogates for computation|
+|SURROGATE SPECIFICATION FILE|./surrogate_specification_2002.csv|File containing settings for generating surrogates
+|SHAPEFILE CATALOG|./shapefile_catalog.csv|Shapefile names and map projection information|
+|SHAPEFILE DIRECTORY|../data/emiss_shp2003/us|Directory containing all shapefiles needed|
+|SURROGATE CODE FILE|./surrogate_codes.csv|List of surrogate codes and names|
+|SRGCREATE EXECUTABLE|../bin/srgcreate.exe|Location of srgcreate executable|
+|SRGMERGE EXECUTABLE|Java|( use Java merge and gapfill)|
+|DEBUG_OUTPUT|Y|Output debug control
+|OUTPUT_FORMAT|SMOKE|Output files used for SMOKE
+|OUTPUT_FILE_TYPE|RegularGrid|Type of output shapes being generated - RegularGrid or Polygon
+|OUTPUT_GRID_NAME|M08_NASH|This is a grid name for regular grid output area
+|GRIDDESC|./GRIDDESC.txt|It is the file containing the list of available of grids (needed only for SMOKE surrogates)
+|OUTPUT_FILE_ELLIPSOID|"+a=6370000.0,+b=6370000.0"|Output grid projection ellipsoid|
+|OUTPUT DIRECTORY|../output/M08_NASH|Directory for individual surrogate files|
+|OUTPUT SURROGATE FILE|../output/M08_NASH/srg_total.txt|Name and path for the final merged surrogate file output from srgtool|
+|OUTPUT SRGDESC FILE|../output/M08_NASH/SRGDESC.txt|File with surrogate codes and description|
+|OVERWRITE OUTPUT FILES|YES|Users can choose YES to overwrite the individual and total output surrogate ratio files
+|LOG FILE NAME|srg_grid.log|Log file to store all information from running the program
+|DENOMINATOR_THRESHOLD|0.0005|Surrogate ratio is output as comment line with # sign if denominator of surrogate ratio computation is less than the threshold (default=1E-5)
+|COMPUTE SURROGATES FROM SHAPEFILES|YES|If set to YES, srgcreate is called to compute surrogates
+|MERGE SURROGATES|YES|If set to YES the surrogates will be merged|
+|GAPFILL SURROGATES|YES|If set toYES, the surrogates will be gapfilled|
+
 
 **Table 2. The Global Control Variables File for RegularGrid as A CSV
-File (control\_variables\_grid.csv)**
+File (control_variables_grid.csv)**
 
-VARIABLE,VALUE,DESCRIPTION
+|***VARIABLE***|***VALUE***|***DESCRIPTION***|
+|---|---|---|
+|GENERATION CONTROL FILE|./surrogate_generation_grid.csv|File containing surrogates for computation|
+|SURROGATE SPECIFICATION FILE|./surrogate_specification_2002.csv|File containing settings for generating surrogates|
+|SHAPEFILE CATALOG|./shapefile_catalog.csv|Shapefile names and map projection information|
+|SHAPEFILE DIRECTORY|../data /emiss_shp2003/us|Directory containing all shapefiles needed|
+|SURROGATE CODE FILE|./surrogate_IDs.csv|List of surrogate codes and names|
+|SRGCREATE EXECUTABLE|../bin/srgcreate.exe|Location of srgcreate executable
+|SRGMERGE EXECUTABLE|Java| set to Java to use Java gapfilling and merging|
+|DEBUG_OUTPUT|Y|Output debug control|
+|OUTPUT_FORMAT|SMOKE|output files used for SMOKE
+|OUTPUT_FILE_TYPE|RegularGrid|Type of output shapes being generated -RegularGrid or Polygon
+|OUTPUT_GRID_NAME|M08_NASH|"This is a grid name for output area."|
+|GRIDDESC|./GRIDDESC.txt|"It is the file containing the list of available of grids (needed only for SMOKE surrogates)."|
+|OUTPUT_FILE_ELLIPSOID| "+a=6370000.0,+b=6370000.0"|"Output grid projection ellipsoid for the grid."|
+|OUTPUT DIRECTORY|../output/M08_NASH|Directory for individual surrogate files|
+|OUTPUT SURROGATE FILE|../output/M08_NASH/srg_total.txt|name and path for the final merged surrogate file output from srgtool|
+|OUTPUT SRGDESC FILE|../output/M08_NASH/SRGDESC.txt|file with surrogate codes and description|
+|OVERWRITE OUTPUT FILES|YES|Users can choose YES to overwrite the individual and total output surrogate ratio files|
+|LOG FILE NAME|srg_grid.log|log file to store all information from running the program|
+|DENOMINATOR_THRESHOLD|0.0005|Surrogate ratio is output as comment line with # sign if denominator of surrogate ratio computation is less than the threshol|
+|COMPUTE SURROGATES FROM SHAPEFILES|YES|"If set to YES srgcreate is called to compute surrogates."
+|MERGE SURROGATES|YES|" If set to YES, the surrogates will be merged."|
+|GAPFILL SURROGATES|YES|" If set to YES, gapfilling will be performed."
 
-GENERATION CONTROL FILE,./surrogate\_generation\_grid.csv,File
-containing surrogates for computation
-
-SURROGATE SPECIFICATION FILE,./surrogate\_specification\_2002.csv,File
-containing settings for generating surrogates
-
-SHAPEFILE CATALOG,./shapefile\_catalog.csv,Shapefile names and map
-projection information
-
-SHAPEFILE DIRECTORY,../data /emiss\_shp2003/us,Directory containing all
-shapefiles needed
-
-SURROGATE CODE FILE,./surrogate\_IDs.csv,List of surrogate codes and
-names
-
-SRGCREATE EXECUTABLE,../bin/srgcreate.exe,Location of srgcreate
-executable
-
-SRGMERGE EXECUTABLE,Java, set to Java to use Java gapfilling and merging
-
-DEBUG\_OUTPUT,Y,Output debug control
-
-OUTPUT\_FORMAT,SMOKE,output files used for SMOKE
-
-OUTPUT\_FILE\_TYPE,RegularGrid,Type of output shapes being generated -
-RegularGrid or Polygon
-
-OUTPUT\_GRID\_NAME,M08\_NASH,"This is a grid name for output area."
-
-GRIDDESC,./GRIDDESC.txt,"It is the file containing the list of available
-of grids (needed only for SMOKE surrogates)."
-
-OUTPUT\_FILE\_ELLIPSOID, "+a=6370000.0,+b=6370000.0","Output grid
-projection ellipsoid for the grid."
-
-OUTPUT DIRECTORY,../output/M08\_NASH,Directory for individual surrogate
-files
-
-OUTPUT SURROGATE FILE,../output/M08\_NASH/srg\_total.txt,name and path
-for the final merged surrogate file output from srgtool
-
-OUTPUT SRGDESC FILE,../output/M08\_NASH/SRGDESC.txt,file with surrogate
-codes and description
-
-OVERWRITE OUTPUT FILES,YES,Users can choose YES to overwrite the
-individual and total output surrogate ratio files
-
-LOG FILE NAME,srg\_grid.log,log file to store all information from
-running the program
-
-DENOMINATOR\_THRESHOLD,0.0005,Surrogate ratio is output as comment line
-with \# sign if denominator of surrogate ratio computation is less than
-the threshold
-
-COMPUTE SURROGATES FROM SHAPEFILES,YES,"If set to YES, srgcreate is
-called to compute surrogates."
-
-MERGE SURROGATES,YES," If set to YES, the surrogates will be merged."
-
-GAPFILL SURROGATES,YES," If set to YES, gapfilling will be performed."
-
-**\
+**
 Table 3. Example of a Shapefile Catalog Loaded into a Spreadsheet
-(shapefile\_catalog.csv). **
+(shapefile_catalog.csv). **
 
-  ---------------------- --------------------------- --------------------------- ------------------------------------------------------- ---------------- ------------------------------------------------------------------------------------------------ ----------------------------------------------------
-  **SHAPEFILE NAME**     **DIRECTORY**               **ELLIPSOID**               **PROJECTION**                                          **SHAPE TYPE**   **DESCRIPTION**                                                                                  **DATA SOURCE**
-  county\_pophu02        ../data/emiss\_shp2003/us   +a=6370997.0,+b=6370997.0   Proj=lcc,+lat\_1=33,+lat\_2=45,+lat\_0=40,+lon\_0=-97   Polygon          US county polygon data from shapefile pophu2k                                                    Extracted and edited from pophu2k
-  county\_pophu02water   ../data/emiss\_shp2003/us   +a=6370997.0,+b=6370997.0   Proj=lcc,+lat\_1=33,+lat\_2=45,+lat\_0=40,+lon\_0=-97   Polygon          US county polygon data from shapefile pophu2k                                                    Extracted and processed from pophu2k
-  pophu2k                ../data/emiss\_shp2003/us   +a=6370997.0,+b=6370997.0   Proj=lcc,+lat\_1=33,+lat\_2=45,+lat\_0=40,+lon\_0=-97   Polygon          Population and housing units from Census 2000                                                    US Census Bureau
-  vi\_pophu2k            ../data/emiss\_shp2003/us   +a=6370997.0,+b=6370997.0   Proj=lcc,+lat\_1=33,+lat\_2=45,+lat\_0=40,+lon\_0=-97   Polygon          Population and housing units from Census 2000 for Virginia Islands                               
-  us\_ph                 ../data/emiss\_shp2003/us   +a=6370997.0,+b=6370997.0   Proj=lcc,+lat\_1=33,+lat\_2=45,+lat\_0=40,+lon\_0=-97   Polygon          The change in housing between 1990 and 2000                                                      Computed
-  us\_heat               ../data/emiss\_shp2003/us   +a=6370997.0,+b=6370997.0   Proj=lcc,+lat\_1=33,+lat\_2=45,+lat\_0=40,+lon\_0=-97   Polygon          Number of housing units in primary heating categories for each census block                      US Census Bureau
-  usrds\_2000            ../data/emiss\_shp2003/us   +a=6370997.0,+b=6370997.0   Proj=lcc,+lat\_1=33,+lat\_2=45,+lat\_0=40,+lon\_0=-97   Line             primary and secondary roads for urban and rural areas                                            US Census Bureau – TIGER
-  us\_rail2k             ../data/emiss\_shp2003/us   +a=6370997.0,+b=6370997.0   proj=lcc,+lat\_1=33,+lat\_2=45,+lat\_0=40,+lon\_0=-97   Line             Class 1-3 and unknown classified railroads                                                       Transportation Atlas Data & Census 2000 TIGER data
-  us\_lowres             ../data/emiss\_shp2003/us   +a=6370997.0,+b=6370997.0   proj=lcc,+lat\_1=33,+lat\_2=45,+lat\_0=40,+lon\_0=-97   Polygon          Area of NLCD Low Intensity Residential Land                                                      NLCD
-  us\_ag2k               ../data/emiss\_shp2003/us   +a=6370997.0,+b=6370997.0   proj=lcc,+lat\_1=33,+lat\_2=45,+lat\_0=40,+lon\_0=-97   Polygon          Agricultural lands—areas of Pasture/Hay, Grains, Row Crops, Fallow Land and Orchards/Vineyards   NLCD
-  ---------------------- --------------------------- --------------------------- ------------------------------------------------------- ---------------- ------------------------------------------------------------------------------------------------ ----------------------------------------------------
+
+|**SHAPEFILE NAME**|**DIRECTORY**|**ELLIPSOID**|**PROJECTION**|**SHAPE TYPE**|**DESCRIPTION**|**DATA SOURCE**|
+|---|---|---|---|---|---|
+|county_pophu02|../data/emiss_shp2003/us|+a=6370997.0,+b=6370997.0|Proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97|Polygon|US county polygon data from shapefile pophu2k|Extracted and edited from pophu2k|
+|county_pophu02water|../data/emiss_shp2003/us|+a=6370997.0,+b=6370997.0|Proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97|Polygon|US county polygon data from shapefile pophu2k|Extracted and processed from pophu2k|
+|pophu2k|../data/emiss_shp2003/us|+a=6370997.0,+b=6370997.0|Proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97|Polygon|Population and housing units from Census 2000|US Census Bureau|
+|vi_pophu2k|../data/emiss_shp2003/us|+a=6370997.0,+b=6370997.0|Proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97|Polygon|Population and housing units from Census 2000 for Virginia Islands|
+|us_ph|../data/emiss_shp2003/us|+a=6370997.0,+b=6370997.0|Proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97|Polygon|The change in housing between 1990 and 2000|Computed|
+|us_heat|../data/emiss_shp2003/us|+a=6370997.0,+b=6370997.0|Proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97|Polygon|Number of housing units in primary heating categories for each census block|US Census Bureau|
+|usrds_2000|../data/emiss_shp2003/us   +a=6370997.0,+b=6370997.0|Proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97|Line             primary and secondary roads for urban and rural areas|US Census Bureau – TIGER|
+|us_rail2k|../data/emiss_shp2003/us|+a=6370997.0,+b=6370997.0|proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97|Line|Class 1-3 and unknown classified railroads|Transportation Atlas Data & Census 2000 TIGER data
+|us_lowres|../data/emiss_shp2003/us|+a=6370997.0,+b=6370997.0|proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97|Polygon|Area of NLCD Low Intensity Residential Land|NLCD|
+|us_ag2k|../data/emiss_shp2003/us   +a=6370997.0,+b=6370997.0|proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97|Polygon          Agricultural lands—areas of Pasture/Hay, Grains, Row Crops, Fallow Land and Orchards/Vineyards|NLCD
+
 
 **Table 4a. Example of the Left Columns of the Surrogate Specification
-File Loaded into a Spreadsheet (surrogate\_specification\_2002.csv)**
+File Loaded into a Spreadsheet (surrogate_specification_2002.csv)**
 
-  -------- ----------------------------------------------- ---------------- ---------------------- ---------------- ------------------ ------------------ --------------------------------- ----------------------------
-  REGION   SURROGATE                                       SURROGATE CODE   DATA SHAPEFILE         DATA ATTRIBUTE   WEIGHT SHAPEFILE   WEIGHT ATTRIBUTE   WEIGHT FUNCTION                   FILTER FUNCTION
-  USA      Population                                      100              county\_pophu02        FIPSSTCO         pophu2k            POP2000                                              
-  USA      Urban Population                                120              county\_pophu02        FIPSSTCO         pophu2k            URBAN                                                
-  USA      Residential Heating - Natural Gas               150              county\_pophu02        FIPSSTCO         us\_heat           UTIL\_GAS                                            
-  USA      Total Road Miles                                240              county\_pophu02        FIPSSTCO         usrds\_2000        NONE               \_                                
-  USA      Urban Primary Road Miles                        200              county\_pophu02        FIPSSTCO         usrds\_2000        NONE                                                 NEWRD\_CLAS = 1
-  USA      0.75 Total Roadway Miles plus 0.25 Population   255                                                                                                                              
-  USA      Land                                            340              county\_pophu02        FIPSSTCO         us\_lw2k           NONE                                                 H20\_CODE=2
-  USA      Water                                           350              county\_pophu02water   FIPSSTCO         us\_lw2k           NONE                                                 H20\_CODE!=2
-  USA      Rural Land Area                                 400              county\_pophu02        FIPSSTCO         rural\_land        NONE                                                 RL\_FLAG=Rural Land
-  USA      Total Agriculture                               310              county\_pophu02        FIPSSTCO         us\_ag2k           NONE                                                 GRID\_CODE=61,81, 82,83,84
-  USA      Industrial Land                                 505              county\_pophu02        FIPSSTCO         us\_lu2k                              IND1+IND2+ IND3+IND4+ IND5+IND6   
-  USA      Heavy and High Tech Industrial (IND1 + IND5)    570              county\_pophu02        FIPSSTCO         us\_lu2k                              IND1+IND5                         
-  USA      Forest External                                 328                                                                                                                              
-  NA       Population                                      100                                                                                                                              
-  -------- ----------------------------------------------- ---------------- ---------------------- ---------------- ------------------ ------------------ --------------------------------- ----------------------------
+|***REGION***|***SURROGATE***|***SURROGATE CODE***|***DATA SHAPEFILE***|***DATA ATTRIBUTE***|***WEIGHT SHAPEFILE***|***WEIGHT ATTRIBUTE***|***WEIGHT FUNCTION***|***FILTER FUNCTION***|
+|---|---|---|---|---|---|---|---|---|
+|USA|Population|100|county_pophu02|FIPSSTCO|pophu2k|POP2000| | |
+|USA|Urban Population|120|county_pophu02|FIPSSTCO|pophu2k|URBAN| | |
+|USA|Residential Heating - Natural Gas|150|county_pophu02|FIPSSTCO|us_heat|UTIL_GAS|
+|USA|Total Road Miles|240|county_pophu02|FIPSSTCO|usrds_2000|NONE|
+|USA|Urban Primary Road Miles|200|county_pophu02|FIPSSTCO|usrds_2000|NONE|NEWRD_CLAS = 1|
+|USA|0.75 Total Roadway Miles plus 0.25 Population|255|
+|USA|Land|340|county_pophu02|FIPSSTCO|us_lw2k|NONE|H20_CODE=2|
+|USA|Water|350|county_pophu02water|FIPSSTCO|us_lw2k|NONE|H20_CODE!=2|
+|USA|Rural Land Area|400|county_pophu02|FIPSSTCO|rural_land|NONE|RL_FLAG=Rural Land
+|USA|Total Agriculture|310|county_pophu02|FIPSSTCO         us_ag2k|NONE|GRID_CODE=61,81, 82,83,84
+|USA|Industrial Land|505|county_pophu02|FIPSSTCO|us_lu2k|IND1+IND2+ IND3+IND4+ IND5+IND6   
+|USA|Heavy and High Tech Industrial (IND1 + IND5)|570|county_pophu02|FIPSSTCO|us_lu2k|IND1+IND5|
+|USA|Forest External|328|NA|Population|100|                                                                                                                           
 
 **Table 4b. Example of the Right Columns of the Surrogate Specification
-File Loaded into a Spreadsheet (surrogate\_specification\_2002.csv)**
+File Loaded into a Spreadsheet (surrogate_specification_2002.csv)**
 
-+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-| REGIO | SURRO | Cols  | MERGE | SECON | TERTI | QUART | DETAI | COMME |
-| N     | GATE  | 3-9   | FUNCT | DARY  | ARY   | ER\   | LS    | NTS   |
-|       |       |       | ION   | SURRO | SURRO | NARY  |       |       |
-|       |       |       |       | GATE  | GATE  | SURRO |       |       |
-|       |       |       |       |       |       | GATE  |       |       |
-+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-| USA   | Popul | …     |       |       |       |       | Total |       |
-|       | ation |       |       |       |       |       | popul |       |
-|       |       |       |       |       |       |       | ation |       |
-|       |       |       |       |       |       |       | from  |       |
-|       |       |       |       |       |       |       | Censu |       |
-|       |       |       |       |       |       |       | s     |       |
-|       |       |       |       |       |       |       | 2000  |       |
-|       |       |       |       |       |       |       | block |       |
-|       |       |       |       |       |       |       | s     |       |
-+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-| USA   | Urban | …     |       | Popul |       |       | Total | URBAN |
-|       | Popul |       |       | ation |       |       | urban | 2     |
-|       | ation |       |       |       |       |       | popul | in    |
-|       |       |       |       |       |       |       | ation | Surro |
-|       |       |       |       |       |       |       | from  | gate  |
-|       |       |       |       |       |       |       | Censu | Sourc |
-|       |       |       |       |       |       |       | s     | e     |
-|       |       |       |       |       |       |       | 2000  | sheet |
-|       |       |       |       |       |       |       |       | .     |
-+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-| USA   | Resid | …     |       | Housi |       |       | Numbe |       |
-|       | entia |       |       | ng    |       |       | r     |       |
-|       | l     |       |       |       |       |       | of    |       |
-|       | Heati |       |       |       |       |       | Housi |       |
-|       | ng    |       |       |       |       |       | ng    |       |
-|       | -     |       |       |       |       |       | Units |       |
-|       | Natur |       |       |       |       |       | using |       |
-|       | al    |       |       |       |       |       | Utili |       |
-|       | Gas   |       |       |       |       |       | ty    |       |
-|       |       |       |       |       |       |       | Gas   |       |
-|       |       |       |       |       |       |       | for   |       |
-|       |       |       |       |       |       |       | prima |       |
-|       |       |       |       |       |       |       | ry    |       |
-|       |       |       |       |       |       |       | heati |       |
-|       |       |       |       |       |       |       | ng    |       |
-+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-| USA   | Total | …     |       | Popul |       |       | Sum   |       |
-|       | Road  |       |       | ation |       |       | of    |       |
-|       | Miles |       |       |       |       |       | rural |       |
-|       |       |       |       |       |       |       | prima |       |
-|       |       |       |       |       |       |       | ry,   |       |
-|       |       |       |       |       |       |       | urban |       |
-|       |       |       |       |       |       |       | prima |       |
-|       |       |       |       |       |       |       | ry,   |       |
-|       |       |       |       |       |       |       | rural |       |
-|       |       |       |       |       |       |       | secon |       |
-|       |       |       |       |       |       |       | dary  |       |
-|       |       |       |       |       |       |       | and   |       |
-|       |       |       |       |       |       |       | urban |       |
-|       |       |       |       |       |       |       | secon |       |
-|       |       |       |       |       |       |       | dary  |       |
-|       |       |       |       |       |       |       | road  |       |
-|       |       |       |       |       |       |       | miles |       |
-|       |       |       |       |       |       |       | .     |       |
-+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-| USA   | Urban | …     |       | Total | Popul |       | Road  | No    |
-|       | Prima |       |       | Road  | ation |       | Miles | FRDCL |
-|       | ry    |       |       | Miles |       |       | of    | ASS.  |
-|       | Road  |       |       |       |       |       | Urban | Shoul |
-|       | Miles |       |       |       |       |       | Prima | d     |
-|       |       |       |       |       |       |       | ry    | use   |
-|       |       |       |       |       |       |       | Roads | NEWRD |
-|       |       |       |       |       |       |       |       | \_CLA |
-|       |       |       |       |       |       |       |       | S     |
-|       |       |       |       |       |       |       |       | and   |
-|       |       |       |       |       |       |       |       | CLASS |
-|       |       |       |       |       |       |       |       | 1\_03 |
-|       |       |       |       |       |       |       |       | \_    |
-|       |       |       |       |       |       |       |       | ?     |
-+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-| USA   | 0.75  | …     | 0.75\ | Popul |       |       | Combi |       |
-|       | Total |       | *Tota | ation |       |       | natio |       |
-|       | Roadw |       | l     |       |       |       | n     |       |
-|       | ay    |       | Road  |       |       |       | of    |       |
-|       | Miles |       | Miles |       |       |       | 3/4   |       |
-|       | plus  |       | +     |       |       |       | total |       |
-|       | 0.25  |       | 0.25\ |       |       |       | road  |       |
-|       | Popul |       | *Popu |       |       |       | miles |       |
-|       | ation |       | latio |       |       |       | surro |       |
-|       |       |       | n     |       |       |       | gate  |       |
-|       |       |       |       |       |       |       | ratio |       |
-|       |       |       |       |       |       |       | and   |       |
-|       |       |       |       |       |       |       | 1/4   |       |
-|       |       |       |       |       |       |       | popul |       |
-|       |       |       |       |       |       |       | ation |       |
-|       |       |       |       |       |       |       | surro |       |
-|       |       |       |       |       |       |       | gate  |       |
-|       |       |       |       |       |       |       | ratio |       |
-+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-| USA   | Land  | …     |       |       |       |       | Land  |       |
-|       |       |       |       |       |       |       | Area  |       |
-|       |       |       |       |       |       |       | \*dat |       |
-|       |       |       |       |       |       |       | a     |       |
-|       |       |       |       |       |       |       | for   |       |
-|       |       |       |       |       |       |       | this  |       |
-|       |       |       |       |       |       |       | surro |       |
-|       |       |       |       |       |       |       | gate  |       |
-|       |       |       |       |       |       |       | is    |       |
-|       |       |       |       |       |       |       | conta |       |
-|       |       |       |       |       |       |       | ined  |       |
-|       |       |       |       |       |       |       | in    |       |
-|       |       |       |       |       |       |       | SMOKE |       |
-|       |       |       |       |       |       |       | -read |       |
-|       |       |       |       |       |       |       | y     |       |
-|       |       |       |       |       |       |       | bgpro |       |
-|       |       |       |       |       |       |       | files |       |
-|       |       |       |       |       |       |       | ,     |       |
-|       |       |       |       |       |       |       | not   |       |
-|       |       |       |       |       |       |       | ampro |       |
-|       |       |       |       |       |       |       | files |       |
-|       |       |       |       |       |       |       | .     |       |
-+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-| USA   | Water | …     |       | Navig | Navig | Land  | Water |       |
-|       |       |       |       | able  | able  |       | area  |       |
-|       |       |       |       | Water | Water |       |       |       |
-|       |       |       |       | way   | way   |       |       |       |
-|       |       |       |       | Activ | Miles |       |       |       |
-|       |       |       |       | ity   |       |       |       |       |
-+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-| USA   | Rural | …     |       | Land  |       |       | Land  | No    |
-|       | Land  |       |       |       |       |       | Area  | rural |
-|       | Area  |       |       |       |       |       | that  | \_lan |
-|       |       |       |       |       |       |       | is    | d     |
-|       |       |       |       |       |       |       | not   | in    |
-|       |       |       |       |       |       |       | withi | Sourc |
-|       |       |       |       |       |       |       | n     | es    |
-|       |       |       |       |       |       |       | an    | of    |
-|       |       |       |       |       |       |       | area  | Surro |
-|       |       |       |       |       |       |       | desig | gate  |
-|       |       |       |       |       |       |       | nated | sheet |
-|       |       |       |       |       |       |       | as an | (it   |
-|       |       |       |       |       |       |       | Urban | use   |
-|       |       |       |       |       |       |       | ized  | us\_u |
-|       |       |       |       |       |       |       | Area  | rban) |
-|       |       |       |       |       |       |       | or an | .     |
-|       |       |       |       |       |       |       | Urban |       |
-|       |       |       |       |       |       |       | Clust |       |
-|       |       |       |       |       |       |       | er.   |       |
-+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-| USA   | Total | …     |       | Rural | Land  |       | Sum   |       |
-|       | Agric |       |       | Land  |       |       | of:   |       |
-|       | ultur |       |       | Area  |       |       | Pastu |       |
-|       | e     |       |       |       |       |       | re/Ha |       |
-|       |       |       |       |       |       |       | y,    |       |
-|       |       |       |       |       |       |       | Grain |       |
-|       |       |       |       |       |       |       | s,    |       |
-|       |       |       |       |       |       |       | Row   |       |
-|       |       |       |       |       |       |       | Crops |       |
-|       |       |       |       |       |       |       | ,     |       |
-|       |       |       |       |       |       |       | Fallo |       |
-|       |       |       |       |       |       |       | w     |       |
-|       |       |       |       |       |       |       | Land  |       |
-|       |       |       |       |       |       |       | and   |       |
-|       |       |       |       |       |       |       | Orcha |       |
-|       |       |       |       |       |       |       | rds/V |       |
-|       |       |       |       |       |       |       | ineya |       |
-|       |       |       |       |       |       |       | rds   |       |
-+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-| USA   | Indus | …     |       | Urban | Land  | Popul | Sum   |       |
-|       | trial |       |       | Popul |       | ation | of    |       |
-|       | Land  |       |       | ation |       |       | build |       |
-|       |       |       |       |       |       |       | ing   |       |
-|       |       |       |       |       |       |       | squar |       |
-|       |       |       |       |       |       |       | e     |       |
-|       |       |       |       |       |       |       | foota |       |
-|       |       |       |       |       |       |       | ge:   |       |
-|       |       |       |       |       |       |       | IND1  |       |
-|       |       |       |       |       |       |       | +     |       |
-|       |       |       |       |       |       |       | IND2  |       |
-|       |       |       |       |       |       |       | +     |       |
-|       |       |       |       |       |       |       | IND3  |       |
-|       |       |       |       |       |       |       | +     |       |
-|       |       |       |       |       |       |       | IND4  |       |
-|       |       |       |       |       |       |       | +     |       |
-|       |       |       |       |       |       |       | IND5  |       |
-|       |       |       |       |       |       |       | +     |       |
-|       |       |       |       |       |       |       | IND6  |       |
-+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-| USA   | Heavy | …     |       | Indus | Urban | Popul | Sum   | Total |
-|       | and   |       |       | trial | Popul | ation | of    | Indus |
-|       | High  |       |       | Land  | ation |       | build | trial |
-|       | Tech  |       |       |       |       |       | ing   | in    |
-|       | Indus |       |       |       |       |       | squar | Table |
-|       | trial |       |       |       |       |       | e     | 1.    |
-|       | (IND1 |       |       |       |       |       | foota | Same  |
-|       | +     |       |       |       |       |       | ge    | as    |
-|       | IND5) |       |       |       |       |       | from  | Indus |
-|       |       |       |       |       |       |       | FEMA  | trial |
-|       |       |       |       |       |       |       | categ | Land? |
-|       |       |       |       |       |       |       | ories |       |
-|       |       |       |       |       |       |       | :     |       |
-|       |       |       |       |       |       |       | IND1  |       |
-|       |       |       |       |       |       |       | +     |       |
-|       |       |       |       |       |       |       | IND5  |       |
-+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-| USA   | Fores | …     | 0.5\* | ../ou |       |       |       |       |
-|       | t     |       | ../ou | tput/ |       |       |       |       |
-|       | Exter |       | tput/ |       |       |       |       |       |
-|       | nal   |       |       | US36K |       |       |       |       |
-|       |       |       | US36K | M\_20 |       |       |       |       |
-|       |       |       | M\_20 | X20/  |       |       |       |       |
-|       |       |       | X20/f | mypop |       |       |       |       |
-|       |       |       | orest | \_100 |       |       |       |       |
-|       |       |       | .txt| | .txt| |       |       |       |       |
-|       |       |       |       |       |       |       |       |       |
-|       |       |       | Fores | My    |       |       |       |       |
-|       |       |       | t     | Popul |       |       |       |       |
-|       |       |       | Exter | ation |       |       |       |       |
-|       |       |       | nal+\ |       |       |       |       |       |
-|       |       |       | 0.5\* |       |       |       |       |       |
-|       |       |       | Rural |       |       |       |       |       |
-|       |       |       | Land  |       |       |       |       |       |
-|       |       |       | Area  |       |       |       |       |       |
-+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-| NA    | Popul | …     | Popul |       |       |       |       |       |
-|       | ation |       | ation |       |       |       |       |       |
-|       |       |       | \[USA |       |       |       |       |       |
-|       |       |       | \];\  |       |       |       |       |       |
-|       |       |       | Popul |       |       |       |       |       |
-|       |       |       | ation |       |       |       |       |       |
-|       |       |       | \[Can |       |       |       |       |       |
-|       |       |       | ada\] |       |       |       |       |       |
-|       |       |       | ;     |       |       |       |       |       |
-|       |       |       | Popul |       |       |       |       |       |
-|       |       |       | ation |       |       |       |       |       |
-|       |       |       | \[Mex |       |       |       |       |       |
-|       |       |       | ico\] |       |       |       |       |       |
-+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+|***REGION***|***SURROGATE***|***Cols 3-9***  |***MERGE FUNCT***|***SECONDARY SURROGATE***|***TERTIARY SURROGATE***|***QUARTERNARY SURROGATE***|***DETAILS***|***COMMENTS***|
+|---|---|---|---|---|---|---|---|---|
+|USA|Population| | | | | | Total population from Census 2000 blocks| |
+| USA   | Urban Population | …     |       | Population | | | Total urban population from Census 2000|URBAN2 in Surrogate Source sheet. |      
+| USA   | Residential Heating -Natural Gas | …     |       | Housing | | |Number of Housing Units using Utility Gas for primary heating|      |
+| USA   | Total Road Miles| …     |       | Popululation | | | Sum of rural primary, urban primary, rural secondary and urban secondary road miles.  |    |
+| USA   | Urban Primary Road Miles | …   | | Total Road Miles| | | Road Miles of Urban Primary Roads | |
+| USA   | 0.75 Total Roadway Miles plus 0.25 Population  | …     | 0.75*Total Road Miles+ 0.25*Population | Population | | | Combinationof  3/4 total road miles surrogate ratio and 1/4 population surrogate ratio | |      
+| USA   | Land  | …     |   |   |   | |    Land Area *data for this surrogate is contained in SMOKE-ready bgpro files,  not ampro files.  | |
+| USA   | Water | …     |       | Navigatible Waterway Activity | Navigatible Waterway Miles | Land | Water area| |
+| USA   | Rural Land Area| …     |       | Land | | | Land Area that is not within an area designated as an Urbanized Area or an Urban Cluster.    |   |    
+| USA   | Total Agriculture | …     |       | Rural Land Area| Land  | | Sum of: Pasture/Hay,  Grains, Row Crops, Fallow Land and Orchards/Vineyards| |
+| USA   | Industrial Land | …     |       | Urban Population | Land  | Popululation | Sum of building square footage:  IND1 + IND2 + IND3 + IND4 + IND5 + IND6  |       |
+|USA| Heavy and High Tech Industrial (IND1 + IND5)|…| |Industrial Land|Urban Population|Population|Sum of building square footage from FEMA categories:  IND1 + IND5|Total Industrial in Table1. Same as Industrial Land?|
+| USA   | Forest External | …     | 0.5*../output/US36KM_20X20/forest.txtForest External+0.5*Rural Land Area | ./output/US36KM_20X20/ mypop_100.txt/My Population |       |       |       |       |
+| NA    | Population | …     | Population[USA];Population[Canada]; Population[Mexico] |  |    | | | |   |
 
 **Table 5. Example of a Surrogate Generation Control File Loaded into a
 Spreadsheet **
 
-  -------- ----------------------------------------------- ---------------- ---------- -------------------
-  REGION   SURROGATE                                       SURROGATE CODE   GENERATE   QUALITY ASSURANCE
-  USA      Population                                      100              YES        YES
-  USA      Urban Population                                120              NO         YES
-  USA      Residential Heating - Natural Gas               150              NO         YES
-  USA      Total Road Miles                                240              NO         YES
-  USA      Urban Primary Road Miles                        200              NO         YES
-  USA      0.75 Total Roadway Miles plus 0.25 Population   255              YES        NO
-  USA      Land                                            340              NO         YES
-  USA      Water                                           350              NO         NO
-  USA      Rural Land Area                                 400              YES        YES
-  USA      Total Agriculture                               310              YES        YES
-  USA      Industrial Land                                 505              NO         YES
-  USA      Heavy and High Tech Industrial (IND1 + IND5)    570              NO         YES
-  USA      Forest external                                 328              YES        NO
-  NA       Population                                      100              YES        NO
-  -------- ----------------------------------------------- ---------------- ---------- -------------------
+|***REGION***|***SURROGATE***|***SURROGATE CODE***|***GENERATE***|***QUALITY ASSURANCE***|
+|---|---|---|---|---|
+|USA|Population|100|YES|YES|
+|USA|Urban Population|120|NO|YES|
+|USA|Residential Heating - Natural Gas|150|NO|YES|
+|USA|Total Road Miles|240|NO|YES|
+|USA|Urban Primary Road Miles|200|NO|YES|
+|USA|0.75 Total Roadway Miles plus 0.25 Population|255|YES|NO|
+|USA|Land|340|NO|YES|
+|USA|Water|350|NO|NO|
+|USA|Rural Land Area|400|YES|YES|
+|USA|Total Agriculture|310|YES|YES|
+|USA|Industrial Land|505|NO|YES|
+|USA|Heavy and High Tech Industrial (IND1 + IND5)|570|NO|YES|
+|USA|Forest external|328|YES|NO|
+|NA|Population|100|YES|NO|
+
 
 4. Running the Surrogate Tool
 -----------------------------
@@ -1016,8 +757,10 @@ Once Java is installed, the Surrogate Tool can be started using a single
 command line argument—the location of the global control variables file,
 as shown in the following example:
 
+```java
 java -classpath SurrogateTools.jar gov.epa.surrogate.SurrogateTool
-control\_variables\_grid.csv
+control_variables_grid.csv
+```
 
 The Surrogate Tool reads the input files and then calls the surrogate
 creation, merging, and gapfilling programs as needed to generate each
@@ -1042,12 +785,12 @@ also included in the file.
 
 Each spatial surrogate is output to a separate surrogate file in the
 specified output directory. Appropriate SMOKE-required header
-information for the surrogate (e.g., \#GRID or \#POLYGON) is placed in
+information for the surrogate (e.g., #GRID or #POLYGON) is placed in
 each output surrogate file. The individual surrogate files that are
-produced by the tool are named according to the convention:\
-\
-*Region\_code\_NOFILL.txt* (for non-gap-filled surrogates), or\
-*Region\_code\_FILL.txt* (for gap-filled surrogates)
+produced by the tool are named according to the convention:
+
+*Region_code_NOFILL.txt* (for non-gap-filled surrogates), or
+*Region_code_FILL.txt* (for gap-filled surrogates)
 
 The Surrogate Tool creates a log file that contains a summary of all the
 surrogates that were created at the bottom of it. If the creation of
@@ -1057,18 +800,18 @@ for only the unfinished surrogates set to YES.
 
 Some intermediate text files are generated during the course of a run of
 the surrogate tool. They are placed in a subdirectory of the
-OUTPUT\_DIRECTORY called “temp\_files”. The Surrogate Tool automatically
+OUTPUT_DIRECTORY called “temp_files”. The Surrogate Tool automatically
 creates this subdirectory. It is recommended that you keep these files
 because they are a record of scripts to run and all the files input to
 srgcreate and the merging, and gapfilling programs during the course of
 the run. You may also find these helpful for “debugging” purposes if
 things do not look right for one of the surrogates. Any old intermediate
 files will automatically be overwritten with the latest data during
-successive runs of the tool written to the same OUTPUT\_DIRECTORY and
+successive runs of the tool written to the same OUTPUT_DIRECTORY and
 are kept separate for each surrogate and region combinations, so you do
 not need to worry about deleting files between runs. The OVERWRITE
 OUTPUT FILES variable in the global control variables file does not
-control whether the files under the temp\_files directory are
+control whether the files under the temp_files directory are
 overwritten.
 
 ### 4.2 Normalization Tool
@@ -1079,13 +822,17 @@ because surrogate values for counties / regions on the edge of the grid
 often should not sum to 1. The tool accepts an exclude list of such
 counties. Run the normalization tool with one of these commands:
 
+```java
 java -classpath SurrogateTools.jar gov.epa.surrogate.normalize.Main
-../output/somegrid/SRGDESC.txt exclude\_list tolerance
+../output/somegrid/SRGDESC.txt exclude_list tolerance
+```
 
+```java
 java -classpath SurrogateTools.jar gov.epa.surrogate.normalize.Main
 ../output/somegrid/SRGDESC.txt
+```
 
-\[the default tolerance if left unspecified is 1e-6\]
+[the default tolerance if left unspecified is 1e-6]
 
 ### 4.3 QA Tool
 
@@ -1118,8 +865,10 @@ five QA reports include
 
 Run the QA Tool at the command line:
 
+```java
 java -classpath SurrogateTools.jar gov.epa.surrogate.qa.Main
 ../output/somegrid/SRGDESC.txt threshold
+```
 
 where threshold is a real number between 0 and 1.0.
 
@@ -1152,9 +901,9 @@ listed) for a given county. The output file format for polygon-based
 surrogates is shown in Table 8, followed by an example in Table 9.
 
 The surrogate files output from the srgcreate and merge tool programs
-are named according to the format: *region\_code\_*NOFILL.txt. If a
+are named according to the format: *region_code_*NOFILL.txt. If a
 surrogate is to be gapfilled, the gapfilled surrogate file will be
-created and named *region\_code\_*FILL.txt. The NOFILL files are not
+created and named *region_code_*FILL.txt. The NOFILL files are not
 deleted because they are used as inputs for gapfilling or merging with
 other surrogates and they are useful for quality assurance purposes.
 
@@ -1197,7 +946,7 @@ of SMOKE prior to 2.2, the additional comment lines in the middle of the
 file will probably need to be removed.
 
 1.  All **intermediate text files** used as input to srgcreate tool are
-    stored in the temp\_files subdirectory of the OUTPUT\_DIRECTORY. It
+    stored in the temp_files subdirectory of the OUTPUT_DIRECTORY. It
     is a good idea to keep these files around for debugging purposes and
     as a record of how the surrogates were created by srgcreate tool.
 
@@ -1208,100 +957,101 @@ file will probably need to be removed.
     computed by examining the values of the environment variables.
 
 3.  A shapefile containing the sum of the surrogate numerators for each
-    grid cell or polygon is output to a file named grid *region\_code,
-    e*grid *region\_code* or poly *region\_code* for each surrogate
+    grid cell or polygon is output to a file named grid *region_code,
+    e*grid *region_code* or poly *region_code* for each surrogate
     computed from srgcreate. Essentially this file contains a gridded
     version of your surrogate weight data (e.g. gridded population). A
     corresponding CSV file of the attribute data is also created.
 
 **Table 6. Format of a Regular Grid Output Surrogate File **
 
-  ------------------------- ------------ ---------------------------------------------------------------------------
-  **Line**                  **Column**   **Description**
-  1                         A            \#GRID
-                            B            Grid name
-                            C            X origin in units of the projection
-                            D            Y origin in units of the projection
-                            E            X direction cell length in units of the projection
-                            F            Y direction cell length in units of the projection
-                            G            Number of columns
-                            H            Number of rows
-                            I            Number of boundary cells
-                            J            Projection types (LAT-LON or LATGRD3, LAMBERT or LAMGRD3, UTM or UTMGRD3)
-                            K            Projection units
-                            L            Projection alpha value
-                            M            Projection beta value
-                            N            Projection gamma value
-                            O            X-dir projection center in units of the projection
-                            P            Y-dir projection center in units of the projection
-  2                         A            \#SRGDESC=
-                            B            Surrogate code
-                            C            Surrogate name
-  Remaining comment lines   A            \#\[Surrogate Generation Variable\] =
-                            B            Value
-  Remaining lines           A            Spatial Surrogate code
-                            B            Country/State/County Code (Text or Integer)
-                            C            Grid column number (Integer)
-                            D            Grid row number (Integer)
-                            E            Spatial surrogate ratio
-  ------------------------- ------------ ---------------------------------------------------------------------------
 
-**\
+  |***Line***|***Column***|***Description***|
+  |---|---|---|
+  |1 |A  |#GRID|
+  | | B  | Grid name|
+  | |C | X origin in units of the projection|
+  | |D | Y origin in units of the projection|
+  | |E | X direction cell length in units of the projection|
+  | |F | Y direction cell length in units of the projection|
+  | |G |Number of columns|
+  | |H |Number of rows|
+  | |I |Number of boundary cells|
+  | |J |Projection types (LAT-LON or LATGRD3, LAMBERT or LAMGRD3, UTM or UTMGRD3)|
+  | |K |Projection units|
+  | |L |Projection alpha value|
+  | |M |Projection beta value|
+  | |N |Projection gamma value|
+  | |O |X-dir projection center in units of the projection|
+  | |P |Y-dir projection center in units of the projection|
+  |2|A|#SRGDESC=|
+  | |B|Surrogate code|
+  | |C|Surrogate name|
+  |Remaining comment lines|A|#[Surrogate Generation Variable] =|
+  | |B|Value|
+  |Remaining lines|A|Spatial Surrogate code|
+  |               |B|Country/State/County Code (Text or Integer)|
+  |               |C|Grid column number (Integer)|
+  |               |D|Grid row number (Integer)|
+  |               |E|Spatial surrogate ratio|
+
+**
 Table 7. A Sample Output Regular Grid Spatial Surrogate File**
 
-\#GRID US36KM\_148X112 -2736000.000000 -2088000.000000 36000.000000
+```csh
+#GRID US36KM_148X112 -2736000.000000 -2088000.000000 36000.000000
 36000.000000 148 112 1 LAMBERT meters 33.0
 
 00000 45.000000 -97.000000 -97.000000 40.000000
 
-\#SRGDESC=120,Urban Population
+#SRGDESC=120,Urban Population
 
-\#
+#
 
-\#SURROGATE REGION = USA
+#SURROGATE REGION = USA
 
-\#SURROGATE CODE = 120
+#SURROGATE CODE = 120
 
-\#SURROGATE NAME = Urban Population
+#SURROGATE NAME = Urban Population
 
-\#DATA SHAPEFILE = county\_pophu2k
+#DATA SHAPEFILE = county_pophu2k
 
-\#DATA ATTRIBUTE = FIPSSTCO
+#DATA ATTRIBUTE = FIPSSTCO
 
-\#WEIGHT SHAPEFILE = pophu2k
+#WEIGHT SHAPEFILE = pophu2k
 
-\#WEIGHT ATTRIBUTE = URBAN
+#WEIGHT ATTRIBUTE = URBAN
 
-\#WEIGHT FUNCTION =
+#WEIGHT FUNCTION =
 
-\#FILTER FUNCTION =
+#FILTER FUNCTION =
 
-\#
+#
 
-\#CONTROL VARIABLE FILE = /srgtool/control\_variables.csv
+#CONTROL VARIABLE FILE = /srgtool/control_variables.csv
 
-\#SURROGATE SPECIFICATION FILE = /srgtool/surrogate\_specification.csv
+#SURROGATE SPECIFICATION FILE = /srgtool/surrogate_specification.csv
 
-\#SHAPEFILE CATALOG = /srgtool/shapefile\_catalog.csv
+#SHAPEFILE CATALOG = /srgtool/shapefile_catalog.csv
 
-\#GENERATION CONTROL FILE = /srgtool/surrogate\_generation.csv
+#GENERATION CONTROL FILE = /srgtool/surrogate_generation.csv
 
-\#SURROGATE CODE FILE = /srgtool/surrogate\_IDs.txt
+#SURROGATE CODE FILE = /srgtool/surrogate_IDs.txt
 
-\#GRIDDESC = /srgtool/GRIDDESC.txt
+#GRIDDESC = /srgtool/GRIDDESC.txt
 
-\#
+#
 
-\#USER = lran
+#USER = lran
 
-\#COMPUTER SYSTEM = linux
+#COMPUTER SYSTEM = linux
 
-\#DATE = Tue Sep 20 20:14:26 EDT 2005
+#DATE = Tue Sep 20 20:14:26 EDT 2005
 
-\# THE FOLLOWING LINE IS NOT PART OF THE ACTUAL OUTPUT BUT WAS ADDED FOR
+# THE FOLLOWING LINE IS NOT PART OF THE ACTUAL OUTPUT BUT WAS ADDED FOR
 EXPLANATION
 
-\# SRGID FIPS COL ROW FRAC NUMERATOR DENOMINATOR QASUM
+# SRGID FIPS COL ROW FRAC NUMERATOR DENOMINATOR QASUM
 
 120 53073 25 92 0.000752897 ! 85.0819 113006 0.0007529
 
@@ -1321,77 +1071,78 @@ EXPLANATION
 
 120 53009 23 91 0.274769 ! 9262.75 33711 0.66971
 
-\# DENOMINATOR\_THRESHOLD CAME INTO PLAY IN THE FOLLOWING LINE
+# DENOMINATOR_THRESHOLD CAME INTO PLAY IN THE FOLLOWING LINE
 
-\# 120 01075 99 40 0.419329 ! 2.342e-7 5.587e-7 0.419329
+# 120 01075 99 40 0.419329 ! 2.342e-7 5.587e-7 0.419329
+```
 
 **Table 8. Format of a Polygon Surrogate File**
 
-  ------------------------- ------------- -------------------------------------------------------------------------------------------------------
-  **Line**                  **Columns**   **Description**
-  1                         A             \#POLYGONS
-                            C             OUTPUT\_POLY\_FILE
-                            D             OUTPUT\_POLY\_ATTR
-                            E             OUTPUT\_FILE\_ELLIPSOID
-                            F             OUTPUT\_FILE\_MAP\_PRJN
-  2                         A             \#SRGDESC=
-                            B             Integer Surrogate code
-                            C             Surrogate name
-  Remaining comment lines   A             \#\[Surrogate Generation Variable\] =
-                            B             Value
-  Remaining lines           A             Spatial surrogate code (Integer)
-                            B             Country/State/County Code (Text or Integer)
-                            C             Unique polygon (e.g., Census Tract) ID (Text or Integer)
-                            D             Spatial surrogate decimal fraction (i.e., fraction of the surrogate attribute in the polygon ) (Real)
-  ------------------------- ------------- -------------------------------------------------------------------------------------------------------
+|***Line***|***Columns***|***Description***|
+|---|---|---|
+|1|A|#POLYGONS|
+| |C|OUTPUT_POLY_FILE|
+| |D|OUTPUT_POLY_ATTR|
+| |E|OUTPUT_FILE_ELLIPSOID|
+| |F|OUTPUT_FILE_MAP_PRJN|
+|2|A|#SRGDESC=|
+| |B|Integer Surrogate code|
+| |C|Surrogate name|
+|Remaining comment lines|A|#[Surrogate Generation Variable] =|
+| |B|Value|
+|Remaining lines|A|Spatial surrogate code (Integer)|
+| |B |Country/State/County Code (Text or Integer)|
+| |C |Unique polygon (e.g., Census Tract) ID (Text or Integer)|
+| |D |Spatial surrogate decimal fraction (i.e., fraction of the surrogate attribute in the polygon ) (Real)|
 
 **Table 9. A Sample Output Census Tract (Polygon) Surrogate File**
 
-\#POLYGON OUTPUT\_POLY\_FILE=/emiss\_shp2003/us/tnnc
-OUTPUT\_POLY\_ATTR=STFID OUTPUT\_FILE\_ELLIPSOID=SPHERE
-OUTPUT\_FILE\_MAP\_PRJN=+proj=lcc,+lat\_1=33,+lat\_2=45,+lat\_0=40,+lon\_0=-97
+```csh
+#POLYGON OUTPUT_POLY_FILE=/emiss_shp2003/us/tnnc
+OUTPUT_POLY_ATTR=STFID OUTPUT_FILE_ELLIPSOID=SPHERE
+OUTPUT_FILE_MAP_PRJN=+proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97
 
-\#SRGDESC=100,Population
+#SRGDESC=100,Population
 
-\#
+#
 
-\#SURROGATE REGION = USA
+#SURROGATE REGION = USA
 
-\#SURROGATE CODE = 100
+#SURROGATE CODE = 100
 
-\#SURROGATE NAME = Population
+#SURROGATE NAME = Population
 
-\#DATA SHAPEFILE = county\_bndy
+#DATA SHAPEFILE = county_bndy
 
-\#DATA ATTRIBUTE = FIPSSTCO
+#DATA ATTRIBUTE = FIPSSTCO
 
-\#WEIGHT SHAPEFILE = pophu2k
+#WEIGHT SHAPEFILE = pophu2k
 
-\#WEIGHT ATTRIBUTE = POP2000
+#WEIGHT ATTRIBUTE = POP2000
 
-\#WEIGHT FUNCTION =
+#WEIGHT FUNCTION =
 
-\#FILTER FUNCTION =
+#FILTER FUNCTION =
 
-\#
+#
 
-\#CONTROL VARIABLE FILE = ./control\_variables\_poly.csv
+#CONTROL VARIABLE FILE = ./control_variables_poly.csv
 
-\#SURROGATE SPECIFICATION FILE = ./surrogate\_specification.csv
+#SURROGATE SPECIFICATION FILE = ./surrogate_specification.csv
 
-\#SHAPEFILE CATALOG = ./shapefile\_catalog.csv
+#SHAPEFILE CATALOG = ./shapefile_catalog.csv
 
-\#GENERATION CONTROL FILE = ./surrogate\_generation.csv
+#GENERATION CONTROL FILE = ./surrogate_generation.csv
 
-\#SURROGATE CODE FILE = ./surrogate\_codes.csv
+#SURROGATE CODE FILE = ./surrogate_codes.csv
 
-\#
+#
 
-\#USER = lran
+#USER = lran
 
-\#COMPUTER SYSTEM = linux
+#COMPUTER SYSTEM = linux
 
-\#DATE = Wed Nov 16 14:02:09 EST 2005
+#DATE = Wed Nov 16 14:02:09 EST 2005
 
 100 51810 37053110101 1.22752e-22 ! 5.22011e-17 425257 1.2275e-22
 
@@ -1417,83 +1168,85 @@ OUTPUT\_FILE\_MAP\_PRJN=+proj=lcc,+lat\_1=33,+lat\_2=45,+lat\_0=40,+lon\_0=-97
 
 100 51081 37131980300 1.67322e-17 ! 1.93424e-13 11560 1.6732e-17
 
-**\
-Table 10. An Example SRGDESC FILE for a RegularGrid^\*^**
+**
+Table 10. An Example SRGDESC FILE for a RegularGrid^*^**
 
-\#GRID US36KM\_148X112 -2736000.000000 -2088000.000000 36000.000000
+#GRID US36KM_148X112 -2736000.000000 -2088000.000000 36000.000000
 36000.000000 148 112 1 LAMBERT meters 33.000000 45.000000 -97.000000
 -97.000000 40.000000
 
-USA,100,"Population",/output/US36KM\_148X112/USA\_100\_NOFILL.txt
+USA,100,"Population",/output/US36KM_148X112/USA_100_NOFILL.txt
 
-USA,120,"Urban Population",/output/US36KM\_148X112/USA\_120\_FILL.txt
+USA,120,"Urban Population",/output/US36KM_148X112/USA_120_FILL.txt
 
-USA,130,"Rural Population",/output/US36KM\_148X112/USA\_130\_FILL.txt
+USA,130,"Rural Population",/output/US36KM_148X112/USA_130_FILL.txt
 
-USA,137,"Housing Change",/output/US36KM\_148X112/USA\_137\_NOFILL.txt
+USA,137,"Housing Change",/output/US36KM_148X112/USA_137_NOFILL.txt
 
 USA,140,"Housing Change and
-Population",/output/US36KM\_148X112/USA\_140\_NOFILL.txt
+Population",/output/US36KM_148X112/USA_140_NOFILL.txt
 
 USA,150,"Residential Heating - Natural
-Gas",/output/US36KM\_148X112/USA\_150\_FILL.txt
+Gas",/output/US36KM_148X112/USA_150_FILL.txt
 
 USA,160,"Residential Heating -
-Wood",/output/US36KM\_148X112/USA\_160\_FILL.txt
+Wood",/output/US36KM_148X112/USA_160_FILL.txt
 
 USA,170,"Residential Heating - Distillate
-Oil",/output/US36KM\_148X112/USA\_170\_FILL.txt
+Oil",/output/US36KM_148X112/USA_170_FILL.txt
 
 USA,180,"Residential Heating -
-Coal",/output/US36KM\_148X112/USA\_180\_FILL.txt
+Coal",/output/US36KM_148X112/USA_180_FILL.txt
 
 USA,190,"Residential Heating - LP
-Gas",/output/US36KM\_148X112/USA\_190\_NOFILL.txt
+Gas",/output/US36KM_148X112/USA_190_NOFILL.txt
 
 USA,200,"Urban Primary Road
-Miles",/output/US36KM\_148X112/USA\_200\_FILL.txt
+Miles",/output/US36KM_148X112/USA_200_FILL.txt
 
 USA,210,"Rural Primary Road
-Miles",/output/US36KM\_148X112/USA\_210\_FILL.txt
+Miles",/output/US36KM_148X112/USA_210_FILL.txt
 
 USA,220,"Urban Secondary Road
-Miles",/output/US36KM\_148X112/USA\_220\_FILL.txt
+Miles",/output/US36KM_148X112/USA_220_FILL.txt
 
 USA,230,"Rural Secondary Road
-Miles",/output/US36KM\_148X112/USA\_230\_FILL.txt
+Miles",/output/US36KM_148X112/USA_230_FILL.txt
+```
 
-\* header line has been wrapped to two lines for this example
+* header line has been wrapped to two lines for this example
 
 **Table 11. A Sample Log File Created by the Surrogate Tool for
 RegularGrid Output**
 
+```csh
 Run Date: Thu Mar 05 16:25:26 EST 2009
 
 Main Control CSV File
 
-GENERATION CONTROL FILE ./surrogate\_generation\_grid.csv
+GENERATION CONTROL FILE ./surrogate_generation_grid.csv
 
-SURROGATE SPECIFICATION FILE ./surrogate\_specification\_2002.csv
+SURROGATE SPECIFICATION FILE ./surrogate_specification_2002.csv
 
-SHAPEFILE CATALOG ./shapefile\_catalog.csv
+SHAPEFILE CATALOG ./shapefile_catalog.csv
 
-SHAPEFILE DIRECTORY ../data/emiss\_shp2003/us
+SHAPEFILE DIRECTORY ../data/emiss_shp2003/us
 
-SURROGATE CODE FILE ./surrogate\_codes.csv
+SURROGATE CODE FILE ./surrogate_codes.csv
 
 SRGCREATE EXECUTABLE ../bin/srgcreate.exe
 
-DEBUG\_OUTPUT Y
+DEBUG_OUTPUT Y
 
-OUTPUT\_FORMAT SMOKE
+OUTPUT_FORMAT SMOKE
 
-OUTPUT\_FILE\_TYPE RegularGrid
+OUTPUT_FILE_TYPE RegularGrid
 
-OUTPUT\_GRID\_NAME M08\_NASH
+OUTPUT_GRID_NAME M08_NASH
 
 GRIDDESC ./GRIDDESC.txt
 
-OUTPUT\_FILE\_ELLIPSOID +a=6370000.0,+b=6370000.0
+OUTPUT_FILE_ELLIPSOID +a=6370000.0,+b=6370000.0
 
 OUTPUT DIRECTORY ../output/somegrid
 
@@ -1503,9 +1256,9 @@ OUTPUT SRGDESC FILE ../output/somegrid/SRGDESC.txt
 
 OVERWRITE OUTPUT FILES YES
 
-LOG FILE NAME srg\_grid.log
+LOG FILE NAME srg_grid.log
 
-DENOMINATOR\_THRESHOLD 0.0005
+DENOMINATOR_THRESHOLD 0.0005
 
 COMPUTE SURROGATES FROM SHAPEFILES YES
 
@@ -1515,50 +1268,50 @@ GAPFILL SURROGATES YES
 
 Get Grid Header For Surrogate Files
 
-SRGCREATE\_ERROR&gt;WARNING: Environment variable: MAX\_LINE\_SEG, not
+SRGCREATE_ERROR&gt;WARNING: Environment variable: MAX_LINE_SEG, not
 set
 
-SRGCREATE\_OUTPUT&gt;MIMS Surrogate Creator Version 3.5, 8/12/2008
+SRGCREATE_OUTPUT&gt;MIMS Surrogate Creator Version 3.5, 8/12/2008
 
-SRGCREATE\_OUTPUT&gt;
+SRGCREATE_OUTPUT&gt;
 
-SRGCREATE\_OUTPUT&gt;EV: OUTPUT\_FILE\_TYPE=RegularGrid
+SRGCREATE_OUTPUT&gt;EV: OUTPUT_FILE_TYPE=RegularGrid
 
-SRGCREATE\_OUTPUT&gt;Setting output grid
+SRGCREATE_OUTPUT&gt;Setting output grid
 
-SRGCREATE\_OUTPUT&gt;
+SRGCREATE_OUTPUT&gt;
 
-SRGCREATE\_OUTPUT&gt;EV: OUTPUT\_FILE\_TYPE=RegularGrid
+SRGCREATE_OUTPUT&gt;EV: OUTPUT_FILE_TYPE=RegularGrid
 
-SRGCREATE\_OUTPUT&gt;Reading Regular Grid
+SRGCREATE_OUTPUT&gt;Reading Regular Grid
 
-SRGCREATE\_OUTPUT&gt;
+SRGCREATE_OUTPUT&gt;
 
-SRGCREATE\_OUTPUT&gt;EV: OUTPUT\_GRID\_NAME=M08\_NASH
+SRGCREATE_OUTPUT&gt;EV: OUTPUT_GRID_NAME=M08_NASH
 
-SRGCREATE\_OUTPUT&gt;MAX\_LINE\_SEG not set, discretization intervals
+SRGCREATE_OUTPUT&gt;MAX_LINE_SEG not set, discretization intervals
 disabled
 
-SRGCREATE\_OUTPUT&gt;griddesc file name = ./GRIDDESC.txt
+SRGCREATE_OUTPUT&gt;griddesc file name = ./GRIDDESC.txt
 
-SRGCREATE\_OUTPUT&gt;
+SRGCREATE_OUTPUT&gt;
 
-SRGCREATE\_OUTPUT&gt;Ellipsoid var = OUTPUT\_FILE\_ELLIPSOID
+SRGCREATE_OUTPUT&gt;Ellipsoid var = OUTPUT_FILE_ELLIPSOID
 
-SRGCREATE\_OUTPUT&gt;EV:
-OUTPUT\_FILE\_ELLIPSOID=+a=6370000.0,+b=6370000.0
+SRGCREATE_OUTPUT&gt;EV:
+OUTPUT_FILE_ELLIPSOID=+a=6370000.0,+b=6370000.0
 
-SRGCREATE\_OUTPUT&gt;Ellipsoid=+a=6370000.0,+b=6370000.0
+SRGCREATE_OUTPUT&gt;Ellipsoid=+a=6370000.0,+b=6370000.0
 
-SRGCREATE\_OUTPUT&gt;EV: OUTPUT\_GRID\_NAME=M08\_NASH
+SRGCREATE_OUTPUT&gt;EV: OUTPUT_GRID_NAME=M08_NASH
 
-SRGCREATE\_OUTPUT&gt;Not using BB optimization
+SRGCREATE_OUTPUT&gt;Not using BB optimization
 
-SRGCREATE\_OUTPUT&gt;
+SRGCREATE_OUTPUT&gt;
 
-SRGCREATE\_OUTPUT&gt;EV: OUTPUT\_FILE\_TYPE=RegularGrid
+SRGCREATE_OUTPUT&gt;EV: OUTPUT_FILE_TYPE=RegularGrid
 
-SRGCREATE\_OUTPUT&gt;\#GRID M08\_NASH 1000000.000000 -536000.000000
+SRGCREATE_OUTPUT&gt;#GRID M08_NASH 1000000.000000 -536000.000000
 8000.000000 8000.000000 46 42 1 LAMBERT meters 30.000000 60.000000
 -100.000000 -100.000000 40.000000
 
@@ -1569,6 +1322,7 @@ End Date: Thu Mar 05 16:25:27 EST 2009
 Elapsed time in minutes: 0.008583333333333333
 
 SUCCESS -- The Program Run Completed
+```
 
 6. Development Description
 ==========================
@@ -1613,7 +1367,7 @@ its integration with the Emissions Modeling Framework (EMF):
 
 6.  The Surrogate Tool can combine existing surrogates generated using
     other packages with surrogates generated by the tool if the header
-    line with \#GRID or \#POLYGON are the same. These externally created
+    line with #GRID or #POLYGON are the same. These externally created
     surrogates can be used as input to merging or gap filling, or
     concatenated into a merged surrogate file. The resulting file works
     in the same way as if all surrogates were generated with the tool.
@@ -1621,7 +1375,7 @@ its integration with the Emissions Modeling Framework (EMF):
     same surrogate) that were already created, then the tool can place
     one or both of those in a new file that also includes surrogates
     generated by the tool. You may be required to add or modify the
-    header line with \#GRID or \#POLYGON (such as grid name and
+    header line with #GRID or #POLYGON (such as grid name and
     projection information) to the externally generated surrogate files
     prior to using them within the system. The Surrogate Tool verifies
     that the external files are based on the same grid or polygon for
@@ -1677,7 +1431,7 @@ The Surrogate Tool software takes the following steps when it runs:
 7.  Get main environment variables, which are the same for each
     > surrogate computation (e.g. grid, output directory).
 
-8.  Obtain the header with \#GRID or \#POLYGON which is the same for
+8.  Obtain the header with #GRID or #POLYGON which is the same for
     each surrogate.
 
 9.  If COMPUTE SURROGATES FROM SHAPEFILES variable in the global control
@@ -1696,10 +1450,10 @@ The Surrogate Tool software takes the following steps when it runs:
 
     b.  The tool obtains all needed environment variables to run
         srgcreate. If the surrogate computation uses a filter function
-        (e.g., include only shapes for which the ROAD\_TYPE=4), a filter
+        (e.g., include only shapes for which the ROAD_TYPE=4), a filter
         text file that can be used with srgcreate will be generated. All
-        filter text files are stored in the temp\_files subdirectory of
-        the OUTPUT\_DIRECTORY and are named *filter\_region\_code.txt.*
+        filter text files are stored in the temp_files subdirectory of
+        the OUTPUT_DIRECTORY and are named *filter_region_code.txt.*
 
     c.  The tool runs srgcreate with all environment variables for the
         surrogate to be computed.
@@ -1712,24 +1466,24 @@ The Surrogate Tool software takes the following steps when it runs:
         will be inserted to the beginning of the output file. The output
         file for this surrogate is saved in the OUTPUT DIRECTORY defined
         in the global control variables file using a predefined file
-        name, *region\_code\_*NOFILL.txt*.* If the computation fails, an
+        name, *region_code_*NOFILL.txt*.* If the computation fails, an
         error message is output to the log file and the program moves on
         to the next surrogate computation.
 
     f.  srgcreate outputs a grid or poly output shapefile with the sum
         of the surrogate numerators using pre-defined name –
-        *grid*\_*region\_code* for regular grid output,
-        egrid\_*region\_code* for egrid output or *poly*\_*region\_code*
+        *grid*_*region_code* for regular grid output,
+        egrid_*region_code* for egrid output or *poly*_*region_code*
         grid for polygon output in the OUTPUT DIRECTORY. A CSV file with
         grid ID (column and row) or polygon ID (such as census tract ID)
         and surrogate ratio is also created and stored in the same
         directory. The CSV file uses a pre-defined name
-        *grid*\_*region\_code.csv, egrid\_region\_code.csv or
-        poly*\_*region\_code.csv* for output*. *
+        *grid*_*region_code.csv, egrid_region_code.csv or
+        poly*_*region_code.csv* for output*. *
 
     g.  A script that can be used to regenerate the surrogate is created
-        and named either *region\_code\_*NOFILL.bat or
-        *region\_code\_*NOFILL.csh in the temp\_files subdirectory.
+        and named either *region_code_*NOFILL.bat or
+        *region_code_*NOFILL.csh in the temp_files subdirectory.
 
 11. Once all surrogates based on weight shapefiles have been created, if
     the MERGE SURROGATES variable in the global control variables file
@@ -1742,9 +1496,9 @@ The Surrogate Tool software takes the following steps when it runs:
 
     a.  The tool obtains all needed environment variables to run the
         merging tool. A merge text file to be used will be generated.
-        The merge text files will be stored in the temp\_files
-        subdirectory of the OUTPUT\_DIRECTORY and they are named
-        merge*\_region\_code*\_NOFILL*.txt.*
+        The merge text files will be stored in the temp_files
+        subdirectory of the OUTPUT_DIRECTORY and they are named
+        merge*_region_code*_NOFILL*.txt.*
 
     b.  All needed surrogate files are checked for existence. If any
         error occurs, the program will move to next surrogate merging.
@@ -1759,7 +1513,7 @@ The Surrogate Tool software takes the following steps when it runs:
         computation is successful, the header and comment information
         will be inserted to the beginning of the output file. The output
         file for this surrogate is saved in the OUTPUT DIRECTORY defined
-        using a predefined file name, *region\_code*\_NOFILL.txt*.* If
+        using a predefined file name, *region_code*_NOFILL.txt*.* If
         the computation fails, an error message will be output to the
         log file and the program will move to the next surrogate
         computation.
@@ -1777,9 +1531,9 @@ The Surrogate Tool software takes the following steps when it runs:
 
     a.  The tool obtains all needed environment variables to run the
         gapfilling tool. A gapfill text file to be used is generated.
-        The gapfill text file is stored in the temp\_files subdirectory
-        of the OUTPUT\_DIRECTORY and is named
-        gapfill*\_region\_code.txt.*
+        The gapfill text file is stored in the temp_files subdirectory
+        of the OUTPUT_DIRECTORY and is named
+        gapfill*_region_code.txt.*
 
     b.  All needed surrogate files are checked for existence. If any
         error occurs, the program moves to the next surrogate to be
@@ -1795,7 +1549,7 @@ The Surrogate Tool software takes the following steps when it runs:
         computation is successful, the header and comment information
         will be inserted to the beginning of the output file. The output
         file for this surrogate is saved in the OUTPUT DIRECTORY using a
-        predefined file name, *region\_code*\_FILL.txt*.* If the
+        predefined file name, *region_code*_FILL.txt*.* If the
         computation fails, an error message will be output to the log
         file and the program will move to the next surrogate gapfilling.
 
@@ -1844,7 +1598,7 @@ the development of the Surrogate Tool.
     ellipsoid comparison.
 
 4.  Srgcreate was modified to handle the new environment variable:
-    DENOMINATOR\_THRESHOLD for surrogate computation.
+    DENOMINATOR_THRESHOLD for surrogate computation.
 
 5.  Srgcreate was updated to output surrogates as comments when there
     was no data polygon ID.
@@ -1879,7 +1633,7 @@ future enhancements or updates for improving the Surrogate Tool:
     it easier to make updates of the data by state. Additionally, we
     could support the optional splitting of files into state specific
     ones as a preprocessing step using a State shapefile and/or
-    attributes like FIPS\_CODE. Users may wish to run for a subset of
+    attributes like FIPS_CODE. Users may wish to run for a subset of
     the states or all states that overlap the grid, which would make the
     runs more efficient.
 
