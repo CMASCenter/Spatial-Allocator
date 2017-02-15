@@ -19,7 +19,7 @@ and aerosol product processing tools, agricultural fertilizer modeling
 tools, a domain grid shapefile generation tool, and other utilities.
 
 All sample script files for the SA Raster Tools are stored in the
-raster\_scripts directory of the installed Spatial Allocator system.
+raster_scripts directory of the installed Spatial Allocator system.
 
 Troubleshooting
 ---------------
@@ -35,9 +35,9 @@ should do the following:
     directory
 
 3)  compile downloaded packages and install them under
-    {package\_path}/local, following the src/libs/README file
+    {package_path}/local, following the src/libs/README file
 
-4)  modify paths in ./bin/sa\_setup.csh and ./src/raster/Makefile
+4)  modify paths in ./bin/sa_setup.csh and ./src/raster/Makefile
 
 5)  in ./src/raster, do the following:
 
@@ -53,57 +53,57 @@ Domain Description in SA Raster Tools
 The SA Raster Tools define the modeling domain using the following
 environment variables:
 
--   GRID\_PROJ – defines the domain grid projection using the PROJ4
+-   GRID_PROJ – defines the domain grid projection using the PROJ4
     projection description format
     (<http://www.remotesensing.org/geotiff/proj_list/>). The following
     sample projection descriptions are used to match the projections in
     WRF:
 
     -   Lambert Conformal Conic: "+proj=lcc +a=6370000.0 +b=6370000.0
-        +lat\_1=33 +lat\_2=45 +lat\_0=40 +lon\_0=-97"
+        +lat_1=33 +lat_2=45 +lat_0=40 +lon_0=-97"
 
     -   Polar stereographic: "+proj=stere +a=6370000.0 +b=6370000.0
-        +lat\_ts=33 +lat\_0=90 +lon\_0=-97 +k\_0=1.0"
+        +lat_ts=33 +lat_0=90 +lon_0=-97 +k_0=1.0"
 
-    -   Mercator: "+proj=merc +a=6370000.0 +b=6370000.0 +lat\_ts=33
-        +lon\_0=0"
+    -   Mercator: "+proj=merc +a=6370000.0 +b=6370000.0 +lat_ts=33
+        +lon_0=0"
 
     -   Geographic: "+proj=latlong +a=6370000.0 +b=6370000.0"
 
--   GRID\_ROWS – number of rows of grid cells in the domain
+-   GRID_ROWS – number of rows of grid cells in the domain
 
--   GRID\_COLUMNS – number of columns of grid cells in the domain
+-   GRID_COLUMNS – number of columns of grid cells in the domain
 
--   GRID\_XCELLSIZE – grid cell size in *x* direction
+-   GRID_XCELLSIZE – grid cell size in *x* direction
 
--   GRID\_YCELLSIZE – grid cell size in *y* direction
+-   GRID_YCELLSIZE – grid cell size in *y* direction
 
--   GRID\_XMIN – minimum *x* of the domain (lower left corner of the
+-   GRID_XMIN – minimum *x* of the domain (lower left corner of the
     domain)
 
--   GRID\_YMIN – minimum *y* of the domain (lower left corner of the
+-   GRID_YMIN – minimum *y* of the domain (lower left corner of the
     domain)
 
--   GRID\_NAME – name of the domain, which is required by some of the
+-   GRID_NAME – name of the domain, which is required by some of the
     tools
 
-For WRF simulations, GRID\_XMIN and GRID\_YMIN can be computed using the
+For WRF simulations, GRID_XMIN and GRID_YMIN can be computed using the
 first point longitude and latitude from the global attributes
-corner\_lons and corner\_lats in the domain’s WRF GEOGRID output file.
+corner_lons and corner_lats in the domain’s WRF GEOGRID output file.
 For instance, to compute a WRF Lambert Conformal Conic (LCC) domain with
 the GEOGRID output file attributes
 
-> :corner\_lats = 20.85681f, 52.1644f, 50.63151f, 19.88695f,
+> :corner_lats = 20.85681f, 52.1644f, 50.63151f, 19.88695f,
 > 20.84302f...
 >
-> :corner\_lons = -121.4918f, -135.7477f, -53.21942f, -69.02478f,
+> :corner_lons = -121.4918f, -135.7477f, -53.21942f, -69.02478f,
 > -121.5451f…
 
 users would use the cs2cs utility in the PROJ4 library directly at the
 command line (after installing the SA system):
 
 > &gt;cs2cs +proj=latlong +a=6370000.0 +b=6370000.0 +to +proj=lcc
-> +a=6370000.0 +b=6370000.0 +lat\_1=33 +lat\_2=45 +lat\_0=40 +lon\_0=-97
+> +a=6370000.0 +b=6370000.0 +lat_1=33 +lat_2=45 +lat_0=40 +lon_0=-97
 >
 > -121.4918 20.85681
 >
@@ -111,9 +111,9 @@ command line (after installing the SA system):
 
 Minimum *x* and *y* for the domain would be computed as follows:
 
-> GRID\_XMIN = -2622003.85 - GRID\_XCELLSIZE / 2
+> GRID_XMIN = -2622003.85 - GRID_XCELLSIZE / 2
 >
-> GRID\_YMIN = -1793999.28 - GRID\_YCELLSIZE / 2
+> GRID_YMIN = -1793999.28 - GRID_YCELLSIZE / 2
 
 Land Cover Data Processing Tools
 ================================
@@ -149,14 +149,14 @@ This tool requires the following data sets:
 -   List of land cover data sets to be processed – this file has to have
     fixed header formats. Provided in the data directory are sample
     files for CMAQ 12-km domain 2001, 2006 and 2011 modeling:
-    nlcd\_modis\_files\_2001.txt, nlcd\_modis\_files\_2006.txt, and
-    nlcd\_modis\_files\_2011.txt. Users have to modify the list file
+    nlcd_modis_files_2001.txt, nlcd_modis_files_2006.txt, and
+    nlcd_modis_files_2011.txt. Users have to modify the list file
     based on their NLCD and MODIS data location and names.
 
 To run the computeGridLandUse tool, users can use the following sample
 script file, which has all of the required environment variables:
 
-**NLCD\_MODIS\_processor.csh**
+**NLCD_MODIS_processor.csh**
 
 The tool generates one ASCII file and one NetCDF file:
 
@@ -209,13 +209,13 @@ BELD4 Land Cover Generation
 ---------------------------
 
 The BELD4 data with land cover, tree, and crop percentages can be
-computed using the computeGridLandUse\_beld4.exe tool with directly
+computed using the computeGridLandUse_beld4.exe tool with directly
 downloaded USGS NLCD data sets, NASA MODIS land cover (MCD12Q1 or
 MOD12Q1) data tiles and tree and crop fractions at the county level. The
 follow­ing sample script file contains all of the required environment
 variables for running the tool:
 
-> **landuseTool\_WRFCMAQ\_BELD4.csh**
+> **landuseTool_WRFCMAQ_BELD4.csh**
 
 This tool requires the following data sets:
 
@@ -230,8 +230,8 @@ This tool requires the following data sets:
 -   List of land cover data sets to be processed – this file has to be
     fixed format with the data set headers included. Provided in the
     data directory are sample files for CMAQ 12-km domain 2001, 2006 and
-    2011 modeling: nlcd\_modis\_files\_2001.txt,
-    nlcd\_modis\_files\_2006.txt, and nlcd\_modis\_files\_2011.txt.
+    2011 modeling: nlcd_modis_files_2001.txt,
+    nlcd_modis_files_2006.txt, and nlcd_modis_files_2011.txt.
     Users have to modify the list file based on their NLCD and MODIS
     data location and names.
 
@@ -240,22 +240,22 @@ This tool requires the following data sets:
 
 -   National Agricultural Statistics Service (NASS) crop fraction tables
     at county level – provided in the data directory:
-    nass2001\_beld4\_ag.dat for the 2001 NASS; nass2006\_beld4\_ag.dat
+    nass2001_beld4_ag.dat for the 2001 NASS; nass2006_beld4_ag.dat
     for the 2006 NASS.
 
 -   Canada crop fraction table at Census-division level – provided in
-    the data directory: can01\_beld4\_ag.dat for the 2001 Census of
-    Agriculture; can06\_beld4\_ag.dat for the 2006 Census of
+    the data directory: can01_beld4_ag.dat for the 2001 Census of
+    Agriculture; can06_beld4_ag.dat for the 2006 Census of
     Agriculture.
 
 -   List of land cover, tree, and crop classes for the BELD4 tool –
-    provided in the data direc­tory: beld4\_class\_names\_40classes.txt.
+    provided in the data direc­tory: beld4_class_names_40classes.txt.
 
 -   U.S. county shapefile – provided in the data directory:
-    county\_pophu02\_48st.shp.
+    county_pophu02_48st.shp.
 
 -   Canada Census-division shapefiles – provided in the data directory:
-    can2001\_cd\_sel.shp for the 2001 Census; can2006\_cd\_sel.shp for
+    can2001_cd_sel.shp for the 2001 Census; can2006_cd_sel.shp for
     the 2006 Census.
 
 The tool generates one ASCII file and one NetCDF file:
@@ -304,7 +304,7 @@ the crop percentage variable contains the 42 crops listed in Table 3.
 |21|Dogwood|60|Maple_Norway|99|Oak_OR_white|138|Pine_longleaf|177|Spruce_red|
 |22|Douglas_fir|61|Maple_red|100|Oak_overcup|139|Pine_Monterey|178|Spruce_Sitka|
 |23|East_hophornbean|62|Maple_RkyMtn|101|Oak_pin|140|Pine_pinyon|179|Spruce_spp|
-|24|Elder|63|Maple_silver|102|Oak_post|141      Pine_pinyon_brdr|180|Spruce_white|
+|24|Elder|63|Maple_silver|102|Oak_post|141|Pine_pinyon_brdr|180|Spruce_white|
 |25|Elm|64|Maple_spp|103|Oak_scarlet|142|Pine_pinyon_cmn|181|Sweetgum|
 |26|Eucalyptus|65|Maple_striped|104|Oak_scrub|143|Pine_pitch|182|Sycamore|
 |27|Fir_balsam|66|Maple_sugar|105|Oak_shingle|144|Pine_pond|183|Tallowtree-chins|
@@ -312,13 +312,13 @@ the crop percentage variable contains the 42 crops listed in Table 3.
 |29|Fir_corkbark|68|Misc-hardwoods|107|Oak_silverleaf|146|Pine_red|185|Tanoak|
 |30|Fir_fraser|69|Mixed_conifer_sp|108|Oak_Southrn_red|147|Pine_sand|186|Torreya|
 |31|Fir_grand|70|Mountain_ash|109|Oak_spp|148|Pine_scotch|187|Tung-oil-tree|
-|32|Fir_noble|71|Mulberry|110|Oak_swamp_cnut     149|Pine_shortleaf|188|Unknown_tree|
+|32|Fir_noble|71|Mulberry|110|Oak_swamp_cnut|149|Pine_shortleaf|188|Unknown_tree|
 |33|Fir_Pacf_silver|72|Nyssa|111|Oak_swamp_red|150|Pine_slash|189|Walnut|
 |34|Fir_SantaLucia|73|Oak_AZ_white|112|Oak_swamp_white|151|Pine_spruce|190|Water-elm|
 |35|Fir_Shasta_red|74|Oak_bear|113|Oak_turkey|152|Pine_sugar|191|Willow|
 |36|Fir_spp|75|Oak_black|114|Oak_water|153|Pine_Swwhite|192|Yellow_poplar|
 |37|Fir_subalpine|76|Oak_blackjack|115|Oak_white|154|Pine_tablemtn|193|Yellowwood|
-|38|Fir_white|77|Oak_blue|116|Oak_willow|155      Pine_VA|194|Yucca_Mojave
+|38|Fir_white|77|Oak_blue|116|Oak_willow|155|Pine_VA|194|Yucca_Mojave
 |39|Gleditsia_locust|78|Oak_bluejack|117|Osage-orange|156|Pine_Washoe|                  
 
 **Table 3. BELD4 crop classes.**
@@ -369,7 +369,7 @@ Satellite (GOES) data downloaded from the Earth System Science Center
 site is <http://satdas.nsstc.nasa.gov/>.
 
 Downloaded GOES data need to be stored under subdirectories named using
-this format: gp\_YYYYMMDD. The ./util/goes\_untar.pl utility can be used
+this format: gp_YYYYMMDD. The ./util/goes_untar.pl utility can be used
 to unzip downloaded GOES data (daily tar files) into the daily
 directories required by the tool.
 
@@ -382,8 +382,8 @@ The tool contains the following three programs:
 
 -   correctGOESHeader.exe – to correct GOES data position shifting by
     redefining a new Earth radius and new image extent. The program
-    converts GOES data in Grib (i.e., \*.grb) format to files in ERDAS
-    Imagine (i.e., \*.img) format with corrections.
+    converts GOES data in Grib (i.e., *.grb) format to files in ERDAS
+    Imagine (i.e., *.img) format with corrections.
 
 -   computeGridGOES.exe – to regrid corrected Imagine-format GOES data
     to a defined grid domain.
@@ -398,7 +398,7 @@ year. We plan to update the tool in the coming months.
 Geospatial Data Abstraction Library (GDAL) will generate the following
 messages:
 
--   Warning: Inside GRIB2Inventory, Message \# 2
+-   Warning: Inside GRIB2Inventory, Message # 2
 
 -   ERROR: Ran out of file reading SECT0
 
@@ -418,9 +418,9 @@ MODIS cloud product variables contain 5-km and 1-km data. To use this
 regridding tool, users need to download the following cloud data and
 Level 1 Geolocation 1-km data into the input directory:
 
--   MOD06\_L2 and MOD03 (Level 1 Geolocation 1-km ) for Terra, or
+-   MOD06_L2 and MOD03 (Level 1 Geolocation 1-km ) for Terra, or
 
--   MYD06\_L2 and MYD03 (Level 1 Geolocation 1-km ) for Aqua
+-   MYD06_L2 and MYD03 (Level 1 Geolocation 1-km ) for Aqua
 
 The following download options can be selected during the downloading
 process:
@@ -521,9 +521,9 @@ The data can be downloaded from the NASA Giovanni web site:
 
 OMI product information can be viewed from
 [http://disc.sci.gsfc.nasa.gov/giovanni/additional/
-users-manual/G3\_manual\_Chapter\_10\_OMIL2G.shtml\#what\_l2g](http://disc.sci.gsfc.nasa.gov/giovanni/additional/users-manual/G3_manual_Chapter_10_OMIL2G.shtml#what_l2g)
+users-manual/G3_manual_Chapter_10_OMIL2G.shtml#what_l2g](http://disc.sci.gsfc.nasa.gov/giovanni/additional/users-manual/G3_manual_Chapter_10_OMIL2G.shtml#what_l2g)
 and from [ftp://aurapar2u.ecs
-.nasa.gov/data/s4pa//Aura\_OMI\_Level2/OMAERUV.003/doc/README.OMI\_DUG.pdf](ftp://aurapar2u.ecs.nasa.gov/data/s4pa/Aura_OMI_Level2/OMAERUV.003/doc/README.OMI_DUG.pdf)
+.nasa.gov/data/s4pa//Aura_OMI_Level2/OMAERUV.003/doc/README.OMI_DUG.pdf](ftp://aurapar2u.ecs.nasa.gov/data/s4pa/Aura_OMI_Level2/OMAERUV.003/doc/README.OMI_DUG.pdf)
 
 The following sample script can be modified for regridding:
 
@@ -549,29 +549,29 @@ EPIC Site Information Generation Tool
 This tool generates two CSV data files that are needed to create EPIC
 site databases for a user-defined domain:
 
--   EPICSites\_Info.csv – contains GRIDID, XLONG, YLAT, ELEVATION,
-    SLOPE\_P, HUC8, REG10, STFIPS, CNTYFIPS, GRASS, CROPS, CROP\_P,
+-   EPICSites_Info.csv – contains GRIDID, XLONG, YLAT, ELEVATION,
+    SLOPE_P, HUC8, REG10, STFIPS, CNTYFIPS, GRASS, CROPS, CROP_P,
     COUNTRY, and COUNTRY-PROVINCE items.
 
--   EPICSites\_Crop.csv – contains GRIDID, 42 crop acreages, COUNTRY,
+-   EPICSites_Crop.csv – contains GRIDID, 42 crop acreages, COUNTRY,
     and HUC8 items.
 
 The tool processes the set of input spatial data files below, which have
 been modified specifically for use with the tool and can be obtained
 from the CMAS:
 
--   BELD4 file for the domain (beld4\_cmaq12km\_2006.nc)
+-   BELD4 file for the domain (beld4_cmaq12km_2006.nc)
 
--   U.S. county shapefiles (co99\_d00\_conus\_cmaq\_epic.shp)
+-   U.S. county shapefiles (co99_d00_conus_cmaq_epic.shp)
 
 -   North American State political boundary shapefile
-    (na\_bnd\_camq\_epic.shp)
+    (na_bnd_camq_epic.shp)
 
--   U.S. 8-digit HUC shapefile (conus\_hucs\_8\_cmaq.shp)
+-   U.S. 8-digit HUC shapefile (conus_hucs_8_cmaq.shp)
 
--   Elevation image file (na\_dem\_epic.img)
+-   Elevation image file (na_dem_epic.img)
 
--   Slope image file (na\_slope\_epic.img)
+-   Slope image file (na_slope_epic.img)
 
 Users can follow the sample script file below, which has all of the
 environment variables required for running the tool from the command
@@ -585,19 +585,19 @@ MCIP/CMAQ-to-EPIC Tool
 This tool generates EPIC daily weather and nitrogen deposition data
 files from MCIP meteor­ol­ogy and CMAQ nitrogen deposition files for
 EPIC modeling sites. The input MCIP and CMAQ data are stored in two
-directories defined by the environment variables DATA\_DIR and
-DATA\_DIR\_CMAQ.
+directories defined by the environment variables DATA_DIR and
+DATA_DIR_CMAQ.
 
-MCIP output files must have names of the format METCRO2D\*{date} (e.g.,
-METCRO2D\_020725). The date format can be in one of the following
+MCIP output files must have names of the format METCRO2D*{date} (e.g.,
+METCRO2D_020725). The date format can be in one of the following
 formats:
 
 > YYYYMMDD *or* YYMMDD *or* YYYYDDD *or* YYDDD
 
 CMAQ dry and wet deposition files must have names of the format
-\*DRYDEP\*{date} and \*WETDEP\*{date} (e.g.,
-CCTM\_N4a\_06emisv2soa\_12km\_wrf.DRYDEP.20020630 and
-CCTM\_N4a\_06emisv2soa\_12km\_wrf.WETDEP1.20020630). The date can be in
+*DRYDEP*{date} and *WETDEP*{date} (e.g.,
+CCTM_N4a_06emisv2soa_12km_wrf.DRYDEP.20020630 and
+CCTM_N4a_06emisv2soa_12km_wrf.WETDEP1.20020630). The date can be in
 any of the formats listed above.
 
 Deposition inputs for EPIC modeling can take one of the following three
@@ -611,7 +611,7 @@ inputs:
     > deposition computation
 
 The input site location file defined by the environment variable
-EPIC\_SITE\_FILE has to be a CSV file, with the first three items being
+EPIC_SITE_FILE has to be a CSV file, with the first three items being
 site ID, longitude, and latitude.
 
 The tool generates three outputs:
@@ -631,9 +631,9 @@ The tool generates three outputs:
 |***Index***|***Variable***|***Index***|***Variable***|
 |---|---|---|---|
 |1|Year|8|Daily Average Relative Humidity|
-|2|Month|9|Daily Average 10m Windspeed (m s\^-1)|
+|2|Month|9|Daily Average 10m Windspeed (m s^-1)|
 |3|Day|10|Daily Total Wet Oxidized N (g/ha)|
-|4|Daily Total Radiation (MJ m\^02)|11|Daily Total Wet Reduced N (g/ha)|
+|4|Daily Total Radiation (MJ m^02)|11|Daily Total Wet Reduced N (g/ha)|
 |5|Daily Maximum 2m Temperature (C)|12|Daily Total Dry Oxidized N (g/ha)|
 |6|Daily minimum 2m temperature (C)|13|Daily Total Dry Reduced N (g/ha)|
 |7|Daily Total Precipitation (mm)|14|Daily Total Wet Organic N (g/ha)|
@@ -662,8 +662,8 @@ The 13 variables contained in the soil output file are listed in Table
 
 |***Index***|***Name***|***Soil Variable***|***Index***|***Name***|***Soil Variable***|
 |---|---|---|---|---|---|
-|1|L1_SoilNum|Soil Number (none)|8|L2_Bulk_D|Layer2 Bulk Density (t/m\*\*3)|
-|2|L1_Bulk_D|Layer1 Bulk Density (t/m\*\*3)|9|L2_Wilt_P|Layer2 Wilting Point (m/m)|
+|1|L1_SoilNum|Soil Number (none)|8|L2_Bulk_D|Layer2 Bulk Density (t/m**3)|
+|2|L1_Bulk_D|Layer1 Bulk Density (t/m**3)|9|L2_Wilt_P|Layer2 Wilting Point (m/m)|
 |3|L1_Wilt_P|Layer1 Wilting Point(m/m)|10 |     L2_Field_C|Layer2 Field Capacity (m/m)|
 |4|L1_Field_C|Layer1 Field Capacity (m/m)|11|L2_Porocity|Layer2 Porocity (%)|
 |5|L1_Porocity|Layer1 Porocity (%)|12|L2_PH|Layer2 PH (none)|
@@ -687,9 +687,9 @@ can be modified and run at the command line:
 |2|SSFN|N in Subsurface Flow (kg/ha)|31|      L2_P|Layer2 Mineral P (kg/ha)|
 |3|PRKN|N Loss in Percolate (kg/ha)|32|      L2_OP|Layer2 Organic P (kg/ha)|
 |4|DN|N-NO3 Denitrification (kg/ha)|33|L2_C |     Layer2 Carbon (kg/ha)|
-|5|DN2\*|N-N2O from NO3 Denitrification (kg/ha)|34|L2_NITR|Layer2 N - Nitrified NH3 (kg/ha)|
-|6|AVOL\*|N-NH3 Emission (kg/ha)|35|T1_DEP|Layert Depth (m)
-|7|HMN|OC Change by Soil Respiration (kg/ha)|36|T1_BD|Layert Bulk Density (t/m\*\*3)|
+|5|DN2*|N-N2O from NO3 Denitrification (kg/ha)|34|L2_NITR|Layer2 N - Nitrified NH3 (kg/ha)|
+|6|AVOL*|N-NH3 Emission (kg/ha)|35|T1_DEP|Layert Depth (m)
+|7|HMN|OC Change by Soil Respiration (kg/ha)|36|T1_BD|Layert Bulk Density (t/m**3)|
 |8|NFIX|N Fixation (kg/ha)|37|T1_NO3|Layert N - Nitrate (kg/ha)|
 |9|YP|P Loss with Sediment (kg/ha)|38|T1_NH3|Layert N - Ammonia (kg/ha)|
 |10|QAP|Labile P Loss in Runoff (kg/ha)|39|T1_ON|Layert Organic N (kg/ha)|
@@ -700,7 +700,7 @@ can be modified and run at the command line:
 |15|HU_BASE0|Base Heat Unit (none)|44|L1_ANO3|Layer1 N-NO3 AppRate (kg/ha)|
 |16|HU_FRAC|Heat Unit fraction (none)|45|L1_ANH3|Layer1 N-NH3 AppRate (kg/ha)|
 |17|L1_DEP|Layer1 Depth (m)|46|L1_AON|Layer1 ON AppRate (kg/ha)|
-|18|L1_BD|Layer1 Bulk Density (t/m\*\*3)|47|L1_AMP|Layer1 MP AppRate (kg/ha)|
+|18|L1_BD|Layer1 Bulk Density (t/m**3)|47|L1_AMP|Layer1 MP AppRate (kg/ha)|
 |19|L1_NO3|Layer1 N - Nitrate (kg/ha)|48|L1_AOP|Layer1 OP AppRate (kg/ha)|
 |20|L1_NH3|Layer1 N - Ammonia (kg/ha)|49|L2_ANO3|Layer2 N-NO3 AppRate (kg/ha)|
 |21|L1_ON|Layer1 Organic N (kg/ha)|50|L2_ANH3|Layer2 N-NH3 AppRate (kg/ha)|
@@ -709,7 +709,7 @@ can be modified and run at the command line:
 |24|L1_C|Layer1 Carbon (kg/ha)|53|L2_AOP|Layer2 OP AppRate (kg/ha)|
 |25|L1_NITR|Layer1 N - Nitrified NH3 (kg/ha)|54|UN1|N Uptake by Crop (kg/ha)|
 |26|L2_DEP|Layer2 Depth (m)|55|HUI|Heat Unit Index (none)|
-|27|L2_BD|Layer2 Bulk Density (t/m\*\*3)|56|LAI|Leaf Area Index (none)|
+|27|L2_BD|Layer2 Bulk Density (t/m**3)|56|LAI|Leaf Area Index (none)|
 |28|L2_NO3|Layer2 N - Nitrate (kg/ha)|57|CPHT|Crop Height (m)|
 |29|L2_NH3|Layer2 N - Ammonia (kg/ha)|
 
@@ -717,7 +717,7 @@ can be modified and run at the command line:
 [[[[[[[]{#_Toc357586948 .anchor}]{#_Toc357519807
 .anchor}]{#_Toc357440531 .anchor}]{#_Toc357435016
 .anchor}]{#_Toc357192631 .anchor}]{#_Toc357176060
-.anchor}]{#_Toc357175589 .anchor}\*DN2 is currently under revision, and
+.anchor}]{#_Toc357175589 .anchor}*DN2 is currently under revision, and
 AVOL is an initial estimate that is revised within the bidirectional
 CMAQ.
 
@@ -739,10 +739,10 @@ shows the two lists of variables.
 
 **Table 7. EPIC yearly extraction output variables.**
 
-epic2cmaq\_year.nc - crop specific output
+epic2cmaqyear.nc - crop specific output
 
 |***Index***|***Name***|***Variable***|***Index***|***Name***|***Variable***|
-|---|---|---|---|
+|---|---|---|---|---|---|
 |1|GMN|N Mineralized (kg/ha)|19|T_YLDG|T-Grain Yield (1000ton)|
 |2|NMN|Humus Mineralization (kg/ha)|20|YLDF|Forage Yield (t/ha)|
 |3|NFIX|N Fixation (kg/ha)|21|T_YLDF|T-Forage Yield (1000ton)|
@@ -762,23 +762,23 @@ epic2cmaq\_year.nc - crop specific output
 |17|DN2|N-N2O from NO3 Denitrification (kg/ha)|35|Q*|Runoff (mm)|
 |18|YLDG|Grain Yield (t/ha)|
 
-**epic2cmaq\_year\_total.nc - crop weighted output
+**epic2cmaq_year_total.nc - crop weighted output
 
 |***Index***|***Name***|***Variable***|
-|---|---|
-|1|T\_GMN|N Mineralized (mt - metric ton)|
-|2|T\_NMN|Humus Mineralization (mt)|
-|3|T\_NFIX|N Fixation (mt)|
-|4|T\_NITR|N - Nitrified NH3 (mt)|
-|5|T\_AVOL|N - Volatilization (mt)|
-|6|T\_DN|N-NO3 Denitrification (mt)|
-|7|T\_YON|N Loss with Sediment (mt)|
-|8|T\_QNO3|N Loss in Surface Runoff (mt)|
-|9|T\_SSFN|N in Subsurface Flow (mt)|
-|10|T\_PRKN|N Loss in Percolate (mt)|
-|11|T\_FNO|N - Organic Fertilizer (mt)|
-|12|T\_FNO3|N - Nitrate Fertilizer (mt)|
-|13|T\_FNH3|N - Ammonia Fertilizer (mt)|
+|---|---|---|
+|1|T_GMN|N Mineralized (mt - metric ton)|
+|2|T_NMN|Humus Mineralization (mt)|
+|3|T_NFIX|N Fixation (mt)|
+|4|T_NITR|N - Nitrified NH3 (mt)|
+|5|T_AVOL|N - Volatilization (mt)|
+|6|T_DN|N-NO3 Denitrification (mt)|
+|7|T_YON|N Loss with Sediment (mt)|
+|8|T_QNO3|N Loss in Surface Runoff (mt)|
+|9|T_SSFN|N in Subsurface Flow (mt)|
+|10|T_PRKN|N Loss in Percolate (mt)|
+|11|T_FNO|N - Organic Fertilizer (mt)|
+|12|T_FNO3|N - Nitrate Fertilizer (mt)|
+|13|T_FNH3|N - Ammonia Fertilizer (mt)|
 |14|T_OCPD|Organic Carbon in Plow Layer (1000mt)|
 |15|T_TOC|Organic Carbon in Soil Profile (1000mt)|
 |16|T_TNO3|Total NO3 in Soil Profile (mt)|
@@ -792,7 +792,7 @@ epic2cmaq\_year.nc - crop specific output
 |24|T_QAP|T -Labile P Loss in Runoff (mt)|
 |25|T_YW|T -Wind Erosion (1000ton)|
 |26|T_Q*|T -Runoff (mm)|
-\*Water on agricultural lands.
+*Water on agricultural lands.
 
 The following sample script file, which is contained in the Raster Tools
 script directory, has all required environment variables and can be
@@ -820,10 +820,10 @@ Other Utilities
 
 The following utility programs are stored in the **util** directory:
 
--   **goes\_untar.pl** – used to untar downloaded GOES data into the
+-   **goes_untar.pl** – used to untar downloaded GOES data into the
     format required for the GOES cloud product processing tool.
 
--   **updateWRFinput\_landuse.R** – used to update the wrfinput file
+-   **updateWRFinput_landuse.R** – used to update the wrfinput file
     using generated land use data by the NLCD and MODIS land cover
     generation tool (see Section 3.1). The updated wrfinput file can be
     used in WRF simulations with the WRF Pleim-Xiu Land Surface Model,
