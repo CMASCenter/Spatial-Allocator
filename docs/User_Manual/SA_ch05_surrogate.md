@@ -154,9 +154,9 @@ the Surrogate Tool. The columns VARIABLE and VALUE are required. Any
 additional columns are optional and are ignored by the Surrogate Tool.
 There are a number of variables that should be set in the global control
 variables file. The contents of the global control variables file for
-the RegularGrid output type are shown in Tables 1 and 2. (Tables 1
-through 5 are shown together following this discussion). Table 1 shows
-the file as it would appear loaded into a spreadsheet. Table 2 shows the
+the RegularGrid output type are shown in [Tables 1](Table-1) and [Table 2](Table-2). (Tables 1
+through 5 are shown together following this discussion). [Table 1](Table-1) shows
+the file as it would appear loaded into a spreadsheet. [Table 2](Table-2) shows the
 file as it would appear loaded into a standard text editor. The
 following variables (listed in capital letters below) are recognized by
 the Surrogate Tool in the global control variables file:
@@ -347,7 +347,7 @@ in the shapefile catalog file to verify that they are consistent with
 the locations on your computer.
 
 An example of a shapefile catalog file as it would look loaded into a
-spreadsheet is shown in Table 3. Note that this file could also be
+spreadsheet is shown in [Table 3](Table-3). Note that this file could also be
 edited using a standard text editor, but that view of it is not shown
 here. There are four columns that must be specified for each line of the
 shapefile catalog: SHAPEFILE NAME, DIRECTORY, ELLIPSOID, and MAP
@@ -382,7 +382,7 @@ be gap-filled. The value of the SURROGATE SPECIFICATION FILE variable in
 the global control variables file sets the file location and name of the
 SSF that the Surrogate Tool will use during a given run. An example
 surrogate specification file as it would look loaded into a spreadsheet
-is shown in Tables 4a and 4b (note that the format of each row is split
+is shown in [Table 4a](Table-4a) and [Table 4b](Table-4b) (note that the format of each row is split
 into parts (a) and (b) so that the information fits on the pages of this
 document). The sample specification file provided with the tool – is
 named “surrogate_specification_2002.csv”. It can be modified by adding
@@ -593,7 +593,7 @@ The *generation control file* is a CSV file that specifies the
 surrogates to create for a specific run of the Surrogate Tool. Users can
 modify the sample generation control file provided with the Surrogate
 Tool, named “surrogate_generation_grid.csv”, for their computation
-(see Table 5). The columns REGION, SURROGATE, SURROGATE CODE, GENERATE,
+(see [Table 5](Table-5)). The columns REGION, SURROGATE, SURROGATE CODE, GENERATE,
 and QUALITY ASSURANCE are required to be included in the file. If the
 value in the GENERATE column is YES, the surrogate will be generated. If
 the value in the QUALITY ASSURANCE column is YES, surrogate ratios will
@@ -606,7 +606,7 @@ To ensure consistency, you may wish to copy these columns directly from
 the surrogate specification file and paste them into this file to create
 it.
 
-
+<a id=Table-1></a>
 **Table 1. Example of a Global Control Variables File for RegularGrid Loaded into a Spreadsheet(control_variables_grid.csv)**
 
 |**VARIABLE**|**VALUE**|**DESCRIPTION**|
@@ -634,7 +634,7 @@ it.
 |MERGE SURROGATES|YES|If set to YES the surrogates will be merged|
 |GAPFILL SURROGATES|YES|If set toYES, the surrogates will be gapfilled|
 
-
+<a id=Table-2></a>
 **Table 2. The Global Control Variables File for RegularGrid as A CSV File (control_variables_grid.csv)**
 
 |***VARIABLE***|***VALUE***|***DESCRIPTION***|
@@ -662,6 +662,7 @@ it.
 |MERGE SURROGATES|YES|" If set to YES, the surrogates will be merged."|
 |GAPFILL SURROGATES|YES|" If set to YES, gapfilling will be performed."
 
+<a id=Table-3></a>
 **Table 3. Example of a Shapefile Catalog Loaded into a Spreadsheet (shapefile_catalog.csv).**
 
 |**SHAPEFILE NAME**|**DIRECTORY**|**ELLIPSOID**|**PROJECTION**|**SHAPE TYPE**|**DESCRIPTION**|**DATA SOURCE**|
@@ -678,6 +679,7 @@ it.
 |us_ag2k|../data/emiss_shp2003/us|+a=6370997.0,+b=6370997.0|proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97|Polygon|Agricultural lands—areas of Pasture/Hay, Grains, Row Crops, Fallow Land and Orchards/Vineyards|NLCD|
 
 
+<a id=Table-4a></a>
 **Table 4a. Example of the Left Columns of the Surrogate Specification File Loaded into a Spreadsheet (surrogate_specification_2002.csv)**
 
 |***REGION***|***SURROGATE***|***SURROGATE CODE***|***DATA SHAPEFILE***|***DATA ATTRIBUTE***|***WEIGHT SHAPEFILE***|***WEIGHT ATTRIBUTE***|***WEIGHT FUNCTION***|***FILTER FUNCTION***|
@@ -696,6 +698,7 @@ it.
 |USA|Heavy and High Tech Industrial (IND1 + IND5)|570|county_pophu02|FIPSSTCO|us_lu2k|IND1+IND5|
 |USA|Forest External|328|NA|Population|100|                                                                                                                           
 
+<a id=Table-4b></a>
 **Table 4b. Example of the Right Columns of the Surrogate Specification File Loaded into a Spreadsheet (surrogate_specification_2002.csv)**
 
 |***REGION***|***SURROGATE***|***Cols 3-9***  |***MERGE FUNCT***|***SECONDARY SURROGATE***|***TERTIARY SURROGATE***|***QUARTERNARY SURROGATE***|***DETAILS***|***COMMENTS***|
@@ -711,10 +714,11 @@ it.
 | USA   | Rural Land Area| …     |       | Land | | | Land Area that is not within an area designated as an Urbanized Area or an Urban Cluster.    |   |    
 | USA   | Total Agriculture | …     |       | Rural Land Area| Land  | | Sum of: Pasture/Hay,  Grains, Row Crops, Fallow Land and Orchards/Vineyards| |
 | USA   | Industrial Land | …     |       | Urban Population | Land  | Popululation | Sum of building square footage:  IND1 + IND2 + IND3 + IND4 + IND5 + IND6  |       |
-|USA| Heavy and High Tech Industrial (IND1 + IND5)|…| |Industrial Land|Urban Population|Population|Sum of building square footage from FEMA categories:  IND1 + IND5|Total Industrial in Table1. Same as Industrial Land?|
+|USA| Heavy and High Tech Industrial (IND1 + IND5)|…| |Industrial Land|Urban Population|Population|Sum of building square footage from FEMA categories:  IND1 + IND5|Total Industrial in [Table1](Table-1). Same as Industrial Land?|
 | USA   | Forest External | …     | 0.5/*../output/US36KM_20X20/forest.txt Forest External+0.5*Rural Land Area | ./output/US36KM_20X20/ mypop_100.txt/My Population |       |       |       |       |
 | NA    | Population | …     | Population[USA];Population[Canada]; Population[Mexico] |  |    | | | |   |
 
+<a id=Table-5></a>
 **Table 5. Example of a Surrogate Generation Control File Loaded into a Spreadsheet **
 
 |***REGION***|***SURROGATE***|***SURROGATE CODE***|***GENERATE***|***QUALITY ASSURANCE***|
@@ -878,8 +882,8 @@ MGPRO files, which are now read by SMOKE from the SRGDESC file. There
 are two output formats for computed surrogate ratios: one for grids
 (used for both Regular Grid and EGrid formats) and the other for
 polygon-based data such as census tracts. The format of the output
-surrogate file for regular grid surrogates is described in Table 6, and
-an example is provided in the Table 7. External surrogates input to the
+surrogate file for regular grid surrogates is described in [Table 6](Table-6), and
+an example is provided in the [Table 7](Table-7). External surrogates input to the
 tool are also assumed to be in this format. At the time that this
 document was written, SMOKE does not support polygon surrogates.
 
@@ -894,7 +898,7 @@ denominator are values used to compute the surrogate fraction, and the
 QA sum is a running sum of the fractions for a given county. Typically
 this should be 1 for the last entry (e.g., the last grid cell or polygon
 listed) for a given county. The output file format for polygon-based
-surrogates is shown in Table 8, followed by an example in Table 9.
+surrogates is shown in [Table 8](Table-8), followed by an example in [Table 9](Table-9).
 
 The surrogate files output from the srgcreate and merge tool programs
 are named according to the format: *region_code_*NOFILL.txt. If a
@@ -915,7 +919,7 @@ known to SMOKE as the SRGDESC file. If a surrogate was not gapfilled,
 this file contains the name of the NOFILL surrogate file for that
 surrogate ID, otherwise it contains the name of the FILL surrogate file.
 This is illustrated in the example of this file that is given in
-Table 10.
+[Table 10](Table-10).
 
 ### 5.2 Log File
 
@@ -927,7 +931,7 @@ computation with the regions, names, and codes are output to the end of
 the log file. So, users should check the end of the log file first to
 see the status of all surrogate computation. If some surrogate
 computations fail, users can check the detailed log information above.
-An example is given in Table 11.
+An example is given in [Table 11](Table-11).
 
 ### 5.3 Output Surrogate File
 
@@ -959,7 +963,8 @@ file will probably need to be removed.
     version of your surrogate weight data (e.g. gridded population). A
     corresponding CSV file of the attribute data is also created.
 
-**Table 6. Format of a Regular Grid Output Surrogate File **
+<a id=Table-6></a>
+**Table 6. Format of a Regular Grid Output Surrogate File**
 
 |***Line***|***Column***|***Description***|
 |---|---|---|
@@ -990,8 +995,8 @@ file will probably need to be removed.
 | |D|Grid row number (Integer)|
 | |E|Spatial surrogate ratio|
 
-**
-Table 7. A Sample Output Regular Grid Spatial Surrogate File**
+<a id=Table-7></a>
+**Table 7. A Sample Output Regular Grid Spatial Surrogate File**
 
 ```csh
 #GRID US36KM_148X112 -2736000.000000 -2088000.000000 36000.000000
@@ -1071,6 +1076,7 @@ EXPLANATION
 # 120 01075 99 40 0.419329 ! 2.342e-7 5.587e-7 0.419329
 ```
 
+<a id=Table-8></a>
 **Table 8. Format of a Polygon Surrogate File**
 
 |***Line***|***Columns***|***Description***|
@@ -1090,6 +1096,7 @@ EXPLANATION
 | |C |Unique polygon (e.g., Census Tract) ID (Text or Integer)|
 | |D |Spatial surrogate decimal fraction (i.e., fraction of the surrogate attribute in the polygon ) (Real)|
 
+<a id=Table-9></a>
 **Table 9. A Sample Output Census Tract (Polygon) Surrogate File**
 
 ```csh
@@ -1163,8 +1170,9 @@ OUTPUT_FILE_MAP_PRJN=+proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97
 
 100 51081 37131980300 1.67322e-17 ! 1.93424e-13 11560 1.6732e-17
 
-**
-Table 10. An Example SRGDESC FILE for a RegularGrid^*^**
+
+<a id=Table-10></a>
+** Table 10. An Example SRGDESC FILE for a RegularGrid^*^**
 
 #GRID US36KM_148X112 -2736000.000000 -2088000.000000 36000.000000
 36000.000000 148 112 1 LAMBERT meters 33.000000 45.000000 -97.000000
@@ -1211,8 +1219,8 @@ Miles",/output/US36KM_148X112/USA_230_FILL.txt
 
 * header line has been wrapped to two lines for this example
 
-**Table 11. A Sample Log File Created by the Surrogate Tool for
-RegularGrid Output**
+<a id=Table-11></a>
+**Table 11. A Sample Log File Created by the Surrogate Tool for RegularGrid Output**
 
 ```csh
 Run Date: Thu Mar 05 16:25:26 EST 2009
@@ -1562,7 +1570,7 @@ The Surrogate Tool software takes the following steps when it runs:
 
 16. Information is written to a log file, which includes a summary table
     of the surrogate computation that is written to the bottom of the
-    log file (see Table 11). This lists the region, name, and code for
+    log file (see [Table 11](Table-11)). This lists the region, name, and code for
     each of the surrogates that were requested to be generated. It also
     indicates whether the computation of srgcreate, merging or
     gapfilling was successful or failed for each surrogate.
