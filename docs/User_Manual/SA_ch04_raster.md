@@ -291,54 +291,54 @@ the crop percentage variable contains the 42 crops listed in Table 3.
 |8|Birch|47|Juniper|86|Oak_delta_post|125|      Pine_blackjack|164|Sassafras|
 |9|Bumelia_gum|48|KY_coffeetree|87| Oak_Durand|126|Pine_brstlcone|165|Sequoia|
 |10|Cajeput|49|Larch|88|Oak_Emery|127|Pine_chihuahua|166|Serviceberry|
-|11|Califor-laurel|50|Loblolly_bay|89       Oak_Engelmann|128|Pine_Coulter|167|Silverbell|
-|12|Cascara-buckthor|51|Madrone|90       Oak_evergreen_sp|129|Pine_digger|168|Smoketree|
+|11|Califor-laurel|50|Loblolly_bay|89 |Oak_Engelmann|128|Pine_Coulter|167|Silverbell|
+|12|Cascara-buckthor|51|Madrone|90|Oak_evergreen_sp|129|Pine_digger|168|Smoketree|
 |13|Castanea|52|Magnolia|91|Oak_Gambel|130|Pine_Ewhite|169|Soapberry_westrn|
 |14|Catalpa|53|Mahogany|92|Oak_interio_live|131|Pine_foxtail|170|Sourwood|
-|15|Cedar_chamaecyp|54|Maple_bigleaf|93       Oak_laurel|132|Pine_jack|171|Sparkleberry|
+|15|Cedar_chamaecyp|54|Maple_bigleaf|93|Oak_laurel|132|Pine_jack|171|Sparkleberry|
 |16|Cedar_thuja|55|Maple_bigtooth|94|Oak_live|133|Pine_Jeffrey|172|Spruce_black|
 |17|Chestnut_buckeye|56|Maple_black|95|Oak_Mexicanblue|134|Pine_knobcone|173|Spruce_blue|
 |18|Chinaberry|57|Maple_boxelder|96|Oak_Northrn_pin|135|Pine_limber|174|Spruce_Brewer|
 |19|Cypress_cupress|58|Maple_FL|97|Oak_Northrn_red|136|Pine_loblolly|175|Spruce_Englemann|
-|20|Cypress_taxodium|59|Maple_mtn|98       Oak_nuttall|137|Pine_lodgepole|176|Spruce_Norway
+|20|Cypress_taxodium|59|Maple_mtn|98|Oak_nuttall|137|Pine_lodgepole|176|Spruce_Norway
 |21|Dogwood|60|Maple_Norway|99|Oak_OR_white|138|Pine_longleaf|177|Spruce_red|
 |22|Douglas_fir|61|Maple_red|100|Oak_overcup|139|Pine_Monterey|178|Spruce_Sitka|
 |23|East_hophornbean|62|Maple_RkyMtn|101|Oak_pin|140|Pine_pinyon|179|Spruce_spp|
 |24|Elder|63|Maple_silver|102|Oak_post|141      Pine_pinyon_brdr|180|Spruce_white|
-25|Elm|64|Maple_spp|103|Oak_scarlet|142|Pine_pinyon_cmn|181|Sweetgum|
+|25|Elm|64|Maple_spp|103|Oak_scarlet|142|Pine_pinyon_cmn|181|Sweetgum|
 |26|Eucalyptus|65|Maple_striped|104|Oak_scrub|143|Pine_pitch|182|Sycamore|
 |27|Fir_balsam|66|Maple_sugar|105|Oak_shingle|144|Pine_pond|183|Tallowtree-chins|
 |28|Fir_CA_red|67|Mesquite|106|Oak_Shumrd_red|145|Pine_ponderosa|184|Tamarix|
 |29|Fir_corkbark|68|Misc-hardwoods|107|Oak_silverleaf|146|Pine_red|185|Tanoak|
 |30|Fir_fraser|69|Mixed_conifer_sp|108|Oak_Southrn_red|147|Pine_sand|186|Torreya|
 |31|Fir_grand|70|Mountain_ash|109|Oak_spp|148|Pine_scotch|187|Tung-oil-tree|
-|32|Fir_noble|71Mulberry             110      Oak\_swamp\_cnut     149      Pine\_shortleaf      188      Unknown\_tree
-  33       Fir\_Pacf\_silver   72       Nyssa                111      Oak\_swamp\_red      150      Pine\_slash          189      Walnut
-  34       Fir\_SantaLucia     73       Oak\_AZ\_white       112      Oak\_swamp\_white    151      Pine\_spruce         190      Water-elm
-  35       Fir\_Shasta\_red    74       Oak\_bear            113      Oak\_turkey          152      Pine\_sugar          191      Willow
-  36       Fir\_spp            75       Oak\_black           114      Oak\_water           153      Pine\_Swwhite        192      Yellow\_poplar
-  37       Fir\_subalpine      76       Oak\_blackjack       115      Oak\_white           154      Pine\_tablemtn       193      Yellowwood
-  38       Fir\_white          77       Oak\_blue            116      Oak\_willow          155      Pine\_VA             194      Yucca\_Mojave
-  39       Gleditsia\_locust   78       Oak\_bluejack        117      Osage-orange         156      Pine\_Washoe                   
+|32|Fir_noble|71|Mulberry|110|Oak_swamp_cnut     149|Pine_shortleaf|188|Unknown_tree|
+|33|Fir_Pacf_silver|72|Nyssa|111|Oak_swamp_red|150|Pine_slash|189|Walnut|
+|34|Fir_SantaLucia|73|Oak_AZ_white|112|Oak_swamp_white|151|Pine_spruce|190|Water-elm|
+|35|Fir_Shasta_red|74|Oak_bear|113|Oak_turkey|152|Pine_sugar|191|Willow|
+|36|Fir_spp|75|Oak_black|114|Oak_water|153|Pine_Swwhite|192|Yellow_poplar|
+|37|Fir_subalpine|76|Oak_blackjack|115|Oak_white|154|Pine_tablemtn|193|Yellowwood|
+|38|Fir_white|77|Oak_blue|116|Oak_willow|155      Pine_VA|194|Yucca_Mojave
+|39|Gleditsia_locust|78|Oak_bluejack|117|Osage-orange|156|Pine_Washoe|                  
 
 **Table 3. BELD4 crop classes.**
 
-  Index   Variable           Index   Variable           Index   Variable
-  ------- ------------------ ------- ------------------ ------- -------------------
-  1       Hay                15      Cotton             29      SorghumSilage
-  2       Hay\_ir            16      Cotton\_ir         30      SorghumSilage\_ir
-  3       Alfalfa            17      Oats               31      Soybeans
-  4       Alfalfa\_ir        18      Oats\_ir           32      Soybeans\_ir
-  5       Other\_Grass       19      Peanuts            33      Wheat\_Spring
-  6       Other\_Grass\_ir   20      Peanuts\_ir        34      Wheat\_Spring\_ir
-  7       Barley             21      Potatoes           35      Wheat\_Winter
-  8       Barley\_ir         22      Potatoes\_ir       36      Wheat\_Winter\_ir
-  9       BeansEdible        23      Rice               37      Other\_Crop
-  10      BeansEdible\_ir    24      Rice\_ir           38      Other\_Crop\_ir
-  11      CornGrain          25      Rye                39      Canola
-  12      CornGrain\_ir      26      Rye\_ir            40      Canola\_ir
-  13      CornSilage         27      SorghumGrain       41      Beans
-  14      CornSilage\_ir     28      SorghumGrain\_ir   42      Beans\_ir
+|***Index***|***Variable***|***Index***|***Variable***|***Index***|***Variable***|
+|---|---|---|---|---|---|
+|1|Hay|15|Cotton|29|SorghumSilage|
+|2|Hay_ir|16|Cotton_ir|30|SorghumSilage_ir|
+|3|Alfalfa|17|Oats|31|Soybeans|
+|4|Alfalfa_ir|18|Oats_ir|32|Soybeans_ir|
+|5|Other_Grass|19|Peanuts|33|Wheat_Spring|
+|6|Other_Grass_ir|20|Peanuts_ir|34|Wheat_Spring_ir|
+|7|Barley|21|Potatoes|35|Wheat_Winter|
+|8|Barley_ir|22|Potatoes_ir|36|Wheat_Winter_ir|
+|9|BeansEdible|23|Rice|37|Other_Crop|
+|10|BeansEdible_ir|24|Rice_ir|38|Other_Crop_ir|
+|11|CornGrain|25|Rye|39|Canola|
+|12|CornGrain_ir|26|Rye_ir|40|Canola_ir|
+|13|CornSilage|27|SorghumGrain|41|Beans|
+|14|CornSilage_ir|28|SorghumGrain_ir|42|Beans_ir|
 
 [[[[[[[[[[]{#_Toc357586938 .anchor}]{#_Toc357519797
 .anchor}]{#_Toc357440521 .anchor}]{#_Toc357435006
@@ -628,15 +628,15 @@ The tool generates three outputs:
 
 **Table 4. EPIC daily weather and nitrogen deposition variables.**
 
-  Index   Variable                           Index   Variable
-  ------- ---------------------------------- ------- ---------------------------------------
-  1       Year                               8       Daily Average Relative Humidity
-  2       Month                              9       Daily Average 10m Windspeed (m s\^-1)
-  3       Day                                10      Daily Total Wet Oxidized N (g/ha)
-  4       Daily Total Radiation (MJ m\^02)   11      Daily Total Wet Reduced N (g/ha)
-  5       Daily Maximum 2m Temperature (C)   12      Daily Total Dry Oxidized N (g/ha)
-  6       Daily minimum 2m temperature (C)   13      Daily Total Dry Reduced N (g/ha)
-  7       Daily Total Precipitation (mm)     14      Daily Total Wet Organic N (g/ha)
+|***Index***|***Variable***|***Index***|***Variable***|
+|---|---|---|---|
+|1|Year|8|Daily Average Relative Humidity|
+|2|Month|9|Daily Average 10m Windspeed (m s\^-1)|
+|3|Day|10|Daily Total Wet Oxidized N (g/ha)|
+|4|Daily Total Radiation (MJ m\^02)|11|Daily Total Wet Reduced N (g/ha)|
+|5|Daily Maximum 2m Temperature (C)|12|Daily Total Dry Oxidized N (g/ha)|
+|6|Daily minimum 2m temperature (C)|13|Daily Total Dry Reduced N (g/ha)|
+|7|Daily Total Precipitation (mm)|14|Daily Total Wet Organic N (g/ha)|
 
 Users can follow the sample script file below, which has all of the
 environment variables required for running the tool from the command
@@ -660,16 +660,16 @@ The 13 variables contained in the soil output file are listed in Table
 
 **Table 5. EPIC-to-CMAQ soil output variables.**
 
-  ------- -------------- -------------------------------- ------- -------------- --------------------------------
-  Index   Name           Soil Variable                    Index   Name           Soil Variable
-  1       L1\_SoilNum    Soil Number (none)               8       L2\_Bulk\_D    Layer2 Bulk Density (t/m\*\*3)
-  2       L1\_Bulk\_D    Layer1 Bulk Density (t/m\*\*3)   9       L2\_Wilt\_P    Layer2 Wilting Point (m/m)
-  3       L1\_Wilt\_P    Layer1 Wilting Point(m/m)        10      L2\_Field\_C   Layer2 Field Capacity (m/m)
-  4       L1\_Field\_C   Layer1 Field Capacity (m/m)      11      L2\_Porocity   Layer2 Porocity (%)
-  5       L1\_Porocity   Layer1 Porocity (%)              12      L2\_PH         Layer2 PH (none)
-  6       L1\_PH         Layer1 PH (none)                 13      L2\_Cation     Layer2 Cation Ex (cmol/kg)
-  7       L1\_Cation     Layer1 Cation Ex (cmol/kg )                             
-  ------- -------------- -------------------------------- ------- -------------- --------------------------------
+|***Index***|***Name***|***Soil Variable***|***Index***|***Name***|***Soil Variable***|
+|---|---|---|---|---|---|
+|1|L1_SoilNum|Soil Number (none)|8|L2_Bulk_D|Layer2 Bulk Density (t/m\*\*3)|
+|2|L1_Bulk_D|Layer1 Bulk Density (t/m\*\*3)|9|L2_Wilt_P|Layer2 Wilting Point (m/m)|
+|3|L1_Wilt_P|Layer1 Wilting Point(m/m)|10 |     L2_Field_C|Layer2 Field Capacity (m/m)|
+|4|L1_Field_C|Layer1 Field Capacity (m/m)|11|L2_Porocity|Layer2 Porocity (%)|
+|5|L1_Porocity|Layer1 Porocity (%)|12|L2_PH|Layer2 PH (none)|
+|6|L1_PH|Layer1 PH (none)|13|L2_Cation|Layer2 Cation Ex (cmol/kg)|
+|7|L1_Cation|Layer1 Cation Ex (cmol/kg)|                       
+
 
 EPIC daily output files for CMAQ contain the 59 variables listed in
 Table 6.
@@ -681,38 +681,39 @@ can be modified and run at the command line:
 
 **Table 6. EPIC for CMAQ daily output variables.**
 
-  ------- ----------- ---------------------------------------- ------- ---------- ----------------------------------
-  Index   Name        Variable                                 Index   Name       Variable
-  1       QNO3        N Loss in Surface Runoff (kg/ha)         30      L2\_ON     Layer2 Organic N (kg/ha)
-  2       SSFN        N in Subsurface Flow (kg/ha)             31      L2\_P      Layer2 Mineral P (kg/ha)
-  3       PRKN        N Loss in Percolate (kg/ha)              32      L2\_OP     Layer2 Organic P (kg/ha)
-  4       DN          N-NO3 Denitrification (kg/ha)            33      L2\_C      Layer2 Carbon (kg/ha)
-  5       DN2\*       N-N2O from NO3 Denitrification (kg/ha)   34      L2\_NITR   Layer2 N - Nitrified NH3 (kg/ha)
-  6       AVOL\*      N-NH3 Emission (kg/ha)                   35      T1\_DEP    Layert Depth (m)
-  7       HMN         OC Change by Soil Respiration (kg/ha)    36      T1\_BD     Layert Bulk Density (t/m\*\*3)
-  8       NFIX        N Fixation (kg/ha)                       37      T1\_NO3    Layert N - Nitrate (kg/ha)
-  9       YP          P Loss with Sediment (kg/ha)             38      T1\_NH3    Layert N - Ammonia (kg/ha)
-  10      QAP         Labile P Loss in Runoff (kg/ha)          39      T1\_ON     Layert Organic N (kg/ha)
-  11      YON         N Loss with Sediment (kg/ha)             40      T1\_P      Layert Mineral P (kg/ha)
-  12      YW          Wind Erosion (ton/ha)                    41      T1\_OP     Layert Organic P (kg/ha)
-  13      Q           Runoff (mm)                              42      T1\_C      Layert Carbon (kg/ha)
-  14      HUSC        Heat Unit Schedule (none)                43      T1\_NITR   Layert N - Nitrified NH3 (kg/ha)
-  15      HU\_BASE0   Base Heat Unit (none)                    44      L1\_ANO3   Layer1 N-NO3 AppRate (kg/ha)
-  16      HU\_FRAC    Heat Unit fraction (none)                45      L1\_ANH3   Layer1 N-NH3 AppRate (kg/ha)
-  17      L1\_DEP     Layer1 Depth (m)                         46      L1\_AON    Layer1 ON AppRate (kg/ha)
-  18      L1\_BD      Layer1 Bulk Density (t/m\*\*3)           47      L1\_AMP    Layer1 MP AppRate (kg/ha)
-  19      L1\_NO3     Layer1 N - Nitrate (kg/ha)               48      L1\_AOP    Layer1 OP AppRate (kg/ha)
-  20      L1\_NH3     Layer1 N - Ammonia (kg/ha)               49      L2\_ANO3   Layer2 N-NO3 AppRate (kg/ha)
-  21      L1\_ON      Layer1 Organic N (kg/ha)                 50      L2\_ANH3   Layer2 N-NH3 AppRate (kg/ha)
-  22      L1\_P       Layer1 Mineral P (kg/ha)                 51      L2\_AON    Layer2 ON AppRate (kg/ha)
-  23      L1\_OP      Layer1 Organic P (kg/ha)                 52      L2\_AMP    Layer2 MP AppRate (kg/ha)
-  24      L1\_C       Layer1 Carbon (kg/ha)                    53      L2\_AOP    Layer2 OP AppRate (kg/ha)
-  25      L1\_NITR    Layer1 N - Nitrified NH3 (kg/ha)         54      UN1        N Uptake by Crop (kg/ha)
-  26      L2\_DEP     Layer2 Depth (m)                         55      HUI        Heat Unit Index (none)
-  27      L2\_BD      Layer2 Bulk Density (t/m\*\*3)           56      LAI        Leaf Area Index (none)
-  28      L2\_NO3     Layer2 N - Nitrate (kg/ha)               57      CPHT       Crop Height (m)
-  29      L2\_NH3     Layer2 N - Ammonia (kg/ha)                                  
-  ------- ----------- ---------------------------------------- ------- ---------- ----------------------------------
+
+|***Index***|***Name***|***Variable***|***Index***|***Name***|***Variable***|
+|---|
+|1|QNO3|N Loss in Surface Runoff (kg/ha)|30|L2_ON|Layer2 Organic N (kg/ha)|
+|2|SSFN|N in Subsurface Flow (kg/ha)|31|      L2_P|Layer2 Mineral P (kg/ha)|
+|3|PRKN|N Loss in Percolate (kg/ha)|32|      L2_OP|Layer2 Organic P (kg/ha)|
+|4|DN|N-NO3 Denitrification (kg/ha)|33|L2_C |     Layer2 Carbon (kg/ha)|
+|5|DN2\*|N-N2O from NO3 Denitrification (kg/ha)|34|L2_NITR|Layer2 N - Nitrified NH3 (kg/ha)|
+|6|AVOL\*|N-NH3 Emission (kg/ha)|35|T1_DEP|Layert Depth (m)
+|7|HMN|OC Change by Soil Respiration (kg/ha)|36|T1_BD|Layert Bulk Density (t/m\*\*3)|
+|8|NFIX|N Fixation (kg/ha)|37|T1_NO3|Layert N - Nitrate (kg/ha)|
+|9|YP|P Loss with Sediment (kg/ha)|38|T1_NH3|Layert N - Ammonia (kg/ha)|
+|10|QAP|Labile P Loss in Runoff (kg/ha)|39|T1_ON|Layert Organic N (kg/ha)|
+|11|YON|N Loss with Sediment (kg/ha)|40|T1_P|Layert Mineral P (kg/ha)|
+|12|YW|Wind Erosion (ton/ha)|41|T1\_OP|Layert Organic P (kg/ha)|
+|13|Q|Runoff (mm)|42|T1_C|Layert Carbon (kg/ha)|
+|14|HUSC|Heat Unit Schedule (none)|43|T1_NITR|Layert N - Nitrified NH3 (kg/ha)|
+|15|HU_BASE0|Base Heat Unit (none)|44|L1_ANO3|Layer1 N-NO3 AppRate (kg/ha)|
+|16|HU_FRAC|Heat Unit fraction (none)|45      L1_ANH3|Layer1 N-NH3 AppRate (kg/ha)|
+|17|L1_DEP|Layer1 Depth (m)|46|L1_AON|Layer1 ON AppRate (kg/ha)|
+|18|L1_BD|Layer1 Bulk Density (t/m\*\*3)|47|L1_AMP|Layer1 MP AppRate (kg/ha)|
+|19|L1_NO3|Layer1 N - Nitrate (kg/ha)|48|L1_AOP|Layer1 OP AppRate (kg/ha)|
+|20|L1_NH3|Layer1 N - Ammonia (kg/ha)|49|L2_ANO3|Layer2 N-NO3 AppRate (kg/ha)|
+|21|L1_ON|Layer1 Organic N (kg/ha)|50|L2_ANH3|Layer2 N-NH3 AppRate (kg/ha)|
+|22|L1_P|Layer1 Mineral P (kg/ha)|51|L2_AON|Layer2 ON AppRate (kg/ha)|
+|23|L1_OP|Layer1 Organic P (kg/ha)|52|L2_AMP|Layer2 MP AppRate (kg/ha)|
+|24|L1_C|Layer1 Carbon (kg/ha)|53|L2_AOP|Layer2 OP AppRate (kg/ha)|
+|25|L1_NITR|Layer1 N - Nitrified NH3 (kg/ha)|54|UN1|N Uptake by Crop (kg/ha)|
+|26|L2_DEP|Layer2 Depth (m)|55|HUI|Heat Unit Index (none)|
+|27|L2_BD|Layer2 Bulk Density (t/m\*\*3)|56|LAI|Leaf Area Index (none)|
+|28|L2_NO3|Layer2 N - Nitrate (kg/ha)|57|CPHT|Crop Height (m)|
+|29|L2_NH3|Layer2 N - Ammonia (kg/ha)|
+
 
 [[[[[[[]{#_Toc357586948 .anchor}]{#_Toc357519807
 .anchor}]{#_Toc357440531 .anchor}]{#_Toc357435016
@@ -739,45 +740,59 @@ shows the two lists of variables.
 
 **Table 7. EPIC yearly extraction output variables.**
 
-  ------------------------------------------------------ --------- ---------------------------------------- ------- ----------- -----------------------------------------
-  **epic2cmaq\_year.nc - crop specific output**                                                             
-  Index                                                  Name      Variable                                 Index
-  1                                                      GMN       N Mineralized (kg/ha)                    19
-  2                                                      NMN       Humus Mineralization (kg/ha)             20
-  3                                                      NFIX      N Fixation (kg/ha)                       21
-  4                                                      NITR      N - Nitrified NH3 (kg/ha)                22
-  5                                                      AVOL      N - Volatilization (kg/ha)               23
-  6                                                      DN        N-NO3 Denitrification (kg/ha)            24
-  7                                                      YON       N Loss with Sediment (kg/ha)             25
-  8                                                      QNO3      N Loss in Surface Runoff (kg/ha)         26
-  9                                                      SSFN      N in Subsurface Flow (kg/ha)             27
-  10                                                     PRKN      N Loss in Percolate (kg/ha)              28
-  11                                                     FNO       N - Organic Fertilizer (kg/ha)           29
-  12                                                     FNO3      N - Nitrate Fertilize (kg/ha)            30
-  13                                                     FNH3      N - Ammonia Fertilize (kg/ha)            31
-  14                                                     OCPD      Organic Carbon in Plow Layer (mt/ha)     32
-  15                                                     TOC       Organic Carbon in Soil Profile (mt/ha)   33
-  16                                                     TNO3      Total NO3 in Soil Profile (kg/ha)        34
-  17                                                     DN2       N-N2O from NO3 Denitrification (kg/ha)   35
-  18                                                     YLDG      Grain Yield (t/ha)                       
+epic2cmaq\_year.nc - crop specific output
 
-  **epic2cmaq\_year\_total.nc - crop weighted output**                                                      
-  Index                                                  Name      Variable                                 Index
-  1                                                      T\_GMN    N Mineralized (mt - metric ton)          14
-  2                                                      T\_NMN    Humus Mineralization (mt)                15
-  3                                                      T\_NFIX   N Fixation (mt)                          16
-  4                                                      T\_NITR   N - Nitrified NH3 (mt)                   17
-  5                                                      T\_AVOL   N - Volatilization (mt)                  18
-  6                                                      T\_DN     N-NO3 Denitrification (mt)               19
-  7                                                      T\_YON    N Loss with Sediment (mt)                20
-  8                                                      T\_QNO3   N Loss in Surface Runoff (mt)            21
-  9                                                      T\_SSFN   N in Subsurface Flow (mt)                22
-  10                                                     T\_PRKN   N Loss in Percolate (mt)                 23
-  11                                                     T\_FNO    N - Organic Fertilizer (mt)              24
-  12                                                     T\_FNO3   N - Nitrate Fertilizer (mt)              25
-  13                                                     T\_FNH3   N - Ammonia Fertilizer (mt)              26
-  ------------------------------------------------------ --------- ---------------------------------------- ------- ----------- -----------------------------------------
+|***Index***|***Name***|***Variable***|***Index***|***Name***|***Variable***|
+|---|---|---|---|
+|1|GMN|N Mineralized (kg/ha)|19|T_YLDG|T-Grain Yield (1000ton)|
+|2|NMN|Humus Mineralization (kg/ha)|20|YLDF|Forage Yield (t/ha)|
+|3|NFIX|N Fixation (kg/ha)|21|T_YLDF|T-Forage Yield (1000ton)|
+|4|NITR|N - Nitrified NH3 (kg/ha)|22|YLN|N Used by Crop (kg/ha)|
+|5|AVOL|N - Volatilization (kg/ha)|23|YLP|P Used by Crop (kg/ha)|
+|6|DN|N-NO3 Denitrification (kg/ha)|24|FTN|N Applied (kg/ha)
+|7|YON|N Loss with Sediment (kg/ha)|25|FTP|P Applied (kg/ha)|
+|8|QNO3|N Loss in Surface Runoff (kg/ha)|26|IRGA*|Irrigation Volume Applied (mm)|
+|9|SSFN|N in Subsurface Flow (kg/ha)|27|WS|Water Stress Days (days)|
+|10|PRKN|N Loss in Percolate (kg/ha)|28|NS|N Stress Days (days)|
+|11|FNO|N - Organic Fertilizer (kg/ha)|29|IPLD|Planting Date (Julian Date)|
+|12|FNO3|N - Nitrate Fertilize (kg/ha)|30|IGMD|Germination Date (Julian Date)|
+|13|FNH3|N - Ammonia Fertilize (kg/ha)|31|IHVD|Harvest Date (Julian Date)|
+|14|OCPD|Organic Carbon in Plow Layer (mt/ha)|32|YP|P Loss with Sediment (kg/ha)|
+|15|TOC|Organic Carbon in Soil Profile (mt/ha)|33|QAP|Labile P Loss in Runoff (kg/ha)|
+|16|TNO3|Total NO3 in Soil Profile (kg/ha)|34|YW|Wind Erosion (ton/ha)
+|17|DN2|N-N2O from NO3 Denitrification (kg/ha)|35|Q*|Runoff (mm)|
+|18|YLDG|Grain Yield (t/ha)|
 
+**epic2cmaq\_year\_total.nc - crop weighted output
+
+|***Index***|***Name***|***Variable***|
+|---|---|
+|1|T\_GMN|N Mineralized (mt - metric ton)|
+|2|T\_NMN|Humus Mineralization (mt)|
+|3|T\_NFIX|N Fixation (mt)|
+|4|T\_NITR|N - Nitrified NH3 (mt)|
+|5|T\_AVOL|N - Volatilization (mt)|
+|6|T\_DN|N-NO3 Denitrification (mt)|
+|7|T\_YON|N Loss with Sediment (mt)|
+|8|T\_QNO3|N Loss in Surface Runoff (mt)|
+|9|T\_SSFN|N in Subsurface Flow (mt)|
+|10|T\_PRKN|N Loss in Percolate (mt)|
+|11|T\_FNO|N - Organic Fertilizer (mt)|
+|12|T\_FNO3|N - Nitrate Fertilizer (mt)|
+|13|T\_FNH3|N - Ammonia Fertilizer (mt)|
+|14|T_OCPD|Organic Carbon in Plow Layer (1000mt)|
+|15|T_TOC|Organic Carbon in Soil Profile (1000mt)|
+|16|T_TNO3|Total NO3 in Soil Profile (mt)|
+|17|T_DN2|N-N2O from NO3 Denitrification (mt)|
+|18|T_YLN|N Used by Crop (mt)|
+|19|T_YLP|P Used by Crop (mt)|
+|20|T_FTN|N Applied (mt)|
+|21|T_FTP|P Applied (mt)|
+|22|T_IRGA*|Irrigation Volume Applied (mm)|
+|23|T_YP|T -P Loss with Sediment (mt)|
+|24|T_QAP|T -Labile P Loss in Runoff (mt)|
+|25|T_YW|T -Wind Erosion (1000ton)|
+|26|T_Q*|T -Runoff (mm)|
 \*Water on agricultural lands.
 
 The following sample script file, which is contained in the Raster Tools
