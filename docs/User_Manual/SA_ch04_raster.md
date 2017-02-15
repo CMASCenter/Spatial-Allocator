@@ -279,17 +279,17 @@ the crop percentage variable contains the 42 crops listed in [Table 3](#Table-3)
 <a id=Table-2></a>
 **Table 2. BELD4 tree classes.**
 
-|***In­dex***|***Variable***|***           In­dexx***|***Variable***|***In­dex***|*** Variable***|***In­dex***|***Variable***|*** In­dex***|***Variable***|
-|---|---|---|---|---|---|---|---|---|---|
+|***Index***|***Variable***|***Index***|***Variable***|***Index***|***Variable***|***Index***|***Variable***|
+|---|---|---|---|---|---|---|---|
 |1|Acacia|40|Hackberry|79|Oak_bur|118| Paulownia|157|Pine_whitebark|
-|2|Ailanthus|41|Hawthorn|80|Oak_CA_black|       119|Pawpaw|158|Pine_white|
-|3|Alder|42|Hemlock|81|Oak_CA_live|120| Persimmon|159|Pine_yellow|
-|4|Apple|43|Hickory|82|Oak_CA_white|121| Pine_Apache|160|Populus|
-|5|Ash|44|Holly_American|83|Oak_canyon_live|    122|Pine_Austrian|161|Prunus|
-|6|Basswood|45|Hornbeam|84|Oak_chestnut|123|     Pine_AZ|162|Redbay|
-|7|Beech|46|Incense_cedar|85|Oak_chinkapin|       124|Pine_Bishop|163|Robinia_locust|
-|8|Birch|47|Juniper|86|Oak_delta_post|125|      Pine_blackjack|164|Sassafras|
-|9|Bumelia_gum|48|KY_coffeetree|87| Oak_Durand|126|Pine_brstlcone|165|Sequoia|
+|2|Ailanthus|41|Hawthorn|80|Oak_CA_black|119|Pawpaw|158|Pine_white|
+|3|Alder|42|Hemlock|81|Oak_CA_live|120|Persimmon|159|Pine_yellow|
+|4|Apple|43|Hickory|82|Oak_CA_white|121|Pine_Apache|160|Populus|
+|5|Ash|44|Holly_American|83|Oak_canyon_live|122|Pine_Austrian|161|Prunus|
+|6|Basswood|45|Hornbeam|84|Oak_chestnut|123|Pine_AZ|162|Redbay|
+|7|Beech|46|Incense_cedar|85|Oak_chinkapin|124|Pine_Bishop|163|Robinia_locust|
+|8|Birch|47|Juniper|86|Oak_delta_post|125|Pine_blackjack|164|Sassafras|
+|9|Bumelia_gum|48|KY_coffeetree|87|Oak_Durand|126|Pine_brstlcone|165|Sequoia|
 |10|Cajeput|49|Larch|88|Oak_Emery|127|Pine_chihuahua|166|Serviceberry|
 |11|Califor-laurel|50|Loblolly_bay|89 |Oak_Engelmann|128|Pine_Coulter|167|Silverbell|
 |12|Cascara-buckthor|51|Madrone|90|Oak_evergreen_sp|129|Pine_digger|168|Smoketree|
