@@ -672,10 +672,10 @@ it.
 |vi_pophu2k|../data/emiss_shp2003/us|+a=6370997.0,+b=6370997.0|Proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97|Polygon|Population and housing units from Census 2000 for Virginia Islands|
 |us_ph|../data/emiss_shp2003/us|+a=6370997.0,+b=6370997.0|Proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97|Polygon|The change in housing between 1990 and 2000|Computed|
 |us_heat|../data/emiss_shp2003/us|+a=6370997.0,+b=6370997.0|Proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97|Polygon|Number of housing units in primary heating categories for each census block|US Census Bureau|
-|usrds_2000|../data/emiss_shp2003/us   +a=6370997.0,+b=6370997.0|Proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97|Line             primary and secondary roads for urban and rural areas|US Census Bureau – TIGER|
-|us_rail2k|../data/emiss_shp2003/us|+a=6370997.0,+b=6370997.0|proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97|Line|Class 1-3 and unknown classified railroads|Transportation Atlas Data & Census 2000 TIGER data
+|usrds_2000|../data/emiss_shp2003/us|+a=6370997.0,+b=6370997.0|Proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97|Line|primary and secondary roads for urban and rural areas|US Census Bureau – TIGER|
+|us_rail2k|../data/emiss_shp2003/us|+a=6370997.0,+b=6370997.0|proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97|Line|Class 1-3 and unknown classified railroads|Transportation Atlas Data & Census 2000 TIGER data|
 |us_lowres|../data/emiss_shp2003/us|+a=6370997.0,+b=6370997.0|proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97|Polygon|Area of NLCD Low Intensity Residential Land|NLCD|
-|us_ag2k|../data/emiss_shp2003/us   +a=6370997.0,+b=6370997.0|proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97|Polygon          Agricultural lands—areas of Pasture/Hay, Grains, Row Crops, Fallow Land and Orchards/Vineyards|NLCD
+|us_ag2k|../data/emiss_shp2003/us|+a=6370997.0,+b=6370997.0|proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97|Polygon|Agricultural lands—areas of Pasture/Hay, Grains, Row Crops, Fallow Land and Orchards/Vineyards|NLCD|
 
 
 **Table 4a. Example of the Left Columns of the Surrogate Specification File Loaded into a Spreadsheet (surrogate_specification_2002.csv)**
@@ -691,7 +691,7 @@ it.
 |USA|Land|340|county_pophu02|FIPSSTCO|us_lw2k|NONE|H20_CODE=2|
 |USA|Water|350|county_pophu02water|FIPSSTCO|us_lw2k|NONE|H20_CODE!=2|
 |USA|Rural Land Area|400|county_pophu02|FIPSSTCO|rural_land|NONE|RL_FLAG=Rural Land
-|USA|Total Agriculture|310|county_pophu02|FIPSSTCO         us_ag2k|NONE|GRID_CODE=61,81, 82,83,84
+|USA|Total Agriculture|310|county_pophu02|FIPSSTCO|us_ag2k|NONE|GRID_CODE=61,81, 82,83,84
 |USA|Industrial Land|505|county_pophu02|FIPSSTCO|us_lu2k|IND1+IND2+ IND3+IND4+ IND5+IND6   
 |USA|Heavy and High Tech Industrial (IND1 + IND5)|570|county_pophu02|FIPSSTCO|us_lu2k|IND1+IND5|
 |USA|Forest External|328|NA|Population|100|                                                                                                                           
@@ -712,7 +712,7 @@ it.
 | USA   | Total Agriculture | …     |       | Rural Land Area| Land  | | Sum of: Pasture/Hay,  Grains, Row Crops, Fallow Land and Orchards/Vineyards| |
 | USA   | Industrial Land | …     |       | Urban Population | Land  | Popululation | Sum of building square footage:  IND1 + IND2 + IND3 + IND4 + IND5 + IND6  |       |
 |USA| Heavy and High Tech Industrial (IND1 + IND5)|…| |Industrial Land|Urban Population|Population|Sum of building square footage from FEMA categories:  IND1 + IND5|Total Industrial in Table1. Same as Industrial Land?|
-| USA   | Forest External | …     | 0.5*../output/US36KM_20X20/forest.txtForest External+0.5*Rural Land Area | ./output/US36KM_20X20/ mypop_100.txt/My Population |       |       |       |       |
+| USA   | Forest External | …     | 0.5/*../output/US36KM_20X20/forest.txt Forest External+0.5*Rural Land Area | ./output/US36KM_20X20/ mypop_100.txt/My Population |       |       |       |       |
 | NA    | Population | …     | Population[USA];Population[Canada]; Population[Mexico] |  |    | | | |   |
 
 **Table 5. Example of a Surrogate Generation Control File Loaded into a Spreadsheet **
