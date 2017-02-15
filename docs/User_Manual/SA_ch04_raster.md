@@ -694,11 +694,11 @@ can be modified and run at the command line:
 |9|YP|P Loss with Sediment (kg/ha)|38|T1_NH3|Layert N - Ammonia (kg/ha)|
 |10|QAP|Labile P Loss in Runoff (kg/ha)|39|T1_ON|Layert Organic N (kg/ha)|
 |11|YON|N Loss with Sediment (kg/ha)|40|T1_P|Layert Mineral P (kg/ha)|
-|12|YW|Wind Erosion (ton/ha)|41|T1\_OP|Layert Organic P (kg/ha)|
+|12|YW|Wind Erosion (ton/ha)|41|T1_OP|Layert Organic P (kg/ha)|
 |13|Q|Runoff (mm)|42|T1_C|Layert Carbon (kg/ha)|
 |14|HUSC|Heat Unit Schedule (none)|43|T1_NITR|Layert N - Nitrified NH3 (kg/ha)|
 |15|HU_BASE0|Base Heat Unit (none)|44|L1_ANO3|Layer1 N-NO3 AppRate (kg/ha)|
-|16|HU_FRAC|Heat Unit fraction (none)|45      L1_ANH3|Layer1 N-NH3 AppRate (kg/ha)|
+|16|HU_FRAC|Heat Unit fraction (none)|45|L1_ANH3|Layer1 N-NH3 AppRate (kg/ha)|
 |17|L1_DEP|Layer1 Depth (m)|46|L1_AON|Layer1 ON AppRate (kg/ha)|
 |18|L1_BD|Layer1 Bulk Density (t/m\*\*3)|47|L1_AMP|Layer1 MP AppRate (kg/ha)|
 |19|L1_NO3|Layer1 N - Nitrate (kg/ha)|48|L1_AOP|Layer1 OP AppRate (kg/ha)|
