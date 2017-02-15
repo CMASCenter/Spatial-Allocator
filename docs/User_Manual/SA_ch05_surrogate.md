@@ -664,9 +664,8 @@ File (control_variables_grid.csv)**
 Table 3. Example of a Shapefile Catalog Loaded into a Spreadsheet
 (shapefile_catalog.csv). **
 
-
 |**SHAPEFILE NAME**|**DIRECTORY**|**ELLIPSOID**|**PROJECTION**|**SHAPE TYPE**|**DESCRIPTION**|**DATA SOURCE**|
-|---|---|---|---|---|---|
+|---|---|---|---|---|---|---|
 |county_pophu02|../data/emiss_shp2003/us|+a=6370997.0,+b=6370997.0|Proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97|Polygon|US county polygon data from shapefile pophu2k|Extracted and edited from pophu2k|
 |county_pophu02water|../data/emiss_shp2003/us|+a=6370997.0,+b=6370997.0|Proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97|Polygon|US county polygon data from shapefile pophu2k|Extracted and processed from pophu2k|
 |pophu2k|../data/emiss_shp2003/us|+a=6370997.0,+b=6370997.0|Proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97|Polygon|Population and housing units from Census 2000|US Census Bureau|
@@ -965,11 +964,10 @@ file will probably need to be removed.
 
 **Table 6. Format of a Regular Grid Output Surrogate File **
 
-
   |***Line***|***Column***|***Description***|
   |---|---|---|
-  |1 |A  |#GRID|
-  | | B  | Grid name|
+  | 1 | A  | #GRID|
+  |   | B  | Grid name|
   | |C | X origin in units of the projection|
   | |D | Y origin in units of the projection|
   | |E | X direction cell length in units of the projection|
@@ -990,10 +988,10 @@ file will probably need to be removed.
   |Remaining comment lines|A|#[Surrogate Generation Variable] =|
   | |B|Value|
   |Remaining lines|A|Spatial Surrogate code|
-  |               |B|Country/State/County Code (Text or Integer)|
-  |               |C|Grid column number (Integer)|
-  |               |D|Grid row number (Integer)|
-  |               |E|Spatial surrogate ratio|
+  | |B|Country/State/County Code (Text or Integer)|
+  | |C|Grid column number (Integer)|
+  | |D|Grid row number (Integer)|
+  | |E|Spatial surrogate ratio|
 
 **
 Table 7. A Sample Output Regular Grid Spatial Surrogate File**
