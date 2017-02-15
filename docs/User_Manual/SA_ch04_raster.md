@@ -377,7 +377,7 @@ directories required by the tool.
 The follow­ing sample script file contains all of the required
 environment variables for running the tool:
 
-> **allocateGOES2WRFGrids.csh **
+> **allocateGOES2WRFGrids.csh**
 
 The tool contains the following three programs:
 
@@ -490,7 +490,7 @@ for the defined domain.
 Users can modify the following sample script file provided for
 regridding:
 
-> **allocateMODISL2CloudVars2Grids.csh **
+> **allocateMODISL2CloudVars2Grids.csh**
 
 OMI Level 2 Product Tool
 ------------------------
