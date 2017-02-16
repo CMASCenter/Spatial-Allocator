@@ -1,0 +1,9 @@
+# An example of an allocation mode file
+# Tells the allocate program how to process the attributes in the dbf file
+# the choices of processing mode are aggregate (sum) or average.
+# Duplicates are not allowed, comments and whitespace are fine.
+ATTRIBUTE=POP2000:AGGREGATE
+
+ATTRIBUTE=HOUSEHOLDS:AGGREGATE
+
+ATTRIBUTE=HDENS:AVERAGE
