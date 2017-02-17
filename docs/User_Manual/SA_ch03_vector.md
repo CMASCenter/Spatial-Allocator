@@ -341,7 +341,7 @@ The following variables are used by allocator.exe when run in ALLOCATE mode to s
 
 The spatial allocator programs srgcreate, allocator, and beld3smk use the Input/Output Applications Programming Interface (I/O API) grid description (GRIDDESC) file to specify the input and output grids to be used. The GRIDDESC file contains both map projection and grid description information. Click to see a [sample GRIDDESC file.](media/GRIDDESC.txt) The GRIDDESC file is part of the [EDSS Models-3 I/O API](https://www.cmascenter.org/ioapi/)); see the I/O API web pages for more information. Note that the I/O API assumes that the earth's ellipsoid is a sphere.
 
-The map projection information in the GRIDDESC file consists of five descriptive parameters: PROJ_ALPHA, PROJ_BETA, PROJ_GAMMA, X-CENT, and Y-CENT. These parameters are dependent upon [Projection Types in GRIDDESC File](#Table-1).  The projection section of the GRIDDESC file *must* start with the following line of text:
+The map projection information in the GRIDDESC file consists of five descriptive parameters: PROJ_ALPHA, PROJ_BETA, PROJ_GAMMA, X-CENT, and Y-CENT. These parameters are dependent upon projection types defined in the GRIDDESC File [see Table 1](#Table-1).  The projection section of the GRIDDESC file *must* start with the following line of text:
 
     ! coords --line: name; type, P-alpha, P-beta, P-gamma, xcent, ycent
 
