@@ -27,7 +27,7 @@ In addition, five Java-based tools for generating and processing spatial surroga
 
 The following were the objectives of the Spatial Allocator development projects:
 
-1.  Develop software that (a) reads geospatial data (polygons, lines, and points with attributes that serve as weights in latitude-longitude or projected coordinates) and a description of target polygons (possibly on a different map projection and Earth ellipsoid); (b) allocates the input data to the target polygons based on weighted spatial overlap of the input data and target polygons; and (c) outputs the results (e.g., to generate surrogates to be used as inputs to the Sparse Matrix Operator Kernel Emissions \[SMOKE\] modeling system)
+1.  Develop software that (a) reads geospatial data (polygons, lines, and points with attributes that serve as weights in latitude-longitude or projected coordinates) and a description of target polygons (possibly on a different map projection and Earth ellipsoid); (b) allocates the input data to the target polygons based on weighted spatial overlap of the input data and target polygons; and (c) outputs the results (e.g., to generate surrogates to be used as inputs to the Sparse Matrix Operator Kernel Emissions [SMOKE] modeling system)
      
 2.  Develop a machine-independent Java surrogate tools which calls the Spatial Allocator Vector Tool utilities internally without script files for users to compute one or more surrogates in a single run based on simple csv and text input files and summarize the computed surrogates for quality assurance.
      
@@ -66,19 +66,19 @@ Spatial surrogates are most commonly used to map county-level emissions data ont
 
 When surrogates are created, usually there is some type of geographic attribute that is used to "weight" the county emissions into grid cells in a manner that is more specific than a simple uniform spread over the county, which would not reflect the differences in emissions between cities, rural areas, ports, etc. For example, weights could be information about points that represent ports (e.g., berths); or the vehicle miles traveled on lines representing the locations of roads or railroads; or polygon-based weight attributes such as geographic area, population, number of households and land use categories. You can create spatial surrogates with the Spatial Allocator from point-, line-, or polygon-based shapefiles that contain weight attribute information. A single surrogate (srg) value for county C and grid cell GC is expressed as:
 
-![Surrogate fraction equation](first_equation.png)
+![Surrogate fraction equation](media/first_equation.png)
 
 where srg = surrogate, C = county, and GC = grid cell. Note that a surrogate does not have to be for a county; it could be for some other geographic region such as a state, province, nation, or census tract. These polygons are known in the program as the "data polygons."
 
 Three types of surrogates can be created with this program: polygon-based, line-based, and point-based. Polygon-based surrogates use attribute information that is based on area (e.g., population in a census tract). The surrogate value is calculated as the ratio of the attribute value in the intersection of the county and the grid cell to the total value of the attribute in a specific "data polygon" (e.g., county, state, census tract). Examples of polygon-based weight attributes are area, population, number of households, and land use. The numerator (i.e., the value of the weight attribute in the intersection of the county C and grid cell GC) and the denominator (i.e., the total attribute value in the county or other data polygon) are calculated according to the following equations:
 
-![Numerator and denominator or the summation over weight polygons](standard.png)
+![Numerator and denominator or the summation over weight polygons](media/standard.png)
 
 where srg=surrogate, C = county (or other data polygon), GC = grid cell, WP = weight polygon, int. = intersection of, i = weight polygon, and n = the number of weight polygons.
 
 For line-based surrogates, the length of the linear weight feature (e.g., railroad, river, road) replaces area in the above equations. For point-based surrogates, instead of using area, the software will allocate a value of 1 if the weight point falls within the region of interest or a value of 0 (zero) if it does not. In some cases, no special weight attribute is desired. Instead, the surrogate is based purely on the area of the polygon, the length of the polyline, or the count of the points. This mode is supported by the Spatial Allocator. In this case, the above equations simplify to the following:
 
-![Simplified numerator and denominator](simplified.png)
+![Simplified numerator and denominator](media/simplified.png)
 
 <a id="installing31"><a/>
 3. Using the software
@@ -94,10 +94,10 @@ To download and install the Spatial Allocator, perform the following steps:
 4.  Use the pull-down list to select Spatial Allocator as the model you wish to download, then click submit.
 5.  Specify the type of computer you are planning to run the Spatial Allocator as Linux.
 6.  In the table that appears, follow the links to the gzipped tar archive for Linux, download this file into a directory with at least 1GB of available disk space (with all open source packages and required and some sample data).
-7.  Downloaded the sa\_v4.3_012017.tar.gz download file from the CMAS website do the following:
- -      tar -xzvf sa\_v4.3_012017.tar.gz
- -      The directory sa\_v4.3_012017 is referred to as the SA\_HOME variable in bin/sa\_setup.csh
- -      Test scripts and some test data are included in $SA\_HOME\data\ directory
+7.  Downloaded the sa_v4.3_012017.tar.gz download file from the CMAS website do the following:
+ -      tar -xzvf sa_v4.3_012017.tar.gz
+ -      The directory sa_v4.3_012017 is referred to as the SA_HOME variable in bin/sa_setup.csh
+ -      Test scripts and some test data are included in $SA_HOME\data\ directory
 9.  For additional input data, check the EPA site <https://www.epa.gov/chief>. The Spatial section has data used to create surrogates, and the Biogenic section <https://www.epa.gov/air-emissions-modeling/biogenic-emission-sources> has data used to create SMOKE biogenic-related input files.'
 
 <a id="userEnv32"><a/>
@@ -106,7 +106,7 @@ To download and install the Spatial Allocator, perform the following steps:
 
 All information needed by the programs is provided through environment variables.
 
-Open source libraries are specified in bin/sa\_setup.csh file. If users change the installtion directories for those rquired open source libraries, contents of this file and Makefile paths have to be changed accordingly.
+Open source libraries are specified in bin/sa_setup.csh file. If users change the installtion directories for those rquired open source libraries, contents of this file and Makefile paths have to be changed accordingly.
 
 Specifying Grids and Map Projections
 
@@ -114,9 +114,9 @@ Specifying Grids and Map Projections
 3.3. Runing the Test Cases for Using Scripts
 --------------------------------------------
 
-Scripts are provided for Unix users to exercise most of the major functions of the software. If you cd into the scripts directory, all of the scripts should run without any editing. However, if you wish to run any of the scripts without first cd-ing into the scripts directory, edit the SA\_HOME setting for all of the scripts in the directory (e.g., ***generate\_surrogates.csh***, ***compare\_surrogates.csh***) to specify the full path to your installation folder.
+Scripts are provided for Unix users to exercise most of the major functions of the software. If you cd into the scripts directory, all of the scripts should run without any editing. However, if you wish to run any of the scripts without first cd-ing into the scripts directory, edit the SA_HOME setting for all of the scripts in the directory (e.g., ***generate_surrogates.csh***, ***compare_surrogates.csh***) to specify the full path to your installation folder.
 
-A set of example scripts is provided with the software to assist users with getting started using the system. **These example scripts are provided only to serve as examples - the user is responsible for providing actual input data for his/her application and customizing the scripts accordingly.** The example scripts generate a set of surrogates for an 8-km grid over Nashville, Tennessee. These files were derived from files available from the EPA <ftp://ftp.epa.gov/EmisInventory/emiss_shp2003/>. Some of the files are used as is, while others are extracted for Tennessee from the larger national data sets due to their size. The only file that was not from this web site is the cnty\_tn shapefile that contains the polygons for the counties of Tennessee. This file was obtained from an independent source of county data.
+A set of example scripts is provided with the software to assist users with getting started using the system. **These example scripts are provided only to serve as examples - the user is responsible for providing actual input data for his/her application and customizing the scripts accordingly.** The example scripts generate a set of surrogates for an 8-km grid over Nashville, Tennessee. These files were derived from files available from the EPA <ftp://ftp.epa.gov/EmisInventory/emiss_shp2003/>. Some of the files are used as is, while others are extracted for Tennessee from the larger national data sets due to their size. The only file that was not from this web site is the cnty_tn shapefile that contains the polygons for the counties of Tennessee. This file was obtained from an independent source of county data.
 
 The following surrogates are generated in the examples:
 
@@ -134,46 +134,46 @@ The following are a few test scripts included in the release:
 
 ### Generate Emission Spatial Surrogates from Shapefiles and Compare to Reference Surrogates
 
-1.  To test the basic operation of the surrogate creation program (i.e., generating surrogates for point, line, and polygon datasets), run the ***generate\_surrogates.csh*** script. This will generate a set of test surrogates in the output directory, in addition to some gridded shapefiles that can be viewed in a GIS tool. Note that some warnings will be generated for counties on the edge of the grid since some of their surrogates will not sum to 1. 
+1.  To test the basic operation of the surrogate creation program (i.e., generating surrogates for point, line, and polygon datasets), run the ***generate_surrogates.csh*** script. This will generate a set of test surrogates in the output directory, in addition to some gridded shapefiles that can be viewed in a GIS tool. Note that some warnings will be generated for counties on the edge of the grid since some of their surrogates will not sum to 1. 
       
-2.  Run the ***compare\_surrogates.csh script*** to compare your surrogates with the reference surrogates. Note that compare\_surrogates uses the diffsurr.exe utility to compare two sets of surrogates with respect to a specified tolerance. **You may find the diffsurr.exe utility useful,** for example, when you are creating new surrogates and would like to compare them to the previous versions. Diffsurr takes its arguments from the command line. An example of its usage follows; note that 3 is the numeric ID for the surrogates in the two files (i.e., both surrogates are numbered 3 in this case), although that may not always be true.
+2.  Run the ***compare_surrogates.csh script*** to compare your surrogates with the reference surrogates. Note that compare_surrogates uses the diffsurr.exe utility to compare two sets of surrogates with respect to a specified tolerance. **You may find the diffsurr.exe utility useful,** for example, when you are creating new surrogates and would like to compare them to the previous versions. Diffsurr takes its arguments from the command line. An example of its usage follows; note that 3 is the numeric ID for the surrogates in the two files (i.e., both surrogates are numbered 3 in this case), although that may not always be true.
 
             diffsurr.exe ../data/srg_nash_ref.txt 3 ../output/srg_M08_NASH.txt 3 0.00001
 
 3.  **Examine the outputs of the program in the output directory.**
-    -   The surrogate file (srg\_M08\_NASH.txt) includes comments preceded by a ! on each line that contains a surrogate fraction. Each comment shows the surrogate numerator and denominator that were used to compute the fraction, and a running sum of the surrogate fractions for that county. For counties entirely within the grid, the sum should be 1; for other counties, the sum should not exceed 1.
-    -   Since the OUTPUT\_FILE\_NAME variable was specified for each surrogate created with the generate\_surrogates script, shapefiles were created that contain the sum of the surrogate fraction numerators for each grid cell. The names of these files start with grid (e.g., grid\_airpt\_M08\_NASH.shp), and they are in the map projection of the output grid. A corresponding .csv file is also created that just contains the row, column, and sum for the grid cell. There will be quite a few zeros in these files because only data for Tennessee was processed. For the airports surrogate, many additional grid cells will be zero because many cells do not contain airports.
+    -   The surrogate file (srg_M08_NASH.txt) includes comments preceded by a ! on each line that contains a surrogate fraction. Each comment shows the surrogate numerator and denominator that were used to compute the fraction, and a running sum of the surrogate fractions for that county. For counties entirely within the grid, the sum should be 1; for other counties, the sum should not exceed 1.
+    -   Since the OUTPUT_FILE_NAME variable was specified for each surrogate created with the generate_surrogates script, shapefiles were created that contain the sum of the surrogate fraction numerators for each grid cell. The names of these files start with grid (e.g., grid_airpt_M08_NASH.shp), and they are in the map projection of the output grid. A corresponding .csv file is also created that just contains the row, column, and sum for the grid cell. There will be quite a few zeros in these files because only data for Tennessee was processed. For the airports surrogate, many additional grid cells will be zero because many cells do not contain airports.
 
 ### Generate a Filtered Surrogate
 
--   To see how to [generate a filtered surrogate](#filters73), run the ***filtered\_surrogate.csh*** script. Examine the outputs that start with filtered\_pop and filtered\_srg in the output directory to see the files that it created. Also, to understand what filter was applied, examine the file filter\_tn\_pop.txt in the data directory. For additional examples of filters, look in the testsuite/filters directory.
+-   To see how to [generate a filtered surrogate](#filters73), run the ***filtered_surrogate.csh*** script. Examine the outputs that start with filtered_pop and filtered_srg in the output directory to see the files that it created. Also, to understand what filter was applied, examine the file filter_tn_pop.txt in the data directory. For additional examples of filters, look in the testsuite/filters directory.
 
 ### Generate a Surrogate Using a Weight Function
 
--   To see how to [generate a surrogate using a weight function](#weightFunc41), run the ***weighted\_surrogate.csh*** script. Examine the outputs that start with weighted\_ in the output directory to see the files that it created. Also, to understand what weight was applied, look for the WEIGHT\_FUNCTION line in the weighted\_surrogates script. Also note that the ATTR\_WEIGHT is set to USE\_FUNCTION
+-   To see how to [generate a surrogate using a weight function](#weightFunc41), run the ***weighted_surrogate.csh*** script. Examine the outputs that start with weighted_ in the output directory to see the files that it created. Also, to understand what weight was applied, look for the WEIGHT_FUNCTION line in the weighted_surrogates script. Also note that the ATTR_WEIGHT is set to USE_FUNCTION
 
 ### Change Map Projection of a Shapefile
 
-1.  To see how to [change the map projection of a Shapefile](#converting6) using the **CONVERT\_SHAPE** mode of the allocator program run the ***convert\_input\_shape.csh*** script as follows:
+1.  To see how to [change the map projection of a Shapefile](#converting6) using the **CONVERT_SHAPE** mode of the allocator program run the ***convert_input_shape.csh*** script as follows:
 
         convert_input_shape.csh ../data/tn_ports ../output/tn_ports_ll
 
-    The new tn\_ports\_ll file will have coordinates in a latitude-longitude map projection. The tn\_ports\_ll file should be easily visualizable by GIS tools. Note that the ports gridded shapefile will not have a nonzero value in each grid cell that has a port because BERTHS was used as the weight and many ports in the weight file have a value of 0 for the BERTHS attribute. To make all grid cells with ports nonzero, use NONE as the value for the WEIGHT\_ATTR\_LIST when creating the ports surrogate.
+    The new tn_ports_ll file will have coordinates in a latitude-longitude map projection. The tn_ports_ll file should be easily visualizable by GIS tools. Note that the ports gridded shapefile will not have a nonzero value in each grid cell that has a port because BERTHS was used as the weight and many ports in the weight file have a value of 0 for the BERTHS attribute. To make all grid cells with ports nonzero, use NONE as the value for the WEIGHT_ATTR_LIST when creating the ports surrogate.
 
 2.  (Optional) If you require a mapping tool for shapefiles (e.g., for quality assurance of surrogates), you may want to consider ArcExplorer by ESRI, which is downloadable for free from the ESRI web site (<http://www.esri.com>).
       
 
 ### Filter a Shapefile
 
--   To see how to [filter a shapefile](#filters73) using the FILTER\_SHAPE mode of the allocator program, run the ***filter\_shapefile.csh*** script. Examine the outputs that start with filtered\_ in the output directory to see the files that it created. Also, to understand what filter was applied, examine the file county\_filter.txt in the data directory.
+-   To see how to [filter a shapefile](#filters73) using the FILTER_SHAPE mode of the allocator program, run the ***filter_shapefile.csh*** script. Examine the outputs that start with filtered_ in the output directory to see the files that it created. Also, to understand what filter was applied, examine the file county_filter.txt in the data directory.
 
 ### Convert Files
 
--   To convert any DBF file to a .csv file, go to the \$SA\_HOME/bin directory and type:
+-   To convert any DBF file to a .csv file, go to the $SA_HOME/bin directory and type:
 
 ### Generate BELD3/BELD4 Data for Biogenic Emissions Processing and Compare Two I/O API Files
 
--   To see how to [create inputs to SMOKE biogenic emissions processing](#smokBioInputs5) run the script ***convert\_beld3.csh***. This script runs the program **beld3smk.exe**. The BELD3 data for the Tennessee area is provided in the /data/beld directory. After running convert\_beld3.csh, run the script **compare\_beld3.csh**. This script runs the diffioapi utility to compare the outputs to a reference data set and confirm that the results are the same.
+-   To see how to [create inputs to SMOKE biogenic emissions processing](#smokBioInputs5) run the script ***convert_beld3.csh***. This script runs the program **beld3smk.exe**. The BELD3 data for the Tennessee area is provided in the /data/beld directory. After running convert_beld3.csh, run the script **compare_beld3.csh**. This script runs the diffioapi utility to compare the outputs to a reference data set and confirm that the results are the same.
 
 ### Allocation data attributes from a grid, polygon, or point file to an output grid or polygon file
 
@@ -191,69 +191,69 @@ See Section 5.1:[Creating Inputs to SMOKE Biogenic Processing](#smokBioInputs5) 
 
 The following environment variables are used to help locate files and directories in the example scripts, but they are not recognized by any of the Spatial Allocator programs:
 
--   SA\_HOME - Installation directory
+-   SA_HOME - Installation directory
 -   OUTPUT - Location of output files
 -   DATADIR - Location of shapefiles
 -   OUTPUT - Name of the output directory
 -   EXE - Path and Name of the program executable
 -   TIME - The name of the command that can compute the time of a program on the executing computer
--   SRG\_FILE - Path and file name of final merged surrogate file;
+-   SRG_FILE - Path and file name of final merged surrogate file;
 
 ### 3.4.2 Program Control Variables
 
 The following variables control how the allocator and srgcreate programs behave:
 
-MIMS\_PROCESSING - Controls the mode of operation for the allocator program. Valid modes are:
+MIMS_PROCESSING - Controls the mode of operation for the allocator program. Valid modes are:
 
 1.  ALLOCATE - Convert data from one geospatial unit (e.g., counties) to another (e.g., grid cells) by summing or averaging attributes
 2.  OVERLAY - Use to determine whether a grid, bounding box, or set of polygons overlaps a region and to print the attributes of the overlaid shapes (points, lines, or polygons)
-3.  FILTER\_SHAPE - Filter shapefile attributes and save them as a new shapefile or comma-separated ASCII file
-4.  CONVERT\_SHAPE - Create a copy of a shapefile with a new projection
+3.  FILTER_SHAPE - Filter shapefile attributes and save them as a new shapefile or comma-separated ASCII file
+4.  CONVERT_SHAPE - Create a copy of a shapefile with a new projection
 
-DEBUG\_OUTPUT - Specifies whether to write the debug output to standard output. If debug output is turned off, programs will output only critical information (such as errors and I/O API log information) (Y for yes/on or N for no/off)
+DEBUG_OUTPUT - Specifies whether to write the debug output to standard output. If debug output is turned off, programs will output only critical information (such as errors and I/O API log information) (Y for yes/on or N for no/off)
 
-MAX\_LINE\_SEG - Specifies the maximum length of a line segment to use when reading in a line or polygon Shapefile or creating the polygons for a grid. Any line segments longer than the specified length will be split to be no longer than the length specified by this variable. This could be useful when converting data on one grid to another, as the spatial mapping can be done more precisely when the grid is described by more points than just the four corners. Note that applying this feature will make the program run more slowly.
+MAX_LINE_SEG - Specifies the maximum length of a line segment to use when reading in a line or polygon Shapefile or creating the polygons for a grid. Any line segments longer than the specified length will be split to be no longer than the length specified by this variable. This could be useful when converting data on one grid to another, as the spatial mapping can be done more precisely when the grid is described by more points than just the four corners. Note that applying this feature will make the program run more slowly.
 
 ### 3.4.3 Surrogate Input Specification Variables
 
 The following variables are used by srgcreate.exe to specify information relating to the inputs used to create surrogates.
 
--   DATA\_FILE\_NAME - Directory and base file name (without .shp extension for shapefiles) for file containing data polygons (used only by srgcreate.exe)
--   DATA\_FILE\_TYPE - Type of file containing data polygons (used only by srgcreate.exe)
--   DATA\_ID\_ATTR - Name of attribute from data polygons file that specifies a unique data polygon for surrogates (e.g., FIPS\_CODE if creating surrogates on a county scale)
--   WEIGHT\_FILE\_NAME - Directory and base file name (without .shp extension for shapefiles) for file containing weight shapes; if no weights are desired, set to NONE
--   WEIGHT\_FILE\_TYPE - Type of file containing weight shapes (currently the only supported value is ShapeFile)
--   WEIGHT\_ATTR\_LIST - Attribute used as the weight in the surrogate calculation.
+-   DATA_FILE_NAME - Directory and base file name (without .shp extension for shapefiles) for file containing data polygons (used only by srgcreate.exe)
+-   DATA_FILE_TYPE - Type of file containing data polygons (used only by srgcreate.exe)
+-   DATA_ID_ATTR - Name of attribute from data polygons file that specifies a unique data polygon for surrogates (e.g., FIPS_CODE if creating surrogates on a county scale)
+-   WEIGHT_FILE_NAME - Directory and base file name (without .shp extension for shapefiles) for file containing weight shapes; if no weights are desired, set to NONE
+-   WEIGHT_FILE_TYPE - Type of file containing weight shapes (currently the only supported value is ShapeFile)
+-   WEIGHT_ATTR_LIST - Attribute used as the weight in the surrogate calculation.
     -   If you wish to perform the surrogate computatins using only the area, length, or count, enter NONE.
     -   If multiple surrogates are desired from different attributes of the same shapefile (e.g., housing, population), specify a comma-separated list of attribute names.
-    -   When using a weight function, enter USE\_FUNCTION and be sure to then set the WEIGHT\_FUNCTION variable to the function you wish to use.
--   WEIGHT\_FUNCTION - A mathematical function used to compute a surrogate based on a function of multiple attributes. For example, (A+B+C) or 0.4\*N1+0.6\*N2. Any arithmetic function using the operators +, -, \*, /, (, ), constants, and variable names may be used. Exponential notation and power functions are not currently supported, nor are unary negative numbers used as constants (e.g., X1 + -5 should be X1 - 5)
--   FILTER\_FILE - Name of file containing attributes on which to filter a shapefile (or NONE if no filter is to be applied).
--   FILTERED\_WEIGHT\_SHAPES - The name of a temporary shapefile that will be created that contains only the shapes to be included in the surrogate.
+    -   When using a weight function, enter USE_FUNCTION and be sure to then set the WEIGHT_FUNCTION variable to the function you wish to use.
+-   WEIGHT_FUNCTION - A mathematical function used to compute a surrogate based on a function of multiple attributes. For example, (A+B+C) or 0.4\*N1+0.6\*N2. Any arithmetic function using the operators +, -, \*, /, (, ), constants, and variable names may be used. Exponential notation and power functions are not currently supported, nor are unary negative numbers used as constants (e.g., X1 + -5 should be X1 - 5)
+-   FILTER_FILE - Name of file containing attributes on which to filter a shapefile (or NONE if no filter is to be applied).
+-   FILTERED_WEIGHT_SHAPES - The name of a temporary shapefile that will be created that contains only the shapes to be included in the surrogate.
 
 ### 3.4.4 Surrogate Output Specification Variables
 
 The following variables are used by srgcreate.exe to specify information relating to the output of surrogates.
 
--   OUTPUT\_FORMAT - Current only SMOKE format is supported.
--   SURROGATE\_ID - The integer used to designate a particular surrogate (e.g., 7 represents households). If multiple surrogates are being created from the same shapefile, specify a comma-separated list of integers that correspond to the list specified for WEIGHT\_ATTR\_LIST.
--   SURROGATE\_FILE - Directory and file name of output surrogate file (including .txt extension)
--   WRITE\_HEADER - (Optional) Specifies whether to write a header line to give the names of the output attributes.
+-   OUTPUT_FORMAT - Current only SMOKE format is supported.
+-   SURROGATE_ID - The integer used to designate a particular surrogate (e.g., 7 represents households). If multiple surrogates are being created from the same shapefile, specify a comma-separated list of integers that correspond to the list specified for WEIGHT_ATTR_LIST.
+-   SURROGATE_FILE - Directory and file name of output surrogate file (including .txt extension)
+-   WRITE_HEADER - (Optional) Specifies whether to write a header line to give the names of the output attributes.
     1.  YES (default) - Displays traditional SMOKE-ready header
     2.  NO - Suppresses header (used when running multiple surrogates for the same grid, to prevent the repetition of the same header information)
--   WRITE\_SRG\_NUMERATOR - (Optional) Specifies whether to write the numerator used to compute the surrogate fraction as part of a comment that follows the fraction.
+-   WRITE_SRG_NUMERATOR - (Optional) Specifies whether to write the numerator used to compute the surrogate fraction as part of a comment that follows the fraction.
     1.  YES - Adds the surrogate numerator in the surrogate file as a new column
     2.  NO (default) - Does not add column
--   WRITE\_SRG\_DENOMINATOR - (Optional) Specifies whether to write the denominator used to compute the surrogate fraction as part of a comment that follows the fraction.
+-   WRITE_SRG_DENOMINATOR - (Optional) Specifies whether to write the denominator used to compute the surrogate fraction as part of a comment that follows the fraction.
     1.  YES - Adds the surrogate denominator in the surrogate file as a new column
     2.  NO (default) - Does not add column
--   WRITE\_QASUM - (Optional) Specifies whether to write a running sum of surrogate fractions for the county as part of a comment in the surrogates file. This helps to quality assure the surrogate fractions to make sure they do not sum up to greater than 1 for any county within the grid domain.
+-   WRITE_QASUM - (Optional) Specifies whether to write a running sum of surrogate fractions for the county as part of a comment in the surrogates file. This helps to quality assure the surrogate fractions to make sure they do not sum up to greater than 1 for any county within the grid domain.
     1.  YES - Sums the surrogates by the specified attribute (often by count/FIPS) and shows the sum in the surrogate file as a new column
     2.  NO (default) - Does not add column
--   DENOMINATOR\_THRESHOLD -The value of a denominator threshold under which the surrogate values will not be used. Instead, the surrogate value is output as comment line with \# sign if denominator is less than the threshold. The default value is 0.00001.
--   OUTPUT\_FILE\_NAME – Directory and name of output file (without extension). This will cause srgcreate.exe to create an output RegularGrid shapefile that contains the surrogate numerators for each grid cell.
--   SAVE\_DW\_FILE - (Optional) The directory and file name of an intermediate file to save that contains the overlay of weight shapes on data polygons. Note: This file is of interest because it is independent of the grid. Set to NONE or leave unset to not creat this file.
--   USE\_DW\_FILE - (Optional) The directory and file name of intermediate file to use to initialize the intersection of data and weight shapes. Set to NONE or leave unset for no file.
+-   DENOMINATOR_THRESHOLD -The value of a denominator threshold under which the surrogate values will not be used. Instead, the surrogate value is output as comment line with \# sign if denominator is less than the threshold. The default value is 0.00001.
+-   OUTPUT_FILE_NAME – Directory and name of output file (without extension). This will cause srgcreate.exe to create an output RegularGrid shapefile that contains the surrogate numerators for each grid cell.
+-   SAVE_DW_FILE - (Optional) The directory and file name of an intermediate file to save that contains the overlay of weight shapes on data polygons. Note: This file is of interest because it is independent of the grid. Set to NONE or leave unset to not creat this file.
+-   USE_DW_FILE - (Optional) The directory and file name of intermediate file to use to initialize the intersection of data and weight shapes. Set to NONE or leave unset for no file.
 
 ### 3.4.5 Map Projection and GRID Specification Variables
 
@@ -261,77 +261,77 @@ The following variables are used by srgcreate.exe and allocator.exe to specify i
 
 The following variables are used by srgcreate.exe only:
 
--   DATA\_FILE\_ELLIPSOID - PROJ.4 ellipsoid for the data (e.g. county) polygons. Users must set this variable. It can be set as "+a=6370997.0,+b=6370997.0" for a sphere with R=6370997.0m, "+datum=NAD83" for GRS80 ellipse, or other.
--   WEIGHT\_FILE\_ELLIPSOID - PROJ.4 ellipsoid for the weight shapes.
--   DATA\_FILE\_MAP\_PRJN - The name of a grid or a list of PROJ.4 map projection parameters for the data (e.g. county) polygons. It can be geographic or projected coordinate systems defined by +proj=latlong, +proj=lcc, or other.
--   WEIGHT\_FILE\_MAP\_PRJN - The name of a grid or a list of PROJ.4 map projection parameters for the weight shapes.
+-   DATA_FILE_ELLIPSOID - PROJ.4 ellipsoid for the data (e.g. county) polygons. Users must set this variable. It can be set as "+a=6370997.0,+b=6370997.0" for a sphere with R=6370997.0m, "+datum=NAD83" for GRS80 ellipse, or other.
+-   WEIGHT_FILE_ELLIPSOID - PROJ.4 ellipsoid for the weight shapes.
+-   DATA_FILE_MAP_PRJN - The name of a grid or a list of PROJ.4 map projection parameters for the data (e.g. county) polygons. It can be geographic or projected coordinate systems defined by +proj=latlong, +proj=lcc, or other.
+-   WEIGHT_FILE_MAP_PRJN - The name of a grid or a list of PROJ.4 map projection parameters for the weight shapes.
 
 The following variables are used by both allocator.exe and srgcreate.exe:
 
 -   GRIDDESC - (Optional) Directory and file name of file containing the grid descriptions (i.e. the GRIDDESC file).
--   OUTPUT\_GRID\_NAME - The name of the output grid for surrogate processing or spatial allocation (this must exist as a grid name in the GRIDDESC file). This variable is required by srgcreate.exe. It is also required by allocator.exe when the output file type is IoapiFile or RegularGrid.
--   OUTPUT\_POLY\_FILE - For Polygon OUTPUT\_FILE\_TYPE a shapefile is specified. For EGrid, an arcGIS polygon text file is specified.
--   OUTPUT\_POLY\_ATTR - For Polygon OUTPUT\_FILE\_TYPE an attribute of the shapefile defined by OUTPUT\_POLY\_FILE is specified.
--   OUTPUT\_FILE\_MAP\_PRJN - The output map projection when OUTPUT\_FILE\_TYPE is Polygon for srgcreate. Or, it is the name of a grid or a list of PROJ.4 map projection parameters for the output shapes. This is not used when the output file is RegularGrid, IoapiFile, and EGrid, as the map projection is read looked up in the GRIDDESC file for the grid specified by OUTPUT\_GRID\_NAME.
--   OUTPUT\_FILE\_ELLIPSOID - PROJ.4 ellipsoid for the output shapes. It can be set as "+a=6370997.0,+b=6370997.0" for a sphere with R=6370997.0m, "+datum=NAD83" for GRS80 ellipse, or other.
--   USE\_CURVED\_LINES - (Optional) Set to YES to compute length of lines as a curve over the Earth's surface, as MapInfo does (default is NO – i.e., length = sqrt(a\^2 + b\^2))
+-   OUTPUT_GRID_NAME - The name of the output grid for surrogate processing or spatial allocation (this must exist as a grid name in the GRIDDESC file). This variable is required by srgcreate.exe. It is also required by allocator.exe when the output file type is IoapiFile or RegularGrid.
+-   OUTPUT_POLY_FILE - For Polygon OUTPUT_FILE_TYPE a shapefile is specified. For EGrid, an arcGIS polygon text file is specified.
+-   OUTPUT_POLY_ATTR - For Polygon OUTPUT_FILE_TYPE an attribute of the shapefile defined by OUTPUT_POLY_FILE is specified.
+-   OUTPUT_FILE_MAP_PRJN - The output map projection when OUTPUT_FILE_TYPE is Polygon for srgcreate. Or, it is the name of a grid or a list of PROJ.4 map projection parameters for the output shapes. This is not used when the output file is RegularGrid, IoapiFile, and EGrid, as the map projection is read looked up in the GRIDDESC file for the grid specified by OUTPUT_GRID_NAME.
+-   OUTPUT_FILE_ELLIPSOID - PROJ.4 ellipsoid for the output shapes. It can be set as "+a=6370997.0,+b=6370997.0" for a sphere with R=6370997.0m, "+datum=NAD83" for GRS80 ellipse, or other.
+-   USE_CURVED_LINES - (Optional) Set to YES to compute length of lines as a curve over the Earth's surface, as MapInfo does (default is NO – i.e., length = sqrt(a\^2 + b\^2))
 
 The following variables are used by allocator.exe:
 
--   INPUT\_GRID\_NAME  (Optional) Name of input grid (when INPUT\_FILE\_TYPE is RegularGrid)
--   INPUT\_FILE\_ELLIPSOID - PROJ.4 ellipsoid for the input shapes. It can be set as "+a=6370997.0,+b=6370997.0" for a sphere with R=6370997.0m, "+datum=NAD83" for GRS80 ellipse, or other.
--   INPUT\_FILE\_MAP\_PRJN - The name of a grid or a list of PROJ.4 map projection parameters for the input shapes. Note that this is not used when the input file is an I/O API file.
+-   INPUT_GRID_NAME  (Optional) Name of input grid (when INPUT_FILE_TYPE is RegularGrid)
+-   INPUT_FILE_ELLIPSOID - PROJ.4 ellipsoid for the input shapes. It can be set as "+a=6370997.0,+b=6370997.0" for a sphere with R=6370997.0m, "+datum=NAD83" for GRS80 ellipse, or other.
+-   INPUT_FILE_MAP_PRJN - The name of a grid or a list of PROJ.4 map projection parameters for the input shapes. Note that this is not used when the input file is an I/O API file.
 
 ### 3.4.6 Variables Specifying Input and Output File Characteristics
 
 The following variables are used by allocator.exe when run in various modes to specify information about input and output files.
 
--   INPUT\_FILE\_TYPE  Shapefile, PointFile, IoapiFile, or RegularGrid (i.e., a special type of shapefile that contains gridded data, such as that output when creating surrogates)
--   INPUT\_FILE\_NAME  Name of the file containing input data for spatial allocation. If the INPUT\_FILE\_TYPE is Shapefile or RegularGrid, this does not include the extension, otherwise it should include the extension.
--   INPUT\_FILE\_DELIM  The delimiter that is used for the input PointFile (when INPUT\_FILE\_TYPE is PointFile); valid arguments are COMMA, PIPE, SPACE, and SEMICOLON
--   INPUT\_FILE\_XCOL  The name of the column containing *x* coordinates in a PointFile (when INPUT\_FILE\_TYPE=PointFile)
--   INPUT\_FILE\_YCOL  The name of the column containing *y* coordinates in a PointFile (when INPUT\_FILE\_TYPE=PointFile)
--   INPUT\_GRID\_NAME  Name of the input grid (when INPUT\_FILE\_TYPE=RegularGrid)
--   OUTPUT\_FILE\_TYPE - Three types are currently supported: RegularGrid, EGrid, and Polygon.
--   OUTPUT\_FILE\_NAME - Directory and name of output file (without extension when OUTPUT\_FILE\_TYPE is ShapeFile or RegularGrid; with extension when OUTPUT\_FILE\_TYPE is IoapiFile).
--   WRITE\_HEADER  Specifies whether to write a header line to give the names of the output attributes (set to Y or N).
+-   INPUT_FILE_TYPE  Shapefile, PointFile, IoapiFile, or RegularGrid (i.e., a special type of shapefile that contains gridded data, such as that output when creating surrogates)
+-   INPUT_FILE_NAME  Name of the file containing input data for spatial allocation. If the INPUT_FILE_TYPE is Shapefile or RegularGrid, this does not include the extension, otherwise it should include the extension.
+-   INPUT_FILE_DELIM  The delimiter that is used for the input PointFile (when INPUT_FILE_TYPE is PointFile); valid arguments are COMMA, PIPE, SPACE, and SEMICOLON
+-   INPUT_FILE_XCOL  The name of the column containing *x* coordinates in a PointFile (when INPUT_FILE_TYPE=PointFile)
+-   INPUT_FILE_YCOL  The name of the column containing *y* coordinates in a PointFile (when INPUT_FILE_TYPE=PointFile)
+-   INPUT_GRID_NAME  Name of the input grid (when INPUT_FILE_TYPE=RegularGrid)
+-   OUTPUT_FILE_TYPE - Three types are currently supported: RegularGrid, EGrid, and Polygon.
+-   OUTPUT_FILE_NAME - Directory and name of output file (without extension when OUTPUT_FILE_TYPE is ShapeFile or RegularGrid; with extension when OUTPUT_FILE_TYPE is IoapiFile).
+-   WRITE_HEADER  Specifies whether to write a header line to give the names of the output attributes (set to Y or N).
 
 ### 3.4.7 Overlay Mode Specific Variables
 
 The following variables are used by allocator.exe when run in OVERLAY mode to specify information relating to the overlay shape.
 
--   OVERLAY\_TYPE - Specifies the type of shape that will be used as the overlay mask. Valid values are RegularGrid, ShapeFile, PolygonFile, or BoundingBox.
--   OVERLAY\_SHAPE - Specifies the shape that will be used as the overlay mask, based on the value of OVERLAY\_TYPE. This variable can contain either a grid name, file name or, in the case of a BoundingBox, a set of coordinates.
-    -   If OVERLAY\_TYPE is RegularGrid, specify the name of a grid (when used, this requires GRIDDESC to be set)
-    -   If OVERLAY\_TYPE is ShapeFile, specify the name of a shapefile (note that the OVERLAY region is the union of all of the polygons in the shapefile).
-    -   If OVERLAY\_TYPE is BoundingBox, specify as coordinates: x1,y1,x2,y2
-    -   If OVERLAY\_TYPE is PolygonFile, specify the name of an ASCII polygon file. Each line of the file should contain two values with the following format:
+-   OVERLAY_TYPE - Specifies the type of shape that will be used as the overlay mask. Valid values are RegularGrid, ShapeFile, PolygonFile, or BoundingBox.
+-   OVERLAY_SHAPE - Specifies the shape that will be used as the overlay mask, based on the value of OVERLAY_TYPE. This variable can contain either a grid name, file name or, in the case of a BoundingBox, a set of coordinates.
+    -   If OVERLAY_TYPE is RegularGrid, specify the name of a grid (when used, this requires GRIDDESC to be set)
+    -   If OVERLAY_TYPE is ShapeFile, specify the name of a shapefile (note that the OVERLAY region is the union of all of the polygons in the shapefile).
+    -   If OVERLAY_TYPE is BoundingBox, specify as coordinates: x1,y1,x2,y2
+    -   If OVERLAY_TYPE is PolygonFile, specify the name of an ASCII polygon file. Each line of the file should contain two values with the following format:
 
             xcoord  ycoord
 
         Note that the polygon will automatically be closed, and the points should be specified in a clockwise manner so that they are not interpreted as a hole.
 
--   OVERLAY\_MAP\_PRJN  The map projection for the OVERLAY\_SHAPE.
--   OVERLAY\_ELLIPSOID  The ellipsoid for the OVERLAY\_SHAPE.
--   OVERLAY\_OUT\_TYPE  Set to Stdout or DelimitedFile (eventually possibly Shapefile).
--   OVERLAY\_OUT\_NAME  Set to Stdout or the name of the output file to create.
--   OVERLAY\_OUT\_CELLID - If it is set to YES, the OVERALY mode process will output grid, egrid, or polygon ID from output file.
--   OVERLAY\_ATTRS  The list of attributes to read from the INPUT\_FILE\_NAME and print to standard output or to the OUTPUT\_FILE\_NAME. Set to ALL or a use comma-separated list of attribute names for which values will be printed.
--   OVERLAY\_OUT\_DELIM  A constant that specifies the type of delimiter to use for the DelimitedFile output type - valid values are COMMA, PIPE, SPACE, and SEMICOLON. (Note that a PointFile is a special case of DelimitedFile � but DelimitedFile is used here because the output file does not need to be a PointFile since the shapes may not be points)
--   MAX\_INPUT\_FILE\_SHAPES - Currently supported only when using OVERLAY mode, this variable specifies the maximum number of output polygons to keep in memory for processing at one time (used when the OUTPUT\_FILE\_TYPE is Shapefile)
+-   OVERLAY_MAP_PRJN  The map projection for the OVERLAY_SHAPE.
+-   OVERLAY_ELLIPSOID  The ellipsoid for the OVERLAY_SHAPE.
+-   OVERLAY_OUT_TYPE  Set to Stdout or DelimitedFile (eventually possibly Shapefile).
+-   OVERLAY_OUT_NAME  Set to Stdout or the name of the output file to create.
+-   OVERLAY_OUT_CELLID - If it is set to YES, the OVERALY mode process will output grid, egrid, or polygon ID from output file.
+-   OVERLAY_ATTRS  The list of attributes to read from the INPUT_FILE_NAME and print to standard output or to the OUTPUT_FILE_NAME. Set to ALL or a use comma-separated list of attribute names for which values will be printed.
+-   OVERLAY_OUT_DELIM  A constant that specifies the type of delimiter to use for the DelimitedFile output type - valid values are COMMA, PIPE, SPACE, and SEMICOLON. (Note that a PointFile is a special case of DelimitedFile � but DelimitedFile is used here because the output file does not need to be a PointFile since the shapes may not be points)
+-   MAX_INPUT_FILE_SHAPES - Currently supported only when using OVERLAY mode, this variable specifies the maximum number of output polygons to keep in memory for processing at one time (used when the OUTPUT_FILE_TYPE is Shapefile)
 
 ### 3.4.8 Allocate Mode-Specific Variables
 
 The following variables are used by allocator.exe when run in ALLOCATE mode to specify information relating to the allocation process.
 
--   ALLOCATE\_ATTRS – The attributes in the input file to be allocated. Set to ALL to allocate all attributes, or set to a comma separated list of attribute names.
--   ALLOC\_MODE\_FILE  The name of the allocation mode file, which specifies how the attributes in the input file should be allocated (e.g., aggregate, average, discrete overlap, or discrete centroid).
--   ALLOC\_ATTR\_TYPE - Used to specify SURF\_ZONE if creating a CMAQ OCEANfile.
--   OUTPUT\_POLY\_FILE  The name of a shapefile that specifies the geometry of the output polygons when OUTPUT\_FILE\_TYPE is Shapefile (note that the shapes must be polygons; points or lines are not allowed)
--   OUTPUT\_POLY\_TYPE – The type of the file specifying the geometry of the output polygons. Currently, only Shapefile is supported.
--   OUTPUT\_POLY\_ATTRS – A list of attributes to be carried over from the O UTPUT\_POLY\_FILE to the output file.
--   OUTPUT\_POLY\_ELLIPSOID – The ellipsoid of the shapes in OUTPUT\_POLY\_FILE
--   OUTPUT\_POLY\_MAP\_PRJN (formerly POLY\_DATA\_MAP\_PRJN) – The map projectio n of the shapes in OUTPUT\_POLY\_FILE
+-   ALLOCATE_ATTRS – The attributes in the input file to be allocated. Set to ALL to allocate all attributes, or set to a comma separated list of attribute names.
+-   ALLOC_MODE_FILE  The name of the allocation mode file, which specifies how the attributes in the input file should be allocated (e.g., aggregate, average, discrete overlap, or discrete centroid).
+-   ALLOC_ATTR_TYPE - Used to specify SURF_ZONE if creating a CMAQ OCEANfile.
+-   OUTPUT_POLY_FILE  The name of a shapefile that specifies the geometry of the output polygons when OUTPUT_FILE_TYPE is Shapefile (note that the shapes must be polygons; points or lines are not allowed)
+-   OUTPUT_POLY_TYPE – The type of the file specifying the geometry of the output polygons. Currently, only Shapefile is supported.
+-   OUTPUT_POLY_ATTRS – A list of attributes to be carried over from the O UTPUT_POLY_FILE to the output file.
+-   OUTPUT_POLY_ELLIPSOID – The ellipsoid of the shapes in OUTPUT_POLY_FILE
+-   OUTPUT_POLY_MAP_PRJN (formerly POLY_DATA_MAP_PRJN) – The map projectio n of the shapes in OUTPUT_POLY_FILE
 
 <a id="gridsMap35"><a/>
 3.5. Specifying Grids, Ellipsoids, and Map Projections
@@ -339,9 +339,9 @@ The following variables are used by allocator.exe when run in ALLOCATE mode to s
 
 ### 3.5.1 Specifying Grids
 
-The spatial allocator programs srgcreate, allocator, and beld3smk use the Input/Output Applications Programming Interface (I/O API) grid description (GRIDDESC) file to specify the input and output grids to be used. The GRIDDESC file contains both map projection and grid description information. Click to see a [sample GRIDDESC file.](GRIDDESC.txt) The GRIDDESC file is part of the [EDSS Models-3 I/O API](https://www.cmascenter.org/ioapi/)); see the I/O API web pages for more information. Note that the I/O API assumes that the earth's ellipsoid is a sphere.
+The spatial allocator programs srgcreate, allocator, and beld3smk use the Input/Output Applications Programming Interface (I/O API) grid description (GRIDDESC) file to specify the input and output grids to be used. The GRIDDESC file contains both map projection and grid description information. Click to see a [sample GRIDDESC file.](media/GRIDDESC.txt) The GRIDDESC file is part of the [EDSS Models-3 I/O API](https://www.cmascenter.org/ioapi/)); see the I/O API web pages for more information. Note that the I/O API assumes that the earth's ellipsoid is a sphere.
 
-The map projection information in the GRIDDESC file consists of five descriptive parameters: PROJ\_ALPHA, PROJ\_BETA, PROJ\_GAMMA, X-CENT, and Y-CENT. These parameters are dependent upon [Projection Types in GRIDDESC File](proj_griddesc.html).  The projection section of the GRIDDESC file *must* start with the following line of text:
+The map projection information in the GRIDDESC file consists of five descriptive parameters: PROJ_ALPHA, PROJ_BETA, PROJ_GAMMA, X-CENT, and Y-CENT. These parameters are dependent upon [Projection Types in GRIDDESC File](#Table-1).  The projection section of the GRIDDESC file *must* start with the following line of text:
 
     ! coords --line: name; type, P-alpha, P-beta, P-gamma, xcent, ycent
 
@@ -351,10 +351,10 @@ The grid description section of the GRIDDESC file follows the projection section
 
 Definitions of regular grids require four descriptive parameters and three dimensioning parameters in addition to the specification of a map projection:
 
--   X\_ORIG - *x* coordinate of the grid origin (lower left corner of the cell at column=row=1), given in map projection units (meters, except in lat-lon coordinate systems)
--   Y\_ORIG - *y* coordinate of the grid origin (lower left corner of the cell at column=row=1), given in map projection units (meters, except in lat-lon coordinate systems)
--   X\_CELL - Grid cell size for cells parallel to the *x*-coordinate axis, given in map projection units (meters, except for lat-lon coordinate systems)
--   Y\_CELL - Grid cell size for cells parallel to the *y*-coordinate axis, given in map projection units (meters, except for lat-lon coordinate systems)
+-   X_ORIG - *x* coordinate of the grid origin (lower left corner of the cell at column=row=1), given in map projection units (meters, except in lat-lon coordinate systems)
+-   Y_ORIG - *y* coordinate of the grid origin (lower left corner of the cell at column=row=1), given in map projection units (meters, except in lat-lon coordinate systems)
+-   X_CELL - Grid cell size for cells parallel to the *x*-coordinate axis, given in map projection units (meters, except for lat-lon coordinate systems)
+-   Y_CELL - Grid cell size for cells parallel to the *y*-coordinate axis, given in map projection units (meters, except for lat-lon coordinate systems)
 -   NCOLS - Number of columns (dimensionality in the *x* direction)
 -   NROWS - Number of rows (dimensionality in the *y* direction)
 -   NTHIK - External boundary thickness of the grid (i.e., the number of grid cells to extend the grid beyond each boundary [and around the corners] in a direction towards the exterior)
@@ -363,13 +363,75 @@ The grid information section ends with the following text:
 
     ' ' ! end grids
 
+<a id=Table-1></a>
+**Table 1. GRIDDESC Projection Information**
+===
+
+|PROJECTION|TYPE|PARAMETERS
+|---|---|---|
+|Geographic Coordinate System (latlong)|1| PROJ_ALPHA, PROJ_BETA, PROJ_GAMMA, XCENT, YCENT are unused and set to 0.
+| | | Coordinate units are degrees, -180.0 < X,Y <= 180.0
+| | | Note that Western hemisphere longitudes and Southern Hemisphere latitudes are taken to be negative.`
+|Lambert Conic Conformal - 2SP parameters (lcc)| 2 | PROJ_ALPHA is lat_1 which is the latitude of first standard parallel.
+| | |PROJ_BETA is lat_2 which is the latitude of second standard parallel.
+| | |PROJ_GAMMA is lon_0 which is the longitude of false origin.
+| | |X_CENT is lon_0 which is the longitude of false origin.
+| | |Y_CENT is lat_0 which is the latitude of false origin.
+| | |Values of x_0 and y_0 are not defined in this software
+|Mercator 1SP (merc)| 3 | PROJ_ALPHA is lon_0 which is the natural origin.
+| | |PROJ_BETA is k_0 which is the scale factor at natural origin.
+| | |PROJ_GAMMA is x_0 which is the False Easting.
+| | |X_CENT is y_0 which is the False Northing.
+| | |The rest of parameters are unused and set to 0.
+|Mercator 2SP (merc)| 4 | PROJ_ALPHA is lat_ts which is the latitude of first standard parallel.
+| | |PROJ_BETA is lon_0 which is the longitude of natural origin.
+| | |PROJ_GAMMA is x_0 which is the False Easting.
+| | |X_CENT is y_0 which is the False Northing.
+| | |The rest of parameters are unused and set to 0.
+|Stereographic (stere)| 5| PROJ_ALPHA is lat_0 which is the latitude at projection center.
+| | |PROJ_BETA is lon_0 which is the longitude at projection center.
+| | |PROJ_GAMMA is x_0 which is the False Easting.
+| | |X_CENT is y_0 which is the False Northing.
+| | |The rest of parameters are unused and set to 0.
+|Universal Transverse Mercator for the Northern Hemisphere (utm)| 6 |PROJ_ALPHA is the UTM zone, considered as a DOUBLE.
+| ||PROJ_BETA is x_0 which is the False Easting.
+| ||PROJ_GAMMA is y_0 which is the False Northing.
+| ||The rest of parameters are unused and set to 0.
+| ||For the southern hemisphere UTM unblock the line: sprintf(args[i++],`“`%s`”`,`“`+south`”`) in mims_spatl_proj.c file
+|Polar Stereographic (stere)| 7| PROJ_ALPHA is lat_ts which is the latitude at natural origin.
+| ||PROJ_BETA is lon_0 which is the longitude at natural origin.
+| ||PROJ_GAMMA is k_0 which is the scale factor at natural origin (normally 1.0).
+| ||X_CENT is x_0 which is the False Easting.
+| ||Y_CENT is y_0 which is the False Northing.
+|Transverse Mercator (tmerc)| 8| PROJ_ALPHA is lat_0 which is the latitude of natural origin.
+| || PROJ_BETA is lon_0 which is the longitude of natural origin 
+| || PROJ_GAMMA is k which is the scale factor at natural origin. 
+| || X_CENT is x_0 which is the False Easting.
+| || Y_CENT is y_0 which is the False Northing.
+|Lambert Azimuthal Equal Area (laea)| 9 |PROJ_ALPHA is lat_0 which is the latitude at projection center.
+| ||PROJ_BETA is lon_0 which is the longitude at projection center 
+| ||PROJ_GAMMA is x_0 which is the False Easting.
+| ||X_CENT is y_0 which is the False Northing.
+| ||The rest of parameters are unused and set to 0.
+|Albers Equal-Area Conic (aea)| 10| PROJ_ALPHA is lat_1 which is the latitude of first standard parallel.
+| ||PROJ_BETA is lat_2 which is the latitude of second standard parallel.
+| ||PROJ_GAMMA is lon_0 which is the longitude of false origin.
+| ||X_CENT is lon_0 which is the longitude of false origin.
+| ||y_CENT is lat_0 which is the latitude of false origin.
+| ||Values of x_0 and y_0 are not defined in this software
+|Sinusoidal (sinu) | 11 | PROJ_ALPHA is lon_0 which is the longitude at projection center.
+| || PROJ_BETA is x_0 which is the False Easting
+| || PROJ_GAMMA is y_0 which is the False Northing.
+| || The rest of parameters are unused and set to 0.
+
+
 ### 3.5.2 Map Projection and Ellipsoid Specification
 
 Map projections are the mathematical 2-D representations of the spherical surface of the Earth that are shared by the emission and air quality models. Map projections are needed because the round Earth is being displayed on, and computatoins are performed for, a flat two-dimensional space. There are many different techniques or types of map projections used in modeling. The Spatial Allocator uses the PROJ4.6.0 library ([PROJ4 Website](http://trac.osgeo.org/proj/)) for map projection computations (including the ellipsoid that is assumed to represent the Earth) and also for datum transformations. A datum may be spherical, as is assumed by many air quality models, or it may be ellipsoidal, as is assumed by many of the geographic data sets that are available as shapefiles and otherwise. If you wish to overlay one geographic data set with another and they do not assume the same datum, a data transformation should be performed to make the data sets consistent.
 
-The Proj4.6.0 library is stored under the SA source code directory (\$SA\_HOME/src/libs). The PROJ4.6.0 library is used by the srgcreate and allocator programs to specify map projections and ellipsoids. **NOTE: this new library supports datum transformation, but the old map projection called LATLON is no longer accepted, nor is the ellipsoid called SPHERE.** The library is stored under the source code directory \$SA\_HOME/src. In order for the datum transformation functions to find the proper transformation files, users must set the environmental variable PROJ\_LIB to \$SA\_HOME/src/PROJ4.6.0/local/share/proj in their .cshrc files on unix or otherwise set PROJ\_LIB to the directory as an environment variable. PROJ\_LIB lets the system know where the PROJ4.6.0 shared libraries are installed, so that it can find all files needed for datum transformation.
+The Proj4.6.0 library is stored under the SA source code directory ($SA_HOME/src/libs). The PROJ4.6.0 library is used by the srgcreate and allocator programs to specify map projections and ellipsoids. **NOTE: this new library supports datum transformation, but the old map projection called LATLON is no longer accepted, nor is the ellipsoid called SPHERE.** The library is stored under the source code directory $SA_HOME/src. In order for the datum transformation functions to find the proper transformation files, users must set the environmental variable PROJ_LIB to $SA_HOME/src/PROJ4.6.0/local/share/proj in their .cshrc files on unix or otherwise set PROJ_LIB to the directory as an environment variable. PROJ_LIB lets the system know where the PROJ4.6.0 shared libraries are installed, so that it can find all files needed for datum transformation.
 
-Different environment variables are used to specify the map projection depending on the context of how the geographic data set is to be used (e.g. DATA\_FILE\_MAP\_PRJN, WEIGHT\_FILE\_MAP\_PRJN, INPUT\_FILE\_MAP\_PRJN, and OUTPUT\_FILE\_MAP\_PRJN). You must specify map projections for any geographic data that are input or output by the SA. Information on specifying map projection parameters for particular map projections that are available in the PROJ4.6.0 library can be found at the bottom of the [Projection List](http://www.remotesensing.org/geotiff/proj_list/)??? webpage. The projection parameters should start with "+proj=" and the parameters should be in a comma-separated list without white space. For example, to use a Lambert Conformal conic projection with standard parallels of 33 and 45 degrees, a central latitude of 40 degrees, and a central longitude of -97 degrees as the projection for data polygons, use the following syntax:
+Different environment variables are used to specify the map projection depending on the context of how the geographic data set is to be used (e.g. DATA_FILE_MAP_PRJN, WEIGHT_FILE_MAP_PRJN, INPUT_FILE_MAP_PRJN, and OUTPUT_FILE_MAP_PRJN). You must specify map projections for any geographic data that are input or output by the SA. Information on specifying map projection parameters for particular map projections that are available in the PROJ4.6.0 library can be found at the bottom of the [Projection List](http://www.remotesensing.org/geotiff/proj_list/)??? webpage. The projection parameters should start with "+proj=" and the parameters should be in a comma-separated list without white space. For example, to use a Lambert Conformal conic projection with standard parallels of 33 and 45 degrees, a central latitude of 40 degrees, and a central longitude of -97 degrees as the projection for data polygons, use the following syntax:
 
        setenv INPUT_FILE_MAP_PRJN "+proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97"
 
@@ -382,7 +444,7 @@ To specify a geographic latitude and longitude data for the data polygons, use t
        setenv DATA_FILE_MAP_PRJN "+proj=latlong"
 
 Note: In the UNIX C-shell, quotes are needed to specify the map projection line above. For consistency, all examples use quotes.
- The Spatial Allocator allows the user to set the shape of the Earth independently for data, weight, and output polygons with the (INPUT/WEIGHT/OUTPUT)\_FILE\_ELLIPSOID environment variables. The ellipsoid for the spatial coordinate system has to be specified correctly when datum transformation is involked in projection coversion for two different ellipsoids.
+ The Spatial Allocator allows the user to set the shape of the Earth independently for data, weight, and output polygons with the (INPUT/WEIGHT/OUTPUT)_FILE_ELLIPSOID environment variables. The ellipsoid for the spatial coordinate system has to be specified correctly when datum transformation is involked in projection coversion for two different ellipsoids.
 
 To specify an ellipsoid, you must specify either
 
@@ -425,12 +487,13 @@ As described in the introduction, Spatial surrogates are most commonly used to m
 
 Surrogates have become more complex in recent years. The EPA maintains a record of recent surrogate creation efforts at [www.epa.gov/ttn/chief/emch/spatial/newsurrogate.html](http://www.epa.gov/ttn/chief/emch/spatial/newsurrogate.html)???. A quick survey of those surrogates reveals the high level of complexity involved in their generation. A good example of computing a surrogate based on a function is the surrogate for industrial space, which uses the sum of the IND1+IND2+IND3+IND4+IND5+IND6 attributes from each census tract. When all of the attribute values used in the computation of the surrogate weight have the same units and reside in a single shapefile, such as in the industrial space example just listed, the corresponding surrogates can be computed using the new weight function feature described here. In other cases, when the attributes to be used for the surrogate weight are in different shapefiles, or when they have different units (e.g., the weighted roadway miles and population surrogate 0.75\*length+0.25\*pop), the weight function feature cannot be used and the the Java based SurrogateTool should be used instead. Note that more information on creating surrogates without weight functions is given in the [Generating Surrogates from Weight Shapefiles](srgweight42) section.
 
-To create a surrogate using a weight function, start with the [weighted\_surrogate](weighted_surrogate.txt) script and customize it to meet your needs. For example, be sure that WEIGHT\_FILE\_NAME, OUTPUT\_FILE\_NAME, and SURROGATE\_ID are set appropriately for the new output surrogate. The variables in the weighted\_surrogate script that are different from those in the generate\_surrogates script (which generates surrogates without weight functions) are the following:
 
--   WEIGHT\_ATTR\_LIST=USE\_FUNCTION
--   WEIGHT\_FUNCTION=\<the weight function to use\>
+To create a surrogate using a weight function, start with the [weighted_surrogate](media/weighted_surrogate.txt) script and customize it to meet your needs. For example, be sure that WEIGHT_FILE_NAME, OUTPUT_FILE_NAME, and SURROGATE_ID are set appropriately for the new output surrogate. The variables in the weighted_surrogate script that are different from those in the generate_surrogates script (which generates surrogates without weight functions) are the following:
 
-As discussed in Section 4, the WEIGHT\_ATTR\_LIST variable is usually set to the attribute name in the weighted polygon shapefile used to create the surrogate. When you wish to use a weight function, you must instead specify the value USE\_FUNCTION and the additional variable WEIGHT\_FUNCTION that specifies the actual function to apply.
+-   WEIGHT_ATTR_LIST=USE_FUNCTION
+-   WEIGHT_FUNCTION=<the weight function to use>
+
+As discussed in Section 4, the WEIGHT_ATTR_LIST variable is usually set to the attribute name in the weighted polygon shapefile used to create the surrogate. When you wish to use a weight function, you must instead specify the value USE_FUNCTION and the additional variable WEIGHT_FUNCTION that specifies the actual function to apply.
 
 ### 2. Weight Function Syntax
 
@@ -440,12 +503,12 @@ The weight function can be any arithmetic equation containing the operators +, -
 
     WEIGHT_FUNCTION=0.75*urban+0.25*rural
 
-Parentheses can be used to change the order of operation. Nested or spurious parentheses used for readability will pose no problems. Each left parenthesis must have a matching right parenthesis or an error will be generated and the program will exit. It is the responsibility of the user to enter the correct attribute names for the shapefile being used. The attributes used in the weight function must be numeric (i.e., floating point or integer) data types. The use of string attributes such as county name or road type is not allowed. No limit to the length of the WEIGHT\_FUNCTION is imposed by the program.
+Parentheses can be used to change the order of operation. Nested or spurious parentheses used for readability will pose no problems. Each left parenthesis must have a matching right parenthesis or an error will be generated and the program will exit. It is the responsibility of the user to enter the correct attribute names for the shapefile being used. The attributes used in the weight function must be numeric (i.e., floating point or integer) data types. The use of string attributes such as county name or road type is not allowed. No limit to the length of the WEIGHT_FUNCTION is imposed by the program.
 
 4.2. More about Generating Surrogates using srgcreate
 -----------------------------------------------------
 
-The **srgcreate** program is used to generate surrogates from weight shapefiles such as population or road shapefiles. The [generate\_surrogates script](generate_surrogates.txt) is provided with the software. These scripts specify:
+The **srgcreate** program is used to generate surrogates from weight shapefiles such as population or road shapefiles. The [generate_surrogates script](media/generate_surrogates.txt) is provided with the software. These scripts specify:
 
 1.  where the executables are located.
 2.  where to get the shapefiles and save the resulting surrogate files.
@@ -465,21 +528,21 @@ The **srgcreate** program is used to generate surrogates from weight shapefiles 
 16. specify the value of a denominator threshold under which the surrogate values will not be used.
 17. commands to aggregate the individual surrogates into a single file.
 
-The scripts contain both mandatory and optional environment variables that control the functioning of the program. The environment variables described in the [Environment Variables](#envVars34) section that impact the functioning of the srgcreate program are the ones listed in subsections with headings that relate to surrogates. Note that the output file containing the gridded surrogate numerators is output **only** if the OUTPUT\_FILE\_NAME is set to something other than NONE. This file is output using the map projection of the output grid, egrid, or polygon.
+The scripts contain both mandatory and optional environment variables that control the functioning of the program. The environment variables described in the [Environment Variables](#envVars34) section that impact the functioning of the srgcreate program are the ones listed in subsections with headings that relate to surrogates. Note that the output file containing the gridded surrogate numerators is output **only** if the OUTPUT_FILE_NAME is set to something other than NONE. This file is output using the map projection of the output grid, egrid, or polygon.
 
-The selection of the weight for the surrogates with the WEIGHT\_ATTR\_LIST variable is an important decision. For example, if you want to weight the surrogates based on the population at the census tract level, but the surrogates are created at the county level, you must specify the census tract file as your WEIGHT\_FILE\_NAME file and the name of the population attribute from that file as the WEIGHT\_ATTR\_LIST. Some important items to note are the following:
+The selection of the weight for the surrogates with the WEIGHT_ATTR_LIST variable is an important decision. For example, if you want to weight the surrogates based on the population at the census tract level, but the surrogates are created at the county level, you must specify the census tract file as your WEIGHT_FILE_NAME file and the name of the population attribute from that file as the WEIGHT_ATTR_LIST. Some important items to note are the following:
 
--   If WEIGHT\_ATTR\_LIST identifies a floating point or integer attribute, the attribute value will be summed for the grid cell and divided by the sum for the county (as described in Section 2: [Background on Shapefiles and Surrogates](#background2) section).
--   If WEIGHT\_ATTR\_LIST identifies a string, the weight of each weight object will be set to 1 and the surrogate will essentially represent a count of objects in the grid cell vs. the county.
--   If WEIGHT\_ATTR\_LIST is specified as NONE, then the program will use the area of the weight objects if they are polygons, the length if they are lines, and the count if they are points.
--   The DATA\_ID\_ATTR should be specified as a unique ID for each data polygon (typically it is the five-digit FIPS state/county code). The value of this attribute will be output for each surrogate.
+-   If WEIGHT_ATTR_LIST identifies a floating point or integer attribute, the attribute value will be summed for the grid cell and divided by the sum for the county (as described in Section 2: [Background on Shapefiles and Surrogates](#background2) section).
+-   If WEIGHT_ATTR_LIST identifies a string, the weight of each weight object will be set to 1 and the surrogate will essentially represent a count of objects in the grid cell vs. the county.
+-   If WEIGHT_ATTR_LIST is specified as NONE, then the program will use the area of the weight objects if they are polygons, the length if they are lines, and the count if they are points.
+-   The DATA_ID_ATTR should be specified as a unique ID for each data polygon (typically it is the five-digit FIPS state/county code). The value of this attribute will be output for each surrogate.
 
-The srgcreate program generates a surrogate file ready to be used in SMOKE. On each line after the header line, the values used by SMOKE are followed by a "!" and then by the numerator, denominator, and QA sum. The format of the surrogate file is described below, and an example is provided in the file [sample\_srg.txt](sample_srg.txt) for regular grid output.
+The srgcreate program generates a surrogate file ready to be used in SMOKE. On each line after the header line, the values used by SMOKE are followed by a "!" and then by the numerator, denominator, and QA sum. The format of the surrogate file is described below, and an example is provided in the file [sample_srg.txt](media/sample_srg.txt) for regular grid output.
 
 
 |Line|Columns|Description|
 |---|---|---|
-|1|A|\#GRID|
+|1|A|#GRID|
 | |B|Grid name|
 | |C|X origin in units of the projection|
 | |D|Y origin in units of the projection|
@@ -509,7 +572,7 @@ The srgcreate program generates a surrogate file ready to be used in SMOKE. On e
 
 ### 5.1 Generate BELD3/BELD4 Data for Biogenic Eissions Processing
 
-Biogenic Emissions Inventory System, Version 3 (BEIS3) uses BELD3/BELD4 land cover data for computing biogenic emissions fluxes on a modeling grid. The BELD3 data set gives landuse cover fractions for 230 different types at a 1-km resolution for all of North America. The data are divided into 24 tiles in I/O API format, and each tile contains three files named These input files are I/O API files named b3\_a.tile\#n.nzero.ncf, b3\_b.tile\#n.nzero.ncf, and b3\_tot.tile\#n.nzero.ncf.
+Biogenic Emissions Inventory System, Version 3 (BEIS3) uses BELD3/BELD4 land cover data for computing biogenic emissions fluxes on a modeling grid. The BELD3 data set gives landuse cover fractions for 230 different types at a 1-km resolution for all of North America. The data are divided into 24 tiles in I/O API format, and each tile contains three files named These input files are I/O API files named b3_a.tile#n.nzero.ncf, b3_b.tile#n.nzero.ncf, and b3_tot.tile#n.nzero.ncf.
 
 -   The "a" files contain data for the first 120 landuse types.
 -   The "b" files contain the remaining 110 types.
@@ -519,34 +582,34 @@ The program beld3smk.exe can be used to allocate BELD3 landuse data onto the mod
 
 These files have been compacted by removing variables whose values are all zero for the domain covered by that particular tile. The output files from beld3smk will contain all variables including those that are all zero.
 
-![Picture of 24 BELD tiles over North America](m108-tile.gif)
+![Picture of 24 BELD tiles over North America](media/m108-tile.gif)
 
 When beld3smk.exe is run, it determines which of the 24 tiles intersect the modeling grid and then allocates the data in those tiles to the output grid. It merges the various tiles together to create one set of output files consisting of an "a", "b", and "tot" file.
 
 The following environment variables control the behavior of beld3smk.
 
--   OUTPUT\_GRID\_NAME: specifies the name of the modeling grid. The corresponding grid description must be in the GRIDDESC file.
+-   OUTPUT_GRID_NAME: specifies the name of the modeling grid. The corresponding grid description must be in the GRIDDESC file.
 -   GRIDDESC: the full file name including the directory of the grid description file
--   INPUT\_DATA\_DIR: the directory that contains the input data needed by the program. This input data includes the 24 tiles of BELD3 data, a Shapefile with the positions of the tiles, and files to provide variable names and descriptions for the 230 landuse types. Note that the environment variable must include the trailing slash on the directory name.
--   TMP\_DATA\_DIR: directory for writing temporary files created by the program. This directory must exist before the program is run and the environment variable must include the trailing slash on the directory name.
--   OUTPUT\_FILE\_PREFIX: output name prefix including directory. The output files will be named by appending \_a.ncf, \_b.ncf, and \_tot.ncf to OUTPUT\_FILE\_PREFIX. The program will not overwrite existing output files if the new output files a for a different grid.
+-   INPUT_DATA_DIR: the directory that contains the input data needed by the program. This input data includes the 24 tiles of BELD3 data, a Shapefile with the positions of the tiles, and files to provide variable names and descriptions for the 230 landuse types. Note that the environment variable must include the trailing slash on the directory name.
+-   TMP_DATA_DIR: directory for writing temporary files created by the program. This directory must exist before the program is run and the environment variable must include the trailing slash on the directory name.
+-   OUTPUT_FILE_PREFIX: output name prefix including directory. The output files will be named by appending _a.ncf, _b.ncf, and _tot.ncf to OUTPUT_FILE_PREFIX. The program will not overwrite existing output files if the new output files a for a different grid.
 
-The script convert\_beld.csh runs the beld3smk program for a small test domain. This script can easily be modified for any given modeling grid by changing the OUTPUT\_GRID\_NAME and the OUTPUT\_FILE\_PREFIX and ensuring that the desired grid is described in the GRIDDESC file.
+The script convert_beld.csh runs the beld3smk program for a small test domain. This script can easily be modified for any given modeling grid by changing the OUTPUT_GRID_NAME and the OUTPUT_FILE_PREFIX and ensuring that the desired grid is described in the GRIDDESC file.
 
 ### 5.2 Comparing I/O API Files
 
 The diffioapi.exe program compares two I/O API files. The program first checks the two files' headers to ensure that they are consistent. These checks include map projection, grid description (grid origin, grid cell size, and number of rows and columns), layer structure, time structure (start time, time step, and duration), and variable names. After confirming that the headers match, diffioapi loops through all variables in the files and compares the values for each time step and layer. If the values differ by more than a user- specified tolerance, an error message is printed indicating the variable name, time step, layer, row, and column that differs. The following environment variables control the behavior of diffioapi:
 
--   ORIG\_FILE: full file name including directory of the original I/O API file
--   NEW\_FILE: full file name including directory of the new I/O API file
+-   ORIG_FILE: full file name including directory of the original I/O API file
+-   NEW_FILE: full file name including directory of the new I/O API file
 -   TOLERANCE: tolerance used when calculating percent difference between data values
 
 6. Converting Map Projections of ShapeFiles
 -------------------------------------------
 
-The CONVERT\_SHAPE mode of the allocator program can be used to convert a shapefile in one map projection to another map projection. Scripts called convert\_shape are provided to assist with this operation. The scripts take two arguments: the directory and file name of the input file and the directory and file name of the output file (file names are without extensions). **January 2008 version and subsequent versions ofthe Spatial Allocator support geographic transformation of the datum. If the geographic datum or ellipsoid of input projection is different from that of output projection, you should specify the datum information accordingly. Also note that the old LATLON map projection and SPHERE ellipsoid are no longer supported.**
+The CONVERT_SHAPE mode of the allocator program can be used to convert a shapefile in one map projection to another map projection. Scripts called convert_shape are provided to assist with this operation. The scripts take two arguments: the directory and file name of the input file and the directory and file name of the output file (file names are without extensions). **January 2008 version and subsequent versions ofthe Spatial Allocator support geographic transformation of the datum. If the geographic datum or ellipsoid of input projection is different from that of output projection, you should specify the datum information accordingly. Also note that the old LATLON map projection and SPHERE ellipsoid are no longer supported.**
 
-The scripts automatically set the INPUT\_FILE\_NAME and OUTPUT\_FILE\_NAME variables to the command line arguments provided. The OUTPUT\_FILE\_TYPE and INPUT\_FILE\_TYPE variables are set and should not need to be changed. **Before running the scripts, set the values of the INPUT\_FILE\_MAP\_PRJN, INPUT\_FILE\_ELLIPSOID, OUTPUT\_FILE\_MAP\_PRJN, and OUTPUT\_FILE\_ELLIPSOID to the projections desired for the input and output files.** An example conversion script is shown below.
+The scripts automatically set the INPUT_FILE_NAME and OUTPUT_FILE_NAME variables to the command line arguments provided. The OUTPUT_FILE_TYPE and INPUT_FILE_TYPE variables are set and should not need to be changed. **Before running the scripts, set the values of the INPUT_FILE_MAP_PRJN, INPUT_FILE_ELLIPSOID, OUTPUT_FILE_MAP_PRJN, and OUTPUT_FILE_ELLIPSOID to the projections desired for the input and output files.** An example conversion script is shown below.
 
     setenv EXE $SA_HOME/bin/allocator.exe
 
@@ -587,57 +650,57 @@ The scripts automatically set the INPUT\_FILE\_NAME and OUTPUT\_FILE\_NAME varia
 
 The allocator program supports ALLOCATE mode for operating on shapefiles, point files, polygon files, I/O API files and regular grid shapefiles. The ALLOCATE mode allows the user to specify a grid, polygon, or point file as input to allocate to an output grid or polygon file. The specified attributes of the input file will be written to the output file as a spatially weighted sum or average. For example, a user may want to aggregate county data to state data. After running the allocator, the state boundaries would be saved as a shapefile with attributes (e.g., population, housing) summed from the county level for each state, as indicated by this formula:
 
-![](aggregate.gif)
+![](media/aggregate.gif)
 
 Using the average function, on the other hand, the attributes of a density-type property (such as population density) from the input file are averaged across the output polygons or grid cells. For example, a user may wish to average population density from census tract polygons to a grid. The average population density in each grid cell would be calculated from the tracts that intersect it using the following formula:
 
-![](average.gif)
+![](media/average.gif)
 
 Other uses of the ALLOCATE mode are to convert data from one grid to another (e.g., map the data onto a different map projection or grid cell size), and to create the CMAQ OCEANfile from a Shapefile that contains land and surf zone information. Support for the CMAQ OCEANfile was added in version 3.3, which was released on October 26, 2006. In conjunction with this update, a new more general feature was added to compute the fraction of an output cell that is composed of various categories specified in an attribute of an input Shapfile. For example, if you have a Shapefile with a land use category specified for every polygon in the Shapefile, you can use this new feature to create an I/O API file that shows the fraction of each grid cell that was covered by each land use category. More information on this feature is given in [Section 7.1.6](#alloc71).
 
 ### 7.1.2 Allocate Mode
 
-When MIMS\_PROCESSING is set to ALLOCATE (a mode that replaces both the AVERAGE and AGGREGATE modes from earlier versions of the Spatial Allocator), the Spatial Allocator responds to the following environment variables (required variables appear in bold text):
+When MIMS_PROCESSING is set to ALLOCATE (a mode that replaces both the AVERAGE and AGGREGATE modes from earlier versions of the Spatial Allocator), the Spatial Allocator responds to the following environment variables (required variables appear in bold text):
 
--   **INPUT\_FILE\_NAME** – Name of the input file to be allocated
--   **INPUT\_FILE\_TYPE** – Shapefile (point, polygon, or gridded data), RegularGrid (a grid generated in memory from the GRIDDESC file), PointFile, or IoapiFile
--   **INPUT\_FILE\_MAP\_PRJN** – The map projection of the input file (or a grid name if the input file is gridded)
--   **INPUT\_FILE\_ELLIPSOID** – The ellipsoid of the input file
--   INPUT\_FILE\_DELIM – The delimiter that is used when INPUT\_FILE\_TYPE is PointFile
--   INPUT\_FILE\_XCOL – The name of the column containing *x* coordinates in the input file when INPUT\_FILE\_TYPE is PointFile
--   INPUT\_FILE\_YCOL – The name of the column containing *y* coordinates in the input file when INPUT\_FILE\_TYPE is PointFile
--   INPUT\_GRID\_NAME – Name of input grid when INPUT\_FILE\_TYPE is RegularGrid
--   **ALLOCATE\_ATTRS** – Comma-separated list of attributes from the input file to allocate and propagate to the output file; can also be set to the keyword ALL
--   **ALLOC\_MODE\_FILE** – The name of a file that lists the attributes in the input file to carry through to the output file and the types of the attributes. As an alternative to specifying a file name, ALL\_AGGREGATE, ALL\_AVERAGE, ALL\_AREAPERCENT, ALL\_DISCRETEOVERLAP, and ALL\_DISCRETECENTROID are recognized keywords that will apply the requested algorithm to all the attributes specified by ALLOCATE\_ATTRS.
--   ALLOC\_ATTR\_TYPE - Specify SURF\_ZONE if you are trying to create a CMAQ OCEANfile.
--   **OUTPUT\_FILE\_NAME** – The directory and name of the output file
--   **OUTPUT\_FILE\_TYPE** – The type of the output file; valid values are RegularGrid, Shapefile (polygons only), or IoapiFile
--   **OUTPUT\_FILE\_ELLIPSOID** – Ellipsoid of the polygons in the output file
--   **OUTPUT\_FILE\_MAP\_PRJN** – The map projection of the output file (if output is not gridded)
--   OUTPUT\_POLY\_FILE – The name of a shapefile that specifies the geometry of the output polygons when OUTPUT\_FILE\_TYPE is Shapefile
--   OUTPUT\_POLY\_TYPE – The type of the file specifying the geometry of the output polygons. Currently, only Shapefile is supported.
--   OUTPUT\_POLY\_ATTRS – A list of attributes to be carried over from the OUTPUT\_POLY\_FILE to the output file.
--   OUTPUT\_POLY\_ELLIPSOID – The ellipsoid of the shapes in OUTPUT\_POLY\_FILE
--   OUTPUT\_POLY\_MAP\_PRJN (formerly POLY\_DATA\_MAP\_PRJN) – The map projection of the shapes in OUTPUT\_POLY\_FILE
+-   **INPUT_FILE_NAME** – Name of the input file to be allocated
+-   **INPUT_FILE_TYPE** – Shapefile (point, polygon, or gridded data), RegularGrid (a grid generated in memory from the GRIDDESC file), PointFile, or IoapiFile
+-   **INPUT_FILE_MAP_PRJN** – The map projection of the input file (or a grid name if the input file is gridded)
+-   **INPUT_FILE_ELLIPSOID** – The ellipsoid of the input file
+-   INPUT_FILE_DELIM – The delimiter that is used when INPUT_FILE_TYPE is PointFile
+-   INPUT_FILE_XCOL – The name of the column containing *x* coordinates in the input file when INPUT_FILE_TYPE is PointFile
+-   INPUT_FILE_YCOL – The name of the column containing *y* coordinates in the input file when INPUT_FILE_TYPE is PointFile
+-   INPUT_GRID_NAME – Name of input grid when INPUT_FILE_TYPE is RegularGrid
+-   **ALLOCATE_ATTRS** – Comma-separated list of attributes from the input file to allocate and propagate to the output file; can also be set to the keyword ALL
+-   **ALLOC_MODE_FILE** – The name of a file that lists the attributes in the input file to carry through to the output file and the types of the attributes. As an alternative to specifying a file name, ALL_AGGREGATE, ALL_AVERAGE, ALL_AREAPERCENT, ALL_DISCRETEOVERLAP, and ALL_DISCRETECENTROID are recognized keywords that will apply the requested algorithm to all the attributes specified by ALLOCATE_ATTRS.
+-   ALLOC_ATTR_TYPE - Specify SURF_ZONE if you are trying to create a CMAQ OCEANfile.
+-   **OUTPUT_FILE_NAME** – The directory and name of the output file
+-   **OUTPUT_FILE_TYPE** – The type of the output file; valid values are RegularGrid, Shapefile (polygons only), or IoapiFile
+-   **OUTPUT_FILE_ELLIPSOID** – Ellipsoid of the polygons in the output file
+-   **OUTPUT_FILE_MAP_PRJN** – The map projection of the output file (if output is not gridded)
+-   OUTPUT_POLY_FILE – The name of a shapefile that specifies the geometry of the output polygons when OUTPUT_FILE_TYPE is Shapefile
+-   OUTPUT_POLY_TYPE – The type of the file specifying the geometry of the output polygons. Currently, only Shapefile is supported.
+-   OUTPUT_POLY_ATTRS – A list of attributes to be carried over from the OUTPUT_POLY_FILE to the output file.
+-   OUTPUT_POLY_ELLIPSOID – The ellipsoid of the shapes in OUTPUT_POLY_FILE
+-   OUTPUT_POLY_MAP_PRJN (formerly POLY_DATA_MAP_PRJN) – The map projection of the shapes in OUTPUT_POLY_FILE
 -   GRIDDESC – The name of the GRIDDESC file that describes all grids
--   OUTPUT\_GRID\_NAME – The name of the output grid (when OUTPUT\_FILE\_TYPE is RegularGrid)
--   MAX\_LINE\_SEG - Specifies the maximum length of a line segment to use when re ading in a line or polygon Shapefile or creating the polygons for a grid. Any li ne segments longer than the specified length will be split to be no longer than the length specified by this variable. This could be useful when converting data on one grid to another, as the spatial mapping can be done more precisely when the grid is described by more points than just the four corners. Note that apply ing this feature will make the program run more slowly.
--   **DEBUG\_OUTPUT** – Y or N (specifies whether to write the informational messages to standard output; setting this to N will make the program output only critical information)
+-   OUTPUT_GRID_NAME – The name of the output grid (when OUTPUT_FILE_TYPE is RegularGrid)
+-   MAX_LINE_SEG - Specifies the maximum length of a line segment to use when re ading in a line or polygon Shapefile or creating the polygons for a grid. Any li ne segments longer than the specified length will be split to be no longer than the length specified by this variable. This could be useful when converting data on one grid to another, as the spatial mapping can be done more precisely when the grid is described by more points than just the four corners. Note that apply ing this feature will make the program run more slowly.
+-   **DEBUG_OUTPUT** – Y or N (specifies whether to write the informational messages to standard output; setting this to N will make the program output only critical information)
 
 ### 7.1.3 Allocate Mode Examples
 
-Example allocate scripts are provided for Unix/Linux in C-shell format (.csh extension appended). These scripts can be executed directly from the scripts directory. If desired, you may edit the aggregate script and set the SA\_HOME to your new installation folder. The scripts place their output shapefiles in the output directory. The output files can be viewed with a GIS.
+Example allocate scripts are provided for Unix/Linux in C-shell format (.csh extension appended). These scripts can be executed directly from the scripts directory. If desired, you may edit the aggregate script and set the SA_HOME to your new installation folder. The scripts place their output shapefiles in the output directory. The output files can be viewed with a GIS.
 
 There are several different allocation examples provided in the sample scripts that cover various combinations of data and file types. The sample scripts for the allocate mode are:
 
--   alloc\_census\_tracts\_to\_grid
--   alloc\_census\_tracts\_to\_county
--   alloc\_census\_tracts\_to\_ioapi
--   alloc\_gridpop\_to\_biggrid
--   alloc\_emis\_to\_grid
--   alloc\_ports\_to\_county
+-   alloc_census_tracts_to_grid
+-   alloc_census_tracts_to_county
+-   alloc_census_tracts_to_ioapi
+-   alloc_gridpop_to_biggrid
+-   alloc_emis_to_grid
+-   alloc_ports_to_county
 
-The alloc\_census\_tracts\_to\_county.csh script is presented below as an example of a fairly typical allocate mode script. The attributes input file (a shapefile in this case) is processed according to the entries in an allocate mode file, atts\_pophous.txt, which has entries for each of the three attributes (POP2000, HOUSEHOLDS, and HDENS) specified by ALLOCATE\_ATTRS that will be aggregated or averaged. The input file is intersected with OUTPUT\_POLY\_FILE, which is also a shapefile. The OUTPUT\_POLY\_FILE attributes specified in OUTPUT\_POLY\_ATTRS (e.g., FIPS\_CODE and COUNTY) will carry over to the output file specified by OUTPUT\_FILE\_NAME (county\_pophous).
+The alloc_census_tracts_to_county.csh script is presented below as an example of a fairly typical allocate mode script. The attributes input file (a shapefile in this case) is processed according to the entries in an allocate mode file, atts_pophous.txt, which has entries for each of the three attributes (POP2000, HOUSEHOLDS, and HDENS) specified by ALLOCATE_ATTRS that will be aggregated or averaged. The input file is intersected with OUTPUT_POLY_FILE, which is also a shapefile. The OUTPUT_POLY_FILE attributes specified in OUTPUT_POLY_ATTRS (e.g., FIPS_CODE and COUNTY) will carry over to the output file specified by OUTPUT_FILE_NAME (county_pophous).
 
 
     # Set executable
@@ -679,13 +742,13 @@ The alloc\_census\_tracts\_to\_county.csh script is presented below as an exampl
     echo "Allocating census population tracts to counties"
     $TIME $EXE
 
- The above example is a fairly typical allocate mode script. The attributes input file (a shapefile in this case) is processed according to the entries in an allocate mode file, [atts\_pophous.txt](atts_pophous.txt), which has entries for each of the three attributes (POP2000, HOUSEHOLDS, and HDENS) specified by ALLOCATE\_ATTRS that will be aggregated or averaged. The input file is intersected with OUTPUT\_POLY\_FILE, which is also a shapefile and whose attributes specified in OUTPUT\_POLY\_ATTRS (FIPS\_CODE and COUNTY) will carry over to county\_pophous, the output file specified by OUTPUT\_FILE\_NAME.
+ The above example is a fairly typical allocate mode script. The attributes input file (a shapefile in this case) is processed according to the entries in an allocate mode file, [atts_pophous.txt](atts_pophous.txt), which has entries for each of the three attributes (POP2000, HOUSEHOLDS, and HDENS) specified by ALLOCATE_ATTRS that will be aggregated or averaged. The input file is intersected with OUTPUT_POLY_FILE, which is also a shapefile and whose attributes specified in OUTPUT_POLY_ATTRS (FIPS_CODE and COUNTY) will carry over to county_pophous, the output file specified by OUTPUT_FILE_NAME.
 
 ### 7.1.4 Allocating Discrete Values
 
 Previous versions of the Spatial Allocator supported the allocation of only continuous data types, i.e., those that could have mathematical operations such as aggregation or averaging performed on them. Discrete attributes such as FIPS codes or county names could not previously be allocated due to this limitation. Starting with Spatial Allocator version 3.0, and subsequent versions, you can now allocate discrete attributes based on maximum area of overlap (the value of the attribute is obtained from the input shape that has the largest overlap with the output shape) or based on the centroid (the value of the attributes is obtained from the input shape that contains the centroid of the output shape). Allocation of discrete attributes is mainly for polygon data, but point and line shapes can be used with the maximum overlap (points are simply counted as an area of 1.0 each, so the first point encountered that overlaps the output shape will be used, while line length is substituted for area for line shapes). The centroid method does not make sense when applied to point or line data, so this condition will generate an error in the program.
 
-The following C-shell script depicts how to allocate discrete variables from a county shapefile onto a grid. The ALLOC\_MODE\_FILE environment variable specifies the name of an [ASCII mode file](#modefile) just as it did in the previous example. This time, the attributes of interest are discrete, so the processing modes used are DISCRETE\_CENTROID and DISCRETE\_OVERLAP. As an aside, when OUTPUT\_FILE\_TYPE is set to RegularGrid, the OUTPUT\_POLY related environment variables are omitted because the grid is generated in memory from the grid description file and the column and row attributes are added automatically.
+The following C-shell script depicts how to allocate discrete variables from a county shapefile onto a grid. The ALLOC_MODE_FILE environment variable specifies the name of an [ASCII mode file](#modefile) just as it did in the previous example. This time, the attributes of interest are discrete, so the processing modes used are DISCRETE_CENTROID and DISCRETE_OVERLAP. As an aside, when OUTPUT_FILE_TYPE is set to RegularGrid, the OUTPUT_POLY related environment variables are omitted because the grid is generated in memory from the grid description file and the column and row attributes are added automatically.
 
 
     # Set executable
@@ -736,11 +799,11 @@ The mode file used for this example, excluding comments or whitespace appears as
 
 ### 7.1.5 Discretization Interval
 
-Using the MAX\_LINE\_SEG environment variable, users can specify a maximum line segment length for lines, polygons, and generated grid cells in the units of the output file. Allocations of attributes will appear no different. This feature comes into play when converting shapes between map projections where the conversion algorithms cause distortions in long line segments (those used in a grid, for example). To set a discretization interval, add
+Using the MAX_LINE_SEG environment variable, users can specify a maximum line segment length for lines, polygons, and generated grid cells in the units of the output file. Allocations of attributes will appear no different. This feature comes into play when converting shapes between map projections where the conversion algorithms cause distortions in long line segments (those used in a grid, for example). To set a discretization interval, add
 
     setenv MAX_LINE_SEG <length>
 
-to your script, where \<length\> is an integer value in the same units as the shape being processed. Thus, an 8-km (8000-m) grid processed with a discretization interval of 1000 will break up any line segment of 1000 meters or more. Please note that there is a performance penalty incurred when using the discretization interval; the smaller the interval value, the longer the program will take to run because the line-splitting algorithm will be calculating where to add all the extra points.
+to your script, where <length> is an integer value in the same units as the shape being processed. Thus, an 8-km (8000-m) grid processed with a discretization interval of 1000 will break up any line segment of 1000 meters or more. Please note that there is a performance penalty incurred when using the discretization interval; the smaller the interval value, the longer the program will take to run because the line-splitting algorithm will be calculating where to add all the extra points.
 
 ### 7.1.6 Computing Area Percentages for the CMAQ OCEANfile and Other Uses
 
@@ -755,12 +818,12 @@ Support for the CMAQ OCEANfile and for area percentages in general was added in 
 
 To trigger an area percentage run:
 
-1.  Set the value of the ALLOC\_MODE\_FILE to ALL\_AREAPERCENT. Note that we have not performed any tests that mixes the AREAPERCENT mode with other modes in the same mode file, so it may not work properly to do that, but using AREAPERCENT for all specified attributes does work.
-2.  Set the ALLOC\_ATTRS variable to specify the name of the variable that specifies the types of polygons (e.g., this is set to TYPE in the case of the OCEANfile).
-3.  If you specifically wish to generate an OCEANfile, set the value of ALLOC\_ATTR\_TYPE variable to SURF\_ZONE. This tells the program to output OCEAN and SURF\_ZONE, and is not needed for a more generic area percentage run.
+1.  Set the value of the ALLOC_MODE_FILE to ALL_AREAPERCENT. Note that we have not performed any tests that mixes the AREAPERCENT mode with other modes in the same mode file, so it may not work properly to do that, but using AREAPERCENT for all specified attributes does work.
+2.  Set the ALLOC_ATTRS variable to specify the name of the variable that specifies the types of polygons (e.g., this is set to TYPE in the case of the OCEANfile).
+3.  If you specifically wish to generate an OCEANfile, set the value of ALLOC_ATTR_TYPE variable to SURF_ZONE. This tells the program to output OCEAN and SURF_ZONE, and is not needed for a more generic area percentage run.
 
-A surf zone input data file for North Carolina and South Carolina is available in the with the Jan. 2009 release in the \$DATADIR directory:
-\$DATADIR/surfzone\_NC\_SC
+A surf zone input data file for North Carolina and South Carolina is available in the with the Jan. 2009 release in the DATADIR directory:
+$DATADIR/surfzone_NC_SC
 For the data file that is input to the surf zone calculation for most of North America, check the site <http://www.epa.gov/ttn/chief/emch/>. The Spatial section has input files for spatial surrogates, and the Biogenic has inputs for biogenic processing and it is likely that the OCEANfile input will be posted in this section.
 
 7.2. Overlaying Spatial Data
@@ -774,44 +837,44 @@ The OVERLAY mode allows the user to specify a grid, bounding box, polygon, or se
 
 ### 7.2.2 Overlay Printing Mode
 
-When MIMS\_PROCESSING is set to OVERLAY (a new processing mode in version 3.0), the Spatial Allocator responds to the following environment variables (bold text indicates required fields):
+When MIMS_PROCESSING is set to OVERLAY (a new processing mode in version 3.0), the Spatial Allocator responds to the following environment variables (bold text indicates required fields):
 
--   **OVERLAY\_TYPE**  The type of the overlay shape (valid values are BoundingBox, PolygonFile, ShapeFile, and RegularGrid)
--   **OVERLAY\_SHAPE**  The shape name or information used to define a region of interest in overlays. If OVERLAY\_TYPE is:
+-   **OVERLAY_TYPE**  The type of the overlay shape (valid values are BoundingBox, PolygonFile, ShapeFile, and RegularGrid)
+-   **OVERLAY_SHAPE**  The shape name or information used to define a region of interest in overlays. If OVERLAY_TYPE is:
     -   BoundingBox, specify as: x1,y1,x2,y2
     -   RegularGrid, specify the name of a grid (when used, this requires GRIDDESC to be set)
     -   ShapeFile, specify the name of a shapefile (note that the OVERLAY region is the union of all of the polygons in the shapefile)
     -   PolygonFile, specify the name of an ASCII polygon file; each line of the file should contain two values with the following format: xcoord ycoord. Note that the polygon will automatically be closed, and the points should be specified in a clockwise manner so that they are not interpreted as a hole
--   **OVERLAY\_MAP\_PRJN**  The map projection of the overlay shape
--   **OVERLAY\_ELLIPSOID**  The ellipsoid for the overlay shape
--   **OVERLAY\_ATTRS**  Set to ALL or a comma-separated list of attribute names for which values will be printed
--   **INPUT\_FILE\_NAME**  Name of the file containing input data for spatial allocation
--   **INPUT\_FILE\_TYPE**  Shapefile, PointFile, IoapiFile, or RegularGrid
--   **INPUT\_FILE\_MAP\_PRJN**  The map projection of the INPUT\_FILE\_NAME file
--   **INPUT\_FILE\_ELLIPSOID**  The ellipsoid of the INPUT\_FILE\_NAME file
--   GRIDDESC grid description file name (only when using OVERLAY\_GRID)
--   INPUT\_GRID\_NAME  Name of input grid (when INPUT\_FILE\_TYPE is RegularGrid)
--   INPUT\_FILE\_DELIM  The delimiter that is used for the PointFile (when INPUT\_FILE\_TYPE is PointFile)
--   INPUT\_FILE\_XCOL  The name of the column containing *x* coordinates in the PointFile (when INPUT\_FILE\_TYPE is PointFile)
--   INPUT\_FILE\_YCOL  The name of the column containing *y* coordinates in the PointFile (when INPUT\_FILE\_TYPE is PointFile)
--   **OVERLAY\_OUT\_TYPE**  The type of output; specify either Stdout or DelimitedFile (eventually also Shapefile)
--   **OVERLAY\_OUT\_NAME**  The name of the output file; specify either Stdout or a file name
--   **OVERLAY\_OUT\_DELIM**  A constant that specifies the type of delimiter to use for the DelimitedFile output type (note that a PointFile is a special case of DelimitedFile – but DelimitedFile is used here because the output file does not need to be a PointFile since the shapes may not be points)
--   **WRITE\_HEADER** � Y or N (specifies whether to write a header line to give the names of the output attributes)
--   **DEBUG\_OUTPUT** �Y or N (specifies whether to write the debug output to standard output; this can be used to make the program output only critical information)
+-   **OVERLAY_MAP_PRJN**  The map projection of the overlay shape
+-   **OVERLAY_ELLIPSOID**  The ellipsoid for the overlay shape
+-   **OVERLAY_ATTRS**  Set to ALL or a comma-separated list of attribute names for which values will be printed
+-   **INPUT_FILE_NAME**  Name of the file containing input data for spatial allocation
+-   **INPUT_FILE_TYPE**  Shapefile, PointFile, IoapiFile, or RegularGrid
+-   **INPUT_FILE_MAP_PRJN**  The map projection of the INPUT_FILE_NAME file
+-   **INPUT_FILE_ELLIPSOID**  The ellipsoid of the INPUT_FILE_NAME file
+-   GRIDDESC grid description file name (only when using OVERLAY_GRID)
+-   INPUT_GRID_NAME  Name of input grid (when INPUT_FILE_TYPE is RegularGrid)
+-   INPUT_FILE_DELIM  The delimiter that is used for the PointFile (when INPUT_FILE_TYPE is PointFile)
+-   INPUT_FILE_XCOL  The name of the column containing *x* coordinates in the PointFile (when INPUT_FILE_TYPE is PointFile)
+-   INPUT_FILE_YCOL  The name of the column containing *y* coordinates in the PointFile (when INPUT_FILE_TYPE is PointFile)
+-   **OVERLAY_OUT_TYPE**  The type of output; specify either Stdout or DelimitedFile (eventually also Shapefile)
+-   **OVERLAY_OUT_NAME**  The name of the output file; specify either Stdout or a file name
+-   **OVERLAY_OUT_DELIM**  A constant that specifies the type of delimiter to use for the DelimitedFile output type (note that a PointFile is a special case of DelimitedFile – but DelimitedFile is used here because the output file does not need to be a PointFile since the shapes may not be points)
+-   **WRITE_HEADER** � Y or N (specifies whether to write a header line to give the names of the output attributes)
+-   **DEBUG_OUTPUT** �Y or N (specifies whether to write the debug output to standard output; this can be used to make the program output only critical information)
 
 ### 7.2.3 Overlay Mode Examples
 
-Example overlay scripts are provided for Unix/Linux in C-shell format (.csh extension appended) These scripts can be executed directly from the scripts directory. If desired, you may edit the overlay script and set the SA\_HOME environment variable to your new installation directory. The scripts place their output shapefiles in the output directory. The output files can be viewed with a GIS.
+Example overlay scripts are provided for Unix/Linux in C-shell format (.csh extension appended) These scripts can be executed directly from the scripts directory. If desired, you may edit the overlay script and set the SA_HOME environment variable to your new installation directory. The scripts place their output shapefiles in the output directory. The output files can be viewed with a GIS.
 
 Several different overlay example scripts have been provided in order to give the reader an overview of how this new processing mode operates. The sample scripts for the overlay mode are:
 
--   overlay\_county\_on\_grid
--   overlay\_grid\_on\_counties
--   overlay\_grid\_on\_ports
--   overlay\_polygon\_on\_census\_tracts
+-   overlay_county_on_grid
+-   overlay_grid_on_counties
+-   overlay_grid_on_ports
+-   overlay_polygon_on_census_tracts
 
-The overlay\_grid\_on\_ports.csh script is presented below as an example. The OVERLAY\_TYPE is a bounding box, which means that OVERLAY\_SHAPE will be set to a pair of *x,y* coordinates instead of to a file name. In all other cases, the OVERLAY\_SHAPE is a file name. The file that is being overlaid by the bounding box is a shapefile with the same map projection as the bounding box (but this need not be the case, as the allocator program will convert between map projections as needed). The overlay output is being placed in a delimited file, as specified by OVERLAY\_OUT\_TYPE. The delimiter will be a COMMA, as specified by OVERLAY\_OUT\_DELIM. Because WRITE\_HEADER is set to Y (yes), the names of the OVERLAY\_ATTRS — in this case, NAME, BERTHS, LAT, and LONG — will be provided on the first row of ports\_over\_grid.csv. The MAX\_INPUT\_FILE\_SHAPES variable can be set to any nonzero integer value to enable data "chunking" of the input file so that it is processed piecemeal instead of all at once. This reduces memory overhead in the program. Input file chunking is handy when very large shapefiles are being processed.
+The overlay_grid_on_ports.csh script is presented below as an example. The OVERLAY_TYPE is a bounding box, which means that OVERLAY_SHAPE will be set to a pair of *x,y* coordinates instead of to a file name. In all other cases, the OVERLAY_SHAPE is a file name. The file that is being overlaid by the bounding box is a shapefile with the same map projection as the bounding box (but this need not be the case, as the allocator program will convert between map projections as needed). The overlay output is being placed in a delimited file, as specified by OVERLAY_OUT_TYPE. The delimiter will be a COMMA, as specified by OVERLAY_OUT_DELIM. Because WRITE_HEADER is set to Y (yes), the names of the OVERLAY_ATTRS — in this case, NAME, BERTHS, LAT, and LONG — will be provided on the first row of ports_over_grid.csv. The MAX_INPUT_FILE_SHAPES variable can be set to any nonzero integer value to enable data "chunking" of the input file so that it is processed piecemeal instead of all at once. This reduces memory overhead in the program. Input file chunking is handy when very large shapefiles are being processed.
 
     # Set debug output
     setenv DEBUG_OUTPUT Y
@@ -851,15 +914,15 @@ The overlay\_grid\_on\_ports.csh script is presented below as an example. The OV
 
 ### 7.3.1 Specifying Filters
 
-The filtering feature was added to overcome a limitation of the original Spatial Allocator: it could only generate surrogates based on all of the shapes in a weight file. For example, a surrogate for interstate highways could not be generated from a weight file that contained data on multiple road types. With the January 2005 version of the Spatial Allocator, it became possible to specify a set of criteria that shapes in the weight file must meet in order to be included in the surrogate calculation. In addition to creating a filtered surrogate, the FILTER\_SHAPE mode of the allocator program will cause the program to create a new Shapefile that contains only the shapes that meet the filter criteria.
+The filtering feature was added to overcome a limitation of the original Spatial Allocator: it could only generate surrogates based on all of the shapes in a weight file. For example, a surrogate for interstate highways could not be generated from a weight file that contained data on multiple road types. With the January 2005 version of the Spatial Allocator, it became possible to specify a set of criteria that shapes in the weight file must meet in order to be included in the surrogate calculation. In addition to creating a filtered surrogate, the FILTER_SHAPE mode of the allocator program will cause the program to create a new Shapefile that contains only the shapes that meet the filter criteria.
 
-Two types of filter criteria can be specified: discrete and continuous. With discrete filters, the filter specifies a list of acceptable values (e.g. road\_type=Interstate), or a pattern that is applied to specify acceptable values (e.g. Name=C\* to specify words starting with C). Alternatively, continuous filters use relational expressions to specify the matching values (e.g. length\<100). The shapes that meet the filter criteria can either be included or excluded from the output file. Multiple filter criteria can be applied at one time. The specification of the filter to apply is stored in a "filter file".
+Two types of filter criteria can be specified: discrete and continuous. With discrete filters, the filter specifies a list of acceptable values (e.g. road_type=Interstate), or a pattern that is applied to specify acceptable values (e.g. Name=C\* to specify words starting with C). Alternatively, continuous filters use relational expressions to specify the matching values (e.g. length<100). The shapes that meet the filter criteria can either be included or excluded from the output file. Multiple filter criteria can be applied at one time. The specification of the filter to apply is stored in a "filter file".
 
-A filter file is a text file that is required to generate either a filtered shapefile or filtered surrogates from nonfiltered shapefiles. The filter file consists of blocks of keyword-value pairs (i.e., lines of the form keyword=value). There are two required keywords: ATTRIBUTE\_NAME and ATTRIBUTE\_TYPE. The value given for the ATTRIBUTE\_NAME specifies the attribute (i.e., column) in the DBF part of the shapefile whose values will be evaluated against the filter. The ATTRIBUTE\_TYPE should be set to either DISCRETE or CONTINUOUS. Specify CONTINUOUS to treat the attribute values as numbers, or DISCRETE to treat them as strings. **Note: DBFs can be viewed with Microsoft Excel(TM) on Windows or Open Office on Windows. This is helpful to see what attribute names are available in the DBF and what the values look like.**
+A filter file is a text file that is required to generate either a filtered shapefile or filtered surrogates from nonfiltered shapefiles. The filter file consists of blocks of keyword-value pairs (i.e., lines of the form keyword=value). There are two required keywords: ATTRIBUTE_NAME and ATTRIBUTE_TYPE. The value given for the ATTRIBUTE_NAME specifies the attribute (i.e., column) in the DBF part of the shapefile whose values will be evaluated against the filter. The ATTRIBUTE_TYPE should be set to either DISCRETE or CONTINUOUS. Specify CONTINUOUS to treat the attribute values as numbers, or DISCRETE to treat them as strings. **Note: DBFs can be viewed with Microsoft Excel(TM) on Windows or Open Office on Windows. This is helpful to see what attribute names are available in the DBF and what the values look like.**
 
-Once the attribute name and type are selected, the rest of the filter criteria can be specified by including or excluding values. The keyword INCLUDE\_VALUES specifies a list of values for which the corresponding shapes in the shapefile should be retained in the output shapefile. The keyword EXCLUDE\_VALUES specifies a list of values for which the corresponding shapes in the shapefile should not be included in the output shapefile. You must specify either INCLUDE\_VALUES or EXCLUDE\_VALUES for each ATTRIBUTE\_NAME that is specified. If desired, both INCLUDE\_VALUES and EXCLUDE\_VALUES may be set, and their effect is cumulative. This means that any shapes that pass the INCLUDE\_VALUES criteria must also pass the EXCLUDE\_VALUES criteria for the shape to be placed in the output shapefile. Do not specify multiple INCLUDE\_VALUES or EXCLUDE\_VALUES lines for the same ATTRIBUTE\_NAME.
+Once the attribute name and type are selected, the rest of the filter criteria can be specified by including or excluding values. The keyword INCLUDE_VALUES specifies a list of values for which the corresponding shapes in the shapefile should be retained in the output shapefile. The keyword EXCLUDE_VALUES specifies a list of values for which the corresponding shapes in the shapefile should not be included in the output shapefile. You must specify either INCLUDE_VALUES or EXCLUDE_VALUES for each ATTRIBUTE_NAME that is specified. If desired, both INCLUDE_VALUES and EXCLUDE_VALUES may be set, and their effect is cumulative. This means that any shapes that pass the INCLUDE_VALUES criteria must also pass the EXCLUDE_VALUES criteria for the shape to be placed in the output shapefile. Do not specify multiple INCLUDE_VALUES or EXCLUDE_VALUES lines for the same ATTRIBUTE_NAME.
 
-Comments are allowed in the filter files if they are preceded with a \#. You can name your filter file anything you like, but it must be saved in ASCII text format. The Spatial Allocator is not case-sensitive; as the file is read, all alphabetic characters will automatically be converted to uppercase.
+Comments are allowed in the filter files if they are preceded with a #. You can name your filter file anything you like, but it must be saved in ASCII text format. The Spatial Allocator is not case-sensitive; as the file is read, all alphabetic characters will automatically be converted to uppercase.
 
     # Example A
     # comment
@@ -867,7 +930,7 @@ Comments are allowed in the filter files if they are preceded with a \#. You can
     ATTRIBUTE_TYPE=DISCRETE
     INCLUDE_VALUES=A11,A12
 
-In Example A above, the name of the attribute on which the filter is based is "ROAD\_TYPE", which is a discrete type (i.e., road types are designated with alphanumeric codes). The filter in this example specifies that only shapes that have the road types A11 or A12 should be included in the output shapefile. **Note: Be careful about using spaces around commas. Spaces are not ignored even if they are before and after commas, so do not use any spaces unless you really want to search for them.**
+In Example A above, the name of the attribute on which the filter is based is "ROAD_TYPE", which is a discrete type (i.e., road types are designated with alphanumeric codes). The filter in this example specifies that only shapes that have the road types A11 or A12 should be included in the output shapefile. **Note: Be careful about using spaces around commas. Spaces are not ignored even if they are before and after commas, so do not use any spaces unless you really want to search for them.**
 
     # Example B
     # comment
@@ -875,17 +938,17 @@ In Example A above, the name of the attribute on which the filter is based is "R
     ATTRIBUTE_TYPE=DISCRETE
     EXCLUDE_VALUES=A13
 
-In the filter file shown in Example B, the EXCLUDE\_VALUES keyword is specified instead of the INCLUDE\_VALUES keyword. Thus, only shapes for which the ROAD\_TYPE is **not** A13 will be included in the output shapefile. If we combined examples A and B and specified the same INCLUDE\_VALUES and EXCLUDE\_VALUES, the EXCLUDE\_VALUES line would be ignored because the two criteria are mutually exclusive.
+In the filter file shown in Example B, the EXCLUDE_VALUES keyword is specified instead of the INCLUDE_VALUES keyword. Thus, only shapes for which the ROAD_TYPE is **not** A13 will be included in the output shapefile. If we combined examples A and B and specified the same INCLUDE_VALUES and EXCLUDE_VALUES, the EXCLUDE_VALUES line would be ignored because the two criteria are mutually exclusive.
 
     # Example C
     ATTRIBUTE_NAME=LENGTH
     ATTRIBUTE_TYPE=CONTINUOUS
     INCLUDE_VALUES=100-200
 
-In Example C, the filter is based on the attribute LENGTH (i.e., road length). LENGTH is treated as a CONTINUOUS attribute. The filter specified in Example C causes shapes for which the value of LENGTH is between 100 and 200 inclusive to be included in the output shapefile. Note that continuous criteria can include values with decimal points (e.g., 10.5, 2.25). Also, in addition to a range with a lower and an upper bound explicitly defined, you can specify criteria using the "less than" and "greater than" mathematical relations; for example, \<100, \<=100 (a range between a minimum value of -1E20 and 100), \>100, and \>=100 (a range between 100 and a maximum value of 1E20). You can also use this syntax on an EXCLUDE\_VALUES line, in which case your results will be filtered the opposite of above. So, if Example C specified EXCLUDE\_VALUES instead of INCLUDE\_VALUES, only shapes for which the LENGTH is **not** between 100 and 200 would be included in the output surrogate.
+In Example C, the filter is based on the attribute LENGTH (i.e., road length). LENGTH is treated as a CONTINUOUS attribute. The filter specified in Example C causes shapes for which the value of LENGTH is between 100 and 200 inclusive to be included in the output shapefile. Note that continuous criteria can include values with decimal points (e.g., 10.5, 2.25). Also, in addition to a range with a lower and an upper bound explicitly defined, you can specify criteria using the "less than" and "greater than" mathematical relations; for example, <100, <=100 (a range between a minimum value of -1E20 and 100), >100, and >=100 (a range between 100 and a maximum value of 1E20). You can also use this syntax on an EXCLUDE_VALUES line, in which case your results will be filtered the opposite of above. So, if Example C specified EXCLUDE_VALUES instead of INCLUDE_VALUES, only shapes for which the LENGTH is **not** between 100 and 200 would be included in the output surrogate.
 
-If the ATTRIBUTE\_TYPE is set to CONTINUOUS, you can specify only a single mathematical relation or range (as opposed to DISCRETE, which allows a comma-delimited list as the value for INCLUDE\_VALUES or EXCLUDE\_VALUES). Similarly, if the ATTRIBUTE\_TYPE is DISCRETE, the program does not allow any relational operators to appear in the INCLUDE\_VALUES or EXCLUDE\_VALUES lines.
- A filter file may specify filter criteria for more than one attribute name. Example D shows a filter file that is based on two attributes and also shows the use of a regular expression (in the last line), which is discussed in the "Using Regular Expressions" section below this example. When the filter in Example D is applied, only shapes for which the STATE\_NAME is Tennessee and the COUNTY\_NAME starts with a C will be included in the output shapefile.
+If the ATTRIBUTE_TYPE is set to CONTINUOUS, you can specify only a single mathematical relation or range (as opposed to DISCRETE, which allows a comma-delimited list as the value for INCLUDE_VALUES or EXCLUDE_VALUES). Similarly, if the ATTRIBUTE_TYPE is DISCRETE, the program does not allow any relational operators to appear in the INCLUDE_VALUES or EXCLUDE_VALUES lines.
+ A filter file may specify filter criteria for more than one attribute name. Example D shows a filter file that is based on two attributes and also shows the use of a regular expression (in the last line), which is discussed in the "Using Regular Expressions" section below this example. When the filter in Example D is applied, only shapes for which the STATE_NAME is Tennessee and the COUNTY_NAME starts with a C will be included in the output shapefile.
 
     # Example D
     ATTRIBUTE_NAME=STATE_NAME
@@ -897,7 +960,7 @@ If the ATTRIBUTE\_TYPE is set to CONTINUOUS, you can specify only a single mathe
 
 **Please be cautious when using a filtered polygon shapefile such as that shown in Example D as a weight file.** If you specify a filter on county names or FIPS codes, you might expect that the output surrogate will contain only surrogates for those counties that pass the filter. However, this will not be the case if the boundaries of the shapes in your weight file do not exactly match the county boundaries in your data file. If there are slight differences in the boundaries, small portions of the weights will be allocated to excluded counties that are adjacent to included counties that did pass the filter. So, surrogates will be generated for counties that you might think would be excluded. *To see what is meant by this, create a filter that includes only a single county and notice that the resulting surrogate may also include values for adjacent counties, but the numerators and denominators will be uncharacteristically small as compared to those for the included county.* The "extra" surrogates will not be correct because most of their weight contributions were not considered. As a workaround, if you desire to do county-based filtering of the weight file, apply the same filter to the data file and use the filtered data file instead of the original as the input to the Spatial Allocator. If you take this approach, surrogates will be generated only for counties explicitly listed in the data file, so the small misallocations will not be considered.
 
-The filter file syntax supports the use of "regular expressions" when the ATTRIBUTE\_TYPE is specified as DISCRETE. This capability opens up a whole realm of possibilities for filtering shapefiles based on discrete attributes. This implementation follows the "grep" regular expression syntax that is used on Linux and other Unix systems. The WWW contains many tutorials on how to use regular expressions. There is also an excellent [book](http://www.oreilly.com/catalog/regex2/) available on the subject of regular expressions. Example E is a relatively simple example of using a regular expression to save typing when creating a filtered surrogate. Here, we are interested in generating an alphabetical surrogate based on county names:
+The filter file syntax supports the use of "regular expressions" when the ATTRIBUTE_TYPE is specified as DISCRETE. This capability opens up a whole realm of possibilities for filtering shapefiles based on discrete attributes. This implementation follows the "grep" regular expression syntax that is used on Linux and other Unix systems. The WWW contains many tutorials on how to use regular expressions. There is also an excellent [book](http://www.oreilly.com/catalog/regex2/) available on the subject of regular expressions. Example E is a relatively simple example of using a regular expression to save typing when creating a filtered surrogate. Here, we are interested in generating an alphabetical surrogate based on county names:
 
     # Example E
     ATTRIBUTE_NAME=COUNTY
@@ -908,35 +971,35 @@ The filter in example E will generate a shapefile that contains only counties th
 
 ### 7.3.2 Creating a Filtered Shapefile
 
-If you are interested in creating a filtered shapefile (as opposed to generating a new surrogate based on the filter), start with the [filter\_shapefile](filter_shapefile.txt) script and customize it to your needs. This script runs the allocator program in FILTER\_SHAPE mode. The variables in the script should be set as follows:
+If you are interested in creating a filtered shapefile (as opposed to generating a new surrogate based on the filter), start with the [filter_shapefile](media/filter_shapefile.txt) script and customize it to your needs. This script runs the allocator program in FILTER_SHAPE mode. The variables in the script should be set as follows:
 
--   MIMS\_PROCESSING=FILTER\_SHAPE
--   FILTER\_FILE=\<name of filter file to use\>
--   INPUT\_FILE\_TYPE=ShapeFile
--   INPUT\_FILE\_NAME=\<name of input shape file to use\>
--   OUTPUT\_FILE\_NAME=\<name of filtered shape file to output\>
+-   MIMS_PROCESSING=FILTER_SHAPE
+-   FILTER_FILE=<name of filter file to use>
+-   INPUT_FILE_TYPE=ShapeFile
+-   INPUT_FILE_NAME=<name of input shape file to use>
+-   OUTPUT_FILE_NAME=<name of filtered shape file to output>
 
 There are two types of values that attributes can have. The attribute values can be either discrete (e.g., a road type or other non-arithmetic data type) or continuous (e.g., area, length, or some other data type on which arithmetic operations can be performed). is the following sentence a separate point, or a point related to the first sentence? clarify.] Shapes can be both included or excluded based on attribute criteria, which allows a lot of flexibility in filtering data.
 
 ### 7.3.3 Filtering a Weight Shapefile for Surrogate Computation
 
-Generating a filtered weight shapefile for surrogate computation is similar to generating a shapfile without the environment setting for surrogate computation. However, in surrogate computation a temporary weight shapefile is created by specified filter function and then used as the input for computing the surrogate weights. The name of this temporary shapefile is specified using the FILTERED\_WEIGHT\_SHAPES environment variable. This temporary shapefile does not get deleted after a surrogate is generated. Thus, if you are generating surrogates based on some filter criteria, you may want to conserve disk space by manually deleting the temporary shapefile(s) once your surrogates have been generated. Alternatively, you may want to save the temporary shapefile for quality assurance purposes or as an input to future processing. As in the case of generating a filtered shapefile, the FILTER\_FILE environment variable is used to specify the name of the filter file to use.
+Generating a filtered weight shapefile for surrogate computation is similar to generating a shapfile without the environment setting for surrogate computation. However, in surrogate computation a temporary weight shapefile is created by specified filter function and then used as the input for computing the surrogate weights. The name of this temporary shapefile is specified using the FILTERED_WEIGHT_SHAPES environment variable. This temporary shapefile does not get deleted after a surrogate is generated. Thus, if you are generating surrogates based on some filter criteria, you may want to conserve disk space by manually deleting the temporary shapefile(s) once your surrogates have been generated. Alternatively, you may want to save the temporary shapefile for quality assurance purposes or as an input to future processing. As in the case of generating a filtered shapefile, the FILTER_FILE environment variable is used to specify the name of the filter file to use.
 
-To create a filtered shapefile in surrogate computation, start with the [filtered\_surrogate](filtered_surrogate.txt) script and customize it to meet your needs. For example, be sure that WEIGHT\_FILE\_NAME, WEIGHT\_ATTR\_LIST, OUTPUT\_FILE\_NAME, and SURROGATE\_ID are set appropriately for the filtered surrogate. The variables in the filtered\_surrogate script that are different from those in the [generate\_surrogates](generate_surrogates.txt) script are the following:
+To create a filtered shapefile in surrogate computation, start with the [filtered_surrogate](media/filtered_surrogate.txt) script and customize it to meet your needs. For example, be sure that WEIGHT_FILE_NAME, WEIGHT_ATTR_LIST, OUTPUT_FILE_NAME, and SURROGATE_ID are set appropriately for the filtered surrogate. The variables in the filtered_surrogate script that are different from those in the [generate_surrogates](media/generate_surrogates.txt) script are the following:
 
--   FILTERED\_WEIGHT\_SHAPES=\<name of the filtered shapefile to use for weights\>
--   FILTER\_FILE=\<name of the filter file to use\>
+-   FILTERED_WEIGHT_SHAPES=<name of the filtered shapefile to use for weights>
+-   FILTER_FILE=<name of the filter file to use>
 
 **Note: Refer to Example D above to see when one must use caution in generating surrogates from filtered polygon shapefiles.**
 
 7.4 Computing Grid Cells that Contain Points
 --------------------------------------------
 
-The program allocator.exe can be used to allocate point source data into the output grid, egrid, or polygon. For this calculation, MIMS\_PROCESSING is set to OVERLAY mode.
+The program allocator.exe can be used to allocate point source data into the output grid, egrid, or polygon. For this calculation, MIMS_PROCESSING is set to OVERLAY mode.
 
 When allocator.exe is run, it determines how to map the point source data into grid, egrid, or polygon modeling output. It will print output on screen or into a file based on the format users define with modeling output grid, egrid, or polygon IDs.
 
-The following is a sample script named overlay\_sites\_on\_egrid.csh used to map a point source data into the the WRF/NMM-CMAQ egrid:
+The following is a sample script named overlay_sites_on_egrid.csh used to map a point source data into the the WRF/NMM-CMAQ egrid:
 
     # Set debug output
     setenv DEBUG_OUTPUT Y
@@ -984,7 +1047,7 @@ The following is a sample script named overlay\_sites\_on\_egrid.csh used to map
     echo "Overlaying egrid with PointFile"
     $TIME $EXE
 
-The output egrid\_point.csv contains column and row of egrid cells for the input point data in addition to the original input data items.
+The output egrid_point.csv contains column and row of egrid cells for the input point data in addition to the original input data items.
 
 8. Revision History
 -------------------
@@ -1030,7 +1093,7 @@ In the spring and summer of 2006, the following changes were made:
 -   Support for polygon-based surrogates (e.g. for census tracts) was added to srgcreate and srgmerge.
 -   Many robustness improvements were made to the software.
 -   Corrections were made to properly process input Shapefiles have multiple Shape entries in for the same Shape
--   Srgcreate supports the DENOMINATOR\_THRESHOLD variable to specify when shapes should be ignored, so that small slivers due to data and weight Shapefiles that don't quite line up (e.g. for census tracts and counties for urban populoation surrogate) don't generate actual values of surrogates and prevent proper gapfilling.
+-   Srgcreate supports the DENOMINATOR_THRESHOLD variable to specify when shapes should be ignored, so that small slivers due to data and weight Shapefiles that don't quite line up (e.g. for census tracts and counties for urban populoation surrogate) don't generate actual values of surrogates and prevent proper gapfilling.
 -   Srgmerge updates 8 decimal place surrogates.
 -   When a surrogate does not sum to 1 for a county, a comment line is added reporting this.
 -   Comment lines are output if there is no data polygon ID found for a row in the surrogate file.
@@ -1043,7 +1106,7 @@ In the spring and summer of 2006, the following changes were made:
 
 ### New Features Added in June/July 2005
 
-The source code for the Spatial Allocator has undergone significant revision. The main executable, mims\_spatial.exe, has been divided into separate utilities for surrogate processing and spatial allocation (srgcreate.exe and allocator.exe), and the supporting source files have been reorganized, with many functions now residing in their own modules. All supporting source files that are not associated with external libraries have been placed in a library called libspatial. These changes allow for better full-life-cycle maintenance of the software.
+The source code for the Spatial Allocator has undergone significant revision. The main executable, mims_spatial.exe, has been divided into separate utilities for surrogate processing and spatial allocation (srgcreate.exe and allocator.exe), and the supporting source files have been reorganized, with many functions now residing in their own modules. All supporting source files that are not associated with external libraries have been placed in a library called libspatial. These changes allow for better full-life-cycle maintenance of the software.
 
 The beld3smk program is new and can be used to create SMOKE biogenic input files.
 
@@ -1059,9 +1122,9 @@ Discrete attributes (e.g. county name) can now be processed as part of ALLOCATE 
 
 General spatial allocation now includes an OVERLAY mode, which allows the user to accept a point, line, or polygon shapefile or point file and overlay a grid, polygon, or bounding box and print the attributes that fall within the overlaying region(s). Output options are shapefile, I/O API file, delimited ASCII file (delimiter can be user-selected), or standard output (stdout).
 
-The MAX\_LINE\_SEG variable can now be used to specify a maximum length of a line segment. This is useful when gridded data is converted between different map projections - as the precision of the spatial allocation computation is increased over using just four points per grid cell.
+The MAX_LINE_SEG variable can now be used to specify a maximum length of a line segment. This is useful when gridded data is converted between different map projections - as the precision of the spatial allocation computation is increased over using just four points per grid cell.
 
-Debugging output can now be turned on or off using the DEBUG\_OUTPUT environment variable. All processing information except error messages can be suppressed, which allows data results to be clearly displayed in standard output in certain processing modes.
+Debugging output can now be turned on or off using the DEBUG_OUTPUT environment variable. All processing information except error messages can be suppressed, which allows data results to be clearly displayed in standard output in certain processing modes.
 
 A map projection can now be specified using a grid name.
 
@@ -1076,7 +1139,7 @@ New output types are:
 -   Delimited ASCII file with choice of  ',' (comma), '|' (pipe), ';' (semicolon), or  ' ' (space) as delimiter (output from OVERLAY mode)
 -   I/O API file
 
-To ease memory overhead, a new variable called MAX\_INPUT\_FILE\_SHAPES can be specified allowing the user to specify a maximum read buffer that will be processed, so that large files may be processed in multiple passes instead of being read in all at once. This feature is currently supported only in OVERLAY mode.
+To ease memory overhead, a new variable called MAX_INPUT_FILE_SHAPES can be specified allowing the user to specify a maximum read buffer that will be processed, so that large files may be processed in multiple passes instead of being read in all at once. This feature is currently supported only in OVERLAY mode.
 
 ### New Features Added in January 2005
 
@@ -1110,7 +1173,7 @@ No new enhancements in the current release. Additional future enhancements under
 
 The Spatial Allocator set of utilties is released uner the GNU General Public License, which is also used for many of its components.
 
-[license.txt](license.txt) - The licenses for PROJ.4, Shapelib, and General Polygon Clipper
+[license.txt](media/license.txt) - The licenses for PROJ.4, Shapelib, and General Polygon Clipper
  [LICENSE.LGPL](LICENSE.LGPL) - GNU General Public License required by PROJ.4, Shapelib, and the GNU regex library
 
 ### External Libraries
