@@ -24,8 +24,7 @@ EMF Data Management system provides a graphical user interface (GUI) for
 users to store, edit, and manage their Surrogate Tool input and output
 files.
 
-The Surrogate Tool is built upon the Spatial Allocator Vector Tools
-(<http://www.cmascenter.org/sa-tools/documentation/4.0/html/vector_tools.html>),
+The Surrogate Tool is built upon the Spatial Allocator [Vector Tools](SA_ch03_vector.md),
 which has the features needed to produce spatial surrogates, but it can
 be complex to use. The Spatial Allocator tools were developed over
 several years and are run using C-shell scripts on UNIX . The tools are
@@ -142,7 +141,7 @@ input files are as follows:
     “US36KM_148X112”. Users can add new grid name and grid description
     to this file for their own computation. For more information on the
     format of the GRIDDESC file, see
-    <http://www.baronams.com/products/ioapi/GRIDDESC.html>.
+    <https://www.cmascenter.org/ioapi/documentation/all_versions/html/GRIDDESC.html>.
 
 ### 3.2 Global Control Variables File
 
@@ -439,9 +438,7 @@ columns are:
     unary negative numbers used as constants (e.g., X1 + -5 should be
     X1 - 5). Examples of acceptable weight functions are:
     WEIGHT_FUNCTION=(IND1+IND2+IND3+IND4+IND5) or
-    WEIGHT_FUNCTION=0.75*urban+0.25*rural (see
-    <http://www.ie.unc.edu/cempd/projects/mims/spatial/weight_func.html>
-    for more information).
+    WEIGHT_FUNCTION=0.75*urban+0.25*rural (see [Chapter 3: Vector Tools](SA_ch03_vector.md#section4-2) for more information)
 
 9.  FILTER FUNCTION: specifies “filter” or selection criteria for shapes
     to include or not include in the surrogate computation (e.g.,
@@ -450,8 +447,8 @@ columns are:
     GRID_CODE is 61, 81, or 82). Multiple filters can be specified if
     they are separated by semicolons (e.g., LENGTH=100-200;NAME=C*).
     This function is not used if this surrogate is being created by
-    merging existing surrogates **(see
-    <http://www.ie.unc.edu/cempd/projects/mims/spatial/filters.html> for
+    merging existing surrogates **(see [Chapter 3: Vector Tools](SA_ch03_vector.md##filters73)
+for
     more information about the filtering syntax).**
 
 10. MERGE FUNCTION: specifies a function to use when creating a

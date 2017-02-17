@@ -569,6 +569,7 @@ The weight function can be any arithmetic equation containing the operators +, -
 
 Parentheses can be used to change the order of operation. Nested or spurious parentheses used for readability will pose no problems. Each left parenthesis must have a matching right parenthesis or an error will be generated and the program will exit. It is the responsibility of the user to enter the correct attribute names for the shapefile being used. The attributes used in the weight function must be numeric (i.e., floating point or integer) data types. The use of string attributes such as county name or road type is not allowed. No limit to the length of the WEIGHT_FUNCTION is imposed by the program.
 
+<a id="section4-2"><a/>
 4.2. More about Generating Surrogates using srgcreate
 -----------------------------------------------------
 
