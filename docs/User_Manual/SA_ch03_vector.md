@@ -457,7 +457,7 @@ More information on these parameters is available from <http://web.archive.org/w
 
        setenv WEIGHT_FILE_ELLIPSOID=+ellps=MERIT 
 
-A list of [Datum Specifications](proj_datums.html)??? which can be used in datum transformation and a list of Named Ellipses are available in [Table 2](Table-2). You may specify the ellipsoid parameters as shown in the following examples:
+A list of datum specifications which can be used in datum transformation and a list of Named Ellipses are available in [Table 2. Valid Datum Specificiations](#Table-2) and [Table 3. Valid projection ellipse specifications](#Table-3) . You may specify the ellipsoid parameters as shown in the following examples:
 
     For the Weather Research and Forecasting Model (WRF) sphere:
        setenv WEIGHT_FILE_WLLIPSOID "+a=6370000.0,+b=6370000.0"
@@ -474,7 +474,24 @@ A list of [Datum Specifications](proj_datums.html)??? which can be used in datum
 Note: There is no automatic datum transformatoin when projecting between a sphere and a datum (e.g., +a=6370000.0,+b=6370000.0 to =+datum=NAD83) starting with PROJ4 version 4.6.0. This method is consistent with WRF and MM5 geopreprocessing methods that also do no datum transformation between a perfect sphere and the World Geodetic System 1984 (WGS84) datum. Since the NAD83 datum is very similar to the WGS84 datum (with only a few meters of offset), they are treated the same in the SA. You must ensure that your shapefiles are in either NAD83 or WGS84 datum projections when using the SA in order to be consistent with the typical meteorological and air quality modeling spatial data. If a shapefile is defined as a sphere, you must make sure that it was projected to the sphere from NAD83 or WGS84 with no datum transformation (like the EPA emission shapefile), to avoid potential grid distortion issues.
 
 <a id=Table-2></a>
-Table 2. Valid projection ellipse specifications:
+Table 2. Valid Datum Specifications
+
+DATUM ID|ELLIPSE|DEFINITION/COMMENTS|
+|---|---|---|
+|WGS84| WGS84| towgs84=0,0,0|
+|GGRS87| GRS80| towgs84=-199.87,74.79,246.62/Greek_Geodetic_Reference_System_1987 |
+|NAD83| GRS80| towgs84=0,0,0/North_American_Datum_1983 |
+|NAD27| clrk66|nadgrids=@conus,@alaska,@ntv2_0.gsb,@ntv1_can.dat/North_American_Datum_1927|
+|potsdam|bessel| towgs84=606.0,23.0,413.0/Potsdam Rauenberg 1950 DHDN|
+|carthage|clark80|towgs84=-263.0,6.0,431.0/Carthage 1934 Tunisia|
+|hermannskogel|bessel|towgs84=653.0,-212.0,449.0/Hermannskogel|
+|ire65|mod_airy|towgs84=482.530,-130.596,564.557,-1.042,-0.214,-0.631,8.15/Ireland 1965|
+|nzgd49| intl |towgs84=59.47,-5.04,187.44,0.47,-0.1,1.024,-4.5993/New Zealand Geodetic Datum 1949|
+|OSGB36| airy |towgs84=446.448,-125.157,542.060,0.1502,0.2470,0.8421,-20.4894/Airy 1830|
+
+
+<a id=Table-3></a>
+Table 3. Valid projection ellipse specifications:
 
 |VALID ELLIPSE NAMES|PARAMETERS|
 |---|---|
