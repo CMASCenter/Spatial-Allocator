@@ -1243,7 +1243,7 @@ No new enhancements in the current release. Additional future enhancements under
 The Spatial Allocator set of utilties is released uner the GNU General Public License, which is also used for many of its components.
 
 [license.txt](media/license.txt) - The licenses for PROJ.4, Shapelib, and General Polygon Clipper
- [LICENSE.LGPL](LICENSE.LGPL) - GNU General Public License required by PROJ.4, Shapelib, and the GNU regex library
+ [LICENSE.LGPL](media/LICENSE.LGPL) - GNU General Public License required by PROJ.4, Shapelib, and the GNU regex library
 
 ### External Libraries
 
