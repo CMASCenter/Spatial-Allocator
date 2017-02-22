@@ -160,36 +160,35 @@ file as it would appear loaded into a standard text editor. The
 following variables (listed in capital letters below) are recognized by
 the Surrogate Tool in the global control variables file:
 
--   GENERATION CONTROL FILE gives the directory and name of the
-    > generation control CSV file to use for the run.
+-   GENERATION CONTROL FILE 
+> gives the directory and name of the generation control CSV file to use for the run.
 
--   SURROGATE SPECIFICATION FILE gives the directory and name of the
-    > surrogate specification CSV file to use for the run.
+-   SURROGATE SPECIFICATION FILE 
+> gives the directory and name of the surrogate specification CSV file to use for the run.
 
--   SHAPEFILE CATALOG gives the directory and name of the shapefile
-    > catalog CSV file to use for the run.
+-   SHAPEFILE CATALOG 
+> gives the directory and name of the shapefile catalog CSV file to use for the run.
 
--   SHAPEFILE DIRECTORY gives the name of the directory in which to look
-    > for the shapefiles in the shapefile catalog.
+-   SHAPEFILE DIRECTORY 
+> gives the name of the directory in which to look for the shapefiles in the shapefile catalog.
 
--   SURROGATE CODE FILE gives the directory and name of the surrogate
-    > code CSV file to use for the run.
+-   SURROGATE CODE FILE 
+> gives the directory and name of the surrogate code CSV file to use for the run.
 
--   SRGCREATE EXECUTABLE gives the directory and name of the srgcreate
-    > executable to use for the run.
+-   SRGCREATE EXECUTABLE 
+> gives the directory and name of the srgcreate executable to use for the run.
 
--   DEBUG_OUTPUT specifies whether srgcreate will output debugging
-    > information as it runs (specify Y for yes and N for no).
+-   DEBUG_OUTPUT 
+> specifies whether srgcreate will output debugging information as it runs (specify Y for yes and N for no).
 
--   OUTPUT_FORMAT specifies the format for the output files (currently
-    > SMOKE is the only allowable value).
+-   OUTPUT_FORMAT 
+> specifies the format for the output files (currently SMOKE is the only allowable value).
 
--   OUTPUT_FILE_TYPE specifies the type of output file to create
-    > (currently RegularGrid, EGrid, and Polygon are the allowable
-    > values). The RegularGrid option should be used to generate
-    > surrogates for Eulerian grid-based models such as CMAQ. EGrid
-    > should be used only for the WRF/NMM-CMAQ system, whereas the
-    > Polygon option is used for non-grid-based models such as ASPEN.
+-   OUTPUT_FILE_TYPE
+> specifies the type of output file to create (currently RegularGrid, EGrid, and Polygon are the allowable  values). 
+     *  The RegularGrid option should be used to generate surrogates for Eulerian grid-based models such as CMAQ. 
+     * EGrid should be used only for the WRF/NMM-CMAQ system
+     *  Polygon option is used for non-grid-based models such as ASPEN.
 
 -   OUTPUT_GRID_NAME specifies the name of the output grid (valid only
     > when OUTPUT_FILE_TYPE is RegularGrid or EGrid).
