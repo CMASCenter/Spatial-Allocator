@@ -21,4 +21,24 @@
       * 5.1 [Generate BELD3/BELD4 Data for Biogenics](SA_ch03_vector.md#51-generate-beld3beld4-data-for-biogenic-emissions-processing)
       * 5.2 [Comparing IO/API Files](SA_ch03_vector.md#52-comparing-io-api-files)
   * 6. [Converting Map Projections of Shapefiles](SA_ch03_vector.md#6-converting-map-projections-of-shapefiles)
-  * 7. [Spatially Allocating Attributes](
+  * 7. [Spatially Allocating Attributes](SA_ch03_vector.md#7-spatially-allocating-attributes)
+      * 7.1 [Modes of the Allocator Program](SA_ch03_vector.md#71-modes-of-the-allocator-program)
+           * 7.1.1 [Allocate Mode]
+           * 7.1.2 [Allocate Mode Examples]
+           * 7.1.3 [Allocating Discrete Values]
+           * 7.1.4 [Discretization Interval]
+      * 7.3 [Computing Area Percentages for the CMAQ OCEANfile and Other Uses]
+      * 7.4 [Overlaying Spatial Data]
+           * 7.4.1 [Ovelay Mode] 
+           * 7.4.2 [Overlay Printing Mode]
+           * 7.4.3 [Overlay Mode Examples]
+      * 7.5  [Filtering a Shapefile]
+           * 7.5.1 [Specifying Filters]
+           * 7.5.2 [Creating a Filtered Shapefile]
+           * 7.5.3 [Filtering a Weight Shapefile for Surrogate Computation]
+      * 7.6 [Computing Grid Cells that Contain Points]
+  * 8. Revision History
+  * 9. Future Enhancements
+  * 10.  Licenses and External Software Used
+      * 10.1 License Information
+      * 10.2 External Libraries
