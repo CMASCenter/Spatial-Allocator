@@ -1,4 +1,4 @@
-**Table of Contents**
+**Table of Contents for Spatial Allocator**
 * 1 [Introduction](SA_ch01_intro.md)
 * 2 [Installation](SA_ch02_install.md)
 * 3 [Vector Tools](SA_ch03_vector.md)
@@ -37,11 +37,11 @@
            * 7.4.2 [Creating a Filtered Shapefile](SA_ch03_vector.md#742-creating-a-filtered-shapefile)
            * 7.4.3 [Filtering a Weight Shapefile for Surrogate Computation](SA_ch03_vector.md#743-filtering-a-weight-shapefile-for-surrogate-computation)
       * 7.5 [Computing Grid Cells that Contain Points](SA_ch03_vector.md#75-computing-grid-cells-that-contain-points)
-  * 8. Revision History(SA_ch03_vector.md#8-revision-history)
-  * 9. Future Enhancements(SA_ch03_vector.md#9-future-enhancements)
-  * 10.  Licenses and External Software Used(SA_ch03_vector.md#10-licenses-and-external-software-used)
-      * 10.1 License Information(SA_ch03_vector.md#101-license-information)
-      * 10.2 External Libraries(SA_ch03_vector.md#102-external-libraries)
+  * 8. [Revision History](SA_ch03_vector.md#8-revision-history)
+  * 9. [Future Enhancements](SA_ch03_vector.md#9-future-enhancements)
+  * 10.  [Licenses and External Software Used](SA_ch03_vector.md#10-licenses-and-external-software-used)
+      * 10.1 [License Information](SA_ch03_vector.md#101-license-information)
+      * 10.2 [External Libraries](SA_ch03_vector.md#102-external-libraries)
 * 4 [Raster Tools](SA_ch04_raster.md#chapter-4-raster-tools)
       * 1. [Background](SA_ch04_raster.md#1-background)
       * 2. [Troubleshooting](SA_ch04_raster.md#2-troubleshooting)
