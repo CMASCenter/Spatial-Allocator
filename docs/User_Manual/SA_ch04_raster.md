@@ -5,7 +5,7 @@ Spatial Allocator v4.3 User's Guide
 Chapter 4. Raster Tools
 ===
 
-Background
+1. Background
 ----------
 
 The Spatial Allocator (SA) Raster Tools system is designed to process
@@ -21,7 +21,7 @@ tools, a domain grid shapefile generation tool, and other utilities.
 All sample script files for the SA Raster Tools are stored in the
 raster_scripts directory of the installed Spatial Allocator system.
 
-Troubleshooting
+2. Troubleshooting
 ---------------
 
 Users who have difficulties running the tools with the compiled
@@ -48,7 +48,7 @@ should do the following:
 
 `   make install`
 
-Domain Description in SA Raster Tools
+3. Domain Description in SA Raster Tools
 =====================================
 
 The SA Raster Tools define the modeling domain using the following
@@ -113,7 +113,7 @@ Minimum *x* and *y* for the domain would be computed as follows:
 >
 > GRID_YMIN = -1793999.28 - GRID_YCELLSIZE / 2
 
-Land Cover Data Processing Tools
+4. Land Cover Data Processing Tools
 ================================
 
 There are two land cover processing tools in the SA Raster Tools: NLCD
@@ -121,7 +121,7 @@ and MODIS land cover generation tool (Section 3.1), and Biogenic
 Emissions Landcover Database, version 4 (BELD4) land cover generation
 tool (Section 3.2).
 
-NLCD and MODIS Land Cover Generation
+4.1 NLCD and MODIS Land Cover Generation
 ------------------------------------
 
 The computeGridLandUse.exe tool is used to generate land cover data for
@@ -204,7 +204,7 @@ computeGridLandUse tool.**
 .anchor}]{#_Toc357110275 .anchor}]{#_Toc318316552
 .anchor}]{#_Toc318316031 .anchor}
 
-BELD4 Land Cover Generation
+4.2 BELD4 Land Cover Generation
 ---------------------------
 
 The BELD4 data with land cover, tree, and crop percentages can be
@@ -347,7 +347,7 @@ the crop percentage variable contains the 42 crops listed in [Table 3](#Table-3)
 .anchor}]{#_Toc357175579 .anchor}]{#_Toc357175224
 .anchor}]{#_Toc357174710 .anchor}]{#_Toc357173417 .anchor}
 
-Current and Future Development for the Land Cover Data Processing Tools
+4.3 Current and Future Development for the Land Cover Data Processing Tools
 -----------------------------------------------------------------------
 
 We will enhance the tool to use the released NLCD 2011 data sets with
@@ -358,10 +358,10 @@ will allow us to use USDA crop spatial coverage NLCD data instead of
 county-based crop census data in computing crop fractions within each
 grid cell.
 
-Satellite Cloud and Aerosol Product Processing Tools
+5. Satellite Cloud and Aerosol Product Processing Tools
 ====================================================
 
-GOES Cloud Product Processing Tool
+5.1 GOES Cloud Product Processing Tool
 -----------------------------------
 
 The GOES data tool processes the Geostationary Operational Environmental
@@ -406,7 +406,7 @@ messages:
 These messages do not indicate any errors in regridding and so can be
 ignored.
 
-MODIS Level 2 Cloud/Aerosol Products Tool
+5.2 MODIS Level 2 Cloud/Aerosol Products Tool
 -----------------------------------------
 
 The MODIS Level 2 (swath) cloud and aerosol products tool processes
@@ -492,7 +492,7 @@ regridding:
 
 > **allocateMODISL2CloudVars2Grids.csh**
 
-OMI Level 2 Product Tool
+5.3 OMI Level 2 Product Tool
 ------------------------
 
 The OMI Level 2 product (swath) tool is used to regrid Ozone Monitoring
@@ -506,7 +506,7 @@ directory, which is defined in the following sample script file:
 
 > **allocateOMIL2vars2Grids.csh**
 
-OMI L2G and L3 Product Tools
+5.4 OMI L2G and L3 Product Tools
 -----------------------------
 
 The OMI L2G and L3 product tools process the following OMI products:
@@ -530,7 +530,7 @@ The following sample script can be modified for regridding:
 
 > **allocateOMIvar2Grids.csh**
 
-Agricultural Fertilizer Modeling Tools
+6. Agricultural Fertilizer Modeling Tools
 ======================================
 
 There are four tools that can be used when performing Environmental
@@ -544,7 +544,7 @@ Fertilizer Emission Scenario Tool for CMAQ (FEST-C) interface
 and can be run by script files with defined environment variables at the
 command line.
 
-EPIC Site Information Generation Tool
+6.1 EPIC Site Information Generation Tool
 -------------------------------------
 
 This tool generates two CSV data files that are needed to create EPIC
@@ -580,7 +580,7 @@ line window:
 
 > **generateEPICSiteData.csh**
 
-MCIP/CMAQ-to-EPIC Tool
+6.2 MCIP/CMAQ-to-EPIC Tool
 -----------------------
 
 This tool generates EPIC daily weather and nitrogen deposition data
@@ -646,7 +646,7 @@ line window:
 
 > **generateEPICsiteDailyWeatherNdep.csh**
 
-EPIC-to-CMAQ Tool
+6.3 EPIC-to-CMAQ Tool
 ------------------
 
 This tool processes merged daily output from EPIC simulations for the 42
@@ -723,7 +723,7 @@ can be modified and run at the command line:
 AVOL is an initial estimate that is revised within the bidirectional
 CMAQ.
 
-EPIC Yearly Extraction Tool
+6.4 EPIC Yearly Extraction Tool
 ---------------------------
 
 This tool is used primarily to provide data for performing quality
@@ -803,10 +803,10 @@ modified and run at the command line:
 
 > **epicYearlyAverage4QA.csh**
 
-Other Tools and Utilities
+7. Other Tools and Utilities
 =========================
 
-Domain Grid Shapefile Generation Tool
+7.1 Domain Grid Shapefile Generation Tool
 -------------------------------------
 
 Users can apply the domain grid shapefile generation tool to generate a
@@ -818,7 +818,7 @@ modified for domain shapefile generation:
 
 > **generateGridShapefile.csh**
 
-Other Utilities
+7.2 Other Utilities
 ----------------
 
 The following utility programs are stored in the **util** directory:
@@ -832,7 +832,7 @@ The following utility programs are stored in the **util** directory:
     used in WRF simulations with the WRF Pleim-Xiu Land Surface Model,
     using the 40 classes of NLCD/MODIS land cover data shown in [Table 1](#Table-1).
 
-Acknowledgments
+8. Acknowledgments
 ===============
 
 The SA Raster Tools were developed with support from multiple projects:

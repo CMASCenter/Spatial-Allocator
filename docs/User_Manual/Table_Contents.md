@@ -27,18 +27,40 @@
           * 7.1.2 [Allocate Mode Examples](SA_ch03_vector.md#712-allocate-mode-examples)
           * 7.1.3 [Allocating Discrete Values](SA_ch03_vector.md#713-allocating-discrete-values)
           * 7.1.4 [Discretization Interval](SA_ch03_vector.md#714-discretization-interval)
-      * 7.2 [Computing Area Percentages for the CMAQ OCEANfile and Other Uses](
-      * 7.3 [Overlaying Spatial Data]
-           * 7.3.1 [Ovelay Mode] 
-           * 7.3.2 [Overlay Printing Mode]
-           * 7.3.3 [Overlay Mode Examples]
-      * 7.4  [Filtering a Shapefile]
-           * 7.4.1 [Specifying Filters]
-           * 7.4.2 [Creating a Filtered Shapefile]
-           * 7.4.3 [Filtering a Weight Shapefile for Surrogate Computation]
-      * 7.5 [Computing Grid Cells that Contain Points]
-  * 8. Revision History
-  * 9. Future Enhancements
-  * 10.  Licenses and External Software Used
-      * 10.1 License Information
-      * 10.2 External Libraries
+      * 7.2 [Computing Area Percentages for the CMAQ OCEANfile and Other Uses](SA_ch03_vector.md#72-computing-area-percentages-for-the-cmaq-oceanfile-and-other-uses)
+      * 7.3 [Overlaying Spatial Data](SA_ch03_vector.md#73-overlaying-spatial-data)
+           * 7.3.1 [Ovelay Mode](SA_ch03_vector.md#731-modes-of-the-allocator-program)
+           * 7.3.2 [Overlay Printing Mode](SA_ch03_vector.md#732-overlay-printing-mode)
+           * 7.3.3 [Overlay Mode Examples](SA_ch03_vector.md#733-overlay-mode-examples)
+      * 7.4  [Filtering a Shapefile](SA_ch03_vector.md#74-filtering-a-shapefile)
+           * 7.4.1 [Specifying Filters](SA_ch03_vector.md#741-specifying-filters)
+           * 7.4.2 [Creating a Filtered Shapefile](SA_ch03_vector.md#742-creating-a-filtered-shapefile)
+           * 7.4.3 [Filtering a Weight Shapefile for Surrogate Computation](SA_ch03_vector.md#743-filtering-a-weight-shapefile-for-surrogate-computation)
+      * 7.5 [Computing Grid Cells that Contain Points](SA_ch03_vector.md#75-computing-grid-cells-that-contain-points)
+  * 8. Revision History(SA_ch03_vector.md#8-revision-history)
+  * 9. Future Enhancements(SA_ch03_vector.md#9-future-enhancements)
+  * 10.  Licenses and External Software Used(SA_ch03_vector.md#10-licenses-and-external-software-used)
+      * 10.1 License Information(SA_ch03_vector.md#101-license-information)
+      * 10.2 External Libraries(SA_ch03_vector.md#102-external-libraries)
+* 4 [Raster Tools](SA_ch04_raster.md#chapter-4-raster-tools)
+      * 1. [Background](SA_ch04_raster.md#background)
+      * 2. [Troubleshooting](SA_ch04_raster.md#troubleshooting)
+      * 3. [Domain Description](SA_ch04_raster.md#domain-description-in-sa-raster-tools)
+      * 4. [Landcover Data Processing Tools](SA_ch04_raster.md#land-cover-data-processing-tools)
+           * 4.1 [NLCD and MODIS](SA_ch04_raster.md#nlcd-and-modis-land-cover-generation)
+           * 4.2 [BELD4](SA_ch04_raster.md#beld4-land-cover-generation)
+           * 4.3 [Current and Future Development](SA_ch04_raster.md#current-and-future-development-for-the-land-cover-data-processing-tools)
+      * 5. [Satellite and Aerosol Product Processing Tools](SA_ch04_raster.md#current-and-future-development-for-the-land-cover-data-processing-tools)
+           * 5.1 [GOES Cloud Product Processing Tool](SA_ch04_raster.md#goes-cloud-product-processing-tool)
+           * 5.2 [MODIS Level 2 Cloud/Aerosol Products Tool] (SA_ch04_raster.md#modis-level-2-cloudaerosol-products-tool)
+           * 5.3 [OMI Level 2 Product Tool](SA_ch04_raster.md#omi-level-2-product-tool)
+           * 5.4 [OMI L2G and L3 Product Tools](SA_ch04_raster.md#omi-l2g-and-l3-product-tools)
+      * 6. [Agricultural Fertilizer Modeling Tools](SA_ch04_raster.md#agricultural-fertilizer-modeling-tools)
+           * 6.1 [EPIC Site Information Generation Tool](SA_ch04_raster.md#epic-site-information-generation-tool)
+           * 6.2 [MCIP/CMAQ-to-EPIC Tool](SA_ch04_raster.md#epic-site-information-generation-tool)
+           * 6.3 [EPIC-to-CMAQ Tool](SA_ch04_raster.md#epic-site-information-generation-tool)
+           * 6.4 [EPIC Yearly Extraction Tool](SA_ch04_raster.md#epic-yearly-extraction-tool)
+      * 7. [Other Tools and Utilities](SA_ch04_raster.md#other-tools-and-utilities)
+           * 7.1 [Domain Grid Shapefile Generation Tool](SA_ch04_raster.md#other-tools-and-utilities)
+           * 7.2 [Other Utilities](SA_ch04_raster.md#other-utilities)
+      * 8. [Acknowlegements](SA_ch04_raster.md#acknowledgments)
