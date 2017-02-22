@@ -2,7 +2,7 @@ Spatial Allocator v4.3 User's Guide
 
 ------------
 
-Chapter 4. Vector Tools
+Chapter 3. Vector Tools
 ===
 <a id="intro1"><a/>
 1. Background
@@ -150,7 +150,7 @@ The following are a few test scripts included in the release:
 
 ### Generate a Surrogate Using a Weight Function
 
--   To see how to [generate a surrogate using a weight function](#weightFunc41), run the ***weighted_surrogate.csh*** script. Examine the outputs that start with weighted_ in the output directory to see the files that it created. Also, to understand what weight was applied, look for the WEIGHT_FUNCTION line in the weighted_surrogates script. Also note that the ATTR_WEIGHT is set to USE_FUNCTION
+-   To see how to [generate a surrogate using a weight function](#surrogates4), run the ***weighted_surrogate.csh*** script. Examine the outputs that start with weighted_ in the output directory to see the files that it created. Also, to understand what weight was applied, look for the WEIGHT_FUNCTION line in the weighted_surrogates script. Also note that the ATTR_WEIGHT is set to USE_FUNCTION
 
 ### Change Map Projection of a Shapefile
 
@@ -549,7 +549,7 @@ As described in the introduction, Spatial surrogates are most commonly used to m
 
 ### The Need for Weight Functions
 
-Surrogates have become more complex in recent years. The EPA maintains a record of recent surrogate creation efforts at [www.epa.gov/ttn/chief/emch/spatial/newsurrogate.html](http://www.epa.gov/ttn/chief/emch/spatial/newsurrogate.html)???. A quick survey of those surrogates reveals the high level of complexity involved in their generation. A good example of computing a surrogate based on a function is the surrogate for industrial space, which uses the sum of the IND1+IND2+IND3+IND4+IND5+IND6 attributes from each census tract. When all of the attribute values used in the computation of the surrogate weight have the same units and reside in a single shapefile, such as in the industrial space example just listed, the corresponding surrogates can be computed using the new weight function feature described here. In other cases, when the attributes to be used for the surrogate weight are in different shapefiles, or when they have different units (e.g., the weighted roadway miles and population surrogate 0.75\*length+0.25\*pop), the weight function feature cannot be used and the the Java based SurrogateTool should be used instead. Note that more information on creating surrogates without weight functions is given in the [Generating Surrogates from Weight Shapefiles](srgweight42) section.
+Surrogates have become more complex in recent years. The EPA maintains a record of recent surrogate creation efforts at [www.epa.gov/ttn/chief/emch/spatial/newsurrogate.html](http://www.epa.gov/ttn/chief/emch/spatial/newsurrogate.html)???. A quick survey of those surrogates reveals the high level of complexity involved in their generation. A good example of computing a surrogate based on a function is the surrogate for industrial space, which uses the sum of the IND1+IND2+IND3+IND4+IND5+IND6 attributes from each census tract. When all of the attribute values used in the computation of the surrogate weight have the same units and reside in a single shapefile, such as in the industrial space example just listed, the corresponding surrogates can be computed using the new weight function feature described here. In other cases, when the attributes to be used for the surrogate weight are in different shapefiles, or when they have different units (e.g., the weighted roadway miles and population surrogate 0.75\*length+0.25\*pop), the weight function feature cannot be used and the the Java based SurrogateTool should be used instead. Note that more information on creating surrogates without weight functions is given in the [Generating Surrogates from Weight Shapefiles](#surrogates4) section.
 
 
 To create a surrogate using a weight function, start with the [weighted_surrogate](media/weighted_surrogate.txt) script and customize it to meet your needs. For example, be sure that WEIGHT_FILE_NAME, OUTPUT_FILE_NAME, and SURROGATE_ID are set appropriately for the new output surrogate. The variables in the weighted_surrogate script that are different from those in the generate_surrogates script (which generates surrogates without weight functions) are the following:
@@ -586,7 +586,7 @@ The **srgcreate** program is used to generate surrogates from weight shapefiles 
 9.  what files to use for the surrogate generation.
 10. what attribute to use in the data file.
 11. whether the weight shapefile needs to be filtered using a filter function to extract some shapes for surrogate computation. Detailed information of using filter function for weight shapefile is described in Section 7.3: [Filtering a Shapefile](#filters73).
-12. whether weight attribute function from the weight shapefile is used for surrogate computation. How to use weight function is described in Section 4.2: [Computing Surrogates Using Weight Functions](#weightFunc).
+12. whether weight attribute function from the weight shapefile is used for surrogate computation. How to use weight function is described in Section 4.2: [Computing Surrogates Using Weight Functions](#surrogates4).
 13. what attribute to use in the weight file if no weight function is used.
 14. the name of the output shapefile containing the gridded numerator.
 15. what surrogate ID to assign to the surrogate.
@@ -635,7 +635,7 @@ The srgcreate program generates a surrogate file ready to be used in SMOKE. On e
 5. Creating Inputs to SMOKE Biogenic Processing
 -----------------------------------------------
 
-### 5.1 Generate BELD3/BELD4 Data for Biogenic Eissions Processing
+### 5.1 Generate BELD3/BELD4 Data for Biogenic Emissions Processing
 
 Biogenic Emissions Inventory System, Version 3 (BEIS3) uses BELD3/BELD4 land cover data for computing biogenic emissions fluxes on a modeling grid. The BELD3 data set gives landuse cover fractions for 230 different types at a 1-km resolution for all of North America. The data are divided into 24 tiles in I/O API format, and each tile contains three files named These input files are I/O API files named b3_a.tile#n.nzero.ncf, b3_b.tile#n.nzero.ncf, and b3_tot.tile#n.nzero.ncf.
 
@@ -708,10 +708,10 @@ The scripts automatically set the INPUT_FILE_NAME and OUTPUT_FILE_NAME variables
     echo "Output file = $OUTPUT_FILE_NAME"
     $TIME $EXE
 
-7.1. Spatially Allocating Attributes
+7. Spatially Allocating Attributes
 ------------------------------------
 
-### 7.1.1 Modes of the Allocator Program
+### 7.1 Modes of the Allocator Program
 
 The allocator program supports ALLOCATE mode for operating on shapefiles, point files, polygon files, I/O API files and regular grid shapefiles. The ALLOCATE mode allows the user to specify a grid, polygon, or point file as input to allocate to an output grid or polygon file. The specified attributes of the input file will be written to the output file as a spatially weighted sum or average. For example, a user may want to aggregate county data to state data. After running the allocator, the state boundaries would be saved as a shapefile with attributes (e.g., population, housing) summed from the county level for each state, as indicated by this formula:
 
@@ -723,7 +723,7 @@ Using the average function, on the other hand, the attributes of a density-type 
 
 Other uses of the ALLOCATE mode are to convert data from one grid to another (e.g., map the data onto a different map projection or grid cell size), and to create the CMAQ OCEANfile from a Shapefile that contains land and surf zone information. Support for the CMAQ OCEANfile was added in version 3.3, which was released on October 26, 2006. In conjunction with this update, a new more general feature was added to compute the fraction of an output cell that is composed of various categories specified in an attribute of an input Shapfile. For example, if you have a Shapefile with a land use category specified for every polygon in the Shapefile, you can use this new feature to create an I/O API file that shows the fraction of each grid cell that was covered by each land use category. More information on this feature is given in [Section 7.1.6](#alloc71).
 
-### 7.1.2 Allocate Mode
+### 7.2 Allocate Mode
 
 When MIMS_PROCESSING is set to ALLOCATE (a mode that replaces both the AVERAGE and AGGREGATE modes from earlier versions of the Spatial Allocator), the Spatial Allocator responds to the following environment variables (required variables appear in bold text):
 
@@ -752,7 +752,7 @@ When MIMS_PROCESSING is set to ALLOCATE (a mode that replaces both the AVERAGE a
 -   MAX_LINE_SEG - Specifies the maximum length of a line segment to use when re ading in a line or polygon Shapefile or creating the polygons for a grid. Any li ne segments longer than the specified length will be split to be no longer than the length specified by this variable. This could be useful when converting data on one grid to another, as the spatial mapping can be done more precisely when the grid is described by more points than just the four corners. Note that apply ing this feature will make the program run more slowly.
 -   **DEBUG_OUTPUT** – Y or N (specifies whether to write the informational messages to standard output; setting this to N will make the program output only critical information)
 
-### 7.1.3 Allocate Mode Examples
+### 7.3 Allocate Mode Examples
 
 Example allocate scripts are provided for Unix/Linux in C-shell format (.csh extension appended). These scripts can be executed directly from the scripts directory. If desired, you may edit the aggregate script and set the SA_HOME to your new installation folder. The scripts place their output shapefiles in the output directory. The output files can be viewed with a GIS.
 
@@ -809,7 +809,7 @@ The alloc_census_tracts_to_county.csh script is presented below as an example of
 
  The above example is a fairly typical allocate mode script. The attributes input file (a shapefile in this case) is processed according to the entries in an allocate mode file, [atts_pophous.txt](atts_pophous.txt), which has entries for each of the three attributes (POP2000, HOUSEHOLDS, and HDENS) specified by ALLOCATE_ATTRS that will be aggregated or averaged. The input file is intersected with OUTPUT_POLY_FILE, which is also a shapefile and whose attributes specified in OUTPUT_POLY_ATTRS (FIPS_CODE and COUNTY) will carry over to county_pophous, the output file specified by OUTPUT_FILE_NAME.
 
-### 7.1.4 Allocating Discrete Values
+## 7.4 Allocating Discrete Values
 
 Previous versions of the Spatial Allocator supported the allocation of only continuous data types, i.e., those that could have mathematical operations such as aggregation or averaging performed on them. Discrete attributes such as FIPS codes or county names could not previously be allocated due to this limitation. Starting with Spatial Allocator version 3.0, and subsequent versions, you can now allocate discrete attributes based on maximum area of overlap (the value of the attribute is obtained from the input shape that has the largest overlap with the output shape) or based on the centroid (the value of the attributes is obtained from the input shape that contains the centroid of the output shape). Allocation of discrete attributes is mainly for polygon data, but point and line shapes can be used with the maximum overlap (points are simply counted as an area of 1.0 each, so the first point encountered that overlaps the output shape will be used, while line length is substituted for area for line shapes). The centroid method does not make sense when applied to point or line data, so this condition will generate an error in the program.
 
@@ -862,7 +862,7 @@ The mode file used for this example, excluding comments or whitespace appears as
     ATTRIBUTE=FIPS_CODE:DISCRETE_CENTROID
     ATTRIBUTE=COUNTY:DISCRETE_OVERLAP
 
-### 7.1.5 Discretization Interval
+## 7.5 Discretization Interval
 
 Using the MAX_LINE_SEG environment variable, users can specify a maximum line segment length for lines, polygons, and generated grid cells in the units of the output file. Allocations of attributes will appear no different. This feature comes into play when converting shapes between map projections where the conversion algorithms cause distortions in long line segments (those used in a grid, for example). To set a discretization interval, add
 
@@ -870,7 +870,7 @@ Using the MAX_LINE_SEG environment variable, users can specify a maximum line se
 
 to your script, where <length> is an integer value in the same units as the shape being processed. Thus, an 8-km (8000-m) grid processed with a discretization interval of 1000 will break up any line segment of 1000 meters or more. Please note that there is a performance penalty incurred when using the discretization interval; the smaller the interval value, the longer the program will take to run because the line-splitting algorithm will be calculating where to add all the extra points.
 
-### 7.1.6 Computing Area Percentages for the CMAQ OCEANfile and Other Uses
+## 7.6 Computing Area Percentages for the CMAQ OCEANfile and Other Uses
 
 Support for the CMAQ OCEANfile and for area percentages in general was added in version 3.3, which was released on October 26, 2006. The purpose of this update, is to compute the fraction of an output cell that is composed of various categories specified in an attribute of an input Shapfile. For example, if you have a Shapefile with a land use category specified for every polygon in the Shapefile, you can use this new feature to create an I/O API file that shows the fraction of each grid cell that was covered by each land use category. Note that the only output format currently supported for this new mode is IoapiFile, but the feature could some day be extended to also output Shapefiles. There are two new scripts available with the distribution that illustrate the use of this new mode:
 
@@ -891,16 +891,16 @@ A surf zone input data file for North Carolina and South Carolina is available i
 $DATADIR/surfzone_NC_SC
 For the data file that is input to the surf zone calculation for most of North America, check the site <http://www.epa.gov/ttn/chief/emch/>. The Spatial section has input files for spatial surrogates, and the Biogenic has inputs for biogenic processing and it is likely that the OCEANfile input will be posted in this section.
 
-7.2. Overlaying Spatial Data
+7.7 Overlaying Spatial Data
 ----------------------------
 
-### 7.2.1 Modes of the Allocator Program
+## 7.7.1 Modes of the Allocator Program
 
 The allocator program supports ALLOCATE and OVERLAY modes for operating on shapefiles, point files, polygon files, I/O API files and regular grid shapefiles.
 
 The OVERLAY mode allows the user to specify a grid, bounding box, polygon, or set of polygons and then print the attributes of the shapes (i.e., points, lines, or polygons) from an input data file that fall within the boundaries of the specified region. One example of how this mode might be used is to start with a data set from a group of observation stations in a particular region and then overlay those data with a grid to determine which grid cells the observation stations reside in. The results may be printed to standard output or saved to a delimited file. Eventually, we may also be able to save the data to a shapefile or an I/O API file.
 
-### 7.2.2 Overlay Printing Mode
+### 7.7.2 Overlay Printing Mode
 
 When MIMS_PROCESSING is set to OVERLAY (a new processing mode in version 3.0), the Spatial Allocator responds to the following environment variables (bold text indicates required fields):
 
@@ -928,7 +928,7 @@ When MIMS_PROCESSING is set to OVERLAY (a new processing mode in version 3.0), t
 -   **WRITE_HEADER** � Y or N (specifies whether to write a header line to give the names of the output attributes)
 -   **DEBUG_OUTPUT** �Y or N (specifies whether to write the debug output to standard output; this can be used to make the program output only critical information)
 
-### 7.2.3 Overlay Mode Examples
+### 7.7.3 Overlay Mode Examples
 
 Example overlay scripts are provided for Unix/Linux in C-shell format (.csh extension appended) These scripts can be executed directly from the scripts directory. If desired, you may edit the overlay script and set the SA_HOME environment variable to your new installation directory. The scripts place their output shapefiles in the output directory. The output files can be viewed with a GIS.
 
@@ -940,6 +940,8 @@ Several different overlay example scripts have been provided in order to give th
 -   overlay_polygon_on_census_tracts
 
 The overlay_grid_on_ports.csh script is presented below as an example. The OVERLAY_TYPE is a bounding box, which means that OVERLAY_SHAPE will be set to a pair of *x,y* coordinates instead of to a file name. In all other cases, the OVERLAY_SHAPE is a file name. The file that is being overlaid by the bounding box is a shapefile with the same map projection as the bounding box (but this need not be the case, as the allocator program will convert between map projections as needed). The overlay output is being placed in a delimited file, as specified by OVERLAY_OUT_TYPE. The delimiter will be a COMMA, as specified by OVERLAY_OUT_DELIM. Because WRITE_HEADER is set to Y (yes), the names of the OVERLAY_ATTRS — in this case, NAME, BERTHS, LAT, and LONG — will be provided on the first row of ports_over_grid.csv. The MAX_INPUT_FILE_SHAPES variable can be set to any nonzero integer value to enable data "chunking" of the input file so that it is processed piecemeal instead of all at once. This reduces memory overhead in the program. Input file chunking is handy when very large shapefiles are being processed.
+
+```csh
 
     # Set debug output
     setenv DEBUG_OUTPUT Y
@@ -974,7 +976,9 @@ The overlay_grid_on_ports.csh script is presented below as an example. The OVERL
 
     echo "Overlaying ports with a grid (bounding box of grid)"
     $TIME $EXE
-7.3. Filtering a Shapefile
+```
+
+7.8. Filtering a Shapefile
 --------------------------
 
 ### 7.3.1 Specifying Filters
