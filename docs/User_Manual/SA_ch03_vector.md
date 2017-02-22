@@ -870,7 +870,7 @@ Using the MAX_LINE_SEG environment variable, users can specify a maximum line se
 
 to your script, where <length> is an integer value in the same units as the shape being processed. Thus, an 8-km (8000-m) grid processed with a discretization interval of 1000 will break up any line segment of 1000 meters or more. Please note that there is a performance penalty incurred when using the discretization interval; the smaller the interval value, the longer the program will take to run because the line-splitting algorithm will be calculating where to add all the extra points.
 
-## 7.3 Computing Area Percentages for the CMAQ OCEANfile and Other Uses
+## 7.2 Computing Area Percentages for the CMAQ OCEANfile and Other Uses
 
 Support for the CMAQ OCEANfile and for area percentages in general was added in version 3.3, which was released on October 26, 2006. The purpose of this update, is to compute the fraction of an output cell that is composed of various categories specified in an attribute of an input Shapfile. For example, if you have a Shapefile with a land use category specified for every polygon in the Shapefile, you can use this new feature to create an I/O API file that shows the fraction of each grid cell that was covered by each land use category. Note that the only output format currently supported for this new mode is IoapiFile, but the feature could some day be extended to also output Shapefiles. There are two new scripts available with the distribution that illustrate the use of this new mode:
 
@@ -891,16 +891,16 @@ A surf zone input data file for North Carolina and South Carolina is available i
 $DATADIR/surfzone_NC_SC
 For the data file that is input to the surf zone calculation for most of North America, check the site <http://www.epa.gov/ttn/chief/emch/>. The Spatial section has input files for spatial surrogates, and the Biogenic has inputs for biogenic processing and it is likely that the OCEANfile input will be posted in this section.
 
-7.4 Overlaying Spatial Data
+7.3 Overlaying Spatial Data
 ----------------------------
 
-## 7.4.1 Modes of the Allocator Program
+## 7.3.1 Modes of the Allocator Program
 
 The allocator program supports ALLOCATE and OVERLAY modes for operating on shapefiles, point files, polygon files, I/O API files and regular grid shapefiles.
 
 The OVERLAY mode allows the user to specify a grid, bounding box, polygon, or set of polygons and then print the attributes of the shapes (i.e., points, lines, or polygons) from an input data file that fall within the boundaries of the specified region. One example of how this mode might be used is to start with a data set from a group of observation stations in a particular region and then overlay those data with a grid to determine which grid cells the observation stations reside in. The results may be printed to standard output or saved to a delimited file. Eventually, we may also be able to save the data to a shapefile or an I/O API file.
 
-### 7.4.2 Overlay Printing Mode
+### 7.3.2 Overlay Printing Mode
 
 When MIMS_PROCESSING is set to OVERLAY (a new processing mode in version 3.0), the Spatial Allocator responds to the following environment variables (bold text indicates required fields):
 
@@ -928,7 +928,7 @@ When MIMS_PROCESSING is set to OVERLAY (a new processing mode in version 3.0), t
 -   **WRITE_HEADER** � Y or N (specifies whether to write a header line to give the names of the output attributes)
 -   **DEBUG_OUTPUT** �Y or N (specifies whether to write the debug output to standard output; this can be used to make the program output only critical information)
 
-### 7.4.3 Overlay Mode Examples
+### 7.3.3 Overlay Mode Examples
 
 Example overlay scripts are provided for Unix/Linux in C-shell format (.csh extension appended) These scripts can be executed directly from the scripts directory. If desired, you may edit the overlay script and set the SA_HOME environment variable to your new installation directory. The scripts place their output shapefiles in the output directory. The output files can be viewed with a GIS.
 
@@ -978,10 +978,10 @@ The overlay_grid_on_ports.csh script is presented below as an example. The OVERL
     $TIME $EXE
 ```
 
-7.5. Filtering a Shapefile
+7.4. Filtering a Shapefile
 --------------------------
 
-### 7.5.1 Specifying Filters
+### 7.4.1 Specifying Filters
 
 The filtering feature was added to overcome a limitation of the original Spatial Allocator: it could only generate surrogates based on all of the shapes in a weight file. For example, a surrogate for interstate highways could not be generated from a weight file that contained data on multiple road types. With the January 2005 version of the Spatial Allocator, it became possible to specify a set of criteria that shapes in the weight file must meet in order to be included in the surrogate calculation. In addition to creating a filtered surrogate, the FILTER_SHAPE mode of the allocator program will cause the program to create a new Shapefile that contains only the shapes that meet the filter criteria.
 
@@ -1038,7 +1038,7 @@ The filter file syntax supports the use of "regular expressions" when the ATTRIB
 
 The filter in example E will generate a shapefile that contains only counties that start with the letters from A through K. Another popular substitution is to specify a question mark (?) for a single character. For example, 25?? would match with any alphanumeric four-character strings starting with 25.
 
-### 7.5.2 Creating a Filtered Shapefile
+### 7.4.2 Creating a Filtered Shapefile
 
 If you are interested in creating a filtered shapefile (as opposed to generating a new surrogate based on the filter), start with the [filter_shapefile](media/filter_shapefile.txt) script and customize it to your needs. This script runs the allocator program in FILTER_SHAPE mode. The variables in the script should be set as follows:
 
@@ -1050,7 +1050,7 @@ If you are interested in creating a filtered shapefile (as opposed to generating
 
 There are two types of values that attributes can have. The attribute values can be either discrete (e.g., a road type or other non-arithmetic data type) or continuous (e.g., area, length, or some other data type on which arithmetic operations can be performed). is the following sentence a separate point, or a point related to the first sentence? clarify.] Shapes can be both included or excluded based on attribute criteria, which allows a lot of flexibility in filtering data.
 
-### 7.5.3 Filtering a Weight Shapefile for Surrogate Computation
+### 7.4.3 Filtering a Weight Shapefile for Surrogate Computation
 
 Generating a filtered weight shapefile for surrogate computation is similar to generating a shapfile without the environment setting for surrogate computation. However, in surrogate computation a temporary weight shapefile is created by specified filter function and then used as the input for computing the surrogate weights. The name of this temporary shapefile is specified using the FILTERED_WEIGHT_SHAPES environment variable. This temporary shapefile does not get deleted after a surrogate is generated. Thus, if you are generating surrogates based on some filter criteria, you may want to conserve disk space by manually deleting the temporary shapefile(s) once your surrogates have been generated. Alternatively, you may want to save the temporary shapefile for quality assurance purposes or as an input to future processing. As in the case of generating a filtered shapefile, the FILTER_FILE environment variable is used to specify the name of the filter file to use.
 
@@ -1061,7 +1061,7 @@ To create a filtered shapefile in surrogate computation, start with the [filtere
 
 **Note: Refer to Example D above to see when one must use caution in generating surrogates from filtered polygon shapefiles.**
 
-7.6 Computing Grid Cells that Contain Points
+7.5 Computing Grid Cells that Contain Points
 --------------------------------------------
 
 The program allocator.exe can be used to allocate point source data into the output grid, egrid, or polygon. For this calculation, MIMS_PROCESSING is set to OVERLAY mode.
