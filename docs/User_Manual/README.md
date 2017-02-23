@@ -1,3 +1,6 @@
+[Home](README.md) - [Next Chapter >>](SA_ch01_intro.md)
+***
+
 Spatial Allocator v4.3 (January 20, 2017 release) User's Manual
 ==
 
@@ -27,4 +30,6 @@ The following sections are included in this manual:
 
 ***
 
-CMAQ Operational Guidance Document (c) 2016<br>
+
+[Home](README.md) - [Next Chapter >>](SA_ch01_intro.md)<br>
+Spatial Allocator User Manual (c) 2016<br>
