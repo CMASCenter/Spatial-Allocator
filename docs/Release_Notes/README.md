@@ -53,7 +53,7 @@ Changes
 Quick Start
 ------
 
-[Complete Documentation](../User_Manual/README.md)
+[Complete Spatial Allocator Documentation](../User_Manual/README.md)
 
 #### Set up the SA environment:
         * Modify paths in ./bin/sa_setup.csh to installation directory
