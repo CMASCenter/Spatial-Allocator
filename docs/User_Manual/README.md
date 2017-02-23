@@ -23,6 +23,8 @@ The following sections are included in this manual:
 
 [Chapter 7 (Libraries):](SA_ch7_libraries.md) Third-party libraries and software used by the SA.
 
+[Extended Table of Contents:](Table_Contents.md) Listing of contents within each chapter.
+
 ***
 
 CMAQ Operational Guidance Document (c) 2016<br>
