@@ -1,6 +1,9 @@
 [Home](README.md) - [Next Chapter >>](SA_ch02_install.md)
 ***
 
+Chapter 1. Introduction 
+===
+
 The Spatial Allocator (SA) is a set of tools that helps users manipulate and generate data files related to emissions and air quality modeling. The tools perform functions similar to Geographic Information Systems, but are provided to the modeling community free of charge. In addition, the tools are designed to support some of the unique aspects of the file formats used for Community Multiscale Air Quality (CMAQ), Sparse Matrix Operator Kernel Emissions (SMOKE), and Weather Research and Forecasting (WRF) modeling.
 
 The MIMS Spatial Allocator is licensed as open-source software and provided at no cost because its development was sponsored by EPA. The Spatial Allocator uses GIS industry standard ESRI shapefiles, image files supported by GDAL, netCDF files and plain text data files as input and output data. The SA system includes three components developed for specific applications:

@@ -1,4 +1,6 @@
-**Table of Contents for Spatial Allocator**
+Table of Contents for Spatial Allocator
+=====
+
 * 1 [Introduction](SA_ch01_intro.md)
 * 2 [Installation](SA_ch02_install.md)
 * 3 [Vector Tools](SA_ch03_vector.md)
