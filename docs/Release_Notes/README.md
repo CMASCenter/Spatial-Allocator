@@ -53,7 +53,7 @@ Changes
 Quick Start
 ------
 
-Complete Documentation: https://www.cmascenter.org/help/documentation.cfm?model=sa-tools&version=4.3
+[Complete Documentation](../User_Manual/README.md)
 
 #### Set up the SA environment:
         * Modify paths in ./bin/sa_setup.csh to installation directory
