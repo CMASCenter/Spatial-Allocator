@@ -196,14 +196,6 @@ computeGridLandUse tool.**
 |19|19 |Reserved (e.g., Fill Value ) |  39 |90|Woody Wetlands|
 |20|20| Reserved| 40 | 95|Emergent Herbaceous Wetlands|
 
-[[[[[[[[[[[[[]{#_Toc357440520 .anchor}]{#_Toc357435005
-.anchor}]{#_Toc357192619 .anchor}]{#_Toc357176048
-.anchor}]{#_Toc357175577 .anchor}]{#_Toc357175222
-.anchor}]{#_Toc357174708 .anchor}]{#_Toc357173415
-.anchor}]{#_Toc357110954 .anchor}]{#_Toc357110841
-.anchor}]{#_Toc357110275 .anchor}]{#_Toc318316552
-.anchor}]{#_Toc318316031 .anchor}
-
 4.2 BELD4 Land Cover Generation
 ---------------------------
 
@@ -340,12 +332,6 @@ the crop percentage variable contains the 42 crops listed in [Table 3](#Table-3)
 |12|CornGrain_ir|26|Rye_ir|40|Canola_ir|
 |13|CornSilage|27|SorghumGrain|41|Beans|
 |14|CornSilage_ir|28|SorghumGrain_ir|42|Beans_ir|
-
-[[[[[[[[[[]{#_Toc357586938 .anchor}]{#_Toc357519797
-.anchor}]{#_Toc357440521 .anchor}]{#_Toc357435006
-.anchor}]{#_Toc357192621 .anchor}]{#_Toc357176050
-.anchor}]{#_Toc357175579 .anchor}]{#_Toc357175224
-.anchor}]{#_Toc357174710 .anchor}]{#_Toc357173417 .anchor}
 
 4.3 Current and Future Development for the Land Cover Data Processing Tools
 -----------------------------------------------------------------------

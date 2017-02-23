@@ -161,22 +161,22 @@ following variables (listed in capital letters below) are recognized by
 the Surrogate Tool in the global control variables file:
 
 -   GENERATION CONTROL FILE 
-> gives the directory and name of the generation control CSV file to use for the run.
+> directory and name of the generation control CSV file to use for the run.
 
 -   SURROGATE SPECIFICATION FILE 
-> gives the directory and name of the surrogate specification CSV file to use for the run.
+> directory and name of the surrogate specification CSV file to use for the run.
 
 -   SHAPEFILE CATALOG 
-> gives the directory and name of the shapefile catalog CSV file to use for the run.
+> directory and name of the shapefile catalog CSV file to use for the run.
 
 -   SHAPEFILE DIRECTORY 
-> gives the name of the directory in which to look for the shapefiles in the shapefile catalog.
+> directory in which to look for the shapefiles in the shapefile catalog.
 
 -   SURROGATE CODE FILE 
-> gives the directory and name of the surrogate code CSV file to use for the run.
+> directory and name of the surrogate code CSV file to use for the run.
 
 -   SRGCREATE EXECUTABLE 
-> gives the directory and name of the srgcreate executable to use for the run.
+> directory and name of the srgcreate executable to use for the run.
 
 -   DEBUG_OUTPUT 
 > specifies whether srgcreate will output debugging information as it runs (specify Y for yes and N for no).
@@ -190,82 +190,50 @@ the Surrogate Tool in the global control variables file:
      * EGrid should be used only for the WRF/NMM-CMAQ system
      *  Polygon option is used for non-grid-based models such as ASPEN.
 
--   OUTPUT_GRID_NAME specifies the name of the output grid (valid only
-    > when OUTPUT_FILE_TYPE is RegularGrid or EGrid).
+-   OUTPUT_GRID_NAME 
+> specifies the name of the output grid 
+     * (valid only when OUTPUT_FILE_TYPE is RegularGrid or EGrid).
 
--   GRIDDESC specifies the directory and name of the grid description
-    > file (valid only when OUTPUT_FILE_TYPE is RegularGrid or EGrid).
+-   GRIDDESC 
+> specifies the directory and name of the grid description file 
+     * (valid only when OUTPUT_FILE_TYPE is RegularGrid or EGrid).
 
--   OUTPUT_FILE_ELLIPSOID specifies the ellipsoid of the output grid
-    > (valid only when OUTPUT_FILE_TYPE is RegularGrid or EGrid).
+-   OUTPUT_FILE_ELLIPSOID 
+> specifies the ellipsoid of the output grid 
+     * (valid only when OUTPUT_FILE_TYPE is RegularGrid or EGrid).
 
--   OUTPUT_POLY_FILE specifies the name of an ArcGIS polygon text file
-    > or the name of a shapefile containing the polygon shapes to use
-    > (valid only when OUTPUT_FILE_TYPE is EGrid or Polygon).
+-   OUTPUT_POLY_FILE 
+> specifies the name of an ArcGIS polygon text file or the name of a shapefile containing the polygon shapes to use 
+     * (valid only when OUTPUT_FILE_TYPE is EGrid or Polygon).
 
 -   OUTPUT_POLY_ATTR specifies the name of the attribute in the
-    > OUTPUT_POLY_FILE that is a unique ID for each shape (valid only
-    > when OUTPUT_FILE_TYPE is Polygon).
+    > OUTPUT_POLY_FILE that is a unique ID for each shape 
+     * (valid only when OUTPUT_FILE_TYPE is Polygon).
 
--   OUTPUT DIRECTORY specifies the name of the directory into which the
-    > output surrogate files will be placed.
+-   OUTPUT DIRECTORY 
+    > specifies the name of the directory into which the output surrogate files will be placed.
 
--   OUTPUT SURROGATE FILE specifies the name of the optional file that
-    > combines all of the surrogates created during the run into a
-    > single file (this is not needed with version 2.3 and higher of
-    > SMOKE, but is used to support earlier versions). If this variable
-    > is defined, the combined single file will be created; otherwise,
-    > it will not be created. This file is placed in the same directory
-    > as the individual surrogate files.
+-   OUTPUT SURROGATE FILE 
+    > specifies the name of the optional file that combines all of the surrogates created during the run into a single file (this is not needed with version 2.3 and higher of SMOKE, but is used to support earlier versions). If this variable is defined, the combined single file will be created; otherwise, it will not be created. This file is placed in the same directory as the individual surrogate files.  
+-   OUTPUT SRGDESC FILE 
+    > specifies the directory and name of the output surrogate description file (SRGDESC file) that is used as an input to SMOKE.
 
--   OUTPUT SRGDESC FILE specifies the directory and name of the output
-    > surrogate description file (SRGDESC file) that is used as an input
-    > to SMOKE.
+-   OVERWRITE OUTPUT FILES 
+> specifies whether to overwrite output files if they exist (YES or NO are the allowable values). If this is set to NO and the output files already exist, the Surrogate Tool will end with an error. If this is set to YES and the output files already exist, the output files will be overwritten.
 
--   OVERWRITE OUTPUT FILES specifies whether to overwrite output files
-    > if they exist (YES or NO are the allowable values). If this is set
-    > to NO and the output files already exist, the Surrogate Tool will
-    > end with an error. If this is set to YES and the output files
-    > already exist, the output files will be overwritten.
+-   LOG FILE NAME 
+> specifies the directory and name (full path) of the Surrogate Tool log file.
 
--   LOG FILE NAME specifies the directory and name (full path) of the
-    > Surrogate Tool log file.
+-   DENOMINATOR_THRESHOLD 
+> specifies the value of a threshold under which the surrogate values will not be used (but may be replaced with a gap-filled value, if gap filling is used). The default > value is 0.00001. Denominators of this size occur when the intersected county and weight polygons are tiny (e.g., they are both for county data and the lines do not exactly line up). This is explained in more detail below. If users do not wish to use the denominator threshold feature when writing the surrogates, the value of this variable should be set to 0.0 
+-   COMPUTE SURROGATES FROM SHAPEFILES 
+> specifies whether or not this run of the Surrogate Tool will compute surrogates from shapefiles. If it is set toYES, the Surrogate Tool will compute surrogates from surrogate shapefiles by calling srgcreate.exe of the Spatial Allocator based on the contents of the surrogate specification file.
 
--   DENOMINATOR_THRESHOLD specifies the value of a threshold under
-    > which the surrogate values will not be used (but may be replaced
-    > with a gap-filled value, if gap filling is used). The default
-    > value is 0.00001. Denominators of this size occur when the
-    > intersected county and weight polygons are tiny (e.g., they are
-    > both for county data and the lines do not exactly line up). This
-    > is explained in more detail below. If users do not wish to use the
-    > denominator threshold feature when writing the surrogates, the
-    > value of this variable should be set to 0.0
+-   MERGE SURROGATES 
+> specifies whether or not this run of the Surrogate Tool will compute surrogates by merging existing surrogates using the merging tool. If it is set to YES, the run will compute surrogates from the merging tool as specified in the surrogate specification file.
 
--   COMPUTE SURROGATES FROM SHAPEFILES specifies whether or not this run
-    > of the Surrogate Tool will compute surrogates from shapefiles. If
-    > it is set toYES, the Surrogate Tool will compute surrogates from
-    > surrogate shapefiles by calling srgcreate.exe of the Spatial
-    > Allocator based on the contents of the surrogate specification
-    > file.
-
--   MERGE SURROGATES specifies whether or not this run of the Surrogate
-    > Tool will compute surrogates by merging existing surrogates using
-    > the merging tool. If it is set to YES, the run will compute
-    > surrogates from the merging tool as specified in the surrogate
-    > specification file.
-
--   GAPFILL SURROGATES specifies whether or not this run of the
-    > Surrogate Tool will gapfill existing surrogates using the
-    > gapfilling tool. If it is set to YES, the run will gapfill
-    > surrogates as specified in the surrogate specification file.
-
-These variables can be specified in any order, one per line. The Tool
-writes a warning to the log file if there are unrecognized variable
-names. Users can customize the sample control CSV files that are
-provided with the Surrogate Tool for their application: the sample file
-“control_variables_grid.csv” is for regular-grid-based surrogates,
-“control_variables_egrid.csv” is for egrid-based surrogates, and
-“control_variables_poly.csv” is for polygon-based surrogates.
+-   GAPFILL SURROGATES 
+> specifies whether or not this run of the Surrogate Tool will gapfill existing surrogates using the gapfilling tool. If it is set to YES, the run will gapfill surrogates as specified in the surrogate specification file.  These variables can be specified in any order, one per line. The Tool writes a warning to the log file if there are unrecognized variable names. Users can customize the sample control CSV files that are provided with the Surrogate Tool for their application: the sample file “control_variables_grid.csv” is for regular-grid-based surrogates, “control_variables_egrid.csv” is for egrid-based surrogates, and “control_variables_poly.csv” is for polygon-based surrogates.
 
 The variable DENOMINATOR_THRESHOLD is used to prevent surrogates from
 being output for tiny areas that result from offsets of the same
