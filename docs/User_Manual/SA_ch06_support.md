@@ -1,3 +1,5 @@
+[<< Previous Chapter](SA_ch05_surrogate.md) - [Home](README.md) - [Next Chapter >>](SA_ch07_libraries.md)
+
 ***
 6. CMAS Support Resources
 ============
@@ -69,3 +71,7 @@ The CMAS Center is available on the web at [<http://www.cmascenter.org>](http://
 |FAQs|[<http://www.cmascenter.org/help/faq.cfm>](http://www.cmascenter.org/help/faq.cfm)|
 |Spatial Allocator Home Page|[https://www.cmascenter.org/sa-tools/](https://www.cmascenter.org/sa-tools/)|
 ***
+
+[<< Previous Chapter](SA_ch05_surrogate.md) - [Home](README.md) - [Next Chapter >>](SA_ch07_libraries.md)<br>
+
+Spatial Allocator User Manual (c) 2016<br>
