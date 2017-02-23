@@ -1,8 +1,9 @@
-Spatial Allocator Tools Release Notes README, 1/20/2017
+Spatial Allocator Tools Release Notes Readme 
 ---
 D. Yang,  CEMPD, Institute for the Environment, UNC-Chapel Hill
 
-## Changes
+Changes
+=======
 
 ### 01/16/2017 Update notes for SA_v4.3_012017
 
@@ -79,7 +80,7 @@ Complete Documentation: https://www.cmascenter.org/help/documentation.cfm?model=
         * allocateOMIvar2Grids.csh - OMI L2G and L3 aerosol and NO3 processing tool.
         * The tool is also may also be used process MODIS L3 products (not tested well) from NASA MODIS web site.
         * landuseTool_WRFCMAQ_BELD4.csh - generate BELD4 data from 2001 or 2006 NLCD/MODIS and crop tables.  
-	* Processed crop and tree tables and shapefiles are stored under "data" directory.   
+        * Processed crop and tree tables and shapefiles are stored under "data" directory.   
 
 Troubleshooting
 ==============
