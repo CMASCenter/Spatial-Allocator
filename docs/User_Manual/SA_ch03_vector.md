@@ -1,6 +1,5 @@
-Spatial Allocator v4.3 User's Guide
-
-------------
+[<< Previous Chapter](SA_ch02_install.md) - [Home](README.md) - [Next Chapter >>](SA_ch04_raster.md)
+***
 
 Chapter 3. Vector Tools
 ===
@@ -1254,3 +1253,8 @@ The programs that make up the Spatial Allocator were created using multiple pack
 -   Shapelib - see <http://shapelib.maptools.org>
 -   General Polygon Clipper - see <http://www.cs.man.ac.uk/aig/staff/alan/software>
 -   GNU regex library - see <http://www.gnu.org/directory/regex.html>
+
+[<< Previous Chapter](SA_ch02_install.md) - [Home](README.md) - [Next Chapter >>](SA_ch04_raster.md)<br>
+
+Spatial Allocator User Manual (c) 2016<br>
+

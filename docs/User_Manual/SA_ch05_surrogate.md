@@ -1,5 +1,4 @@
-Spatial Allocator v4.3 User's Guide
-
+[<< Previous Chapter](SA_ch04_raster.md) - [Home](README.md) - [Next Chapter >>](SA_ch06_support.md)
 ------------
 
 Chapter 5. Surrogate Tools
@@ -1623,3 +1622,8 @@ future enhancements or updates for improving the Surrogate Tool:
     with an error. Users have to transform the ellipsoid of the base or
     weight shapefile into the output ellipsoid externally in order to
     correctly project coordinates of base or weight shapefile.
+
+[<< Previous Chapter](SA_ch04_raster.md) - [Home](README.md) - [Next Chapter >>](SA_ch06_support.md)<br>
+
+Spatial Allocator User Manual (c) 2016<br>
+

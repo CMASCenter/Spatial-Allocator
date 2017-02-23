@@ -1,5 +1,4 @@
-Spatial Allocator v4.3 User's Guide
-
+[<< Previous Chapter](SA_ch03_vector.md) - [Home](README.md) - [Next Chapter >>](SA_ch05_surrogate.md)
 ------------
 
 Chapter 4. Raster Tools
@@ -833,3 +832,8 @@ The SA Raster Tools were developed with support from multiple projects:
     NNX08AL28G) and (2) the National Space Science and Technology Center
     at the University of Alabama in Huntsville (contract number
     NNX09AT60G).
+
+[<< Previous Chapter](SA_ch03_vector.md) - [Home](README.md) - [Next Chapter >>](SA_ch05_surrogate.md)<br>
+
+Spatial Allocator User Manual (c) 2016<br>
+

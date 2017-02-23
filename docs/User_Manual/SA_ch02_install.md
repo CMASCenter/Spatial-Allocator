@@ -1,3 +1,5 @@
+[<< Previous Chapter](SA_ch01_intro.md) - [Home](README.md) - [Next Chapter >>](SA_ch03_vector.md)
+
 To download and install the Spatial Allocator, perform the following steps:
 
    The Spatial Allocator (set of Vector, Raster and Surrogate Tools) is available for download from the CMAS Center (https://github.com/CMASCenter/Spatial-Allocator).
@@ -15,3 +17,8 @@ To download and install the Spatial Allocator, perform the following steps:
    2) Sample shapefiles for Surrogate Tools
    3) Processed GIS files for EPIC site information generation
    For additional input data, check the EPA site https://www.epa.gov/chief. The Spatial section has data used to create surrogates, and the Biogenic section (https://www.epa.gov/air-emissions-modeling/biogenic-emission-sources) has data used to create SMOKE biogenic-related input files.'
+
+[<< Previous Chapter](SA_ch01_intro.md) - [Home](README.md) - [Next Chapter >>](SA_ch03_vector.md)<br>
+
+Spatial Allocator User Manual (c) 2016<br>
+
