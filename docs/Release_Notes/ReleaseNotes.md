@@ -2,6 +2,12 @@ Spatial Allocator Tools Release Notes
 ====
 D. Yang,  CEMPD, Institute for the Environment, UNC-Chapel Hill
 
+Contents
+---
+[Changes](#changes)
+[Quick Start](#quick-start)
+[Troubleshooting](#troubleshooting)
+
 Changes
 -----
 
