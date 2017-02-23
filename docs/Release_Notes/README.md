@@ -54,24 +54,23 @@ Quick Start
 
 Complete Documentation: https://www.cmascenter.org/help/documentation.cfm?model=sa-tools&version=4.3
 
-1. Set up the SA environment:
+#### Set up the SA environment:
         * Modify paths in ./bin/sa_setup.csh to installation directory
         * source sa_setup.csh or include sa_setup.csh in your .cshrc
 
-2. Vector tools are stored in: 
+#### Vector tools are stored in: 
         * bin/32bits and sample vector script files are in sa_052014/scripts.  
         * Users normally do not need to recompile the Vector Tools as they are statically compiled.
         * The Raster Tools often need to be re-compiled as they are not statically built.
 
-3. Important Notes:
+#### Important Notes:
         * tmp\*.\* files created under ./raster_script can be deleted after the completion of the run
 
-4. Location of data
+#### Location of data
         * Sample land use and satellite data can be stored in ./data/sat.  
         * See ./data/sat/README for details on where to obtain data for these tools.
 
-5. SA Raster Tools for Satellite data and land use data processing:
- 
+#### SA Raster Tools for Satellite data and land use data processing:
         * Sample Raster Tools running script files in ./raster_scripts:
         * NLCD_MODIS_processor.csh - generate WRF grid NLCD and MODIS landuse data.  
         * allocateGOES2WRFGrids.csh -- GOES data processing tool.
@@ -80,19 +79,19 @@ Complete Documentation: https://www.cmascenter.org/help/documentation.cfm?model=
         * allocateOMIvar2Grids.csh - OMI L2G and L3 aerosol and NO3 processing tool.
         * The tool is also may also be used process MODIS L3 products (not tested well) from NASA MODIS web site.
         * landuseTool_WRFCMAQ_BELD4.csh - generate BELD4 data from 2001 or 2006 NLCD/MODIS and crop tables.  
-	Processed crop and tree tables and shapefiles are stored under "data" directory.   
+	* Processed crop and tree tables and shapefiles are stored under "data" directory.   
 
 Troubleshooting
 ==============
 
-1. Troubleshooting for library errors in the SA Raster Tools:
+#### Troubleshooting for library errors in the SA Raster Tools:
         * Recompile all libraries under src/libs following instructions in the src/libs/README file.
         * Modiy src/raster/Makefile for correct paths.
         * Type "make clean" to clean previous compiled programs.
         * Type "make" to compile the tools.
         * Type "make -B install" or "make install" to install compiled tools.
 
-2. Troubleshooting for library errors in the SA Vector Tools:
+#### Troubleshooting for library errors in the SA Vector Tools:
         * Modiy src/vector/Makefile for correct library paths. Users can use src/vector/libs_32bits
         * Type "make clean" to clean previous compiled programs.
         * Type "make" to compile the tools.
