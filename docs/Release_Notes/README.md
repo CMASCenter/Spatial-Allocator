@@ -1,9 +1,9 @@
 Spatial Allocator Tools Release Notes Readme 
----
+====
 D. Yang,  CEMPD, Institute for the Environment, UNC-Chapel Hill
 
 Changes
-=======
+-----
 
 ### 01/16/2017 Update notes for SA_v4.3_012017
 
@@ -51,7 +51,7 @@ Changes
         * Added leading "0" for one digit state codes in both merging and normalization tools.
 
 Quick Start
-==============
+------
 
 Complete Documentation: https://www.cmascenter.org/help/documentation.cfm?model=sa-tools&version=4.3
 
@@ -83,7 +83,7 @@ Complete Documentation: https://www.cmascenter.org/help/documentation.cfm?model=
         * Processed crop and tree tables and shapefiles are stored under "data" directory.   
 
 Troubleshooting
-==============
+-----
 
 #### Troubleshooting for library errors in the SA Raster Tools:
         * Recompile all libraries under src/libs following instructions in the src/libs/README file.
