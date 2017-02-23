@@ -6,4 +6,4 @@ Documentation
 
 [Spatial Allocator User's Guide](User_Manual/README.md)
 
-[Spatial Allocator version 4.3 Release Notes](Release_Notes/README.md)
+[Spatial Allocator version 4.3 Release Notes](Release_Notes/ReleaseNotes.md)
