@@ -1,7 +1,7 @@
 [<< Previous Chapter](SA_ch05_surrogate.md) - [Home](README.md) - [Next Chapter >>](SA_ch07_libraries.md)
 
 ***
-6. CMAS Support Resources
+Chapter 6. CMAS Support Resources
 ============
 
 Technical and operational user support for Spatial Allocator are available free of charge from the Community Modeling and Analysis System Center ([<http://www.cmascenter.org>](http://www.cmascenter.org/)). The CMAS Center offers an e-mail help desk, and community listservs for posting questions about the Spatial Allocator. In addition to these community-based resources, the CMAS Center offers fee-based trainings, and provides a documentation library for the Spatial Allocator. 
