@@ -8,6 +8,7 @@ Contents
 * [Quick Start](#quick-start)
 * [Troubleshooting](#troubleshooting)
 
+<a id=changes></a>
 Changes
 -----
 
@@ -108,7 +109,9 @@ lling.
     -   Gapfilling Surrogates
     -   Merging Surrogates
 
-### New Features Added in June/July 2005The source code for the Spatial Allocator has undergone significant revision. The main executable, mims_spatial.exe, has been divided into separate utilities for surrogate processing and spatial allocation (srgcreate.exe and allocator.exe), and the supporting source files have been reorganized, with many functions now residing in their own modules. All supporting source files that are not associated with external librari
+### New Features Added in June/July 2005
+
+The source code for the Spatial Allocator has undergone significant revision. The main executable, mims_spatial.exe, has been divided into separate utilities for surrogate processing and spatial allocation (srgcreate.exe and allocator.exe), and the supporting source files have been reorganized, with many functions now residing in their own modules. All supporting source files that are not associated with external librari
 es have been placed in a library called libspatial. These changes allow for better full-life-cycle mainten
 ance of the software.
 
@@ -153,6 +156,7 @@ To ease memory overhead, a new variable called MAX_INPUT_FILE_SHAPES can be spec
 -   Existing surrogates can be merged (e.g., using weighted averages) to create new surrogates.
 -   Existing surrogates can be gap-filled with more general surrogates so that entries are available for all counties of interest.
 -   Surrogates can be created using the Mercator map projection.
+
 ### Revisions Made in December 2003
 
 -   Corrected a bug that caused line objects outside the modeling domain but within the counties of the modeling domain to be excluded from the denominator of surrogate computations.
@@ -161,15 +165,8 @@ To ease memory overhead, a new variable called MAX_INPUT_FILE_SHAPES can be spec
 -   Implemented a feature to warn the user about counties for which the surrogates do not sum to one and the corresponding grid cells. A sum less than one is legitimate if the county is only partially covered by the grid.
 -   Added a date and version number that is printed at the beginning of execution.
 
-9. Future Enhancements
-----------------------
 
-No new enhancements in the current release. Additional future enhancements under consideration for implementation include:
-
--   Modify GRIDDEC projection IDs to match IOAPI projection IDs.
--   Match projection specification to IOAPI projection specification, particularly for Mercator projection.
-
-
+<a id=quick-start></a>
 Quick Start
 ------
 
@@ -202,6 +199,7 @@ Quick Start
         * landuseTool_WRFCMAQ_BELD4.csh - generate BELD4 data from 2001 or 2006 NLCD/MODIS and crop tables.  
         * Processed crop and tree tables and shapefiles are stored under "data" directory.   
 
+<a id=troubleshooting></a>
 Troubleshooting
 -----
 
