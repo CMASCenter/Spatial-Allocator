@@ -12,6 +12,8 @@ The following sections are included in this manual:
 
 [Quick Start Guide. ](SA_quick_start.md) Abbreviated description of how to get up and running with the Spatial Allocator.
 
+[Extended Table of Contents:](Table_Contents.md) Detailed listing of contents within each chapter.
+
 [Chapter 1 (Introduction):](SA_ch01_intro.md) SA background, goals, and terminology.
 
 [Chapter 2 (Installation):](SA_ch02_install.md) Instructions on how to obtain and install the SA.
@@ -25,8 +27,6 @@ The following sections are included in this manual:
 [Chapter 6 (Support):](SA_ch6_support.md) How to get technical support for the Spatial Allocator.
 
 [Chapter 7 (Libraries):](SA_ch7_libraries.md) Third-party libraries and software used by the SA.
-
-[Extended Table of Contents:](Table_Contents.md) Listing of contents within each chapter.
 
 ***
 
