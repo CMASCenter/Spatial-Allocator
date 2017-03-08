@@ -3,6 +3,19 @@
 
 # Chapter 4. Raster Tools
 
+## Contents
+-   [Introduction](#intro4)
+-   [Defining Domains](#domains)
+-   [Land Cover Data Processing Tools](#landcover)
+-   [Satellite Cloud and Aerosol Product Processing Tools](#satdat)
+-   [Agricultural Fertilizer Modeling Tools](#agtools)
+-   [Other Tools and Utilities](#othertools)
+-   [Troubleshooting](#trouble)
+-   [Acknowledgements](#acknowledge4)
+
+---
+
+<a id="intro4"><a/>
 ## Introduction
 
 The Spatial Allocator (SA) Raster Tools system is designed to process
@@ -19,7 +32,7 @@ All sample script files for the SA Raster Tools are stored in the
 raster_scripts directory of the installed Spatial Allocator system.
 
 -----
-
+<a id="domains"><a/>
 ## Defining Domains
 
 The SA Raster Tools define the modeling domain using the following
@@ -70,7 +83,7 @@ GRID_YMIN = -1793999.28 - GRID_YCELLSIZE / 2
 ```
 
 ---
-
+<a id="landcover"><a/>
 ## Land Cover Data Processing Tools
 
 There are two land cover processing tools in the SA Raster Tools:
@@ -268,7 +281,7 @@ county-based crop census data in computing crop fractions within each
 grid cell.
 
 ----
-
+<a id="satdat"><a/>
 ## Satellite Cloud and Aerosol Product Processing Tools
 
 ### GOES Cloud Product Processing Tool
@@ -404,7 +417,7 @@ and from [ftp://aurapar2u.ecs
 The **allocateOMIvar2Grids.csh** sample script can be modified for regridding the OMI L2 and L3 data.
 
 ---
-
+<a id="agtools"><a/>
 ## Agricultural Fertilizer Modeling Tools
 
 There are four tools that can be used when performing Environmental
@@ -647,7 +660,7 @@ The **epicYearlyAverage4QA.csh** sample script file, which is contained in the R
 script directory, has all required environment variables to run the tool.
 
 ----
-
+<a id="othertools"><a/>
 ## Other Tools and Utilities
 
 ### Domain Grid Shapefile Generation Tool
@@ -675,7 +688,7 @@ The following utility programs are stored in the SA_HOME/util directory:
     using the 40 classes of NLCD/MODIS land cover data shown in [Table 1](#Table-1).
 
 ----
-
+<a id="trouble"><a/>
 ## Troubleshooting##
 
 Users who have difficulties running the tools with the compiled libraries contained within the downloaded Spatial Allocator systemshould do the following:
@@ -692,7 +705,7 @@ make
 make install
 ```
 ----
-
+<a id="acknowledge4"><a/>
 ## Acknowledgments ##
 
 The SA Raster Tools were developed with support from multiple projects:

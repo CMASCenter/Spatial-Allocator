@@ -3,6 +3,23 @@
 
 # Chapter 3. Vector Tools
 
+## Contents
+-   [Introduction](#intro1)
+-   [Background on Shapefiles and Surrogates](#background2)
+-   [Using the software](#installing31)
+-   [Environment Variables Used by the Software](#envVars34)
+-   [Specifying Grids, Ellipsoids, and Map Projections](#gridsMap35)
+-   [Spatial Surrogates](#surrogates4)
+-   [Processing Biogenic Emissions Land Use Data](biogenic)
+-   [Comparing I/O API Files](#comp)
+-   [Reprojecting Shapefiles](#reproj)
+-   [Spatially Allocating Shapefile Attributes](#allocate)
+-   [Spatially Overlaying Data](#overlay)
+-   [Filtering a Shapefile](#filter)
+-   [Acknowledgements](#acknowledge3)
+
+---
+
 <a id="intro1"><a/>
 ## Introduction
 
@@ -660,7 +677,7 @@ The srgcreate program generates a surrogate file ready to be used in SMOKE. On e
 | |E|Spatial surrogate ratio (area) or fraction of county feature in cell (mobile) (Real)|
 
 -------
-
+<a id="biogenic"><a/>
 ## Processing Biogenic Emissions Land Use Data
 
 ### BELD3SMK and BELD4SMK: Generate BELD3/BELD4 Data for Biogenic Emissions Processing
@@ -690,7 +707,7 @@ The following environment variables control the behavior of the biogenic landuse
 The script convert_beld3.csh runs the beld3smk program for a small test domain; the script convert_beld4.csh runs the beld4smk program for the same test domain. This script can easily be modified for any given modeling grid by changing the OUTPUT_GRID_NAME and the OUTPUT_FILE_PREFIX and ensuring that the desired grid is described in the GRIDDESC file.
 
 -----
-
+<a id="comp"><a/>
 ## Comparing I/O API Files
 
 The **diffioapi.exe** program compares two I/O API files. The program first checks the two files' headers to ensure that they are consistent. These checks include map projection, grid description (grid origin, grid cell size, and number of rows and columns), layer structure, time structure (start time, time step, and duration), and variable names. After confirming that the headers match, diffioapi loops through all variables in the files and compares the values for each time step and layer. If the values differ by more than a user- specified tolerance, an error message is printed indicating the variable name, time step, layer, row, and column that differs. The following environment variables control the behavior of diffioapi:
@@ -700,7 +717,7 @@ The **diffioapi.exe** program compares two I/O API files. The program first chec
 -   `TOLERANCE` - tolerance used when calculating percent difference between data values
 
 ------
-
+<a id="reproj"><a/>
 ## Reprojecting Shapefiles
 
 The CONVERT_SHAPE mode of the Allocator program can be used to convert a Shapefile in one map projection to another map projection. Scripts called convert_shape are provided to assist with this operation. The scripts take two arguments: the directory and file name of the input file and the directory and file name of the output file (file names are without extensions). The Spatial Allocator supports geographic transformation of the datum. If the geographic datum or ellipsoid of the input projection is different from that of output projection, set the datum information accordingly in the SA run script. Also note that the old LATLON map projection and SPHERE ellipsoid are no longer supported.
@@ -708,7 +725,7 @@ The CONVERT_SHAPE mode of the Allocator program can be used to convert a Shapefi
 The scripts automatically set the INPUT_FILE_NAME and OUTPUT_FILE_NAME variables to the command line arguments provided. The OUTPUT_FILE_TYPE and INPUT_FILE_TYPE variables are set and should not need to be changed. Before running the scripts, set the values of the INPUT_FILE_MAP_PRJN, INPUT_FILE_ELLIPSOID, OUTPUT_FILE_MAP_PRJN, and OUTPUT_FILE_ELLIPSOID to the projections desired for the input and output files. The example script  convert_input_shape.csh is provided with the SA distribution in the SA_HOME/scripts directory.
 
 ------
-
+<a id="allocate"><a/>
 ## Spatially Allocating Shapefile Attributes
 
 The allocator program includes the ALLOCATE mode for operating on shapefiles, point files, polygon files, I/O API files and regular grid shapefiles. The ALLOCATE mode allows the user to specify a grid, polygon, or point file as input to allocate to an output grid or polygon file. The specified attributes of the input file will be written to the output file as a spatially weighted sum or average. For example, a user may want to aggregate county data to state data. After running the allocator, the state boundaries would be saved as a shapefile with attributes (e.g., population, housing) summed from the county level for each state, as indicated by this formula:
@@ -880,7 +897,7 @@ The following SA variables are used to configure an area percentage run:
 An example surf zone input data file for North Carolina and South Carolina is available in SA_HOME/data/surfzone/surfzone_NC_SC. This directory also contains a surfzone file that can be used for most of North America: surfzone_poly_st.
 
 ------
-
+<a id="overlay"><a/>
 ## Spatially Overlaying Data
 
 The SA OVERLAY mode sets a grid, bounding box, polygon, or set of polygons and then prints the attributes of the shapes (i.e., points, lines, or polygons) from an input data file that fall within the boundaries of the specified region. One example of how this mode might be used is to start with a data set from a group of observation stations in a particular region and then overlay those data with a grid to determine which grid cells the observation stations reside in. The results may be printed to standard output or saved to a delimited file.
@@ -974,7 +991,7 @@ The overlay_grid_on_ports.csh script is presented below as an example. The OVERL
 ```
 
 ------
-
+<a id="filter"><a/>
 ## Filtering a Shapefile
 
 ### Specifying Filters
@@ -1056,7 +1073,7 @@ To create a filtered shapefile in surrogate computation, start with the [filtere
 -   FILTER_FILE=<name of the filter file to use>
 
 -----
-
+<a id="acknowledge3"><a/>
 ## Acknowledgements
 
 The Vector Tools were developed by members of the Institute for the Environment at the University of North Carolina at Chapel Hill (<http://www.ie.unc.edu/>), some of whom were formerly associated with MCNC. The development and continued maintenance of this software has been sponsored by the EPA Offices of Research and Development and Air Quality Planning and Standards.

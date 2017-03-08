@@ -3,6 +3,16 @@
 
 # Chapter 5. Surrogate Tool
 
+## Contents
+-   [Introduction](#intro5)
+-   [Input Files](#inputs)
+-   [Running the Surrogate Tool](#running)
+-   [Output Files](#outputs)
+-   [Development Description](#dev)
+-   [Enhancements, Limitations, and Future Updates](#updates)
+
+---
+<a id="intro5"><a/>
 ## Introduction
 
 The Surrogate Tool is a
@@ -70,7 +80,7 @@ multiple surrogate files are listed in the Surrogate Description
 (SRGDESC) file so that SMOKE can find all of the available surrogates.
 
 ------
-
+<a id="inputs"><a/>
 ## Input files
 
 The Surrogate Tool makes generating spatial surrogates easier than using
@@ -631,7 +641,7 @@ it.
 |NA|Population|100|YES|NO|
 
 ---
-
+<a id="running"><a/>
 ## Running the Surrogate Tool
 
 You can specify all input and control information for the Surrogate Tool
@@ -758,6 +768,9 @@ java -classpath SurrogateTools.jar gov.epa.surrogate.qa.Main ../output/somegrid/
 
 where threshold is a real number between 0 and 1.0.
 
+---
+
+<a id="outputs"><a/>
 ## Output Files
 
 The spatial surrogate files output from the Surrogate Tool contain the
@@ -1045,7 +1058,7 @@ Elapsed time in minutes: 0.008583333333333333
 SUCCESS -- The Program Run Completed
 ```
 ---
-
+<a id="dev"><a/>
 ## Development Description
 
 ### Integration with the Emissions Modeling Framework
@@ -1293,6 +1306,8 @@ The Surrogate Tool software takes the following steps when it runs:
     Surrogate Tool is nonzero. If all of the requested surrogates were
     created successfully, the exit status is zero.
 
+---
+<a id="updates"><a/>
 ## Enhancements, Limitations and Future Updates
 
 The following enhancements to the Spatial Allocator were made as part of
