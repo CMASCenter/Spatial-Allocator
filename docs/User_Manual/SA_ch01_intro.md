@@ -1,8 +1,7 @@
 [Home](README.md) - [Next Chapter >>](SA_ch02_install.md)
 ***
 
-Chapter 1. Introduction 
-===
+# Chapter 1. Introduction
 
 The Spatial Allocator (SA) is a set of tools that helps users manipulate and generate data files related to emissions and air quality modeling. The tools perform functions similar to Geographic Information Systems, but are provided to the modeling community free of charge. In addition, the tools are designed to support some of the unique aspects of the file formats used for [Community Multiscale Air Quality (CMAQ)](http://www.epa.gov/cmaq), [Sparse Matrix Operator Kernel Emissions (SMOKE)](http://www.smoke-model.org), and [Weather Research and Forecasting (WRF)](http://www.wrf-model.org) modeling.
 
@@ -29,9 +28,7 @@ The SA installation contains the following folders:
 - srgtools – contains the Surrogate Tools Java package and sample files to compute multiple surrogates
 - output – output directory
 - util – utility programs
-    
-The following chapters detail the installation and operation of the SA software.
 
+***
 [Home](README.md) - [Next Chapter >>](SA_ch02_install.md)<br>
 Spatial Allocator User Manual (c) 2016<br>
-

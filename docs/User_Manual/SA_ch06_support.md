@@ -1,32 +1,11 @@
 [<< Previous Chapter](SA_ch05_surrogate.md) - [Home](README.md) - [Next Chapter >>](SA_ch07_libraries.md)
 
 ***
-Chapter 6. CMAS Support Resources
-============
+# Chapter 6. CMAS Support Resources
 
-Technical and operational user support for Spatial Allocator are available free of charge from the Community Modeling and Analysis System Center ([<http://www.cmascenter.org>](http://www.cmascenter.org/)). The CMAS Center offers an e-mail help desk, and community listservs for posting questions about the Spatial Allocator. In addition to these community-based resources, the CMAS Center offers fee-based trainings, and provides a documentation library for the Spatial Allocator. 
+Technical and operational user support for Spatial Allocator are available free of charge from the Community Modeling and Analysis System Center ([<http://www.cmascenter.org>](http://www.cmascenter.org/)). The CMAS Center offers an e-mail help desk, and community listservs for posting questions about the Spatial Allocator. In addition to these community-based resources, the CMAS Center offers fee-based trainings, and provides a documentation library for the Spatial Allocator.
 
-The CMAS Center
----------------
-Under contract to EPA, the Center for Environmental Modeling for Policy Development ([CEMPD](http://ie.unc.edu/research/environmental-modeling/)) at the University of North Carolina at Chapel Hill ([UNC](http://www.unc.edu/)) Institute for the Environment maintains the CMAS Center for supporting community-based air quality modeling. CMAS is an approach to the development, application, and analysis of environmental models that leverages the complementary talents and resources of the modeling community in order to set new standards for quality in science and in the reliability of the application of the technology.
-
-From research to application to outreach, the CMAS Center advances the community modeling paradigm through the establishment of a centralized resource to serve the members of the national and international environmental modeling community.
-
-### CMAS functions
-
-Currently, the following activities are available through the CMAS Center:
-
--   [On-line help desk](https://www.cmascenter.org/help-desk.cfm) - Get help with the supported CMAS products
--   [Model clearinghouse](https://www.cmascenter.org/download.cfm) - Download the supported CMAS products
--   [Training courses](https://www.cmascenter.org/training.cfm) - Attend a training course on emissions modeling, air quality modeling, or other related topics
--   [Conferences](https://www.cmascenter.org/conference.cfm) - Attend the annual CMAS conference to interact with the community
--   [Development assistance](https://www.cmascenter.org/resources/for-developers.cfm) - Add new science to the supported CMAS products
--   [Documentation](https://www.cmascenter.org/help/documentation.cfm) - Access on-line documentation for the CMAS products
--   [Model-related research](https://www.cmascenter.org/r-and-d.cfm) - Learn about the latest developments in modeling research
--   [Data clearinghouse](https://www.cmascenter.org/download/data.cfm) - Access air quality modeling data from around the community
-
-Getting Help with the Spatial Allocator 
-----------------------
+## Getting Help with the Spatial Allocator
 
 The CMAS Center website ([<http://www.cmascenter.org>](http://www.cmascenter.org/)) includes a help desk with resources that are available to assist with Spatial Allocator-related issues. The CMAS help desk services are free to the community. Many of the services in the help desk benefit from increased usage, such as the listserv discussion groups. E‑mail-based Spatial Allocator technical consultation is available to registered CMAS participants only.
 
@@ -50,14 +29,15 @@ The CMAS Center offers trainings on Spatial Allocator at the Institute for the E
 
 E-mail support is available to CMAS users who have a support account, and provides case-specific support for all CMAS-supported software, which includes the Spatial Allocator. CMAS e-mail support provides direct access to expert Spatial Allocator users for questions about installation or operational issues. E-mail support also provides direct access to the Spatial Allocator developers for technical questions about model formulation, model science, and code integration. Visit the e-mail support page for an explanation of how to use the system and to register.
 
-Contacting CMAS
----------------
+---
 
-The CMAS Center is available on the web at [<http://www.cmascenter.org>](http://www.cmascenter.org/). Table 11-1 lists important contacts for the CMAS Center.
+## Contacting CMAS
+
+The CMAS Center is available on the web at [<http://www.cmascenter.org>](http://www.cmascenter.org/). The Table below lists important contacts for the CMAS Center.
 
 <a id=Table11-1></a>
 
-<center> **Table 11‑1. CMAS contact information and important links** </center>
+**CMAS contact information and important links**
 
 |<center> **Resource** </center>|<center> **Link** </center>|
 |---|---|
