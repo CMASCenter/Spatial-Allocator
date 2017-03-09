@@ -54,8 +54,8 @@ The SA Raster Tools define the modeling domain using the following
 environment variables:
 
 -   GRID_PROJ – defines the domain grid projection using the PROJ4
-    projection description format
-    (<http://www.remotesensing.org/geotiff/proj_list/>). The following
+    projection description format, for a full list see
+    (<http://spatialreference.org>) The following
     sample projection descriptions are used to match the projections in
     WRF:
 
