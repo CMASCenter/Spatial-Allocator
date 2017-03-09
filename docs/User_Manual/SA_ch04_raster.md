@@ -39,8 +39,8 @@ The SA Raster Tools define the modeling domain using the following
 environment variables:
 
 -   `GRID_PROJ` – defines the domain grid projection using the PROJ4
-    projection description format
-    (<http://www.remotesensing.org/geotiff/proj_list/>). The following
+    projection description format, for a full list see:
+    (<spatialreference.org/>). The following
     sample projection descriptions are used to match the projections in
     WRF:
     -   Lambert Conformal Conic: `+proj=lcc +a=6370000.0 +b=6370000.0 +lat_1=33 +lat_2=45 +lat_0=40 +lon_0=-97`
