@@ -22,9 +22,10 @@ Spatial Allocator Repository Guide
 The SA code, scripts, and executables are organized in the following directories:
 
 - **bin** - SA 32-bit and 64-bit Linux executables
+- **data** - Input data for testing the SA installation (download from the [CMAS Center](http://www.cmascenter.org))
 - **docs** - SA Documentation
 - **raster_scripts** - C-shell scripts for running the [Raster Tools](docs/User_Manual/SA_ch04_raster.md)
-- **ref** - location of reference data for verifying the SA installation
+- **ref** - location of reference data for verifying the SA installation (download from the [CMAS Center](http://www.cmascenter.org))
 - **scripts** - C-shell scripts for running the [Vector Tools](docs/User_Manual/SA_ch03_vector.md)
 - **src** - SA source code and 3rd-party libraries
 - **srgtools** - C-shell scripts for running the [Surrogate Tools](docs/User_Manual/SA_ch05_surrogate.md)
