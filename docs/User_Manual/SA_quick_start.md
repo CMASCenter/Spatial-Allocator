@@ -4,9 +4,11 @@
 # Spatial Allocator Quick Start 
 
 ## Set up the SA environment:
-- SA_HOME is the base instllation directory
+- SA_HOME is the base installation directory
 - Modify paths in SA_HOME/bin/sa_setup.csh to installation directory
-- source sa_setup.csh or include sa_setup.csh in your .cshrc
+- Run the following command to set up the SA environment:
+
+`source sa_setup.csh`
 
 ## Vector tools are stored in:
 - SA_HOME/bin/32bits and sample vector script files are in SA_HOME/scripts.
