@@ -24,9 +24,11 @@ The following sections are included in this manual:
 
 [Chapter 5 (Surrogate Tools):](SA_ch05_surrogate.md) The Surrogate Tools support the creation of large sets of spatial surrogates, which are used to process emissions data for regional air quaity modeling. The Surrogate Tools include utilities for merging and gapfilling spatial surrogates.
 
-[Chapter 6 (Support):](SA_ch6_support.md) How to get technical support for the Spatial Allocator.
+[Chapter 6 (Support):](SA_ch06_support.md) How to get technical support for the Spatial Allocator.
 
-[Chapter 7 (Libraries):](SA_ch7_libraries.md) Third-party libraries and software used by the SA.
+[Chapter 7 (Libraries):](SA_ch07_libraries.md) Third-party libraries and software used by the SA.
+
+[Chapter 8 (License):](SA_ch08_licenses.md) SA release license.
 
 ***
 
