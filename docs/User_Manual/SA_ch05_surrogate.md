@@ -1,13 +1,21 @@
 [<< Previous Chapter](SA_ch04_raster.md) - [Home](README.md) - [Next Chapter >>](SA_ch06_support.md)
-------------
+*****
 
-Chapter 5. Surrogate Tools
-===
+# Chapter 5. Surrogate Tool
 
-Introduction
----------------
+## Contents
+-   [Introduction](#intro5)
+-   [Input Files](#inputs)
+-   [Running the Surrogate Tool](#running)
+-   [Output Files](#outputs)
+-   [Development Description](#dev)
+-   [Enhancements, Limitations, and Future Updates](#updates)
 
-This document is a User’s Guide for the Surrogate Tool, which is a
+---
+<a id="intro5"><a/>
+## Introduction
+
+The Surrogate Tool is a
 stand-alone Java tool for generating spatial surrogates that are inputs
 to emission models such as the Sparse Matrix Operator Kernel Emissions
 (SMOKE) modeling system in support of Eulerian grid models. The
@@ -71,16 +79,9 @@ all surrogates to be in a single file. Under the newer approach, the
 multiple surrogate files are listed in the Surrogate Description
 (SRGDESC) file so that SMOKE can find all of the available surrogates.
 
-2. Installing the Spatial Allocator (contains the Surrogate Tool)
------------------------------------------------------------------
-
-To install the Spatial Allocator, follow the instruction in the Spatial
-Allocator documentation.
-
-3. Using the Surrogate Tool
----------------------------
-
-### 3.1 Input files
+------
+<a id="inputs"><a/>
+## Input files
 
 The Surrogate Tool makes generating spatial surrogates easier than using
 the Spatial Allocator software alone. To create the desired surrogates,
@@ -98,7 +99,7 @@ to meet your needs. Detailed descriptions of each of the input files are
 in the subsections of this section. The high-level descriptions of the
 input files are as follows:
 
-1.  The *global “control variables” file* is a CSV file that specifies
+-   `control_variables.csv` - specifies
     information common to the generation of all surrogates (e.g., output
     directory, output grid or polygons, and names of the other input
     files). The sample file names are control_variables_grid.csv for a
@@ -107,13 +108,13 @@ input files are as follows:
     example. The variables that should be set in the global control
     variables file are described in detail in the section 3.2.
 
-2.  The *shapefile catalog file* is a CSV file that provides location,
+-   `shapefile_catalog.csv` - provides location,
     map projection and source information about the shapefiles to be
     used during surrogate generation. The sample file name is
     shapefile_catalog.csv. The content of this file is described in
     more detail in section 3.3.
 
-3.  The *surrogate specification file* (SSF) is a CSV file that provides
+-   `surrogate_specification.csv` - provides
     information needed to generate each surrogate, including the input
     shapefiles or previously computed surrogates, weight attributes or
     merge functions to use, shapefile filter selections to apply, and
@@ -121,20 +122,20 @@ input files are as follows:
     surrogate_specification_2002.csv. The content of this file is
     described in more detail in section 3.4.
 
-4.  The *surrogate code file* is a CSV file that provides surrogate
+-   `surrogate_codes.csv` - provides surrogate
     names and codes that are used to map surrogate names to surrogate
     codes, which is needed during surrogate merging and gapfilling. The
     sample file name is surrogate_codes.csv. The content of this file
     is described in more detail in section 3.5.
 
-5.  The *generation control file* is a CSV file that specifies the
+-   `control_variables.csv` - specifies the
     surrogates to create for a specific run of the Surrogate Tool and
     whether to output quality assurance data for those surrogates (i.e.,
     numerators, denominators, and sums of fractions for the county). The
     sample file name is surrogate_generation_grid.csv. The content of
     this file is described in more detail in section 3.6.
 
-6.  The *grid description file* is a text file that provides grid
+-   `GRIDDESC `- provides grid
     description for a grid name. The sample file included is
     GRIDDESC.txt. The grid used in the sample is named
     “US36KM_148X112”. Users can add new grid name and grid description
@@ -142,7 +143,7 @@ input files are as follows:
     format of the GRIDDESC file, see
     <https://www.cmascenter.org/ioapi/documentation/all_versions/html/GRIDDESC.html>.
 
-### 3.2 Global Control Variables File
+#### Control Variables File
 
 The *global control variables file* is a CSV file that specifies
 information that is common to the generation of all surrogates (e.g.,
@@ -159,82 +160,34 @@ file as it would appear loaded into a standard text editor. The
 following variables (listed in capital letters below) are recognized by
 the Surrogate Tool in the global control variables file:
 
--   GENERATION CONTROL FILE 
-> directory and name of the generation control CSV file to use for the run.
+-   `GENERATION CONTROL FILE` - directory and name of the generation control CSV file to use for the run.
+-   `SURROGATE SPECIFICATION FILE` - directory and name of the surrogate specification CSV file to use for the run.
+-   `SHAPEFILE CATALOG` - directory and name of the shapefile catalog CSV file to use for the run.
+-   `SHAPEFILE DIRECTORY` - directory in which to look for the shapefiles in the shapefile catalog.
+-   `SURROGATE CODE FILE `- directory and name of the surrogate code CSV file to use for the run.
+-   `SRGCREATE EXECUTABLE` - directory and name of the srgcreate executable to use for the run.
+-   `DEBUG_OUTPUT `- specifies whether srgcreate will output debugging information as it runs (specify Y for yes and N for no).
+-   `OUTPUT_FORMAT` - specifies the format for the output files (currently SMOKE is the only allowable value).
+-   `OUTPUT_FILE_TYPE` - specifies the type of output file to create (currently RegularGrid, EGrid, and Polygon are the allowable  values).
+  - The RegularGrid option should be used to generate surrogates for Eulerian grid-based models such as CMAQ.
+  - EGrid should be used only for the WRF/NMM-CMAQ system
+  - Polygon option is used for non-grid-based models such as ASPEN.
+-   `OUTPUT_GRID_NAME` -  specifies the name of the output grid; valid only when OUTPUT_FILE_TYPE is RegularGrid or EGrid.
+-   `GRIDDESC` - specifies the directory and name of the grid description file; valid only when OUTPUT_FILE_TYPE is RegularGrid or EGrid.
+-   `OUTPUT_FILE_ELLIPSOID` - specifies the ellipsoid of the output grid; valid only when OUTPUT_FILE_TYPE is RegularGrid or EGrid.
+-   `OUTPUT_POLY_FILE` - specifies the name of an ArcGIS polygon text file or the name of a shapefile containing the polygon shapes to use; valid only when OUTPUT_FILE_TYPE is EGrid or Polygon.
+-   `OUTPUT_POLY_ATTR` - specifies the name of the attribute in the OUTPUT_POLY_FILE that is a unique ID for each shape; valid only when OUTPUT_FILE_TYPE is Polygon.
+-   `OUTPUT DIRECTORY` - specifies the name of the directory into which the output surrogate files will be placed.
+-   `OUTPUT SURROGATE FILE` - specifies the name of the optional file that combines all of the surrogates created during the run into a single file (this is not needed with version 2.3 and higher of SMOKE, but is used to support earlier versions). If this variable is defined, the combined single file will be created; otherwise, it will not be created. This file is placed in the same directory as the individual surrogate files.  
+-   `OUTPUT SRGDESC FILE` - specifies the directory and name of the output surrogate description file (SRGDESC file) that is used as an input to SMOKE.
+-   `OVERWRITE OUTPUT FILES` - specifies whether to overwrite output files if they exist (YES or NO are the allowable values). If this is set to NO and the output files already exist, the Surrogate Tool will end with an error. If this is set to YES and the output files already exist, the output files will be overwritten.
+-   `LOG FILE NAME` - specifies the directory and name (full path) of the Surrogate Tool log file.
+-   `DENOMINATOR_THRESHOLD` - specifies the value of a threshold under which the surrogate values will not be used (but may be replaced with a gap-filled value, if gap filling is used). The default > value is 0.00001. Denominators of this size occur when the intersected county and weight polygons are tiny (e.g., they are both for county data and the lines do not exactly line up). This is explained in more detail below. If users do not wish to use the denominator threshold feature when writing the surrogates, the value of this variable should be set to 0.0
+-   `COMPUTE SURROGATES FROM SHAPEFILES` - specifies whether or not this run of the Surrogate Tool will compute surrogates from shapefiles. If it is set toYES, the Surrogate Tool will compute surrogates from surrogate shapefiles by calling srgcreate.exe of the Spatial Allocator based on the contents of the surrogate specification file.
+-   `MERGE SURROGATES` - specifies whether or not this run of the Surrogate Tool will compute surrogates by merging existing surrogates using the merging tool. If it is set to YES, the run will compute surrogates from the merging tool as specified in the surrogate specification file.
+-   `GAPFILL SURROGATES` - specifies whether or not this run of the Surrogate Tool will gapfill existing surrogates using the gapfilling tool. If it is set to YES, the run will gapfill surrogates as specified in the surrogate specification file.  These variables can be specified in any order, one per line. The Tool writes a warning to the log file if there are unrecognized variable names. Users can customize the sample control CSV files that are provided with the Surrogate Tool for their application: the sample file “control_variables_grid.csv” is for regular-grid-based surrogates, “control_variables_egrid.csv” is for egrid-based surrogates, and “control_variables_poly.csv” is for polygon-based surrogates.
 
--   SURROGATE SPECIFICATION FILE 
-> directory and name of the surrogate specification CSV file to use for the run.
-
--   SHAPEFILE CATALOG 
-> directory and name of the shapefile catalog CSV file to use for the run.
-
--   SHAPEFILE DIRECTORY 
-> directory in which to look for the shapefiles in the shapefile catalog.
-
--   SURROGATE CODE FILE 
-> directory and name of the surrogate code CSV file to use for the run.
-
--   SRGCREATE EXECUTABLE 
-> directory and name of the srgcreate executable to use for the run.
-
--   DEBUG_OUTPUT 
-> specifies whether srgcreate will output debugging information as it runs (specify Y for yes and N for no).
-
--   OUTPUT_FORMAT 
-> specifies the format for the output files (currently SMOKE is the only allowable value).
-
--   OUTPUT_FILE_TYPE
-> specifies the type of output file to create (currently RegularGrid, EGrid, and Polygon are the allowable  values). 
-     *  The RegularGrid option should be used to generate surrogates for Eulerian grid-based models such as CMAQ. 
-     * EGrid should be used only for the WRF/NMM-CMAQ system
-     *  Polygon option is used for non-grid-based models such as ASPEN.
-
--   OUTPUT_GRID_NAME 
-> specifies the name of the output grid 
-     * (valid only when OUTPUT_FILE_TYPE is RegularGrid or EGrid).
-
--   GRIDDESC 
-> specifies the directory and name of the grid description file 
-     * (valid only when OUTPUT_FILE_TYPE is RegularGrid or EGrid).
-
--   OUTPUT_FILE_ELLIPSOID 
-> specifies the ellipsoid of the output grid 
-     * (valid only when OUTPUT_FILE_TYPE is RegularGrid or EGrid).
-
--   OUTPUT_POLY_FILE 
-> specifies the name of an ArcGIS polygon text file or the name of a shapefile containing the polygon shapes to use 
-     * (valid only when OUTPUT_FILE_TYPE is EGrid or Polygon).
-
--   OUTPUT_POLY_ATTR specifies the name of the attribute in the
-    > OUTPUT_POLY_FILE that is a unique ID for each shape 
-     * (valid only when OUTPUT_FILE_TYPE is Polygon).
-
--   OUTPUT DIRECTORY 
-    > specifies the name of the directory into which the output surrogate files will be placed.
-
--   OUTPUT SURROGATE FILE 
-    > specifies the name of the optional file that combines all of the surrogates created during the run into a single file (this is not needed with version 2.3 and higher of SMOKE, but is used to support earlier versions). If this variable is defined, the combined single file will be created; otherwise, it will not be created. This file is placed in the same directory as the individual surrogate files.  
--   OUTPUT SRGDESC FILE 
-    > specifies the directory and name of the output surrogate description file (SRGDESC file) that is used as an input to SMOKE.
-
--   OVERWRITE OUTPUT FILES 
-> specifies whether to overwrite output files if they exist (YES or NO are the allowable values). If this is set to NO and the output files already exist, the Surrogate Tool will end with an error. If this is set to YES and the output files already exist, the output files will be overwritten.
-
--   LOG FILE NAME 
-> specifies the directory and name (full path) of the Surrogate Tool log file.
-
--   DENOMINATOR_THRESHOLD 
-> specifies the value of a threshold under which the surrogate values will not be used (but may be replaced with a gap-filled value, if gap filling is used). The default > value is 0.00001. Denominators of this size occur when the intersected county and weight polygons are tiny (e.g., they are both for county data and the lines do not exactly line up). This is explained in more detail below. If users do not wish to use the denominator threshold feature when writing the surrogates, the value of this variable should be set to 0.0 
--   COMPUTE SURROGATES FROM SHAPEFILES 
-> specifies whether or not this run of the Surrogate Tool will compute surrogates from shapefiles. If it is set toYES, the Surrogate Tool will compute surrogates from surrogate shapefiles by calling srgcreate.exe of the Spatial Allocator based on the contents of the surrogate specification file.
-
--   MERGE SURROGATES 
-> specifies whether or not this run of the Surrogate Tool will compute surrogates by merging existing surrogates using the merging tool. If it is set to YES, the run will compute surrogates from the merging tool as specified in the surrogate specification file.
-
--   GAPFILL SURROGATES 
-> specifies whether or not this run of the Surrogate Tool will gapfill existing surrogates using the gapfilling tool. If it is set to YES, the run will gapfill surrogates as specified in the surrogate specification file.  These variables can be specified in any order, one per line. The Tool writes a warning to the log file if there are unrecognized variable names. Users can customize the sample control CSV files that are provided with the Surrogate Tool for their application: the sample file “control_variables_grid.csv” is for regular-grid-based surrogates, “control_variables_egrid.csv” is for egrid-based surrogates, and “control_variables_poly.csv” is for polygon-based surrogates.
-
-The variable DENOMINATOR_THRESHOLD is used to prevent surrogates from
+The variable `DENOMINATOR_THRESHOLD` is used to prevent surrogates from
 being output for tiny areas that result from offsets of the same
 boundaries that appear in both data and weight shapefiles due to
 different data sources and processes (e.g. county data versus population
@@ -292,7 +245,7 @@ to adjacent counties with zero urban populations. As a result, surrogate
 values would be output for those counties. This type of problem can now
 be eliminated using the DENOMINATOR_THRESHOLD variable.
 
-### 3.3 Shapefile Catalog
+#### Shapefile Catalog
 
 The *shapefile catalog file* is a CSV file that provides location,
 projection and source information about the shapefiles to be used during
@@ -315,18 +268,18 @@ An example of a shapefile catalog file as it would look loaded into a
 spreadsheet is shown in [Table 3](#Table-3). Note that this file could also be
 edited using a standard text editor, but that view of it is not shown
 here. There are four columns that must be specified for each line of the
-shapefile catalog: SHAPEFILE NAME, DIRECTORY, ELLIPSOID, and MAP
-PROJECTION. Any subsequent columns are optional and are ignored by the
+shapefile catalog: `SHAPEFILE NAME`, `DIRECTORY`, `ELLIPSOID`, and `MAP
+PROJECTION`. Any subsequent columns are optional and are ignored by the
 Surrogate Tool. Note that the entries in the DIRECTORY column can be
-used to specify relative paths beneath your main SHAPEFILE_DIRECTORY,
+used to specify relative paths beneath your main `SHAPEFILE_DIRECTORY`,
 which is specified in the control variable file. Some recommended
-additional columns for metadata purposes are SHAPE TYPE (point, line, or
-polygon), DESCRIPTION, DATA SOURCE (the source of the shapefile),
-RESOLUTION (the level of detail of the shapefile), DATE OF DATA (the
-date to which the data applies), and RETRIEVAL DATE (the date the file
+additional columns for metadata purposes are `SHAPE TYPE` (point, line, or
+polygon), `DESCRIPTION`, `DATA SOURCE` (the source of the shapefile),
+`RESOLUTION` (the level of detail of the shapefile), `DATE OF DATA` (the
+date to which the data applies), and `RETRIEVAL DATE` (the date the file
 was obtained).
 
-The ELLIPSOID and MAP PROJECTION columns should follow the syntax
+The `ELLIPSOID` and `MAP PROJECTION` columns should follow the syntax
 specifications of the Spatial Allocator, which passes this information
 on to the PROJ.4 library (see
 <http://www.ie.unc.edu/cempd/projects/mims/spatial/> for more
@@ -337,9 +290,9 @@ the shapefiles used to create the surrogates. It is essential that these
 shapefile names be consistent with those used in the surrogate
 specification file.
 
-### 3.4 Surrogate Specification File
+#### Surrogate Specification File
 
-The *surrogate specification file* (SSF) is a CSV file that provides
+The *surrogate specification file* is a CSV file that provides
 information needed to generate each surrogate. This includes the input
 shapefiles or previously computed surrogates, weight attributes or merge
 functions to use, shape filters to apply, and how the surrogates should
@@ -360,64 +313,53 @@ The SSF contains 13 columns that are recognized by the Surrogate Tool.
 Any additional columns are optional and are ignored. The recognized
 columns are:
 
-1.  REGION: the name of the region for the surrogate (e.g., USA,
+-   `REGION` - the name of the region for the surrogate (e.g., USA,
     Canada).
-
-2.  SURROGATE: the name of the surrogate to create (e.g., Population,
+-   `SURROGATE` - the name of the surrogate to create (e.g., Population,
     Water).
-
-3.  SURROGATE CODE: the code number used for the surrogate. Note that
+-   `SURROGATE CODE` - the code number used for the surrogate. Note that
     the combination of REGION and SURROGATE CODE must be unique in the
     SSF.
-
-4.  DATA SHAPEFILE: the name shapefile to use for the base [data]
+-   `DATA SHAPEFILE` - the name shapefile to use for the base [data]
     polygons (e.g., counties, provinces). The name of this shapefile
     must appear in the SHAPEFILE NAME column of the shapefile catalog.
-
-5.  DATA ATTRIBUTE: the attribute to use to create the surrogate from a
+-   `DATA ATTRIBUTE` - the attribute to use to create the surrogate from a
     shapefile. This is not used if this surrogate is being created by
-    merging existing surrogates. **Note: surrogates generated for any
+    merging existing surrogates. Surrogates generated for any
     data polygons that do not have a value for the data attribute will
     be written as comments to the output files by the srgcreate program.
     They will not be preserved by the surrogate merging and gapfilling
     tools because all intermediate comment lines will be removed during
-    merging or gapfilling.**
-
-6.  WEIGHT SHAPEFILE: the name of the shapefile used for the weight
+    merging or gapfilling.
+-   `WEIGHT SHAPEFILE` - the name of the shapefile used for the weight
     shapes (e.g., census tracts, railroad lines, port points). This is
     not used if this surrogate is being created by merging existing
     surrogates. The name of this shapefile must appear in the SHAPEFILE
     NAME column of the shapefile catalog.
-
-7.  WEIGHT ATTRIBUTE: the name of the attribute to use for computing the
+-   `WEIGHT ATTRIBUTE` - the name of the attribute to use for computing the
     weights of the surrogate (e.g. POP2000, BERTHS). Specify NONE to use
     the area for polygons, length for lines, or point counts for points.
     This is not used if this surrogate is being created by merging
     existing surrogates, or if a WEIGHT FUNCTION is being used.
-
-8.  WEIGHT FUNCTION: a function to use for computing the weight of the
+-   `WEIGHT FUNCTION` - a function to use for computing the weight of the
     surrogate. The attributes used in the function should exist in the
     weight shapefile. The weight function can be any arithmetic equation
-    containing the operators +, -, *, /, (, ), numeric constants, and
+    containing the operators +, -, \*, /, (, ), numeric constants, and
     names of attributes that exist in the weight shapefile. Exponential
     notation and power functions are not currently supported, nor are
     unary negative numbers used as constants (e.g., X1 + -5 should be
     X1 - 5). Examples of acceptable weight functions are:
     WEIGHT_FUNCTION=(IND1+IND2+IND3+IND4+IND5) or
     WEIGHT_FUNCTION=0.75*urban+0.25*rural (see [Chapter 3: Vector Tools](SA_ch03_vector.md#section4-2) for more information)
-
-9.  FILTER FUNCTION: specifies “filter” or selection criteria for shapes
+-   `FILTER FUNCTION` - specifies “filter” or selection criteria for shapes
     to include or not include in the surrogate computation (e.g.,
     ROAD_TYPE!=2) excludes all shapes for which ROAD_TYPE does not
     equal 2, and GRID_CODE=61,81,82 includes all shapes for which the
     GRID_CODE is 61, 81, or 82). Multiple filters can be specified if
     they are separated by semicolons (e.g., LENGTH=100-200;NAME=C*).
     This function is not used if this surrogate is being created by
-    merging existing surrogates **(see [Chapter 3: Vector Tools](SA_ch03_vector.md##filters73)
-for
-    more information about the filtering syntax).**
-
-10. MERGE FUNCTION: specifies a function to use when creating a
+    merging existing surrogates **(see [Chapter 3: Vector Tools](SA_ch03_vector.md##filters73) for more information about the filtering syntax).**
+-   `MERGE FUNCTION` - specifies a function to use when creating a
     surrogate by merging or concatenating existing surrogates.
     Referenced surrogates can be in the SSF or external (e.g.,
     0.5*../data/surrogate_file|Forest+0.5*Rural Land,
@@ -426,25 +368,22 @@ for
     surrogate(s) from the name of the surrogate itself, and the string
     within the brackets corresponds to a region name. A further
     description of the syntax is given below.
-
-11. SECONDARY SURROGATE: the name of a surrogate to use as a secondary
+-   `SECONDARY SURROGATE` - the name of a surrogate to use as a secondary
     surrogate to gapfill the values of the primary surrogate. Referenced
     surrogates can be in the SSF or external (e.g., Population,
     ../data/surrogate_file|surrogate_name).
-
-12. TERTIARY SURROGATE: the name of a surrogate to use as a tertiary
+-   `TERTIARY SURROGATE` - the name of a surrogate to use as a tertiary
     surrogate to gapfill the values of the primary surrogate. Referenced
     surrogates can be in the SSF or external (e.g.,
     Population[Mexico], ../data/surrogate_file|surrogate_name).
-
-13. QUARTERNARY SURROGATE: the name of a surrogate to use as a
+-   `QUARTERNARY SURROGATE` - the name of a surrogate to use as a
     quarternary surrogate to gapfill the values of the primary
     surrogate. Referenced surrogates can be in the SSF or external
     (e.g., Population[Mexico],
     ../data/surrogate_file|surrogate_name).
 
 Recall that the combination of REGION and SURROGATE CODE values must be
-unique in the SSF. For example, you may wish to generate population
+unique in the specification file. For example, you may wish to generate population
 surrogates with the same surrogate code 100 for the regions USA, Canada,
 or Mexico. To do this, you can specify one row for each region, but on
 each row use the surrogate code 100. The SMOKE version 2.3 and higher
@@ -535,7 +474,7 @@ SRGDESC=110,Housing
 SRGDESC=120,Half population half housing
 `
 
-### 3.5 Surrogate Code File
+#### Surrogate Code File
 
 A *surrogate code file* is a CSV file used by surrogate merging and
 gapfilling tools that specifies the mapping of surrogates names to
@@ -550,14 +489,14 @@ EPA for the USA and Canada regions. When external surrogates are used in
 merge and gapfill functions, users need to add external surrogate
 entries to the CSV file.
 
-### 3.6 Generation Control File
+#### Generation Control File
 
 The *generation control file* is a CSV file that specifies the
 surrogates to create for a specific run of the Surrogate Tool. Users can
 modify the sample generation control file provided with the Surrogate
 Tool, named “surrogate_generation_grid.csv”, for their computation
-(see [Table 5](#Table-5)). The columns REGION, SURROGATE, SURROGATE CODE, GENERATE,
-and QUALITY ASSURANCE are required to be included in the file. If the
+(see [Table 5](#Table-5)). The columns `REGION`, `SURROGATE`, `SURROGATE CODE`, `GENERATE`,
+and `QUALITY ASSURANCE` are required to be included in the file. If the
 value in the GENERATE column is YES, the surrogate will be generated. If
 the value in the QUALITY ASSURANCE column is YES, surrogate ratios will
 be output with the numerator, denominator, and quality assurance sum for
@@ -682,7 +621,7 @@ it.
 | NA    | Population | …     | Population[USA];Population[Canada]; Population[Mexico] |  |    | | | |   |
 
 <a id=Table-5></a>
-**Table 5. Example of a Surrogate Generation Control File Loaded into a Spreadsheet **
+**Table 5. Example of a Surrogate Generation Control File Loaded into a Spreadsheet**
 
 |***REGION***|***SURROGATE***|***SURROGATE CODE***|***GENERATE***|***QUALITY ASSURANCE***|
 |---|---|---|---|---|
@@ -701,11 +640,9 @@ it.
 |USA|Forest external|328|YES|NO|
 |NA|Population|100|YES|NO|
 
-
-4. Running the Surrogate Tool
------------------------------
-
-### 4.1 Surrogate Tool
+---
+<a id="running"><a/>
+## Running the Surrogate Tool
 
 You can specify all input and control information for the Surrogate Tool
 easily using text editors or spreadsheet software. The Surrogate Tool
@@ -720,9 +657,8 @@ Once Java is installed, the Surrogate Tool can be started using a single
 command line argument—the location of the global control variables file,
 as shown in the following example:
 
-```java
-java -classpath SurrogateTools.jar gov.epa.surrogate.SurrogateTool
-control_variables_grid.csv
+```
+java -classpath SurrogateTools.jar gov.epa.surrogate.SurrogateTool control_variables_grid.csv
 ```
 
 The Surrogate Tool reads the input files and then calls the surrogate
@@ -752,7 +688,7 @@ information for the surrogate (e.g., #GRID or #POLYGON) is placed in
 each output surrogate file. The individual surrogate files that are
 produced by the tool are named according to the convention:
 
-*Region_code_NOFILL.txt* (for non-gap-filled surrogates), or
+*Region_code_NOFILL.txt* (for non-gap-filled surrogates), or<br>
 *Region_code_FILL.txt* (for gap-filled surrogates)
 
 The Surrogate Tool creates a log file that contains a summary of all the
@@ -777,7 +713,7 @@ OUTPUT FILES variable in the global control variables file does not
 control whether the files under the temp_files directory are
 overwritten.
 
-### 4.2 Normalization Tool
+### Normalization Tool
 
 This program that "normalizes" surrogates for counties that do not sum
 to 1 and makes the sum approximately 1. This should be used with care
@@ -785,19 +721,17 @@ because surrogate values for counties / regions on the edge of the grid
 often should not sum to 1. The tool accepts an exclude list of such
 counties. Run the normalization tool with one of these commands:
 
-```java
-java -classpath SurrogateTools.jar gov.epa.surrogate.normalize.Main
-../output/somegrid/SRGDESC.txt exclude_list tolerance
+```
+java -classpath SurrogateTools.jar gov.epa.surrogate.normalize.Main ../output/somegrid/SRGDESC.txt exclude_list tolerance
 ```
 
-```java
-java -classpath SurrogateTools.jar gov.epa.surrogate.normalize.Main
-../output/somegrid/SRGDESC.txt
+```
+java -classpath SurrogateTools.jar gov.epa.surrogate.normalize.Main ../output/somegrid/SRGDESC.txt
 ```
 
 [the default tolerance if left unspecified is 1e-6]
 
-### 4.3 QA Tool
+### QA Tool
 
 The QA Tool is a program that outputs quality assurance information for
 the surrogates generated by the Surrogate Tool. The QA Tool produces
@@ -805,38 +739,39 @@ five tabular reports. The reports are organized with the surrogate IDs
 as columns and the output data polygon ID (e.g. FIPS code) as rows. The
 five QA reports include
 
-1.  Gapfill – identify when gapfilling is used for a surrogate; the
+-   Gapfill – identify when gapfilling is used for a surrogate; the
     report includes the surrogate ID used for gapfilling the primary
     surrogate.
 
-2.  Nodata – identify when surrogate fractions are missing for an output
+-   Nodata – identify when surrogate fractions are missing for an output
     data polygon; the report uses the string “NODATA” to show when
     surrogate fractions are missing.
 
-3.  Not1 – identify when surrogate fractions do not sum to 1.0 for an
+-   Not1 – identify when surrogate fractions do not sum to 1.0 for an
     output data polygon ; the report uses the string “NOT1” to show when
     surrogate fractions do not sum to 1.0.
 
-4.  Threshold – identify when a surrogate fraction is greater than or
+-   Threshold – identify when a surrogate fraction is greater than or
     equal to a specified threshold value; the report prints the real
     number value of the surrogate fractions that are greater than the
     specified threshold.
 
-5.  Summary – A summary report that includes the information from
+-    Summary – A summary report that includes the information from
     reports 1-4. This report does not include information for the
     threshold report.
 
 Run the QA Tool at the command line:
 
-```java
-java -classpath SurrogateTools.jar gov.epa.surrogate.qa.Main
-../output/somegrid/SRGDESC.txt threshold
+```
+java -classpath SurrogateTools.jar gov.epa.surrogate.qa.Main ../output/somegrid/SRGDESC.txt threshold
 ```
 
 where threshold is a real number between 0 and 1.0.
 
-5. Output Files
----------------
+---
+
+<a id="outputs"><a/>
+## Output Files
 
 The spatial surrogate files output from the Surrogate Tool contain the
 spatial allocation factors for nonpoint/area sources and non-link mobile
@@ -864,16 +799,16 @@ listed) for a given county. The output file format for polygon-based
 surrogates is shown in [Table 8](#Table-8), followed by an example in [Table 9](#Table-9).
 
 The surrogate files output from the srgcreate and merge tool programs
-are named according to the format: *region_code_*NOFILL.txt. If a
+are named according to the format: `region_code_NOFILL.txt`. If a
 surrogate is to be gapfilled, the gapfilled surrogate file will be
-created and named *region_code_*FILL.txt. The NOFILL files are not
+created and named `region_code_FILL.txt`. The NOFILL files are not
 deleted because they are used as inputs for gapfilling or merging with
 other surrogates and they are useful for quality assurance purposes.
 
 Several other types of output files are also created by the surrogate
 tool:
 
-### 5.1 Surrogate Description File
+### Surrogate Description File
 
 A **Surrogate Description file**, which specifies the region, name,
 code, and final (i.e., after merging and gapfilling) file names of the
@@ -884,7 +819,7 @@ surrogate ID, otherwise it contains the name of the FILL surrogate file.
 This is illustrated in the example of this file that is given in
 [Table 10](#Table-10).
 
-### 5.2 Log File
+### Log File
 
 A **log file** that contains all information written by the tool itself,
 all of the output and error information produced by the Spatial
@@ -896,7 +831,7 @@ see the status of all surrogate computation. If some surrogate
 computations fail, users can check the detailed log information above.
 An example is given in [Table 11](#Table-11).
 
-### 5.3 Output Surrogate File
+### Output Surrogate File
 
 If requested by the **OUTPUT SURROGATE FILE** keyword in the *global
 control variables file*, a file containing all surrogates is created by
@@ -908,18 +843,16 @@ placed at the top of the file. Also, if you are using an older version
 of SMOKE prior to 2.2, the additional comment lines in the middle of the
 file will probably need to be removed.
 
-1.  All **intermediate text files** used as input to srgcreate tool are
+-  All **intermediate text files** used as input to srgcreate tool are
     stored in the temp_files subdirectory of the OUTPUT_DIRECTORY. It
     is a good idea to keep these files around for debugging purposes and
     as a record of how the surrogates were created by srgcreate tool.
-
-2.  **Script files** (.csh for Linux system) for each surrogate
+-  **Script files** (.csh for Linux system) for each surrogate
     computation using srgcreate are also created and stored in the same
     directory. Users can optionally use these scripts to run the Spatial
     Allocator in “standalone” mode, or to verify how the surrogate is
     computed by examining the values of the environment variables.
-
-3.  A shapefile containing the sum of the surrogate numerators for each
+-  A shapefile containing the sum of the surrogate numerators for each
     grid cell or polygon is output to a file named grid *region_code,
     e*grid *region_code* or poly *region_code* for each surrogate
     computed from srgcreate. Essentially this file contains a gridded
@@ -961,78 +894,38 @@ file will probably need to be removed.
 <a id=Table-7></a>
 **Table 7. A Sample Output Regular Grid Spatial Surrogate File**
 
-```csh
-#GRID US36KM_148X112 -2736000.000000 -2088000.000000 36000.000000
-36000.000000 148 112 1 LAMBERT meters 33.0
-
-00000 45.000000 -97.000000 -97.000000 40.000000
+```
+#GRID US36KM_148X112 -2736000.0 -2088000.0 36000.0 36000.0 148 112 1 LAMBERT meters 33.0 45.0 -97.0 -97.0 40.0
 
 #SRGDESC=120,Urban Population
-
-#
-
 #SURROGATE REGION = USA
-
 #SURROGATE CODE = 120
-
 #SURROGATE NAME = Urban Population
-
 #DATA SHAPEFILE = county_pophu2k
-
 #DATA ATTRIBUTE = FIPSSTCO
-
 #WEIGHT SHAPEFILE = pophu2k
-
 #WEIGHT ATTRIBUTE = URBAN
-
 #WEIGHT FUNCTION =
-
 #FILTER FUNCTION =
-
-#
-
 #CONTROL VARIABLE FILE = /srgtool/control_variables.csv
-
 #SURROGATE SPECIFICATION FILE = /srgtool/surrogate_specification.csv
-
 #SHAPEFILE CATALOG = /srgtool/shapefile_catalog.csv
-
 #GENERATION CONTROL FILE = /srgtool/surrogate_generation.csv
-
 #SURROGATE CODE FILE = /srgtool/surrogate_IDs.txt
-
 #GRIDDESC = /srgtool/GRIDDESC.txt
-
-#
-
 #USER = lran
-
 #COMPUTER SYSTEM = linux
-
 #DATE = Tue Sep 20 20:14:26 EDT 2005
 
-# THE FOLLOWING LINE IS NOT PART OF THE ACTUAL OUTPUT BUT WAS ADDED FOR
-EXPLANATION
-
+# THE FOLLOWING LINE IS NOT PART OF THE ACTUAL OUTPUT BUT WAS ADDED FOR EXPLANATION
 # SRGID FIPS COL ROW FRAC NUMERATOR DENOMINATOR QASUM
-
 120 53073 25 92 0.000752897 ! 85.0819 113006 0.0007529
-
 120 53073 24 93 0.0142783 ! 1613.53 113006 0.015031
-
 120 53073 25 93 0.927497 ! 104813 113006 0.94253
-
 120 53073 24 94 0.0442883 ! 5004.85 113006 0.98682
-
 120 53073 25 94 0.0131839 ! 1489.86 113006 1
-
 120 53009 20 91 0.00927792 ! 312.768 33711 0.0092779
-
 120 53009 21 91 0.00159502 ! 53.7697 33711 0.010873
-
-120 53009 22 91 0.384065 ! 12947.2 33711 0.39494
-
-120 53009 23 91 0.274769 ! 9262.75 33711 0.66971
 
 # DENOMINATOR_THRESHOLD CAME INTO PLAY IN THE FOLLOWING LINE
 
@@ -1062,255 +955,128 @@ EXPLANATION
 <a id=Table-9></a>
 **Table 9. A Sample Output Census Tract (Polygon) Surrogate File**
 
-```csh
-#POLYGON OUTPUT_POLY_FILE=/emiss_shp2003/us/tnnc
-OUTPUT_POLY_ATTR=STFID OUTPUT_FILE_ELLIPSOID=SPHERE
-OUTPUT_FILE_MAP_PRJN=+proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97
+```
+#POLYGON OUTPUT_POLY_FILE=/emiss_shp2003/us/tnnc OUTPUT_POLY_ATTR=STFID OUTPUT_FILE_ELLIPSOID=SPHERE OUTPUT_FILE_MAP_PRJN=+proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97
 
 #SRGDESC=100,Population
-
-#
-
 #SURROGATE REGION = USA
-
 #SURROGATE CODE = 100
-
 #SURROGATE NAME = Population
-
 #DATA SHAPEFILE = county_bndy
-
 #DATA ATTRIBUTE = FIPSSTCO
-
 #WEIGHT SHAPEFILE = pophu2k
-
 #WEIGHT ATTRIBUTE = POP2000
-
 #WEIGHT FUNCTION =
-
 #FILTER FUNCTION =
-
-#
-
 #CONTROL VARIABLE FILE = ./control_variables_poly.csv
-
 #SURROGATE SPECIFICATION FILE = ./surrogate_specification.csv
-
 #SHAPEFILE CATALOG = ./shapefile_catalog.csv
-
 #GENERATION CONTROL FILE = ./surrogate_generation.csv
-
 #SURROGATE CODE FILE = ./surrogate_codes.csv
-
-#
-
 #USER = lran
-
 #COMPUTER SYSTEM = linux
-
 #DATE = Wed Nov 16 14:02:09 EST 2005
-
 100 51810 37053110101 1.22752e-22 ! 5.22011e-17 425257 1.2275e-22
-
 100 51810 37053110102 4.44544e-20 ! 1.89045e-14 425257 4.4577e-20
-
 100 51800 37029950100 4.06554e-19 ! 2.58881e-14 63677 4.0655e-19
-
 100 51800 37073970200 5.21778e-18 ! 3.32252e-13 63677 5.6243e-18
-
 100 51800 37073970300 1.65589e-18 ! 1.05442e-13 63677 7.2802e-18
-
 100 51175 37073970300 5.17682e-26 ! 9.05012e-22 17482 5.1768e-26
-
 100 51175 37091950100 6.57034e-18 ! 1.14863e-13 17482 6.5703e-18
-
 100 51175 37131980100 3.73904e-18 ! 6.53659e-14 17482 1.0309e-17
-
-100 51550 37053110200 1.54769e-18 ! 3.08275e-13 199184 1.5477e-18
-
-100 51550 37029950100 3.729e-19 ! 7.42757e-14 199184 1.9206e-18
-
-100 51025 37185950100 2.93599e-18 ! 5.40781e-14 18419 2.936e-18
-
-100 51081 37131980300 1.67322e-17 ! 1.93424e-13 11560 1.6732e-17
-
-
-<a id=Table-10></a>
-** Table 10. An Example SRGDESC FILE for a RegularGrid^*^**
-
-#GRID US36KM_148X112 -2736000.000000 -2088000.000000 36000.000000
-36000.000000 148 112 1 LAMBERT meters 33.000000 45.000000 -97.000000
--97.000000 40.000000
-
-USA,100,"Population",/output/US36KM_148X112/USA_100_NOFILL.txt
-
-USA,120,"Urban Population",/output/US36KM_148X112/USA_120_FILL.txt
-
-USA,130,"Rural Population",/output/US36KM_148X112/USA_130_FILL.txt
-
-USA,137,"Housing Change",/output/US36KM_148X112/USA_137_NOFILL.txt
-
-USA,140,"Housing Change and
-Population",/output/US36KM_148X112/USA_140_NOFILL.txt
-
-USA,150,"Residential Heating - Natural
-Gas",/output/US36KM_148X112/USA_150_FILL.txt
-
-USA,160,"Residential Heating -
-Wood",/output/US36KM_148X112/USA_160_FILL.txt
-
-USA,170,"Residential Heating - Distillate
-Oil",/output/US36KM_148X112/USA_170_FILL.txt
-
-USA,180,"Residential Heating -
-Coal",/output/US36KM_148X112/USA_180_FILL.txt
-
-USA,190,"Residential Heating - LP
-Gas",/output/US36KM_148X112/USA_190_NOFILL.txt
-
-USA,200,"Urban Primary Road
-Miles",/output/US36KM_148X112/USA_200_FILL.txt
-
-USA,210,"Rural Primary Road
-Miles",/output/US36KM_148X112/USA_210_FILL.txt
-
-USA,220,"Urban Secondary Road
-Miles",/output/US36KM_148X112/USA_220_FILL.txt
-
-USA,230,"Rural Secondary Road
-Miles",/output/US36KM_148X112/USA_230_FILL.txt
 ```
 
-* header line has been wrapped to two lines for this example
+<a id=Table-10></a>
+**Table 10. An Example SRGDESC FILE for a RegularGrid**
+
+```
+GRID US36KM_148X112 -2736000.0 -2088000.0 36000.0 36000.0 148 112 1 LAMBERT meters 33.0 45.0 -97.0 -97.0 40.0
+
+USA,100,"Population",/output/US36KM_148X112/USA_100_NOFILL.txt
+USA,120,"Urban Population",/output/US36KM_148X112/USA_120_FILL.txt
+USA,130,"Rural Population",/output/US36KM_148X112/USA_130_FILL.txt
+USA,137,"Housing Change",/output/US36KM_148X112/USA_137_NOFILL.txt
+USA,140,"Housing Change and Population",/output/US36KM_148X112/USA_140_NOFILL.txt
+```
+
 
 <a id=Table-11></a>
 **Table 11. A Sample Log File Created by the Surrogate Tool for RegularGrid Output**
 
-```csh
+```
 Run Date: Thu Mar 05 16:25:26 EST 2009
-
 Main Control CSV File
-
 GENERATION CONTROL FILE ./surrogate_generation_grid.csv
-
 SURROGATE SPECIFICATION FILE ./surrogate_specification_2002.csv
-
 SHAPEFILE CATALOG ./shapefile_catalog.csv
-
 SHAPEFILE DIRECTORY ../data/emiss_shp2003/us
-
 SURROGATE CODE FILE ./surrogate_codes.csv
-
 SRGCREATE EXECUTABLE ../bin/srgcreate.exe
-
 DEBUG_OUTPUT Y
-
 OUTPUT_FORMAT SMOKE
-
 OUTPUT_FILE_TYPE RegularGrid
-
 OUTPUT_GRID_NAME M08_NASH
-
 GRIDDESC ./GRIDDESC.txt
-
 OUTPUT_FILE_ELLIPSOID +a=6370000.0,+b=6370000.0
-
 OUTPUT DIRECTORY ../output/somegrid
-
 OUTPUT SURROGATE FILE ../output/somegrid/allsrgs.txt
-
 OUTPUT SRGDESC FILE ../output/somegrid/SRGDESC.txt
-
 OVERWRITE OUTPUT FILES YES
-
 LOG FILE NAME srg_grid.log
-
 DENOMINATOR_THRESHOLD 0.0005
-
 COMPUTE SURROGATES FROM SHAPEFILES YES
-
 MERGE SURROGATES YES
-
 GAPFILL SURROGATES YES
-
 Get Grid Header For Surrogate Files
-
-SRGCREATE_ERROR&gt;WARNING: Environment variable: MAX_LINE_SEG, not
-set
-
+SRGCREATE_ERROR&gt;WARNING: Environment variable: MAX_LINE_SEG, not set
 SRGCREATE_OUTPUT&gt;MIMS Surrogate Creator Version 3.5, 8/12/2008
-
 SRGCREATE_OUTPUT&gt;
-
 SRGCREATE_OUTPUT&gt;EV: OUTPUT_FILE_TYPE=RegularGrid
-
 SRGCREATE_OUTPUT&gt;Setting output grid
-
 SRGCREATE_OUTPUT&gt;
-
 SRGCREATE_OUTPUT&gt;EV: OUTPUT_FILE_TYPE=RegularGrid
-
 SRGCREATE_OUTPUT&gt;Reading Regular Grid
-
 SRGCREATE_OUTPUT&gt;
-
 SRGCREATE_OUTPUT&gt;EV: OUTPUT_GRID_NAME=M08_NASH
-
-SRGCREATE_OUTPUT&gt;MAX_LINE_SEG not set, discretization intervals
-disabled
-
+SRGCREATE_OUTPUT&gt;MAX_LINE_SEG not set, discretization intervals disabled
 SRGCREATE_OUTPUT&gt;griddesc file name = ./GRIDDESC.txt
-
 SRGCREATE_OUTPUT&gt;
-
 SRGCREATE_OUTPUT&gt;Ellipsoid var = OUTPUT_FILE_ELLIPSOID
-
 SRGCREATE_OUTPUT&gt;EV:
 OUTPUT_FILE_ELLIPSOID=+a=6370000.0,+b=6370000.0
-
 SRGCREATE_OUTPUT&gt;Ellipsoid=+a=6370000.0,+b=6370000.0
-
 SRGCREATE_OUTPUT&gt;EV: OUTPUT_GRID_NAME=M08_NASH
-
 SRGCREATE_OUTPUT&gt;Not using BB optimization
-
 SRGCREATE_OUTPUT&gt;
-
 SRGCREATE_OUTPUT&gt;EV: OUTPUT_FILE_TYPE=RegularGrid
-
-SRGCREATE_OUTPUT&gt;#GRID M08_NASH 1000000.000000 -536000.000000
-8000.000000 8000.000000 46 42 1 LAMBERT meters 30.000000 60.000000
--100.000000 -100.000000 40.000000
+SRGCREATE_OUTPUT&gt;#GRID M08_NASH 1000000.000000 -536000.000000 8000.000000 8000.000000 46 42 1 LAMBERT meters 30.000000 60.000000 -100.000000 -100.000000 40.000000
 
 SUCCESS IN RUNNING THE EXECUTABLE: SRGCREATE
-
 End Date: Thu Mar 05 16:25:27 EST 2009
-
 Elapsed time in minutes: 0.008583333333333333
 
 SUCCESS -- The Program Run Completed
 ```
+---
+<a id="dev"><a/>
+## Development Description
 
-6. Development Description
-==========================
-
-### 6.1 Integration with the Emissions Modeling Framework
+### Integration with the Emissions Modeling Framework
 
 The following is a summary of the features of the Surrogate Tool and of
 its integration with the Emissions Modeling Framework (EMF):
 
-1.  Shapefiles are sources of geographic data used to create spatial
+-  Shapefiles are sources of geographic data used to create spatial
     surrogates. Users will be able to view, add to, and remove from a
     list of available shapefiles via the EMF’s data management
     capabilities. For the stand-alone tool, an ASCII file serves as a
     catalog for shapefiles accessible on local disks.
-
-2.  Users can define the spatial surrogates to create, and the
+-  Users can define the spatial surrogates to create, and the
     shapefiles used to create them, in the CSV format configuration
     files for the Surrogate Tool. These files can easily be edited using
     spreadsheet software such as Excel, and these input files can be
     loaded into the EMF data management system.
-
-3.  The Surrogate Tool can generate spatial surrogates using shapefiles
+-  The Surrogate Tool can generate spatial surrogates using shapefiles
     or spatial surrogates generated internally or externally. The tool
     outputs the surrogates in formats used by SMOKE for grid-based or
     polygon-based modeling. In a single run of the tool, users can make
@@ -1321,17 +1087,14 @@ its integration with the Emissions Modeling Framework (EMF):
     surrogates. The comment lines include which shapefiles were used,
     any filter or weight functions that were applied, attributes that
     were used, merge function used, etc.
-
-4.  The EMF can import the surrogate files created by the Surrogate Tool
+-  The EMF can import the surrogate files created by the Surrogate Tool
     the SRGDESC file, and the log file. The EMF can also export all of
     these files prior to running SMOKE.
-
-5.  Once the EMF can support executing external programs, users will be
+-  Once the EMF can support executing external programs, users will be
     able to execute the Surrogate Tool from the EMF, and the resulting
     output surrogate file(s) will be automatically imported into the EMF
     as datasets.
-
-6.  The Surrogate Tool can combine existing surrogates generated using
+-  The Surrogate Tool can combine existing surrogates generated using
     other packages with surrogates generated by the tool if the header
     line with #GRID or #POLYGON are the same. These externally created
     surrogates can be used as input to merging or gap filling, or
@@ -1348,86 +1111,83 @@ its integration with the Emissions Modeling Framework (EMF):
     which the Surrogate Tool is being run. The tool does not require all
     surrogates in the externally generated surrogate file to be used,
     but extracts all surrogate fractions for a specified code.
-
-7.  The outputs from srgcreate and the merging and gapfiling tools,
+-  The outputs from srgcreate and the merging and gapfiling tools,
     along with some additional summary information, are placed in a log
     file created by the Surrogate Tool.
-
-8.  The EMF can import and export a gridding cross reference that can be
+-  The EMF can import and export a gridding cross reference that can be
     used by SMOKE.
-
-9.  Through the EMF, users can update gridding cross-reference data to
+-  Through the EMF, users can update gridding cross-reference data to
     use newly created surrogates, by indicating which inventory
     characteristics (e.g., SCC) map to the new surrogate.
 
-### 6.2 Program Logic
+### Program Logic
 
 The Surrogate Tool software takes the following steps when it runs:
 
-1.  Read in the global control variables file and store the global
+-  Read in the global control variables file and store the global
     variables and their values in memory. The global control variables
     file specifies the names of the four other CSV input files and one
     text file to read, along with other information regarding the
     generation of surrogates.
 
-2.  Read the specified surrogate specifications file (SFF) and store the
+-  Read the specified surrogate specifications file (SFF) and store the
     surrogate definitions into memory.
 
-3.  Read the specified shapefile catalog file and store all shapefile
+-  Read the specified shapefile catalog file and store all shapefile
     descriptions into memory.
 
-4.  Read the specified generation control file and store the surrogates
+-  Read the specified generation control file and store the surrogates
     to generate into memory.
 
-5.  Read the specified surrogate code file and store the surrogate name
+-  Read the specified surrogate code file and store the surrogate name
     and code information into memory.
 
-6.  Check the contents of these files as follows:
+-  Check the contents of these files as follows:
 
-    a.  Ensure that the output directories exist; otherwise the tool
+    -  Ensure that the output directories exist; otherwise the tool
         will create the new directory specified.
 
-    b.  Ensure that the shapefiles in the SSF match the shapefile names
+    -  Ensure that the shapefiles in the SSF match the shapefile names
         in the catalog.
 
-    c.  Ensure that all files needed exist.
+    -  Ensure that all files needed exist.
 
-    d.  Ensure that there are no redundant entries in the input files
+    -  Ensure that there are no redundant entries in the input files
 
-7.  Get main environment variables, which are the same for each
-    > surrogate computation (e.g. grid, output directory).
+-  Get main environment variables, which are the same for each
 
-8.  Obtain the header with #GRID or #POLYGON which is the same for
+
+-  Obtain the header with #GRID or #POLYGON which is the same for
     each surrogate.
 
-9.  If COMPUTE SURROGATES FROM SHAPEFILES variable in the global control
+-  If COMPUTE SURROGATES FROM SHAPEFILES variable in the global control
     variables file is set to YES, the program will loop through the
     generation control file to compute surrogate ratios from shapefiles
     using srgcreate for surrogates with GENERATE set to YES. Any
     surrogates for which the value in the GENERATE column is not YES
     will not be computed.
 
-10. For each surrogate that depends on shapefiles, the following steps
+- For each surrogate that depends on shapefiles, the following steps
     are taken:
 
-    a.  Shapefile information is looked up in the shapefile catalog. If
+    -  Shapefile information is looked up in the shapefile catalog. If
         the definition of the shapefile is not found, an error is issued
         and the program moves on to generating the next surrogate.
 
-    b.  The tool obtains all needed environment variables to run
+    -  The tool obtains all needed environment variables to run
         srgcreate. If the surrogate computation uses a filter function
         (e.g., include only shapes for which the ROAD_TYPE=4), a filter
         text file that can be used with srgcreate will be generated. All
         filter text files are stored in the temp_files subdirectory of
         the OUTPUT_DIRECTORY and are named *filter_region_code.txt.*
 
-    c.  The tool runs srgcreate with all environment variables for the
+    -  The tool runs srgcreate with all environment variables for the
         surrogate to be computed.
 
-    d.  The processing information by srgcreate written to standard
+    -  The processing information by srgcreate written to standard
         output and standard error is copied into the log file.
 
-    e.  The tool checks whether the computation is successful. If the
+    -  The tool checks whether the computation is successful. If the
         computation is successful, the header and comment information
         will be inserted to the beginning of the output file. The output
         file for this surrogate is saved in the OUTPUT DIRECTORY defined
@@ -1436,7 +1196,7 @@ The Surrogate Tool software takes the following steps when it runs:
         error message is output to the log file and the program moves on
         to the next surrogate computation.
 
-    f.  srgcreate outputs a grid or poly output shapefile with the sum
+    -  srgcreate outputs a grid or poly output shapefile with the sum
         of the surrogate numerators using pre-defined name –
         *grid*_*region_code* for regular grid output,
         egrid_*region_code* for egrid output or *poly*_*region_code*
@@ -1447,44 +1207,44 @@ The Surrogate Tool software takes the following steps when it runs:
         *grid*_*region_code.csv, egrid_region_code.csv or
         poly*_*region_code.csv* for output*. *
 
-    g.  A script that can be used to regenerate the surrogate is created
-        and named either *region_code_*NOFILL.bat or
-        *region_code_*NOFILL.csh in the temp_files subdirectory.
+    -  A script that can be used to regenerate the surrogate is created
+        and named either region_code_NOFILL.bat or
+        region_code_NOFILL.csh in the temp_files subdirectory.
 
-11. Once all surrogates based on weight shapefiles have been created, if
+-  Once all surrogates based on weight shapefiles have been created, if
     the MERGE SURROGATES variable in the global control variables file
     is set to YES, the program loops through the generation control file
     again to find any surrogates with GENERATE set to YES that use a
     merge function in the surrogate specification file.
 
-12. For each surrogate to be created based on a merge function, the
+- For each surrogate to be created based on a merge function, the
     following steps are taken:
 
-    a.  The tool obtains all needed environment variables to run the
+    -  The tool obtains all needed environment variables to run the
         merging tool. A merge text file to be used will be generated.
         The merge text files will be stored in the temp_files
         subdirectory of the OUTPUT_DIRECTORY and they are named
-        merge*_region_code*_NOFILL*.txt.*
+        merge_region_code_NOFILL.txt
 
-    b.  All needed surrogate files are checked for existence. If any
+    -  All needed surrogate files are checked for existence. If any
         error occurs, the program will move to next surrogate merging.
 
-    c.  The tool runs the merging tool with the merge text file and all
+    -  The tool runs the merging tool with the merge text file and all
         other environment variables for the surrogate to be computed.
 
-    d.  The processing information by the merging tool written to
+    -  The processing information by the merging tool written to
         standard output and standard error is copied into the log file.
 
-    e.  The tool checks whether the computation is successful. If the
+    -  The tool checks whether the computation is successful. If the
         computation is successful, the header and comment information
         will be inserted to the beginning of the output file. The output
         file for this surrogate is saved in the OUTPUT DIRECTORY defined
-        using a predefined file name, *region_code*_NOFILL.txt*.* If
+        using a predefined file name, region_code_NOFILL.txt. If
         the computation fails, an error message will be output to the
         log file and the program will move to the next surrogate
         computation.
 
-13. Once all surrogates that depend on shapefiles and merge functions
+- Once all surrogates that depend on shapefiles and merge functions
     have been created, the Surrogate Tool performs gap filling on those
     surrogates using the gapfilling tool. If GAPFILL SURROGATES variable
     in the global control variables file is set to YES, the program
@@ -1493,33 +1253,33 @@ The Surrogate Tool software takes the following steps when it runs:
     tertiary, or quarternary surrogates in the surrogate specification
     file – these are the surrogates that must be gapfilled.
 
-14. For each surrogate to be gapfilled, the following steps are taken:
+- For each surrogate to be gapfilled, the following steps are taken:
 
-    a.  The tool obtains all needed environment variables to run the
+    -  The tool obtains all needed environment variables to run the
         gapfilling tool. A gapfill text file to be used is generated.
         The gapfill text file is stored in the temp_files subdirectory
         of the OUTPUT_DIRECTORY and is named
-        gapfill*_region_code.txt.*
+        gapfill_region_code.txt.
 
-    b.  All needed surrogate files are checked for existence. If any
+    -  All needed surrogate files are checked for existence. If any
         error occurs, the program moves to the next surrogate to be
         merged.
 
-    c.  The tool runs the gapfilling tool using the gapfill text file
+    -  The tool runs the gapfilling tool using the gapfill text file
         and all other environment variables required for gapfilling.
 
-    d.  The information output by the gapfilling tool is written to
+    -  The information output by the gapfilling tool is written to
         standard output and standard error is copied into the log file.
 
-    e.  The tool checks whether the computation is successful. If the
+    -  The tool checks whether the computation is successful. If the
         computation is successful, the header and comment information
         will be inserted to the beginning of the output file. The output
         file for this surrogate is saved in the OUTPUT DIRECTORY using a
-        predefined file name, *region_code*_FILL.txt*.* If the
+        predefined file name, region_code_FILL.txt. If the
         computation fails, an error message will be output to the log
         file and the program will move to the next surrogate gapfilling.
 
-15. The Surrogate Tool keeps information about how the surrogate is
+- The Surrogate Tool keeps information about how the surrogate is
     computed. After each surrogate is computed, merged, or gapfilled,
     the program will create or update the SRGDESC file defined in the
     global control variable CSV file. The SRGDESC file will be used to
@@ -1531,23 +1291,24 @@ The Surrogate Tool software takes the following steps when it runs:
     from a surrogate shapefile or from a merge function, only the
     gapfilled surrogate file is listed in the SRGDESC file.
 
-16. Information is written to a log file, which includes a summary table
+- Information is written to a log file, which includes a summary table
     of the surrogate computation that is written to the bottom of the
     log file (see [Table 11](#Table-11)). This lists the region, name, and code for
     each of the surrogates that were requested to be generated. It also
     indicates whether the computation of srgcreate, merging or
     gapfilling was successful or failed for each surrogate.
 
-17. If the value of the OUTPUT SURROGATE FILE variable specified in the
+- If the value of the OUTPUT SURROGATE FILE variable specified in the
     global control variable file is not NONE, a concatenated file of all
     generated surrogates from the SRGDESC file is created.
 
-18. If any error occurs in the program run, the final exit status of the
+- If any error occurs in the program run, the final exit status of the
     Surrogate Tool is nonzero. If all of the requested surrogates were
     created successfully, the exit status is zero.
 
-7. Enhancements, Limitations and Future Updates
-------------------------------------------------
+---
+<a id="updates"><a/>
+## Enhancements, Limitations and Future Updates
 
 The following enhancements to the Spatial Allocator were made as part of
 the development of the Surrogate Tool.
@@ -1622,8 +1383,7 @@ future enhancements or updates for improving the Surrogate Tool:
     with an error. Users have to transform the ellipsoid of the base or
     weight shapefile into the output ellipsoid externally in order to
     correctly project coordinates of base or weight shapefile.
-
+****
 [<< Previous Chapter](SA_ch04_raster.md) - [Home](README.md) - [Next Chapter >>](SA_ch06_support.md)<br>
 
 Spatial Allocator User Manual (c) 2016<br>
-

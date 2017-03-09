@@ -1,4 +1,4 @@
-Spatial Allocator v4.3 (January 20, 2017 release)
+Spatial Allocator v4.3 (February 2017 release)
 ======
 
 The Spatial Allocator (SA) is a set of tools that helps users manipulate and generate data files related to emissions and air quality modeling. The tools perform functions similar to Geographic Information Systems (GIS), but are provided to the modeling community free of charge. In addition, the tools are designed to support some of the unique aspects of the file formats used for Community Multiscale Air Quality (CMAQ), Sparse Matrix Operator Kernel Emissions (SMOKE), and Weather Research and Forecasting (WRF) modeling.
@@ -9,22 +9,23 @@ Getting the Spatial Allocator from GitHub
 ---
 
 ```
-git clone -b 4.3 https://github.com/CMASCenter/Spatial-Allocator.git
+git clone https://github.com/CMASCenter/Spatial-Allocator.git
 ```
 You may also download a tarball of the Spatial Allocator installation from http://www.cmascenter.org.
 
 Getting Test Data for the Spatial Allocator
 ---
-Download data to test your Spatial Allocator installation from http:///www.cmascenter.org.
+Download data to test your Spatial Allocator installation from http://www.cmascenter.org.
 
 Spatial Allocator Repository Guide
 ---
 The SA code, scripts, and executables are organized in the following directories:
 
 - **bin** - SA 32-bit and 64-bit Linux executables
+- **data** - Input data for testing the SA installation (download from the [CMAS Center](http://www.cmascenter.org))
 - **docs** - SA Documentation
 - **raster_scripts** - C-shell scripts for running the [Raster Tools](docs/User_Manual/SA_ch04_raster.md)
-- **ref** - location of reference data for verifying the SA installation
+- **ref** - location of reference data for verifying the SA installation (download from the [CMAS Center](http://www.cmascenter.org))
 - **scripts** - C-shell scripts for running the [Vector Tools](docs/User_Manual/SA_ch03_vector.md)
 - **src** - SA source code and 3rd-party libraries
 - **srgtools** - C-shell scripts for running the [Surrogate Tools](docs/User_Manual/SA_ch05_surrogate.md)

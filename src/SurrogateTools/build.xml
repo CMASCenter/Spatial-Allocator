@@ -1,0 +1,142 @@
+<?xml version="1.0"?>
+<project name="SurrogateQA" default="nirvana" basedir=".">
+
+    <!--  =================== Properties ====================================== -->
+    <property file="build.properties" />
+    <property file="${user.home}/build.properties" />
+
+    <property name="env" environment="env" value="env" />
+    <property name="JAVA_HOME" value="${env.JAVA_HOME}" />
+    <property name="src.dir" value="src" />
+    <property name="lib.dir" value="lib" />
+
+    <property name="test.dir" value="test" />
+    <property name="test.unit.dir" value="${test.dir}/unit" />
+    <property name="test.integration.dir"
+              value="${test.dir}/integration"
+    />
+
+    <property name="build.home" value="build/sandbox" />
+    <property name="build.dist.dir" value="${build.home}/dist" />
+    <property name="build.classes.dir" value="${build.dist.dir}/classes" />
+
+    <property name="reports.dir" value="${build.home}/reports" />
+    <property name="reports.tests.dir" value="${reports.dir}/tests" />
+
+    <property name="app.name" value="surrogateQA" />
+    <property name="app.path" value="/${app.name}" />
+
+
+
+    <path id="classpath">
+        <pathelement location="${build.classes.dir}" />
+        <fileset dir="${lib.dir}">
+            <include name="**/*.jar" />
+        </fileset>
+    </path>
+
+    <!--  ===================START Basic Targets ====================================== -->
+    <target name="init">
+        <mkdir dir="${build.home}" />
+        <mkdir dir="${build.classes.dir}" />
+        <mkdir dir="${reports.tests.dir}" />
+    </target>
+
+
+    <target name="clean">
+        <delete includeemptydirs="true" failonerror="no">
+            <fileset dir="${build.home}" includes="**/*" />
+        </delete>
+    </target>
+
+    <target name="compile-src" depends="clean, init">
+        <antcall target="do-compile-src">
+            <param name="src.dir" value="${src.dir}" />
+        </antcall>
+    </target>
+
+
+    <target name="do-compile-src">
+        <javac srcdir="${src.dir}"
+               destdir="${build.classes.dir}"
+               classpathref="classpath"
+               debug="on"
+        />
+        <copy todir="${build.classes.dir}">
+            <fileset dir="${src.dir}" includes="**/*.*" />
+        </copy>
+    </target>
+
+    <target name="compile-tests" depends="clean, init, compile-src">
+        <antcall target="do-compile-tests">
+            <param name="test.unit.dir" value="${test.unit.dir}" />
+            <param name="test.integration.dir"
+                   value="${test.integration.dir}"
+            />
+        </antcall>
+    </target>
+
+    <target name="do-compile-tests">
+        <javac srcdir="${test.unit.dir}"
+               destdir="${build.classes.dir}"
+               classpathref="classpath"
+               debug="on"
+        />
+        <javac srcdir="${test.integration.dir}"
+               destdir="${build.classes.dir}"
+               classpathref="classpath"
+               debug="on"
+        />
+    </target>
+
+    <target name="compile"
+            depends="clean, init, compile-src, compile-tests"
+    />
+    <!--  ===============END  Basic ====================================== -->
+
+
+    <!--  ===============START  Tests ====================================== -->
+    <target name="tests" depends="compile, do-tests" />
+
+    <target name="do-tests">
+        <junit printsummary="yes" haltonfailure="yes">
+            <classpath refid="classpath" />
+            <formatter type="xml" />
+
+            <batchtest fork="yes" todir="${reports.tests.dir}">
+                <fileset dir="${build.classes.dir}">
+                    <include name="**/*Test.class" />
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+
+
+    <!-- DEFAULT target-->
+    <target name="nirvana" depends="tests" />
+
+    <!-- Continuous Integration target -->
+    <target name="ci-build"
+            depends="compile, nirvana"
+            description="Continuous Integration build"
+    />
+
+    <!--  ===============END  Tests ====================================== -->
+
+
+
+
+    <!-- ================START Distribution Targets ========================= -->
+    <target name="dist" depends="nirvana, do-dist" />
+
+    <target name="do-dist" depends="compile">
+        <copy todir="${build.classes.dir}">
+            <fileset dir="${src.dir}" includes="**/*" />
+        </copy>
+        <jar jarfile="${app.name}-${app.version}.jar"
+             basedir="${build.classes.dir}"
+        />
+    </target>
+    <!-- ================END Distribution Targets ========================= -->
+</project>
+

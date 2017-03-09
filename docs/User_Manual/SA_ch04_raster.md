@@ -1,11 +1,22 @@
 [<< Previous Chapter](SA_ch03_vector.md) - [Home](README.md) - [Next Chapter >>](SA_ch05_surrogate.md)
-------------
+***
 
-Chapter 4. Raster Tools
-===
+# Chapter 4. Raster Tools
 
-1. Background
-----------
+## Contents
+-   [Introduction](#intro4)
+-   [Defining Domains](#domains)
+-   [Land Cover Data Processing Tools](#landcover)
+-   [Satellite Cloud and Aerosol Product Processing Tools](#satdat)
+-   [Agricultural Fertilizer Modeling Tools](#agtools)
+-   [Other Tools and Utilities](#othertools)
+-   [Troubleshooting](#trouble)
+-   [Acknowledgements](#acknowledge4)
+
+---
+
+<a id="intro4"><a/>
+## Introduction
 
 The Spatial Allocator (SA) Raster Tools system is designed to process
 image or raster spatial data sets in SA. It contains programs to process
@@ -20,68 +31,33 @@ tools, a domain grid shapefile generation tool, and other utilities.
 All sample script files for the SA Raster Tools are stored in the
 raster_scripts directory of the installed Spatial Allocator system.
 
-2. Troubleshooting
----------------
-
-Users who have difficulties running the tools with the compiled
-libraries contained within the downloaded Spatial Allocator system
-should do the following:
-
-1)  delete installed open-source library directories under the
-    ./src/libs directory
-
-2)  download new source packages and install them under the ./libs
-    directory
-
-3)  compile downloaded packages and install them under
-    {package_path}/local, following the src/libs/README file
-
-4)  modify paths in ./bin/sa_setup.csh and ./src/raster/Makefile
-
-5)  in ./src/raster, do the following:
-
-
-`   make clean `
-
-`   make `
-
-`   make install`
-
-3. Domain Description in SA Raster Tools
-=====================================
+-----
+<a id="domains"><a/>
+## Defining Domains
 
 The SA Raster Tools define the modeling domain using the following
 environment variables:
 
--   GRID_PROJ – defines the domain grid projection using the PROJ4
-    projection description format, for a full list see
-    (<http://spatialreference.org>) The following
+-   `GRID_PROJ` – defines the domain grid projection using the PROJ4
+    projection description format
+    (<http://www.remotesensing.org/geotiff/proj_list/>). The following
     sample projection descriptions are used to match the projections in
     WRF:
-
     -   Lambert Conformal Conic: `+proj=lcc +a=6370000.0 +b=6370000.0 +lat_1=33 +lat_2=45 +lat_0=40 +lon_0=-97`
-
     -   Polar stereographic: `+proj=stere +a=6370000.0 +b=6370000.0 +lat_ts=33 +lat_0=90 +lon_0=-97 +k_0=1.0`
-
     -   Mercator: `+proj=merc +a=6370000.0 +b=6370000.0 +lat_ts=33 +lon_0=0`
-
     -   Geographic: `+proj=latlong +a=6370000.0 +b=6370000.0`
 
--   GRID_ROWS – number of rows of grid cells in the domain
 
--   GRID_COLUMNS – number of columns of grid cells in the domain
-
--   GRID_XCELLSIZE – grid cell size in *x* direction
-
--   GRID_YCELLSIZE – grid cell size in *y* direction
-
--   GRID_XMIN – minimum *x* of the domain (lower left corner of the
+-   `GRID_ROWS` – number of rows of grid cells in the domain
+-   `GRID_COLUMNS` – number of columns of grid cells in the domain
+-   `GRID_XCELLSIZE` – grid cell size in *x* direction
+-   `GRID_YCELLSIZE` – grid cell size in *y* direction
+-   `GRID_XMIN` – minimum *x* of the domain (lower left corner of the
     domain)
-
--   GRID_YMIN – minimum *y* of the domain (lower left corner of the
+-   `GRID_YMIN` – minimum *y* of the domain (lower left corner of the
     domain)
-
--   GRID_NAME – name of the domain, which is required by some of the
+-   `GRID_NAME` – name of the domain, which is required by some of the
     tools
 
 For WRF simulations, GRID_XMIN and GRID_YMIN can be computed using the
@@ -89,39 +65,35 @@ first point longitude and latitude from the global attributes
 corner_lons and corner_lats in the domain’s WRF GEOGRID output file.
 For instance, to compute a WRF Lambert Conformal Conic (LCC) domain with
 the GEOGRID output file attributes
+```
+ :corner_lats = 20.85681f, 52.1644f, 50.63151f, 19.88695f, 20.84302f...
+ :corner_lons = -121.4918f, -135.7477f, -53.21942f, -69.02478f, -121.5451f…
+```
+use the cs2cs utility in the PROJ4 library directly at the command line (after installing the SA system):
 
-> :corner_lats = 20.85681f, 52.1644f, 50.63151f, 19.88695f,
-> 20.84302f...
->
-> :corner_lons = -121.4918f, -135.7477f, -53.21942f, -69.02478f,
-> -121.5451f…
-
-users would use the cs2cs utility in the PROJ4 library directly at the
-command line (after installing the SA system):
-
-> &gt;cs2cs +proj=latlong +a=6370000.0 +b=6370000.0 +to +proj=lcc
-> +a=6370000.0 +b=6370000.0 +lat_1=33 +lat_2=45 +lat_0=40 +lon_0=-97
->
-> -121.4918 20.85681
->
-> -2622003.85 -1793999.28 0.00
+```
+cs2cs +proj=latlong +a=6370000.0 +b=6370000.0 +to +proj=lcc +a=6370000.0 +b=6370000.0 +lat_1=33 +lat_2=45 +lat_0=40 +lon_0=-97 -121.4918 20.85681 -2622003.85 -1793999.28 0.00
+```
 
 Minimum *x* and *y* for the domain would be computed as follows:
 
-> GRID_XMIN = -2622003.85 - GRID_XCELLSIZE / 2
->
-> GRID_YMIN = -1793999.28 - GRID_YCELLSIZE / 2
+```
+GRID_XMIN = -2622003.85 - GRID_XCELLSIZE / 2
+GRID_YMIN = -1793999.28 - GRID_YCELLSIZE / 2
+```
 
-4. Land Cover Data Processing Tools
-================================
+---
+<a id="landcover"><a/>
+## Land Cover Data Processing Tools
 
-There are two land cover processing tools in the SA Raster Tools: NLCD
-and MODIS land cover generation tool (Section 3.1), and Biogenic
-Emissions Landcover Database, version 4 (BELD4) land cover generation
-tool (Section 3.2).
+There are two land cover processing tools in the SA Raster Tools:
 
-4.1 NLCD and MODIS Land Cover Generation
-------------------------------------
+-   NLCD and MODIS land cover generation tool
+-   Biogenic Emissions Landcover Database, version 4 (BELD4) land cover generation tool.
+
+All of the example scripts listed in this section are in the SA_HOME/raster_scripts directory.
+
+### NLCD and MODIS Land Cover Generation
 
 The computeGridLandUse.exe tool is used to generate land cover data for
 the upgraded WRF/CMAQ Pleim-Xiu Land Surface Model (PX LSM) in the
@@ -132,41 +104,35 @@ products MCD12Q1 or MOD12Q1. This tool generates 40 land cover classes
 (20 from MODIS and 20 from NLCD) instead of the 50 classes generated by
 the previous land cover processing tool.
 
-This tool requires the following data sets:
+#### Data Access
 
--   NLCD land cover, canopy, and imperviousness data – can be obtained
-    from <http://www.mrlc.gov/nlcd2006.php>.
+-   NLCD land cover data:
+    -   SA Scripts: NLCD_MODIS_processor.csh and landuseTool_WRFCMAQ_BELD4.csh
+    -   URL: http://www.mrlc.gov/nlcd06_data.php
+    -   Instructions: Download NLCD 2006 Land Cover (2011 Edition)
 
--   MODIS land cover data sets – can be obtained from
-    [http://ladsweb.nascom.nasa.gov/
-    data/search.html](http://ladsweb.nascom.nasa.gov/data/search.html).
-    The tool can process MCD12Q1 data at 500 m from Combined Terra and
-    Aqua MODIS, or can process MOD12Q1 data at 1 km from Terra MODIS.
+-   MODIS tiled land cover data: MCD12Q1
+    -   SA Scripts: NLCD_MODIS_processor.csh and landuseTool_WRFCMAQ_BELD4.csh
+    -   URL: https://ladsweb.nascom.nasa.gov/search/
+    -   Instructions:  Select the following from the download page:
+        -   Combined Terra & Aqua MODIS
+        -   Combined Land Level 3/Level4 yearly Tiled Products
+        -   MCD12Q1 - MODIS/Terra+Aqua Land Cover Type Yearly L3 Global 500m SIN Grid
+        -   Temporal Type: Date and Time Range
+        -    Set time period for downloading
+        -   Collection: 51 - MODIS Collection 5.1
+        -   Coordinate System: Latitude/Longitude
+        -   Type in extents in degree or use a predefined region
+        -   Search
+        -   View All
+        -   Order Files Now
 
--   List of land cover data sets to be processed – this file has to have
-    fixed header formats. Provided in the data directory are sample
-    files for CMAQ 12-km domain 2001, 2006 and 2011 modeling:
-    nlcd_modis_files_2001.txt, nlcd_modis_files_2006.txt, and
-    nlcd_modis_files_2011.txt. Users have to modify the list file
-    based on their NLCD and MODIS data location and names.
-
-To run the computeGridLandUse tool, users can use the following sample
-script file, which has all of the required environment variables:
-
-**NLCD_MODIS_processor.csh**
+To run the computeGridLandUse tool, users can use **NLCD_MODIS_processor.csh**, which has all of the required environment variables.
 
 The tool generates one ASCII file and one NetCDF file:
 
--   The ASCII file contains the imperviousness, canopy, and land cover
-    > percent variables (if the user set all land cover data to “YES”
-    > when running the script file) for each grid cell, in
-    > comma-separated-values (CSV) format.
-
--   The NetCDF file contains imperviousness, canopy, and land cover
-    > fraction variables plus land/water mask and other variables that
-    > are similar to those in the WRF GEOGRID land cover output files.
-    > The land cover percentage variable contains the 40 classes in
-    > [Table 1](#Table-1).
+-   The ASCII file contains the imperviousness, canopy, and land cover percent variables (if the user set all land cover data to “YES” when running the script file) for each grid cell, in comma-separated-values (CSV) format.
+-   The NetCDF file contains imperviousness, canopy, and land cover fraction variables plus land/water mask and other variables that are similar to those in the WRF GEOGRID land cover output files. The land cover percentage variable contains the 40 classes in [Table 1](#Table-1).
 
 <a id=Table-1></a>
 **Table 1. NLCD/MODIS output land cover classes from the
@@ -195,28 +161,23 @@ computeGridLandUse tool.**
 |19|19 |Reserved (e.g., Fill Value ) |  39 |90|Woody Wetlands|
 |20|20| Reserved| 40 | 95|Emergent Herbaceous Wetlands|
 
-4.2 BELD4 Land Cover Generation
----------------------------
+### BELD4 Land Cover Generation
 
 The BELD4 data with land cover, tree, and crop percentages can be
 computed using the computeGridLandUse_beld4.exe tool with directly
 downloaded USGS NLCD data sets, NASA MODIS land cover (MCD12Q1 or
 MOD12Q1) data tiles and tree and crop fractions at the county level. The
 follow­ing sample script file contains all of the required environment
-variables for running the tool:
-
-> **landuseTool_WRFCMAQ_BELD4.csh**
+variables for running the tool **landuseTool_WRFCMAQ_BELD4.csh**.
 
 This tool requires the following data sets:
 
 -   Downloaded USGS NLCD data sets, including land cover,
     imperviousness, and canopy, can be obtained from the NLCD web site:
     <http://www.mrlc.gov/nlcd2006.php>.
-
 -   MODIS land cover tiles (MCD12Q1 or MOD12Q1) – can be obtained from
     the NASA MODIS land products web site:
     <http://modis-land.gsfc.nasa.gov/landcover.html>.
-
 -   List of land cover data sets to be processed – this file has to be
     fixed format with the data set headers included. Provided in the
     data directory are sample files for CMAQ 12-km domain 2001, 2006 and
@@ -224,26 +185,20 @@ This tool requires the following data sets:
     nlcd_modis_files_2006.txt, and nlcd_modis_files_2011.txt.
     Users have to modify the list file based on their NLCD and MODIS
     data location and names.
-
 -   BELD3 FIA tree fraction table at county level – provided in the data
     directory: beld3-fia.dat.
-
 -   National Agricultural Statistics Service (NASS) crop fraction tables
     at county level – provided in the data directory:
     nass2001_beld4_ag.dat for the 2001 NASS; nass2006_beld4_ag.dat
     for the 2006 NASS.
-
 -   Canada crop fraction table at Census-division level – provided in
     the data directory: can01_beld4_ag.dat for the 2001 Census of
     Agriculture; can06_beld4_ag.dat for the 2006 Census of
     Agriculture.
-
 -   List of land cover, tree, and crop classes for the BELD4 tool –
     provided in the data direc­tory: beld4_class_names_40classes.txt.
-
 -   U.S. county shapefile – provided in the data directory:
     county_pophu02_48st.shp.
-
 -   Canada Census-division shapefiles – provided in the data directory:
     can2001_cd_sel.shp for the 2001 Census; can2006_cd_sel.shp for
     the 2006 Census.
@@ -253,7 +208,6 @@ The tool generates one ASCII file and one NetCDF file:
 -   The ASCII file contains the imperviousness, canopy, and land cover
     fraction variables (if the user set all land cover data to “YES”
     when running the script file) for each grid cell, in CSV format.
-
 -   The NetCDF file contains imperviousness, canopy, land cover, tree,
     and crop percentage variables as well as land/water mask and other
     variables that are similar to those in the WRF GEOGRID land cover
@@ -332,67 +286,67 @@ the crop percentage variable contains the 42 crops listed in [Table 3](#Table-3)
 |13|CornSilage|27|SorghumGrain|41|Beans|
 |14|CornSilage_ir|28|SorghumGrain_ir|42|Beans_ir|
 
-4.3 Current and Future Development for the Land Cover Data Processing Tools
------------------------------------------------------------------------
+### Current and Future Development for the Land Cover Data Processing Tools
 
-We will enhance the tool to use the released NLCD 2011 data sets with
-created 2011 crop tables for both US and Canada. In addition, in the
-future we plan to use USDA’s NLCD Cropland Data Layer (CDL) data instead
+-   Enhance the tool to use the released NLCD 2011 data sets with
+created 2011 crop tables for both US and Canada.
+-   Use USDA’s NLCD Cropland Data Layer (CDL) data instead
 of NASS crop fractions at the county level for the BELD4 data tool. This
-will allow us to use USDA crop spatial coverage NLCD data instead of
+will support the use of USDA crop spatial coverage NLCD data instead of
 county-based crop census data in computing crop fractions within each
 grid cell.
 
-5. Satellite Cloud and Aerosol Product Processing Tools
-====================================================
+----
+<a id="satdat"><a/>
+## Satellite Cloud and Aerosol Product Processing Tools
 
-5.1 GOES Cloud Product Processing Tool
------------------------------------
+### GOES Cloud Product Processing Tool
+SA Script: allocateGOES2WRFGrids.csh
 
 The GOES data tool processes the Geostationary Operational Environmental
 Satellite (GOES) data downloaded from the Earth System Science Center
-(ESSC) at the University of Alabama in Huntsville. The GOES data web
-site is <http://satdas.nsstc.nasa.gov/>.
+(ESSC) at the University of Alabama in Huntsville. 
+
+#### Data Access
+Contact Dr. Arastoo Pour Biazar at UAH's Earth System Science Center (ESSC) for the GOES data which can be processed by the tool.
+
 
 Downloaded GOES data need to be stored under subdirectories named using
 this format: gp_YYYYMMDD. The ./util/goes_untar.pl utility can be used
 to unzip downloaded GOES data (daily tar files) into the daily
 directories required by the tool.
 
-The follow­ing sample script file contains all of the required
-environment variables for running the tool:
-
-> **allocateGOES2WRFGrids.csh**
+The following sample script file contains all of the required
+environment variables for running the tool: **allocateGOES2WRFGrids.csh**.
 
 The tool contains the following three programs:
 
--   correctGOESHeader.exe – to correct GOES data position shifting by
+-   `correctGOESHeader.exe` – to correct GOES data position shifting by
     redefining a new Earth radius and new image extent. The program
-    converts GOES data in Grib (i.e., *.grb) format to files in ERDAS
-    Imagine (i.e., *.img) format with corrections.
-
--   computeGridGOES.exe – to regrid corrected Imagine-format GOES data
+    converts GOES data in Grib (i.e., .grb) format to files in ERDAS
+    Imagine (i.e., .img) format with corrections.
+-   `computeGridGOES.exe` – to regrid corrected Imagine-format GOES data
     to a defined grid domain.
-
--   toDataAssimilationFMT.exe – to convert the gridded NetCDF file into
+-   `toDataAssimilationFMT.exe` – to convert the gridded NetCDF file into
     a format suitable for WRF assimilation.
 
 The released GOES data has changed to ASCII format from GRIB format last
 year. We plan to update the tool in the coming months.
 
-***Note**:* When running the GOES cloud product processing tool, the
+When running the GOES cloud product processing tool, the
 Geospatial Data Abstraction Library (GDAL) will generate the following
 messages:
 
--   Warning: Inside GRIB2Inventory, Message # 2
-
--   ERROR: Ran out of file reading SECT0
+```
+Warning: Inside GRIB2Inventory, Message # 2
+ERROR: Ran out of file reading SECT0
+```
 
 These messages do not indicate any errors in regridding and so can be
 ignored.
 
-5.2 MODIS Level 2 Cloud/Aerosol Products Tool
------------------------------------------
+### MODIS Level 2 Cloud/Aerosol Products Tool
+SA Script: allocateMODISL2CloudVars2Grids.csh
 
 The MODIS Level 2 (swath) cloud and aerosol products tool processes
 MODIS L2 cloud or aerosol products for a defined grid domain. MODIS data
@@ -405,45 +359,20 @@ regridding tool, users need to download the following cloud data and
 Level 1 Geolocation 1-km data into the input directory:
 
 -   MOD06_L2 and MOD03 (Level 1 Geolocation 1-km ) for Terra, or
-
 -   MYD06_L2 and MYD03 (Level 1 Geolocation 1-km ) for Aqua
 
-The following download options can be selected during the downloading
-process:
-
-MODIS Cloud:
-
--   Select Level 2 products and select L2 Cloud products
-
--   Select time: “your download time period”
-
--   Collection 5
-
--   Select Latitude/Longitude with area longitude and latitude extent
-
+#### Cloud Product Data Access:
+-   URL: https://ladsweb.nascom.nasa.gov/search/
+-   Select Terra MODIS
+-   Select Atmosphere Level 2 products
+-   MOD06_L2
+-   Select time
+-   Collection: 5.1
+-   Select Latitude/Longitude
 -   Coverage options: select day, night, and both (all)
-
--   Select all other defaults and click search
-
+-   all other defaults and Click search
 -   Display all files
-
 -   Download all files into one directory
-
-MODIS Geolocation 1-km:
-
--   Select Level 1 products and select 03 Geolocation - 1km
-
--   Select time: “same as cloud products”
-
--   Collection 5
-
--   Select Latitude/Longitude with the above geographic extent
-
--   Coverage options: select day, night, and both (all)
-
--   Display all files
-
--   Download all files into the MODIS Cloud file directory
 
 MODIS aerosol products contain variable data at 10-km resolution
 (nadir). Users need to download MOD04 for Terra or MYD04 for Aqua into
@@ -452,71 +381,81 @@ when downloading Terra aerosol products. Downloading Aqua aerosol
 products involves similar options. The tool generates one NetCDF file
 for the defined domain.
 
+#### Aerosol Product Data Access:
+-   URL: https://ladsweb.nascom.nasa.gov/search/
 -   Select Terra MODIS
-
--   MODIS Aerosol products
-
--   Select Level 2 products and select L2 aerosol product
-
--   Select time: “your download time period”
-
--   Collection 5
-
--   Select Latitude/Longitude with area longitude and latitude extent
-
+-   Select Atmosphere Level 2 products
+-   MOD04_L2
+-   Select time
+-   Collection: 5.1
+-   Select Latitude/Longitude
 -   Coverage options: select day, night, and both (all)
-
--   Select all other defaults and click search
-
+-   all other defaults and Click search
 -   Display all files
-
 -   Download all files into one directory
 
-Users can modify the following sample script file provided for
-regridding:
+MODIS Geolocation data are needed for the MODIS cloud product regridding.
 
-> **allocateMODISL2CloudVars2Grids.csh**
+#### Geolocation Product Data Access:
+-   URL: https://ladsweb.nascom.nasa.gov/search/
+-   Select Terra MODIS
+-   Select Level 1 products
+-   MOD03 Geolocation - 1km
+-   Select time: same as cloud
+-   Collection: 5
+-   Select Latitude/Longitude: same as cloud
+-   Coverage options: select day, night, and both (all)
+-   all other defaults and Click search
+-   Display all files
+-   Download all files into the MODIS cloud data directory
 
-5.3 OMI Level 2 Product Tool
-------------------------
+Follow the same process for these other products: Aqua MODIS, Aqua Atmosphere Level 2 Products, MYD04_L2, MYD06_L2, MYD03
+
+Users can modify the **allocateMODISL2CloudVars2Grids.csh** sample script for
+regridding the MODIS cloud data.
+
+### OMI Level 2 Product Tool
+SA Script: allocateOMIL2vars2Grids.csh
 
 The OMI Level 2 product (swath) tool is used to regrid Ozone Monitoring
 Instrument (OMI) L2 aerosol and NO~2~ products for a defined grid
-domain. The input data can be downloaded from the NASA mirador site:
-[http://mirador.gsfc.nasa.gov/cgi-bin/mirador/presentNavigation.pl?tree=
-project&project=OMI](http://mirador.gsfc.nasa.gov/cgi-bin/mirador/presentNavigation.pl?tree=project&project=OMI).
+domain. 
+
+#### Data Access:
+-   URL: http://mirador.gsfc.nasa.gov/cgi-bin/mirador/presentNavigation.pl?tree=project&project=OMI
+-   Click L2_V003
+-   Select Spatial and Temporal Search and choose location and time period
+-   Under Data Set: Check only OMAERO.033, and OMNO2.003
+-   Search GES-DISC
+-   Put downloaded data in one directory and define in the run script.
 
 The downloaded data are in HDF5 format and should be stored in one
-directory, which is defined in the following sample script file:
+directory, which is defined in the **allocateOMIL2vars2Grids.csh** sample script.
 
-> **allocateOMIL2vars2Grids.csh**
-
-5.4 OMI L2G and L3 Product Tools
------------------------------
+### OMI L2G and L3 Product Tools
+SA Script: allocateOMIvar2Grids.csh
 
 The OMI L2G and L3 product tools process the following OMI products:
 
 -   OMI L3 aerosol products (OMAEROe) in HDF4
-
 -   OMI NO2 L2G products (OMNO2G) in HDF4
-
 -   OMI NO2 L3 products (NO2TropCS30) in HDF5
 
-The data can be downloaded from the NASA Giovanni web site:
-<http://gdata1.sci.gsfc.nasa.gov/daac-bin/G3/gui.cgi?instance_id=omi>
+#### Data Access:
+-   URL: http://mirador.gsfc.nasa.gov/cgi-bin/mirador/presentNavigation.pl?tree=project&project=OMI
+-   Click L2G_V003
+-   Select Temporal Search and choose time period
+-   Under Data Set: Check only OMAEROG.033, and OMNO2G.003
+-   Search GES-DISC
+-   Put downloaded data in one directory and define in the run script.
 
-OMI product information can be viewed from
-[http://disc.sci.gsfc.nasa.gov/giovanni/additional/
-users-manual/G3_manual_Chapter_10_OMIL2G.shtml#what_l2g](http://disc.sci.gsfc.nasa.gov/giovanni/additional/users-manual/G3_manual_Chapter_10_OMIL2G.shtml#what_l2g)
-and from [ftp://aurapar2u.ecs
-.nasa.gov/data/s4pa//Aura_OMI_Level2/OMAERUV.003/doc/README.OMI_DUG.pdf](ftp://aurapar2u.ecs.nasa.gov/data/s4pa/Aura_OMI_Level2/OMAERUV.003/doc/README.OMI_DUG.pdf)
+Follow the same procedure for L3_V003
 
-The following sample script can be modified for regridding:
+The **allocateOMIvar2Grids.csh** sample script can be modified for regridding the OMI L2 and L3 data.
 
-> **allocateOMIvar2Grids.csh**
-
-6. Agricultural Fertilizer Modeling Tools
-======================================
+---
+<a id="agtools"><a/>
+## Agricultural Fertilizer Modeling Tools
 
 There are four tools that can be used when performing Environmental
 Policy Integrated Climate (EPIC) modeling; they generate gridded
@@ -529,8 +468,7 @@ Fertilizer Emission Scenario Tool for CMAQ (FEST-C) interface
 and can be run by script files with defined environment variables at the
 command line.
 
-6.1 EPIC Site Information Generation Tool
--------------------------------------
+### EPIC Site Information Generation Tool
 
 This tool generates two CSV data files that are needed to create EPIC
 site databases for a user-defined domain:
@@ -538,7 +476,6 @@ site databases for a user-defined domain:
 -   EPICSites_Info.csv – contains GRIDID, XLONG, YLAT, ELEVATION,
     SLOPE_P, HUC8, REG10, STFIPS, CNTYFIPS, GRASS, CROPS, CROP_P,
     COUNTRY, and COUNTRY-PROVINCE items.
-
 -   EPICSites_Crop.csv – contains GRIDID, 42 crop acreages, COUNTRY,
     and HUC8 items.
 
@@ -547,26 +484,18 @@ been modified specifically for use with the tool and can be obtained
 from the CMAS:
 
 -   BELD4 file for the domain (beld4_cmaq12km_2006.nc)
-
 -   U.S. county shapefiles (co99_d00_conus_cmaq_epic.shp)
-
 -   North American State political boundary shapefile
     (na_bnd_camq_epic.shp)
-
 -   U.S. 8-digit HUC shapefile (conus_hucs_8_cmaq.shp)
-
 -   Elevation image file (na_dem_epic.img)
-
 -   Slope image file (na_slope_epic.img)
 
-Users can follow the sample script file below, which has all of the
+Use the **generateEPICSiteData.csh** sample script, which has all of the
 environment variables required for running the tool from the command
-line window:
+line.
 
-> **generateEPICSiteData.csh**
-
-6.2 MCIP/CMAQ-to-EPIC Tool
------------------------
+### MCIP/CMAQ-to-EPIC Tool
 
 This tool generates EPIC daily weather and nitrogen deposition data
 files from MCIP meteor­ol­ogy and CMAQ nitrogen deposition files for
@@ -578,7 +507,7 @@ MCIP output files must have names of the format METCRO2D*{date} (e.g.,
 METCRO2D_020725). The date format can be in one of the following
 formats:
 
-> YYYYMMDD *or* YYMMDD *or* YYYYDDD *or* YYDDD
+`YYYYMMDD *or* YYMMDD *or* YYYYDDD *or* YYDDD`
 
 CMAQ dry and wet deposition files must have names of the format
 *DRYDEP*{date} and *WETDEP*{date} (e.g.,
@@ -589,12 +518,9 @@ any of the formats listed above.
 Deposition inputs for EPIC modeling can take one of the following three
 inputs:
 
-1)  Directory containing a CMAQ dry and wet deposition file
-
-2)  Zero – assume zero nitrogen deposition
-
-3)  Default – assume nitrogen mix ratio of 0.8 ppm for wet default
-    > deposition computation
+-   Directory containing a CMAQ dry and wet deposition file
+-   Zero – assume zero nitrogen deposition
+-   Default – assume nitrogen mix ratio of 0.8 ppm for wet default deposition computation
 
 The input site location file defined by the environment variable
 EPIC_SITE_FILE has to be a CSV file, with the first three items being
@@ -605,10 +531,8 @@ The tool generates three outputs:
 -   dailyWETH directory containing EPIC daily weather and nitrogen
     deposition files with names of the format “grid ID”.dly (e.g.,
     96.dly). The daily file contains the 14 variables listed in [Table 4](#Table-4).
-
 -   NetCDF file with daily weather and nitrogen deposition data for all
     EPIC sites.
-
 -   EPICW2YR.2YR, to be used for daily weather file input list in EPIC
     modeling.
 
@@ -625,21 +549,17 @@ The tool generates three outputs:
 |6|Daily minimum 2m temperature (C)|13|Daily Total Dry Reduced N (g/ha)|
 |7|Daily Total Precipitation (mm)|14|Daily Total Wet Organic N (g/ha)|
 
-Users can follow the sample script file below, which has all of the
+Use the **generateEPICsiteDailyWeatherNdep.csh** sample script, which has all of the
 environment variables required for running the tool from the command
 line window:
 
-> **generateEPICsiteDailyWeatherNdep.csh**
-
-6.3 EPIC-to-CMAQ Tool
-------------------
+### EPIC-to-CMAQ Tool
 
 This tool processes merged daily output from EPIC simulations for the 42
 crops defined for the BELD4 tool output. It generates two types of
 outputs in NetCDF format for CMAQ bidirectional NH~3~ modeling:
 
 -   soil output file
-
 -   EPIC daily output files
 
 The 13 variables contained in the soil output file are listed in [Table 5](#Table-5).
@@ -657,13 +577,10 @@ The 13 variables contained in the soil output file are listed in [Table 5](#Tabl
 |6|L1_PH|Layer1 PH (none)|13|L2_Cation|Layer2 Cation Ex (cmol/kg)|
 |7|L1_Cation|Layer1 Cation Ex (cmol/kg)|                       
 
-
 EPIC daily output files for CMAQ contain the 59 variables listed in [Table 6](#Table-6).
 
-The following sample script file with all required environment variables
-can be modified and run at the command line:
-
-> **epic2CMAQ.csh**
+The **epic2CMAQ.csh** sample script file shows all required environment variables
+required for the program.
 
 <a id=Table-6></a>
 **Table 6. EPIC for CMAQ daily output variables.**
@@ -700,23 +617,17 @@ can be modified and run at the command line:
 |28|L2_NO3|Layer2 N - Nitrate (kg/ha)|57|CPHT|Crop Height (m)|
 |29|L2_NH3|Layer2 N - Ammonia (kg/ha)|
 
-
-[[[[[[[]{#_Toc357586948 .anchor}]{#_Toc357519807
-.anchor}]{#_Toc357440531 .anchor}]{#_Toc357435016
-.anchor}]{#_Toc357192631 .anchor}]{#_Toc357176060
-.anchor}]{#_Toc357175589 .anchor}*DN2 is currently under revision, and
+DN2 is currently under revision, and
 AVOL is an initial estimate that is revised within the bidirectional
 CMAQ.
 
-6.4 EPIC Yearly Extraction Tool
----------------------------
+### EPIC Yearly Extraction Tool
 
 This tool is used primarily to provide data for performing quality
 assurance (QA) for EPIC runs.
 
 -   For EPIC spin-up runs, it extracts average EPIC values from the last
     five years of the spin-up simulations.
-
 -   For EPIC application runs, it extracts application-year EPIC
     variables.
 
@@ -750,7 +661,7 @@ epic2cmaqyear.nc - crop specific output
 |17|DN2|N-N2O from NO3 Denitrification (kg/ha)|35|Q*|Runoff (mm)|
 |18|YLDG|Grain Yield (t/ha)|
 
-**epic2cmaq_year_total.nc - crop weighted output
+**epic2cmaq_year_total.nc** - crop weighted output
 
 |**Index**|**Name**|**Variable**|
 |---|---|---|
@@ -780,33 +691,29 @@ epic2cmaqyear.nc - crop specific output
 |24|T_QAP|T -Labile P Loss in Runoff (mt)|
 |25|T_YW|T -Wind Erosion (1000ton)|
 |26|T_Q*|T -Runoff (mm)|
-*Water on agricultural lands.
+\*Water on agricultural lands.
 
-The following sample script file, which is contained in the Raster Tools
-script directory, has all required environment variables and can be
-modified and run at the command line:
+The **epicYearlyAverage4QA.csh** sample script file, which is contained in the Raster Tools
+script directory, has all required environment variables to run the tool.
 
-> **epicYearlyAverage4QA.csh**
+----
+<a id="othertools"><a/>
+## Other Tools and Utilities
 
-7. Other Tools and Utilities
-=========================
-
-7.1 Domain Grid Shapefile Generation Tool
--------------------------------------
+### Domain Grid Shapefile Generation Tool
 
 Users can apply the domain grid shapefile generation tool to generate a
 polygon shapefile for a defined grid domain with the GRIDID attribute.
 The GRIDID attribute has values ranging from 1 for the grid cell in the
 lower left corner of the domain to the maximum number of cells for the
-grid cell in the upper right. The following sample script file can be
-modified for domain shapefile generation:
+grid cell in the upper right.
 
-> **generateGridShapefile.csh**
+The **generateGridShapefile.csh** sample script file can be
+modified for domain shapefile generation.
 
-7.2 Other Utilities
-----------------
+### Other Utilities
 
-The following utility programs are stored in the **util** directory:
+The following utility programs are stored in the SA_HOME/util directory:
 
 -   **goes_untar.pl** – used to untar downloaded GOES data into the
     format required for the GOES cloud product processing tool.
@@ -817,15 +724,32 @@ The following utility programs are stored in the **util** directory:
     used in WRF simulations with the WRF Pleim-Xiu Land Surface Model,
     using the 40 classes of NLCD/MODIS land cover data shown in [Table 1](#Table-1).
 
-8. Acknowledgments
-===============
+----
+<a id="trouble"><a/>
+## Troubleshooting##
+
+Users who have difficulties running the tools with the compiled libraries contained within the downloaded Spatial Allocator systemshould do the following:
+
+-   delete installed open-source library directories under the ./src/libs directory
+-   download new source packages and install them under the ./libs directory
+-   compile downloaded packages and install them under {package_path}/local, following the src/libs/README file
+-   modify paths in ./bin/sa_setup.csh and ./src/raster/Makefile
+-   in ./src/raster, do the following:
+
+```
+make clean
+make
+make install
+```
+----
+<a id="acknowledge4"><a/>
+## Acknowledgments ##
 
 The SA Raster Tools were developed with support from multiple projects:
 
 -   Work assignments from the U.S. EPA under Contract No. EP-W-09-023,
     “Operation of the Center for Community Air Quality Modeling and
     Analysis (CMAS)”
-
 -   NASA Research Opportunities in Space and Earth Sciences (ROSES)
     projects awarded to (1) the Institute for the Environment at the
     University of North Carolina at Chapel Hill (contract number
@@ -833,7 +757,7 @@ The SA Raster Tools were developed with support from multiple projects:
     at the University of Alabama in Huntsville (contract number
     NNX09AT60G).
 
+****
 [<< Previous Chapter](SA_ch03_vector.md) - [Home](README.md) - [Next Chapter >>](SA_ch05_surrogate.md)<br>
 
 Spatial Allocator User Manual (c) 2016<br>
-
