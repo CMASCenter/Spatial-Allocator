@@ -1,18 +1,18 @@
-Spatial Allocator Tools Release Notes
-====
-D. Yang,  CEMPD, Institute for the Environment, UNC-Chapel Hill
+# Spatial Allocator Tools Release Notes
 
-Contents
----
+Institute for the Environment, UNC-Chapel Hill
+
+## Contents
 * [Changes](#changes)
 * [Quick Start](#quick-start)
 * [Troubleshooting](#troubleshooting)
 
 <a id=changes></a>
-Changes
------
+## Changes
 
-### 01/16/2017 Update notes for SA_v4.3_012017
+### February 2017 Update notes for SA 4.3
+
+The Spatial Allocator is now being distributed through GitHub (https://github.com/CMASCenter/Spatial-Allocator). Past releases are available from the [CMAS Center](http://www.cmascenter.org).
 
 #### Vector Tools: 
 * Update Earth Radius to 6370000
@@ -20,6 +20,9 @@ Changes
 * Added Beld4SMK tool to the release
 * Added 64-bit executables
 * Update reference data
+
+### Documentation
+* All documentation ported to GitHub Markdown
 
 ### 05/31/2016 Update notes for SA 4.2:
 
