@@ -10,6 +10,9 @@ The programs that make up the Spatial Allocator were created using multiple pack
 -   [Shapelib](http://shapelib.maptools.org)
 -   [General Polygon Clipper](http://www.cs.man.ac.uk/aig/staff/alan/software)
 -   [GNU regex library](http://www.gnu.org/directory/regex.html)
+
+The base installation package only contains the compiled library and include files for these libraries. The complete library code repository is available for download from the CMAS Center.
+
 ***
 [<< Previous Chapter](SA_ch06_support.md) - [Home](README.md) - [Next Chapter >>](SA_ch08_licenses.md)
 
