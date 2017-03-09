@@ -683,7 +683,7 @@ The srgcreate program generates a surrogate file ready to be used in SMOKE. On e
 
 ### BELD3SMK and BELD4SMK: Generate BELD3/BELD4 Data for Biogenic Emissions Processing
 
-Biogenic Emissions Inventory System, Version 3 (BEIS3) uses either BELD3 or BELD4 land cover data for computing biogenic emissions fluxes on a modeling grid. These data sets give landuse cover fractions for 230 different types at a 1-km resolution for all of North America. The data are divided into 24 tiles in I/O API format, and each tile contains three files named These input files are I/O API files named b3_a.tile#n.nzero.ncf, b3_b.tile#n.nzero.ncf, and b3_tot.tile#n.nzero.ncf.
+Biogenic Emissions Inventory System, Version 3 (BEIS3) uses either BELD3 or BELD4 land cover data for computing biogenic emissions fluxes on a modeling grid. These data sets give landuse cover fractions for 230 different types at a 1-km resolution for all of North America. The data are divided into 24 tiles in netCDF I/O API format, and each tile contains three files named. These input files are I/O API files named b3_a.tile#n.nzero.ncf, b3_b.tile#n.nzero.ncf, and b3_tot.tile#n.nzero.ncf.
 
 -   The "a" files contain data for the first 120 landuse types.
 -   The "b" files contain the remaining 110 types.
@@ -706,6 +706,8 @@ The following environment variables control the behavior of the biogenic landuse
 -   `OUTPUT_FILE_PREFIX` - output name prefix including directory. The output files will be named by appending \_a.ncf, \_b.ncf, and \_tot.ncf to OUTPUT_FILE_PREFIX. The program will not overwrite existing output files if the new output files a for a different grid.
 
 The script convert_beld3.csh runs the beld3smk program for a small test domain; the script convert_beld4.csh runs the beld4smk program for the same test domain. This script can easily be modified for any given modeling grid by changing the OUTPUT_GRID_NAME and the OUTPUT_FILE_PREFIX and ensuring that the desired grid is described in the GRIDDESC file.
+
+The SA release package includes the full set of North American BELD3 and BELD4 tiles. The SA data can be downloaded from the [CMAS Center](http://www.cmascenter.org/sa-tools).
 
 -----
 <a id="comp"><a/>
