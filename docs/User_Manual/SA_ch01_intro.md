@@ -18,16 +18,17 @@ Open source 3rd-party packages used:
 - Vector Tools: I/O API and NetCD libraries compiled using pgcc, but PROJ4 compiled with gcc.
 - Raster Tools: GDAL, GEOS, PROJ4, NETCDF, HDF4, HDF5, and ANN in the C++ language compiled with gcc for Linux systems.
 
-The SA installation contains the following folders:
+The SA code, scripts, and executables are organized in the following directories:
 
-- bin – contains 64-bit executable raster tools, 32-bit executable vector tools, and set up file
-- src – contains raster, vector, and library source codes
-- data – contains required and sample data files. The sub-directory sat is used to contain land use and satellite input data
-- raster_scripts – contains sample script files to run raster tools
-- scripts – contains sample script files to run vector tools
-- srgtools – contains the Surrogate Tools Java package and sample files to compute multiple surrogates
-- output – output directory
-- util – utility programs
+- **bin** - SA 32-bit and 64-bit Linux executables
+- **data** - Input data for testing the SA installation (download from the [CMAS Center](http://www.cmascenter.org))
+- **docs** - SA Documentation
+- **raster_scripts** - C-shell scripts for running the [Raster Tools](docs/User_Manual/SA_ch04_raster.md)
+- **ref** - location of reference data for verifying the SA installation (download from the [CMAS Center](http://www.cmascenter.org))
+- **scripts** - C-shell scripts for running the [Vector Tools](docs/User_Manual/SA_ch03_vector.md)
+- **src** - SA source code and 3rd-party libraries
+- **srgtools** - C-shell scripts for running the [Surrogate Tools](docs/User_Manual/SA_ch05_surrogate.md)
+- **util** - miscellaneous utility scripts to support the SA tools
 
 ***
 [Home](README.md) - [Next Chapter >>](SA_ch02_install.md)<br>
