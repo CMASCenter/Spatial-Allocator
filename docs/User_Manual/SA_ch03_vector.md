@@ -62,6 +62,7 @@ The Spatial Allocator Vector Tools were developed with the following objectives:
      
 3.  Demonstrate the use of the Spatial Allocation Vector Tools to prepare surface water cover, railroads, airports, and housing spatial surrogates for use by SMOKE.
      
+
 ----------
 
 <a id="background2"><a/>
