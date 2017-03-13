@@ -7,6 +7,7 @@
 -   [Introduction](#intro5)
 -   [Input Files](#inputs)
 -   [Running the Surrogate Tool](#running)
+-   [The PostgreSQL Surrogate Tool](#postgres)
 -   [Output Files](#outputs)
 -   [Development Description](#dev)
 -   [Enhancements, Limitations, and Future Updates](#updates)
@@ -767,6 +768,10 @@ java -classpath SurrogateTools.jar gov.epa.surrogate.qa.Main ../output/somegrid/
 ```
 
 where threshold is a real number between 0 and 1.0.
+
+---
+<a id="postgres"><a/>
+## The PostgreSQL Surrogate Tool 
 
 ---
 
