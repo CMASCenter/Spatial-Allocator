@@ -766,6 +766,7 @@ where threshold is a real number between 0 and 1.0.
 <a id="postgres"><a/>
 ## The PostgreSQL Surrogate Tool 
 ### Introduction
+**Add content**
 
 ### System Requirements and Recommendations
 This section introduces aspects of the computer system on which the PostgreSQL (PG) Surrogate Tool will operate. Specific hardware brands, model numbers, and specifications (e.g., hard disk drive speed) are not given because the technology changes rapidly. However, the database software is a requirement because the PG Surrogate Tool is written in PostgreSQL/PostGIS and is not guaranteed to work with a different relational database language.
@@ -844,6 +845,10 @@ Updates to the SScsv file for the PG Surrogate Tools:
 
 The rest of the columns remain unchanged. 
 
+#### control_variables.csv (CVcsv)
+
+#### surrogate_codes.csv (SCcsv)
+
 ### Run Scripts
 
 #### General Notes on Shell Scripts
@@ -856,7 +861,9 @@ The rest of the columns remain unchanged.
 -  Spatial data must be in correct projection.
 -  Prerequisites and postprocessing scripts are provided within comments at the top of each shell script.
 
-#### Script to Create Database Table for New Grid Definition
+#### Preparing the Database
+
+##### Script to Create Database Table for New Grid Definition
 
 ```
 #!/bin/bash
@@ -952,6 +959,12 @@ Create the spatial (GIST) index:
 CREATE INDEX ON $schemaname.$tblname USING GIST (gridcell);
 End the psql session.
 ```
+
+##### Script to Create Database Table for a New Shapefile
+**Add content: Describe how to load shapefiles into the database**
+
+#### Running the Java Surrogate Tools
+**Add content: descrige how to run the Java program**
 
 ---
 
