@@ -7,8 +7,9 @@ Institute for the Environment, UNC-Chapel Hill
 The Spatial Allocator is now being distributed through GitHub (https://github.com/CMASCenter/Spatial-Allocator). Releaases available on github: 4.3 and 4.3.1. Past releases are available from the [CMAS Center](http://www.cmascenter.org).
 
 06/2017 Update Release Notes for SA 4.3.1
-Added input data files for the FESTC release
-Updated executables and source code for extractEPIC2CMAQ and extractEPICYearlyAverage2CMAQ
+#### Raster Tools:  
+* Added input data files for the FESTC release
+* Updated executables and source code for extractEPIC2CMAQ and extractEPICYearlyAverage2CMAQ
 
 02/2017 Update Release Notes for SA 4.3
 
