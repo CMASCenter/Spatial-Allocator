@@ -2,28 +2,37 @@
  * This program is used:
  *  1. to compute grid cell GOES satellite variables from:
  *     (1). GOES Imager Cloud Albedo (CALB, 4km resolution)        %
- *          goes_rtv_CALB_YYYYMMDDhhZ.grb or goes_rtv_CALB_YYYYMMDDhhmmZ.grb
+ *          goes_img_CALB_v00_YYYYMMDDhhZ.grb or goes_img_CALB_v00_YYYYMMDDhhmmZ.grb
  *
  *     (2). GOES Imager Insolation (INSL, 4km resolution)          Watts per square meters
- *          goes_rtv_INSL_YYYYMMDDhhZ.grb or goes_rtv_INSL_YYYYMMDDhhmmZ.grb
+ *          goes_img_INSL_v00_YYYYMMDDhhZ.grb or goes_img_INSL_v00_YYYYMMDDhhmmZ.grb
  *
  *     (3). GOES Imager Surface Albedo (SALB, 4km resolution)      %
- *          goes_rtv_SALB_YYYYMMDDhhZ.grb or goes_rtv_SALB_YYYYMMDDhhmmZ.grb
+ *          goes_img_SALB_v00_YYYYMMDDhhZ.grb or goes_img_SALB_YYYYMMDDhhmmZ.grb
  *
  *     (4). GOES Imager Cloud Top Pressure (CTP, 4km resolution)   Pascals
- *          goes_rtv_CTP_YYYYMMDDhhZ.grb or goes_rtv_CTP_YYYYMMDDhhmmZ.grb
+ *          goes_img_CTP_YYYYMMDDhhZ.grb or goes_img_CTP_YYYYMMDDhhmmZ.grb
  *
- *     (5)  GOES Imager Infrared Temperature at Cloud/Surafce Level (IR, 4km resolution)    Celsius
- *          goes_rtv_IR_YYYYMMDDhhZ.grb or goes_rtv_IR_YYYYMMDDhhmmZ.grb
+ *     (5)  GOES Imager Infrared Temperature at Cloud/Surafce Level (LWIR, 4km resolution)    Celsius
+ *          goes_img_LWIR_v00_YYYYMMDDhhZ.grb or goes_img_LWIR_YYYYMMDDhhmmZ.grb
  *
- *     (6). GOES Sounder Cloud Top Pressure (CTP, 10km resolution)  Pascals
- *          goes_snd_rtv_CTP_YYYYMMDDhhZ.grb or goes_snd_rtv_CTP_YYYYMMDDhhmmZ.grb
+ *     (6)  GOES Imager Photosynthetically Active Radiation (PARW, 4km resolution)    W/m^2
+ *          goes_img_PARW_v00_YYYYMMDDhhmmZ.grb
  *
- *     (7). GOES Sounder Skin Temperature (TSKN, 10km resolution)   Celsius
- *          goes_snd_rtv_TSKN_YYYYMMDDhhZ.grb or goes_snd_rtv_TSKN_YYYYMMDDhhmmZ.grb
+ *     (7)  GOES Imager Photosynthetically Active Radiation (PARM, 4km resolution)    micro-mol/(s m^2)
+ *          goes_img_PARM_v00_YYYYMMDDhhmmZ.grb
  *
- *     (8). GOES Sounder Total Precipitable Water Vapor at Ground/Water Surface (TPW, 10km resolution)  mm 
- *          goes_snd_rtv_TPW_YYYYMMDDhhZ.grb or goes_snd_rtv_TPW_YYYYMMDDhhmmZ.grb
+ *     (8). GOES Sounder Cloud Top Pressure (CTP, 10km resolution)  Pascals
+ *          goes_snd_CTP_v00_YYYYMMDDhhZ.grb or goes_snd_CTP_YYYYMMDDhhmmZ.grb
+ *
+ *     (9). GOES Sounder Skin Temperature (TSKN, 10km resolution)   Celsius
+ *          goes_snd_TSKN_v00_YYYYMMDDhhZ.grb or goes_snd_TSKN_YYYYMMDDhhmmZ.grb
+ *
+ *     (10). GOES Sounder Total Precipitable Water Vapor at Ground/Water Surface (TPW, 10km resolution)  mm 
+ *          goes_snd_TPW_v00_YYYYMMDDhhZ.grb or goes_snd_TPW_YYYYMMDDhhmmZ.grb
+ *
+ *     (11). GOES Sounder Infrared Temperature (LWIR, 10km resolution)  mm 
+ *          goes_snd_LWIR_v00_YYYYMMDDhhZ.grb or goes_snd_LWIR_YYYYMMDDhhmmZ.grb
  *
  *  2. to output GOES satellite variables into a WRF netcdf file.
  *  3. Time step for GOES data processing is 1 hour.  Since GOES data are obtained around 45 minutes after hours,
@@ -36,6 +45,12 @@
  *   Modified  05/2011
  *             09/2012
  *             07/2014: add reading text and latlong grid files in addition to Grib format
+ *   By apb    10/2014: modified file names and added the new products (LWIR, PARW, PARM)
+ *   By apb    01/2015: modified file names
+ *                      New file names are: goes_[sensor]_[product]_v[version-number]_YYYYMMDDhhmmZ.txt
+ *   By apb    02/2017: Removed hard coded dimensions for satellite data so that the program can be used 
+ *                      with old or newer versions of GOES Imager data. The coverage was extended in the 
+ *                      new retrievals (from 1500x800 to 1552x1300).
  *
  * Usage:  computeGridGOES.exe
  *
@@ -47,17 +62,20 @@
  *         GRID_XCELLSIZE -- grid domain x grid size
  *         GRID_YCELLSIZE -- grid domain y grid size
  *         GRID_PROJ -- grid domain proj4 projection definition
- *         DATA_DIR -- directory of downloded preprocessed GOES data: each day is in a directory
+ *         GOES_DATA_DIR -- directory of downloded preprocessed GOES data: each day is in a directory
  *         START_DATE_TIME  -- Start day and time: YYYYMMDDHHMM
  *         END_DATE_TIME -- End day and time: YYYYMMDDHHMM
  *         INCLUDE_GOES_IMG_CALB -- YES or NO to include GOES Imager cloud albedo in computation
  *         INCLUDE_GOES_IMG_CTP -- YES or NO to include GOES Imager cloud top pressure in computation
  *         INCLUDE_GOES_IMG_INSL -- YES or NO to include GOES Imager insolation in computation
  *         INCLUDE_GOES_IMG_SALB -- YES or NO to include GOES Imager surface albedo in computation
- *         INCLUDE_GOES_IMG_IR -- YES or NO to include GOES Imager infrared temperature in computation
+ *         INCLUDE_GOES_IMG_LWIR -- YES or NO to include GOES Imager infrared temperature in computation
+ *         INCLUDE_GOES_IMG_PARW -- YES or NO to include GOES Imager PARW in computation
+ *         INCLUDE_GOES_IMG_PARM -- YES or NO to include GOES Imager PARM in computation
  *         INCLUDE_GOES_SND_CTP -- YES or NO to include GOES Sounder cloud top pressure in computation
  *         INCLUDE_GOES_SND_TSKN -- YES or NO to include GOES Sounder skin temperature in computation
  *         INCLUDE_GOES_SND_TPW -- YES or NO to include GOES Sounder total precipitable water vapor in computation
+ *         INCLUDE_GOES_SND_LWIR -- YES or NO to include GOES Sounder infrared temperature in computation
  *         GOES_IMAGER_POINT_LATLONG - Imager grid lat and long file
  *         GOES_SOUNDER_POINT_LATLONG - Sounder grid lat and long file
  *         OUTPUT_NETCDF_FILE -- netCDF output grid cell GOES satellite information.  Only works for LCC now.
@@ -89,61 +107,76 @@ void computeGOESVariable (int timeStep, int startMins, float *goesV, string inGO
 //gloabl variables to set GOES variables
 const int             timeStep = 60;         //time step to process GOES data is 60 minutes
 const int             startMins = 45;        //GOES images are most obtained around 45 mins after hours 
-const int             numGOESVars = 8;       //number of GOES variable selections       
+const int             numGOESVars = 11;       //number of GOES variable selections       
 const int             timeStrLength = 19;    //time string length in WRF Netcdf output 
 const char            goesEnvVarNames [][25] = {
                               "INCLUDE_GOES_IMG_CALB",
                               "INCLUDE_GOES_IMG_CTP",
                               "INCLUDE_GOES_IMG_INSL",
                               "INCLUDE_GOES_IMG_SALB",
-                              "INCLUDE_GOES_IMG_IR",
+                              "INCLUDE_GOES_IMG_LWIR",
+                              "INCLUDE_GOES_IMG_PARW",
+                              "INCLUDE_GOES_IMG_PARM",
                               "INCLUDE_GOES_SND_CTP",
                               "INCLUDE_GOES_SND_TSKN",
-                              "INCLUDE_GOES_SND_TPW"
+                              "INCLUDE_GOES_SND_TPW",
+                              "INCLUDE_GOES_SND_LWIR"
                              };
 
 const char            goesVarFileNameFmts [][25] = {
-                              "goes_rtv_CALB_",
-                              "goes_rtv_CTP_",
-                              "goes_rtv_INSL_",
-                              "goes_rtv_SALB_",
-                              "goes_rtv_IR_",
-                              "goes_snd_rtv_CTP_",
-                              "goes_snd_rtv_TSKN_",
-                              "goes_snd_rtv_TPW_"
+                              "goes_img_CALB_",
+                              "goes_img_CTP_",
+                              "goes_img_INSL_",
+                              "goes_img_SALB_",
+                              "goes_img_LWIR_",
+                              "goes_img_PARW_",
+                              "goes_img_PARM_",
+                              "goes_snd_CTP_",
+                              "goes_snd_TSKN_",
+                              "goes_snd_TPW_",
+                              "goes_snd_LWIR_"
                              };
 
 const char            goesVarFileNameFmts_txt [][25] = {
-                              "goes_img_rtv_CALB_",
-                              "goes_img_rtv_CTP_",
-                              "goes_img_rtv_INSL_",
-                              "goes_img_rtv_SALB_",
-                              "goes_img_rtv_IR_",
-                              "goes_snd_rtv_CTP_",
-                              "goes_snd_rtv_TSKN_",
-                              "goes_snd_rtv_TPW_"
+                              "goes_img_CALB_",
+                              "goes_img_CTP_",
+                              "goes_img_INSL_",
+                              "goes_img_SALB_",
+                              "goes_img_LWIR_",
+                              "goes_img_PARW_",
+                              "goes_img_PARM_",
+                              "goes_snd_CTP_",
+                              "goes_snd_TSKN_",
+                              "goes_snd_TPW_",
+                              "goes_snd_LWIR_"
                              };
 
-const char            goesVarUnits [][15] = {
+const char            goesVarUnits [][25] = {
                               "Fraction",
                               "Pascals",
                               "Watts/m^2",
                               "Fraction",
                               "Celsius",
+                              "Watts/m^2",
+                              "micro-mole/(s m^2)",
                               "Pascals",
                               "Celsius",
-                              "mm"
+                              "mm",
+                              "Celsius"
                              };
 
-const char            goesVarDesc [][65] = {
+const char            goesVarDesc [][80] = {
                               "Imager cloud albedo",
                               "Imager cloud top pressure",
                               "Imager insolation",
                               "Imager surface albedo",
                               "Imager infrared temperature at cloud/surface level",
+                              "Imager Photosynthetically Active Radiation in Watts/m^2",
+                              "Imager Imager Photosynthetically Active Radiation in micro-mol/(s m^2)",
                               "Sounder cloud top pressure",
                               "Sounder skin temperature",
-                              "Sounder total precipitable water vapor at ground/water surface"
+                              "Sounder total precipitable water vapor at ground/water surface",
+                              "Sounder infrared temperature at cloud/surface level"
                              };
 
 vector<string>        inGOESVars,inGOESVarFileNameFmts,inGOESVarUnits,inGOESVarDesc;   //store selected GOES variable names and file format
@@ -164,11 +197,19 @@ OGRSpatialReference   oSRS_grd;
 char                  *pszProj4_grd = NULL;
 
 //set Imager and Sounder image grids
-int                   rows_IMG = 800;
-int                   cols_IMG = 1500;
+// apb, 4/27/2016 - new UAH Imager products cover a larger area
+// apb, 2/23/2017 - now reading dimensions from lat/lon file
+//int                   rows_IMG = 800;
+//int                   cols_IMG = 1500;
+//int                   rows_IMG = 1300;
+//int                   cols_IMG = 1552;
+int                   rows_IMG = 0;
+int                   cols_IMG = 0;
 int                   gridSize_IMG    = 4000;    //meters
-int                   rows_SND = 320;
-int                   cols_SND = 600;
+//int                   rows_SND = 320;
+//int                   cols_SND = 600;
+int                   rows_SND = 0;
+int                   cols_SND = 0;
 int                   gridSize_SND    = 10000;    //meters 
 
 int                   *grdIndex_IMG=NULL;        //store grid index in Imager grids for multiple variable processing
@@ -188,6 +229,7 @@ int main(int nArgc, char *argv[])
         string      gdalBinDir;      //GDAL directory
 
         //print program version
+        printf("Just make sure you are running the right code...\n\n");
         printf ("\nUsing: %s\n", prog_version);
 
         printf("Compute grid GOES variable information...\n\n");
@@ -322,7 +364,7 @@ int main(int nArgc, char *argv[])
         *       get GOES data dir                  *
         *******************************************/
         //printf( "Getting directory containing preprocessed GOES data.\n");
-        dataDir = string( getEnviVariable("DATA_DIR") );
+        dataDir = string( getEnviVariable("GOES_DATA_DIR") );
         dataDir = processDirName(dataDir );  //make sure that dir ends with path separator
         printf("\tPreprocessed GOES file directory: %s\n",dataDir.c_str() );
         FileExists(dataDir.c_str(), 0 );  //the dir has to exist.
@@ -357,13 +399,30 @@ int main(int nArgc, char *argv[])
         /***********************************************************/
         inputGridFile_IMG = string ( getEnviVariable("GOES_IMAGER_POINT_LATLONG") );
         inputGridFile_IMG = trim( inputGridFile_IMG );
+// apb - 02/23/2017 - Now reading imager and sounder dimensions from the script.
+//                    This is to accommodate for old and new GOES retrievals
+        cols_IMG = (float) atof( getEnviVariable("COLS_IMG") );
+        rows_IMG = (float) atof( getEnviVariable("ROWS_IMG") );
         printf( "\n\tGOES Imager point long and lat file is:  %s\n",inputGridFile_IMG.c_str() );
         FileExists(inputGridFile_IMG.c_str(), 0 );  //the file has to exist.
+        if ( cols_IMG == 0 ||  rows_IMG == 0 )
+        {
+           printf ( "\tError: COLS_IMG and ROWS_IMG must be set in the script\n" );
+           exit ( 1 );
+        }
+
 
         inputGridFile_SND = string ( getEnviVariable("GOES_SOUNDER_POINT_LATLONG") );
         inputGridFile_SND = trim( inputGridFile_SND );
+        cols_SND = (float) atof( getEnviVariable("COLS_SND") );
+        rows_SND = (float) atof( getEnviVariable("ROWS_SND") );
         printf( "\tGOES Sounder point long and lat file is:  %s\n",inputGridFile_SND.c_str() );
         FileExists(inputGridFile_SND.c_str(), 0 );  //the file has to exist.
+        if ( cols_SND == 0 ||  rows_SND == 0 )
+        {
+           printf ( "\tError: COLS_SND and ROWS_SND must be set in the script\n" );
+           exit ( 1 );
+        }
 
         
         //printf( "Getting output NetCDF file name.\n");
@@ -849,6 +908,9 @@ void readGridLatLongFile (string inputGridFile, double *xLong, double *yLat)
      vector<string>     vecString;
      int          i;                       //file index
      int          cols, rows;
+// apb - 02/23/2017 - added the following integers for dimension check
+             int cols_from_file;
+             int rows_from_file;
 
 
      if ( inputGridFile.find ( "Imager" )  != string::npos )
@@ -881,6 +943,8 @@ void readGridLatLongFile (string inputGridFile, double *xLong, double *yLat)
            //get rid of empty line
            if ( lineStr.size() == 0 )
            {
+// apb - 02/23/2017 - Subtracted one from index to correct the bookkeeping. 
+              i = i - 1;
               goto newloop;
            }
 
@@ -892,12 +956,43 @@ void readGridLatLongFile (string inputGridFile, double *xLong, double *yLat)
               exit ( 1 );
            }
 
+// apb - 02/23/2017 - Check the file header for number of cols and rows to make sure that
+//                    the lat/lon file matches GOES data file.
+           if ( vecString.size()  == 4 )
+           {
+              dataStr = vecString[2];
+              cols_from_file = atof ( dataStr.c_str() );
+              dataStr = vecString[3];
+              rows_from_file = atof ( dataStr.c_str() );
+
+              if ( cols_from_file != cols || rows_from_file != rows )
+	      {
+                 printf( "\tError: COLS/ROWS in lat/lon file do not match the input\n");
+                 printf( "\tError: COLS/ROWS from script are %d - %d\n", cols, rows );
+                 printf( "\tError: COLS/ROWS from lat/lon file are %d - %d\n", cols_from_file, rows_from_file );
+                 exit ( 1 );
+              }
+              else
+              {
+                 printf( "\tINFO:  COLS/ROWS from lat/lon file are %d - %d\n", cols_from_file, rows_from_file );
+              }
+              i = i - 1;
+              goto newloop;
+           }
+
+
            if ( i == 1 )
            {
               printf( "\tFile header: %s\n", lineStr.c_str() );
            }
            else
            {
+
+// apb - 02/23/2017 - Now getting gridID from lat/lon file
+              //get gridID
+              dataStr = vecString[0];
+              int gridID = atoi ( dataStr.c_str() );     //gridID from LL to UR (must start from 1)
+
               //get longitude
               dataStr = vecString[1];
               x = atof ( dataStr.c_str() );
@@ -906,13 +1001,15 @@ void readGridLatLongFile (string inputGridFile, double *xLong, double *yLat)
               dataStr = vecString[2];
               y = atof ( dataStr.c_str() );
 
-              int gridID = i - 1;     //gridID from LL to UR
+
+// apb - 02/23/2017 - Now getting gridID from lat/lon file, no need to use the counter i
+//            int gridID = i - 1;     //gridID from LL to UR (must start from 1)
               int row = (int) ( floor ( ( gridID - 1 ) / cols) );   //start from 0
               int col = ( gridID - 1 ) % cols;                      //start from 0
 
               if ( row < 0 || row >= rows || col < 0 || col >= cols)
               {
-                 printf( "\tError: computed row % and col % outside defined image dimensions: %s\n", row, col, inputGridFile.c_str() );
+                 printf( "\tError: computed row %d and col %d outside defined image dimensions: %s\n", row, col, inputGridFile.c_str() );
                  exit ( 1 );
               }
 
@@ -1028,11 +1125,19 @@ string getdayStrFromFileName ( string imageFileName, string inGOESVarFileNameFmt
 
 
       //printf ("\t\t num of day time string = %d\n",j-i);
+//apb, 3/18/2015: changed the following to allow for version number addition (i.e., v00_ in goes_img_PARW_v00_YYYYMMDDHHMMZ.txt)
+      if ( (j-i) == 16 ) //allow for version number
+      {
+         i = i+4; 
+      } 
+//apb, 3/18/2015: end of modification
+
       if ( (j-i) != 10 && (j-i) != 12 )
       {
          printf ("\t Time format should be YYYYMMDDhh or YYYYMMDDhhmm: %s\n",imageFileName.c_str() ); 
          exit ( 1 );
       }
+
 
       dayTimeStr = imageFileName.substr (i,j-i);
 
@@ -1516,7 +1621,9 @@ void computeGOESVariable ( int timeStep, int startMins, float *goesV, string inG
     dayMid = dayStart;
     while ( dayMid <= dayEnd )
     { 
-       dayDirName = dataDir + string ( "gp_" );
+// apb - 2/13/2017 - gp_ is no longer preceeding daily directory names
+//       dayDirName = dataDir + string ( "gp_" );
+       dayDirName = dataDir;
        dayDirName.append ( dayMidStr ); 
        dayDirName = processDirName ( dayDirName ); 
 
