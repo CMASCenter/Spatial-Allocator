@@ -74,44 +74,36 @@ const Line variableDescriptionsS[ ] = { "Soil Number", "Layer1 Bulk Density", "L
  ***********************************/
 bool                     monthTimeStep;    // monthly or daily
 
-int                      numNCMFileItems = 71;
+int                      numNCMFileItems = 87;
 
-static int               epicVarsPos[] = {12,13,14,15,16,17,18,19,21,22,
-                                          23,24,25,26,27,28,29,30,31,32,
-                                          33,34,35,36,37,38,39,40,41,42,
-                                          43,44,45,46,47,48,49,50,51,52,
-                                          53,54,55,56,57,58,59,60,61,62,
-                                          63,64,65,67,68,69,70};
+// start from 0
 
-int                      numEpicVars = 57;
+static int               epicVarsPos[] = {15,16,18,19,24,26,27,28,43,44,
+                                          45,46,47,48,51,52,53,54,55,56,
+                                          57,58,61,62,63,64,65,66,67,70,
+                                          71,72,73,74,77,78,79,85,86,87};
 
-const Name variableNamesM[ ] = { "QNO3", "SSFN", "PRKN", "DN", "DN2", "AVOL", "HMN", "NFIX", "YP", "QAP", 
-                                 "YON", "YW", "Q","HUSC","HU_BASE0", "HU_FRAC", "L1_DEP", "L1_BD","L1_NO3", "L1_NH3", 
-                                 "L1_ON", "L1_P", "L1_OP", "L1_C", "L1_NITR", "L2_DEP", "L2_BD", "L2_NO3","L2_NH3", "L2_ON", 
-                                 "L2_P", "L2_OP", "L2_C", "L2_NITR", "T1_DEP", "T1_BD", "T1_NO3", "T1_NH3","T1_ON", "T1_P", 
-                                 "T1_OP", "T1_C", "T1_NITR", "L1_ANO3", "L1_ANH3", "L1_AON", "L1_AMP", "L1_AOP","L2_ANO3", "L2_ANH3",
-                                 "L2_AON", "L2_AMP", "L2_AOP", "UN1", "HUI", "LAI", "CPHT" };  //57 vars
+int                      numEpicVars = 40;
 
-const Name variableUnitsM[ ] = { "kg/ha", "kg/ha", "kg/ha", "kg/ha", "kg/ha", "kg/ha", "kg/ha", "kg/ha", "kg/ha", "kg/ha", 
-                                 "kg/ha", "ton/ha", "mm",   "none",  "none",  "none",  "m",     "t/m**3","kg/ha", "kg/ha", 
-                                 "kg/ha", "kg/ha", "kg/ha", "kg/ha", "kg/ha", "m",     "t/m**3", "kg/ha","kg/ha", "kg/ha", 
-                                 "kg/ha", "kg/ha", "kg/ha", "kg/ha", "m",     "t/m**3","kg/ha",  "kg/ha","kg/ha", "kg/ha", 
-                                 "kg/ha", "kg/ha", "kg/ha", "kg/ha", "kg/ha", "kg/ha", "kg/ha",  "kg/ha","kg/ha", "kg/ha", 
-                                 "kg/ha", "kg/ha", "kg/ha", "kg/ha",  "None", "None",  "m" }; //57 items
+const Name variableNamesM[ ] = { "DN", "DN2", "HMN", "NFIX", "YW", "FPO", "FPL", "MNP", "L1_DEP", "L1_BD",
+                                 "L1_SW", "L1_NO3", "L1_NH3", "L1_ON", "L1_C", "L1_NITR", "L2_DEP","L2_BD", "L2_SW", "L2_NO3",
+                                 "L2_NH3", "L2_ON", "L2_C", "L2_NITR", "T1_DEP", "T1_BD", "T1_NO3", "T1_NH3","T1_ON", "T1_C", 
+                                 "T1_NITR", "L1_ANO3", "L1_ANH3", "L1_AON", "L2_ANO3", "L2_ANH3", "L2_AON", "LAI", "CPHT", "FBARE" };  //40 vars
+
+const Name variableUnitsM[ ] = { "kg/ha", "kg/ha", "kg/ha", "kg/ha", "ton/ha","kg/ha", "kg/ha", "kg/ha", "m", "t/m**3", 
+                                 "mm", "kg/ha", "kg/ha", "kg/ha", "kg/ha", "kg/ha", "m", "t/m**3", "mm", "kg/ha",
+                                 "kg/ha", "kg/ha", "kg/ha", "kg/ha", "m", "t/m**3", "kg/ha", "kg/ha","kg/ha", "kg/ha", 
+                                 "kg/ha", "kg/ha", "kg/ha","kg/ha", "kg/ha", "kg/ha", "kg/ha", "m-2/m-2",  "m", "fraction" }; //40 items
 
 
-const Line variableDescriptionsM[ ] = { "N Loss in Surface Runoff", "N in Subsurface Flow", "N Loss in Percolate", "N-NO3 Denitrification", "N-N2O from NO3 Denitrification",
-                                        "N-NH3 Emission", "OC Change by Soil Respiration", "N Fixation", "P Loss with Sediment", "Labile P Loss in Runoff", 
-                                        "N Loss with Sediment", "Wind Erosion", "Runoff", "Heat Unit Schedule", "Base Heat Unit", 
-                                        "Heat Unit fraction", "Layer1 Depth", "Layer1 Bulk Density", "Layer1 N - Nitrate", "Layer1 N - Ammonia", 
-                                        "Layer1 Organic N", "Layer1 Mineral P", "Layer1 Organic P", "Layer1 Carbon", "Layer1 N - Nitrified NH3",
-                                        "Layer2 Depth", "Layer2 Bulk Density", "Layer2 N - Nitrate", "Layer2 N- Ammonia", "Layer2 Organic N",
-                                        "Layer2 Mineral P", "Layer2 Organic P", "Layer2 Carbon", "Layer2 N - Nitrified NH3", "TotalSoilnoLayer1 Depth", 
-                                        "TotalSoilnoLayer1 Bulk Density", "TotalSoilnoLayer1 N - Nitrate", "TotalSoilnoLayer1 N - Ammonia", "TotalSoilnoLayer1 Organic N", "TotalSoilnoLayer1 Mineral P", 
-                                        "TotalSoilnoLayer1 Organic P", "TotalSoilnoLayer1 Carbon", "TotalSoilnoLayer1 N - Nitrified NH3", "Layer1 N-NO3 AppRate", "Layer1 N-NH3 AppRate",
-                                        "Layer1 ON AppRate", "Layer1 MP AppRate", "Layer1 OP AppRate", "Layer2 N-NO3 AppRate", "Layer2 N-NH3 AppRate", 
-                                        "Layer2 ON AppRate", "Layer2 MP AppRate", "Layer2 OP AppRate", "N Uptake by Crop", "Heat Unit Index", 
-                                        "Leaf Area Index", "Crop Height" };
+const Line variableDescriptionsM[ ] = { "N-NO3 Denitrification", "N-N2O from NO3 Denitrification", "OC Change by Soil Respiration", "N Fixation", "Wind Erosion",
+                                        "Organic P Fertilizer", "Labile P Fertilizer"," P Mineralized", "Layer1 Depth", "Layer1 Bulk Density", 
+                                        "Layer1 Soil Water", "Layer1 N - Nitrate", "Layer1 N - Ammonia", "Layer1 N - Organic N", "Layer1 Carbon", 
+                                        "Layer1 N - Nitrified NH3", "Layer2 Depth", "Layer2 Bulk Density", "Layer2 Soil Water", "Layer2 N - Nitrate", 
+                                        "Layer2 N- Ammonia", "Layer2 N - Organic N", "Layer2 Carbon", "Layer2 N - Nitrified NH3", "TotalSoilnoLayer1 Depth",
+                                        "TotalSoilnoLayer1 Bulk Density", "TotalSoilnoLayer1 N - Nitrate", "TotalSoilnoLayer1 N - Ammonia", "TotalSoilnoLayer1 N - Organic N", "TotalSoilnoLayer1 Carbon", 
+                                        "TotalSoilnoLayer1 N - Nitrified NH3", "Layer1 N-NO3 AppRate", "Layer1 N-NH3 AppRate", "Layer1 N-ON AppRate", "Layer2 N-NO3 AppRate",
+                                        "Layer2 N-NH3 AppRate", "Layer2 N-ON AppRate", "Leaf Area Index", "Crop Height", "Bare Land Fraction for Wind Erosion" };  //40 items
 
 
 
@@ -861,6 +853,11 @@ void extractSoilData (float *dataV[], vector<string> soilFiles, gridInfo grid)
                   {
                      int pos = soilVarsPos [ k ];
                      tmp_str = vecString [pos];
+                     if ( tmp_str.find ("*") != string::npos )
+                     {
+                        printf ("\nError: *** in EPIC soil file- %s\n", soilFiles[i].c_str() );
+                        exit ( 1 );
+                     }
 
                      double soilValue = atof ( tmp_str.c_str() ) ;
 
@@ -1026,6 +1023,12 @@ void extractDMData (float *dataV[], vector<string> dmFiles, string startTimeStr,
                    
                   int pos = epicVarsPos [j];   
                   tmp_str = vecString [pos];
+
+                  if ( tmp_str.find ("*") != string::npos )
+                  {
+                     printf ("\nError: *** in EPIC daily file- %s\n", dmFiles[i].c_str() );
+                     exit ( 1 );
+                  }
 
                   double epicValue = atof ( tmp_str.c_str() ) ;
 
