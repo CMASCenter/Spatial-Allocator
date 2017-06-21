@@ -11,7 +11,9 @@ The Spatial Allocator is now being distributed through GitHub (https://github.co
 06/2017 Update Release Notes for SA 4.3.1
 #### Raster Tools:  
 * Added input data files for the FESTC release, includes 2011 crop fraction data for US and Canada
+** This version includes data that provides crop fraction for 42 different crops for the year 2011 which is used for 2011 BELD4 data generation within FEST-C.
 * Updated executables and source code for extractEPIC2CMAQ and extractEPICYearlyAverage2CMAQ
+** Minor modification of the source code/executables for the averaging and the extraction of EPIC output for CMAQ
 
 02/2017 Update Release Notes for SA 4.3
 
