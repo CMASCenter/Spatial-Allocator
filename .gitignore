@@ -1,6 +1,9 @@
 **/*.log
 **/*.o
-data
+data/*
+!data/spatial_allocator_v4.3.1_June2017.data.update_only.tar.gz.txt
+!data/spatial_allocator_v4.3_Feb2017.data.tar.gz.txt
+!data/README.md
 ref
 CVS
 src/libs

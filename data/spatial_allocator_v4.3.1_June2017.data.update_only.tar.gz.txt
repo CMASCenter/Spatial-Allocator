@@ -1,0 +1,13 @@
+-rw-rw---- lizadams/cep-emc 74590 2017-06-21 08:31:08 ./Spatial-Allocator/data/can2011_beld4_ag.dat
+-rw-r----- lizadams/cep-emc     5 2017-06-21 08:31:08 ./Spatial-Allocator/data/can2011_cd_sel.CPG
+-rw-r----- lizadams/cep-emc 32771 2017-06-21 08:31:06 ./Spatial-Allocator/data/can2011_cd_sel.dbf
+-rw-r----- lizadams/cep-emc   167 2017-06-21 08:31:08 ./Spatial-Allocator/data/can2011_cd_sel.prj
+-rw-r----- lizadams/cep-emc  3044 2017-06-21 08:31:07 ./Spatial-Allocator/data/can2011_cd_sel.sbn
+-rw-r----- lizadams/cep-emc   300 2017-06-21 08:31:07 ./Spatial-Allocator/data/can2011_cd_sel.sbx
+-rw-r----- lizadams/cep-emc 47926708 2017-06-21 08:31:06 ./Spatial-Allocator/data/can2011_cd_sel.shp
+-rw-r----- lizadams/cep-emc      893 2017-06-21 08:31:08 ./Spatial-Allocator/data/can2011_cd_sel.shp.xml
+-rw-r----- lizadams/cep-emc     2364 2017-06-21 08:31:07 ./Spatial-Allocator/data/can2011_cd_sel.shx
+-rw-r----- lizadams/cep-emc    15256 2017-06-21 08:31:06 ./Spatial-Allocator/data/can2011_cd_sel.txt
+-rw-r----- lizadams/cep-emc      893 2017-06-21 08:31:10 ./Spatial-Allocator/data/can2011_cd_sel.txt.xml
+-rw-rw---- lizadams/cep-emc   936688 2017-06-21 08:31:07 ./Spatial-Allocator/data/nass2011_beld4_ag.dat
+-rwxr-x--- lizadams/cep-emc     4668 2017-06-21 08:31:07 ./Spatial-Allocator/data/nlcd_modis_files_2011.txt
