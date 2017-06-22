@@ -2,7 +2,7 @@
 
 Institute for the Environment, UNC-Chapel Hill
 
-### June 2017 Update notes for SA 4.3.1
+
 
 The Spatial Allocator is now being distributed through GitHub (https://github.com/CMASCenter/Spatial-Allocator). 
 * Releases available on github: 4.3 and 4.3.1. 
