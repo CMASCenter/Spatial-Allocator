@@ -1,18 +1,20 @@
-Spatial Allocator Tools Release Notes
-====
-D. Yang,  CEMPD, Institute for the Environment, UNC-Chapel Hill
+# Spatial Allocator Tools Release Notes
 
-Contents
----
-* [Changes](#changes)
-* [Quick Start](#quick-start)
-* [Troubleshooting](#troubleshooting)
+Institute for the Environment, UNC-Chapel Hill
 
-<a id=changes></a>
-Changes
------
+### June 2017 Update notes for SA 4.3.1
 
-### 01/16/2017 Update notes for SA_v4.3_012017
+The Spatial Allocator is now being distributed through GitHub (https://github.com/CMASCenter/Spatial-Allocator). 
+* Releases available on github: 4.3 and 4.3.1. 
+* Past releases are available from the [CMAS Center](http://www.cmascenter.org).
+
+06/2017 Update Release Notes for SA 4.3.1
+#### Raster Tools:  
+* Added input data files for the FESTC release, includes crop fraction data for US and Canada for 42 different crops for the year 2011 which is used for 2011 BELD4 data generation within FEST-C.
+* Updated executables and source code for extractEPIC2CMAQ and extractEPICYearlyAverage2CMAQ  
+(Minor modification of the source code/executables for the averaging and the extraction of EPIC output for CMAQ)
+
+02/2017 Update Release Notes for SA 4.3
 
 #### Vector Tools: 
 * Update Earth Radius to 6370000
@@ -20,6 +22,9 @@ Changes
 * Added Beld4SMK tool to the release
 * Added 64-bit executables
 * Update reference data
+
+### Documentation
+* All documentation ported to GitHub Markdown
 
 ### 05/31/2016 Update notes for SA 4.2:
 
@@ -162,54 +167,3 @@ To ease memory overhead, a new variable called MAX_INPUT_FILE_SHAPES can be spec
 -   Corrected a bug that caused polygon holes to be treated improperly. This often caused problems with water surrogates in coastal areas where holes were commonly required to represent the geography.
 -   Implemented a feature to warn the user about counties for which the surrogates do not sum to one and the corresponding grid cells. A sum less than one is legitimate if the county is only partially covered by the grid.
 -   Added a date and version number that is printed at the beginning of execution.
-
-
-<a id=quick-start></a>
-Quick Start
-------
-
-[Complete Spatial Allocator Documentation](../User_Manual/README.md)
-
-#### Set up the SA environment:
-* Modify paths in ./bin/sa_setup.csh to installation directory
-* source sa_setup.csh or include sa_setup.csh in your .cshrc
-
-#### Vector tools are stored in: 
-* bin/32bits and sample vector script files are in sa_052014/scripts.  
-* Users normally do not need to recompile the Vector Tools as they are statically compiled.
-* The Raster Tools often need to be re-compiled as they are not statically built.
-
-#### Important Notes:
-* tmp\*.\* files created under ./raster_script can be deleted after the completion of the run
-
-#### Location of data
- * Sample land use and satellite data can be stored in ./data/sat.  
- * See ./data/sat/README for details on where to obtain data for these tools.
-
-#### SA Raster Tools for Satellite data and land use data processing:
-* Sample Raster Tools running script files in ./raster_scripts:
-* NLCD_MODIS_processor.csh - generate WRF grid NLCD and MODIS landuse data.  
-* allocateGOES2WRFGrids.csh -- GOES data processing tool.
-* allocateMODISL2CloudVars2Grids.csh -- MODIS L2 cloud and aerosol product processing tool.
-* allocateOMIL2vars2Grids.csh - OMI L2 aerosol and NO2 product processing tool.
-* allocateOMIvar2Grids.csh - OMI L2G and L3 aerosol and NO3 processing tool.
-* The tool is also may also be used process MODIS L3 products (not tested well) from NASA MODIS web site.
-* landuseTool_WRFCMAQ_BELD4.csh - generate BELD4 data from 2001 or 2006 NLCD/MODIS and crop tables.  
-* Processed crop and tree tables and shapefiles are stored under "data" directory.   
-
-<a id=troubleshooting></a>
-Troubleshooting
------
-
-#### Troubleshooting for library errors in the SA Raster Tools:
-* Recompile all libraries under src/libs following instructions in the src/libs/README file.
-* Modiy src/raster/Makefile for correct paths.
-* Type "make clean" to clean previous compiled programs.
-* Type "make" to compile the tools.
-* Type "make -B install" or "make install" to install compiled tools.
-
-#### Troubleshooting for library errors in the SA Vector Tools:
-* Modiy src/vector/Makefile for correct library paths. Users can use src/vector/libs_32bits
-* Type "make clean" to clean previous compiled programs.
-* Type "make" to compile the tools.
-* Type "make install" to install compiled tools.
