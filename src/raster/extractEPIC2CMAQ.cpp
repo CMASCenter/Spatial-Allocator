@@ -74,7 +74,7 @@ const Line variableDescriptionsS[ ] = { "Soil Number", "Layer1 Bulk Density", "L
  ***********************************/
 bool                     monthTimeStep;    // monthly or daily
 
-int                      numNCMFileItems = 87;
+int                      numNCMFileItems = 88;
 
 // start from 0
 
@@ -954,7 +954,7 @@ void extractDMData (float *dataV[], vector<string> dmFiles, string startTimeStr,
 
    
                //output line ends with ","
-               if ( vecString.size()  != numNCMFileItems + 1)   
+               if ( vecString.size()  != numNCMFileItems )   
                {
                   printf( "\tError: File = %s  items = %d  Standard Items = %d\n", dmFiles[i].c_str(), vecString.size(), numNCMFileItems );
                   printf ( "\tlineNums = %d: %s\n", lineNums, lineStr.c_str() );
