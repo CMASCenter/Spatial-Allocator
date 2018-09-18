@@ -1624,7 +1624,7 @@ static int writeTFLAG( int file,
       int hhmmss  = 0;
       int* dateTime = data;
       int timestep = 0;
-
+      
       /*
        * For each timestep, advance the timestamp
        * and replicate it for each variable:
@@ -1658,8 +1658,11 @@ static int writeTFLAG( int file,
           ++variable;
         } while ( variable < variables );
 
-        incrementTime( &yyyyddd, &hhmmss, tstep );
+        // Modified by DY to change yyyyddd by  timeSteps_att 
+        //incrementTime( &yyyyddd, &hhmmss, tstep );
+        incrementTime( &yyyyddd, &hhmmss, timeSteps_att );
         ++timestep;
+        //++yyyyddd; 
       } while ( timestep < timesteps );
 
       {
@@ -2165,7 +2168,7 @@ static int isValidTimestepSize( int hhmmss ) {
   const int mm = ( hhmmss / 100 ) % 100;
   const int ss = hhmmss % 100;
   const int result =
-    AND4( hhmmss > 0, hh >= 0, IN_RANGE( mm, 0, 59 ), IN_RANGE( ss, 0, 59 ) );
+    AND4( hhmmss >= 0, hh >= 0, IN_RANGE( mm, 0, 59 ), IN_RANGE( ss, 0, 59 ) );
   assert( IS_BOOL( result ) );
   return result;
 }
@@ -2187,6 +2190,8 @@ static void incrementTime( int* yyyyddd, int* hhmmss, int step ) {
 
   assert( yyyyddd ); assert( hhmmss );
   assert( isValidDate( *yyyyddd ) ); assert( isValidTime( *hhmmss ) );
+  
+  //printf( "...step = %d\n", step ); 
   assert( isValidTimestepSize( step ) );
 
   while ( hours-- ) {
@@ -2247,8 +2252,13 @@ static void incrementOneHour( int* yyyyddd, int* hhmmss ) {
 
     if ( ddd > 365 ) {
       const int yyyy = *yyyyddd / 1000;
-
       if ( ! isLeapYear( yyyy ) ) {
+        *yyyyddd = ( yyyy + 1 ) * 1000 + 1; /* Next year, first day. */
+      }
+    }
+    if ( ddd > 366 ) {
+      const int yyyy = *yyyyddd / 1000;
+      if ( isLeapYear( yyyy ) ) {
         *yyyyddd = ( yyyy + 1 ) * 1000 + 1; /* Next year, first day. */
       }
     }

@@ -110,12 +110,12 @@ int main( int nArgc,  char* papszArgv[] )
     gridInfo              grid;                 //store a modeling domain information
     string                gdalBinDir;           //GDAL directory
 
-    string                outTextFile, outTextFile2;          //output file names
-    std::ofstream         outTxtStream;         //output text file stream 
+    string                outTextFile, outTextFile2, outTextFile3;          //output file names
+    std::ofstream         outTxtStream, outTxtStream3;         //output text file stream 
 
     
     std::map<int, vector<string> >   gridEPICData; 
-    std::vector<int>      epicSiteIDs;
+    std::vector<int>      epicSiteIDs, allSiteIDs;
 
     std::vector<string>   vecItems; //contains: GRASS, CROP, TOTAL, WATER, REG10, STATE, COUNTY, 
 			            //COUNTRY, STATEABB, HUC8, ELEVATION,SLOPE
@@ -341,6 +341,10 @@ int main( int nArgc,  char* papszArgv[] )
     printf( "\n\tOutput text file name: %s\n",outTextFile2.c_str() );
     FileExists(outTextFile2.c_str(), 3 );  //the file has to be new.
 
+    outTextFile3 = string( getEnviVariable("OUTPUT_TEXT_FILE3") );
+    printf( "\n\tOutput text file name: %s\n",outTextFile3.c_str() );
+    FileExists(outTextFile3.c_str(), 3 );  //the file has to be new.
+
 
     /**********************************
     * Compute domain grid coordinates *
@@ -470,8 +474,8 @@ int main( int nArgc,  char* papszArgv[] )
 
        
           //potential site with crop or pasture percent and waterP < half of grid area
-          if ( ( pastureP + cropP ) >= totalCropP_threshold && waterP < 50.0 )
-          {
+          //if ( ( pastureP + cropP ) >= totalCropP_threshold && waterP < 50.0 )
+          //{
              sprintf( temp_char,"%.4f\0",pastureP); 
              temp_str = string ( temp_char );
              vecItems.push_back ( temp_str );
@@ -490,9 +494,10 @@ int main( int nArgc,  char* papszArgv[] )
 
              gridEPICData[gridID] = vecItems;        
              epicSiteIDs.push_back ( gridID );            
+             allSiteIDs.push_back ( gridID );
 
              vecItems.clear();
-          }
+          //}
 
        }  //j col
     }  //i row
@@ -617,13 +622,18 @@ int main( int nArgc,  char* papszArgv[] )
        std::vector<string>   vecItems = gridEPICData[gridID];
 
 
-       //only output USA EPIC sites for current modeling, get COUNTRY - 8 item
+       //only output USA EPIC sites for current modeling, get COUNTRY - 8 item, waterP - 4 item
        string country_str = vecItems[7];
+       string waterP_str = vecItems[3];
+       double  waterP = atof ( waterP_str.c_str() );
+
+
        if ( country_str.compare ( "USA" ) != 0 )
        {
           vecItems.clear();
           continue;
        }
+
        
        sprintf( temp_char,"%d,\0", gridID );
        temp_str = string ( temp_char );
@@ -666,7 +676,7 @@ int main( int nArgc,  char* papszArgv[] )
           lineStr.append ( temp_str ); 
 
           //for final site selection based on each crop area
-          if ( crop_acre >= cropArea_threshold )
+          if ( crop_acre > cropArea_threshold && waterP < 50.0)
           {
              selected = true;
           }
@@ -716,22 +726,31 @@ int main( int nArgc,  char* papszArgv[] )
        exit ( 1 );
     }
   
+    //
+    //write all site information table
+    //
+    printf( "\nWrite All site info file: %s...\n",outTextFile3.c_str() );
+
+    outTxtStream3.open( outTextFile3.c_str() );
+    if (! outTxtStream3.good() )
+    {
+       printf( "\tError in opening output file: %s\n",outTextFile3.c_str() );
+       exit ( 1 );
+    }
+
     //write header
     lineStr = string ("GRIDID,XLONG,YLAT,ELEVATION,SLOPE_P,HUC8,REG10,STFIPS,CNTYFIPS,GRASS,CROPS,TOTAL,COUNTRY,CNTY_PROV\n");
     outTxtStream.write( lineStr.c_str(), lineStr.size() );
+    outTxtStream3.write( lineStr.c_str(), lineStr.size() );
+
     lineStr.clear();
     
-    for ( i=0; i<epicSiteIDs.size(); i++ )
+    for ( i=0; i<allSiteIDs.size(); i++ )
     {
 
        //output GRIDID
-       gridID = epicSiteIDs[i];
-
-       //skip the site with attribute problems - can not solved spatial issues
-       if ( gridID == 0 )
-       {
-          continue;
-       }
+       int gridIDepic = epicSiteIDs[i];
+       gridID = allSiteIDs[i];
 
        //get epic info vector
        //vecItems contains 12 items: GRASS,CROPS,TOTAL,WATER,REG10,STFIPS,CNTYFIPS,COUNTRY,CNTY_PROV,HUC8,ELEVATION,SLOPE
@@ -744,13 +763,8 @@ int main( int nArgc,  char* papszArgv[] )
        }
 
        //only output USA EPIC sites for current modeling, get COUNTRY - 8 item
-       temp_str = vecItems[7];
-       if ( temp_str.compare ( "USA" ) != 0 )
-       {
-          vecItems.clear();
-          continue; 
-       }
-       
+       string cnty_str = vecItems[7];
+
     
        sprintf( temp_char,"%d,\0",gridID);
        temp_str = string ( temp_char );
@@ -848,7 +862,16 @@ int main( int nArgc,  char* papszArgv[] )
 
 
        lineStr.append( "\n" );
-       outTxtStream.write( lineStr.c_str(), lineStr.size() );
+
+       //skip the site with attribute problems - can not solved spatial issues
+       if ( gridIDepic != 0 &&  cnty_str.compare ( "USA" ) == 0 )
+       {
+          outTxtStream.write( lineStr.c_str(), lineStr.size() );
+       }
+
+
+       //output all sites for SWAT connection
+       outTxtStream3.write( lineStr.c_str(), lineStr.size() );
 
        vecItems.clear();
        lineStr.clear();
@@ -857,8 +880,10 @@ int main( int nArgc,  char* papszArgv[] )
 
     //close text file
     outTxtStream.close ();
+    outTxtStream3.close ();
 
-    printf ("\n\nCompleted in computing EPIC site information.\n");
+
+    printf ("\n\nCompleted in computing EPIC and all site information.\n");
 }
 
 
@@ -1022,7 +1047,9 @@ void   spatailIssues_Solver  ( gridInfo grid,  std::vector<int> &epicSiteIDs, st
              indexVal = 8-1;
              string country_str_near =  vecItems_near[indexVal];
 
-             if ( country_str_near.compare ("USA") == 0 && huc8_str_near.compare ("0") != 0 )
+          /*   if ( country_str_near.compare ("USA") == 0 && huc8_str_near.compare ("0") != 0 ) */
+
+             if ( grid.lon[indexVal_grid] > -118.637 && grid.lon[indexVal_grid] < -118.273 && grid.lat[indexVal_grid] > 33.26 && grid.lat[indexVal_grid] < 33.51 )
              {
 
                 indexVal = totalItems - 3;
@@ -1030,7 +1057,7 @@ void   spatailIssues_Solver  ( gridInfo grid,  std::vector<int> &epicSiteIDs, st
 
 
                 //handle cells on CA Los Angles county island
-                if ( grid.lon[indexVal_grid] > -118.637 && grid.lon[indexVal_grid] < -118.273 && grid.lat[indexVal_grid] > 33.26 && grid.lat[indexVal_grid] < 33.51 )
+                /*if ( grid.lon[indexVal_grid] > -118.637 && grid.lon[indexVal_grid] < -118.273 && grid.lat[indexVal_grid] > 33.26 && grid.lat[indexVal_grid] < 33.51 ) */
                 {
                    vecItems.at(indexVal) = temp_huc8_str;
                 }

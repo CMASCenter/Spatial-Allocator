@@ -1622,8 +1622,8 @@ void computeGOESVariable ( int timeStep, int startMins, float *goesV, string inG
     while ( dayMid <= dayEnd )
     { 
 // apb - 2/13/2017 - gp_ is no longer preceeding daily directory names
-//       dayDirName = dataDir + string ( "gp_" );
-       dayDirName = dataDir;
+       dayDirName = dataDir + string ( "gp_" );
+//       dayDirName = dataDir;
        dayDirName.append ( dayMidStr ); 
        dayDirName = processDirName ( dayDirName ); 
 
