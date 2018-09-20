@@ -1,4 +1,4 @@
-Spatial Allocator v4.3.1 (June 2017 release)
+Spatial Allocator v4.3.2 (September 2018 release)
 ======
 
 The Spatial Allocator (SA) is a set of tools that helps users manipulate and generate data files related to emissions and air quality modeling. The tools perform functions similar to Geographic Information Systems (GIS), but are provided to the modeling community free of charge. In addition, the tools are designed to support some of the unique aspects of the file formats used for Community Multiscale Air Quality (CMAQ), Sparse Matrix Operator Kernel Emissions (SMOKE), and Weather Research and Forecasting (WRF) modeling.
@@ -36,4 +36,4 @@ Documentation
 
 [Spatial Allocator User's Guide](docs/User_Manual/README.md)
 
-[Spatial Allocator version 4.3.1 Release Notes](docs/Release_Notes/README.md)
+[Spatial Allocator version 4.3.2 Release Notes](docs/Release_Notes/README.md)
