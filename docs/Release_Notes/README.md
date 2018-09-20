@@ -10,10 +10,10 @@ The Spatial Allocator is now being distributed through GitHub (https://github.co
 
 ### 09/2018 Update Release Notes for SA 4.3.2
 updated Raster tools for EPIC 
-        extractEPIC2CMAQ.cpp - added additional variable FBARE: Bare Land Fraction for Wind Erosion
-        computeGridGOES.cpp - removed hardcoded dimenstions so that program can be used to read new or old versions of GEOS               Imager data. The coverage was extended in the new retrievals (from 1500x800 to 1552x1300). 
-         computeSiteDailyWeather.cpp - increase the number of wet and dry deposition variables available from CMAQ
-         compute_EPICSiteData.cpp -  Changed how a crop_acre is defined:  crop_acre > cropArea_threshold && waterP < 50.
+* extractEPIC2CMAQ.cpp - added additional variable FBARE: Bare Land Fraction for Wind Erosion
+* computeGridGOES.cpp - removed hardcoded dimenstions so that program can be used to read new or old versions of GEOS               Imager data. The coverage was extended in the new retrievals (from 1500x800 to 1552x1300). 
+* computeSiteDailyWeather.cpp - increase the number of wet and dry deposition variables available from CMAQ
+* compute_EPICSiteData.cpp -  Changed how a crop_acre is defined:  crop_acre > cropArea_threshold && waterP < 50.
 
 ### 06/2017 Update Release Notes for SA 4.3.1
 
