@@ -865,6 +865,11 @@ void extractEpicData (gridInfo grid, float *dataV[], vector<string> epicFiles)
                   int pos = epicVarsPos [j] - 1;  //EPIC Var Position count starts from 1
                   tmp_str = vecString [pos];
 
+                  if ( tmp_str.find ("*") != string::npos ) 
+                  {
+                     printf ("\nError: *** in EPIC yearly file- %s\n", epicFiles[i].c_str() ); 
+                     exit ( 1 );
+                  }
                   double epicValue = atof ( tmp_str.c_str() ) ;
 
                   dataV[j][index] = epicValue;

@@ -21,3 +21,7 @@ src/raster/extractEPIC2CMAQ_swat20170301_soilW_fbare_short.cpp
 src/raster/extractEPICYearlyAverage2CMAQ_csv_SWAT_201608.cpp
 src/raster/extractdaily_info.csv
 src/vector/
+data_old
+output
+pg_srgcreate
+tmp

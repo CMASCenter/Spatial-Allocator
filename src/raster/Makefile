@@ -7,7 +7,7 @@ OPTFLAGS = -O2
 #OPTFLAGS = -O -DDEBUG 
 
 #set SA HOME
-SA_HOME = /proj/ie/proj/apps/sallocator/sa_v4.3.1_062017/src
+SA_HOME = /nas01/depts/ie/cempd/apps/sallocator/sa_052014/src
 
 #set GDAL library and include directory compiled using gcc
 GDAL = ${SA_HOME}/libs/gdal-1.11.0/local
