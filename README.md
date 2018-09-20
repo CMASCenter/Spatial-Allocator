@@ -11,7 +11,6 @@ Getting the Spatial Allocator from GitHub
 ```
 git clone https://github.com/CMASCenter/Spatial-Allocator.git
 ```
-You may also download a tarball of the Spatial Allocator installation from http://www.cmascenter.org.
 
 Getting Test Data for the Spatial Allocator
 ---
