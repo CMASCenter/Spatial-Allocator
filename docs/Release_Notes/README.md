@@ -2,19 +2,27 @@
 
 Institute for the Environment, UNC-Chapel Hill
 
-### June 2017 Update notes for SA 4.3.1
+
 
 The Spatial Allocator is now being distributed through GitHub (https://github.com/CMASCenter/Spatial-Allocator). 
-* Releases available on github: 4.3 and 4.3.1. 
+* Releases available on github: 4.3 and 4.3.2. 
 * Past releases are available from the [CMAS Center](http://www.cmascenter.org).
 
-06/2017 Update Release Notes for SA 4.3.1
+### 09/2018 Update Release Notes for SA 4.3.2
+updated Raster tools for EPIC 
+* extractEPIC2CMAQ.cpp - added additional variable FBARE: Bare Land Fraction for Wind Erosion
+* computeGridGOES.cpp - removed hardcoded dimenstions so that program can be used to read new or old versions of GEOS               Imager data. The coverage was extended in the new retrievals (from 1500x800 to 1552x1300). 
+* computeSiteDailyWeather.cpp - increase the number of wet and dry deposition variables available from CMAQ
+* compute_EPICSiteData.cpp -  Changed how a crop_acre is defined:  crop_acre > cropArea_threshold && waterP < 50.
+
+### 06/2017 Update Release Notes for SA 4.3.1
+
 #### Raster Tools:  
 * Added input data files for the FESTC release, includes crop fraction data for US and Canada for 42 different crops for the year 2011 which is used for 2011 BELD4 data generation within FEST-C.
 * Updated executables and source code for extractEPIC2CMAQ and extractEPICYearlyAverage2CMAQ  
 (Minor modification of the source code/executables for the averaging and the extraction of EPIC output for CMAQ)
 
-02/2017 Update Release Notes for SA 4.3
+### 02/2017 Update Release Notes for SA 4.3
 
 #### Vector Tools: 
 * Update Earth Radius to 6370000
