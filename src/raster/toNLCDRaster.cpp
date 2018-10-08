@@ -151,7 +151,8 @@ int main( int nArgc,  char* papszArgv[] )
    if (stat(tmp_str.c_str(), &stFileInfo) == 0)
    {
        printf( "\tOutput 30m grid file exists and delete it: %s\n", pszDstFilename );
-       poRDataset = (GDALDataset *) GDALOpen( pszDstFilename, GA_ReadOnly );
+//       poRDataset = (GDALDataset *) GDALOpen( pszDstFilename, GA_ReadOnly );
+         poRDataset = (GDALDataset*) GDALOpenEx( pszDstFilename, GDAL_OF_VECTOR, NULL, NULL, NULL );
        if( poRDataset == NULL )
        {
           printf( "\tOpen raster file failed: %s.\n", pszDstFilename );
@@ -182,7 +183,8 @@ int main( int nArgc,  char* papszArgv[] )
    if (stat(out_modisFile.c_str(), &stFileInfo) == 0)
    {
        printf( "\tOutput MODIS File exists and delete it: %s\n", out_modisFile.c_str() );
-       poRDataset = (GDALDataset *) GDALOpen( out_modisFile.c_str(), GA_ReadOnly );
+//       poRDataset = (GDALDataset *) GDALOpen( out_modisFile.c_str(), GA_ReadOnly );
+         poRDataset = (GDALDataset*) GDALOpenEx( out_modisFile.c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL );
        if( poRDataset == NULL )
        {
           printf( "\tOpen raster file failed: %s.\n", out_modisFile.c_str() );
@@ -246,7 +248,8 @@ int main( int nArgc,  char* papszArgv[] )
     printf( "\nObtain NLCD projection and cell information from image:  %s\n",rDataFile.c_str() );
 
     
-    poRDataset = (GDALDataset *) GDALOpen( rDataFile.c_str(), GA_ReadOnly );
+//    poRDataset = (GDALDataset *) GDALOpen( rDataFile.c_str(), GA_ReadOnly );
+    poRDataset = (GDALDataset*) GDALOpenEx( rDataFile.c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL );
     if( poRDataset == NULL )
     {
        printf( "\tOpen raster file failed: %s.\n", rDataFile.c_str() );
@@ -362,7 +365,9 @@ int main( int nArgc,  char* papszArgv[] )
 /*      Open projected shapfile file.                                   */
 /* -------------------------------------------------------------------- */
 
-    poDS = OGRSFDriverRegistrar::Open( psztmpFilename, FALSE );
+//    poDS = OGRSFDriverRegistrar::Open( psztmpFilename, FALSE );
+//    https://www.gdal.org/ogr_apitut.html
+     poDS = (GDALDataset*) GDALOpenEx( psztmpFilename, GDAL_OF_VECTOR, NULL, NULL, NULL ); 
     if( poDS == NULL )
     {
       printf( "\tOpen shapefile file failed: %s.\n", psztmpFilename );
@@ -476,7 +481,8 @@ int main( int nArgc,  char* papszArgv[] )
     //open MODIS image to get cell size and projection info
     printf ("Projecting and clipping MODIS image to NLCD projection and grid domain.\n");
 
-    poRDataset = (GDALDataset *) GDALOpen( in_modisFile.c_str(), GA_ReadOnly );
+//    poRDataset = (GDALDataset *) GDALOpen( in_modisFile.c_str(), GA_ReadOnly );
+      poRDataset = (GDALDataset*) GDALOpenEx( in_modisFile.c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL );
     if( poRDataset == NULL )
     {
        printf( "\tOpen raster file failed: %s.\n", in_modisFile.c_str() );   

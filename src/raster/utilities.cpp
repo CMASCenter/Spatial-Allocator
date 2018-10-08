@@ -66,6 +66,7 @@
 #include <fstream>
 #include <sstream>
 #include "commontools.h"
+#include <cstring>
 
 
 float PRJ_MISSIING_VALUE=-9999.0;
@@ -1163,6 +1164,7 @@ vector<string> obtainSatFileNames (string dataDir, string startDateTime, string 
      //MODIS LAIFPAR: MOD15A2GFS 1km: MOD15A2GFS.A2006001.h07v03.005.2009023132100.hdf
      //MODIS LAIFPAR: MOD15A2 1km: MOD15A2.A2006057.h10v06.005.2008077144707.hdf
      //MODIS LAIFPAR: MCD15A2 1km: MCD15A2.A2011089.h09v03.005.2011103004948.hdf
+     //MODIS LAIFPAR: MCD15A2H 500m 8-day: MCD15A2H.A2016241.h15v03.006.2016250072611.hdf
      //MODIS albedo: MCD43A3 500km: MCD43A3.A2006177.h14v03.005.2008134144426.hdf
      //MODIS albedo: MCD43A1 500km: MCD43A1.A2006121.h08v04.005.2008117094839.hdf
      //MODIS albedo: MCD43A2 500km: MCD43A2.A2006121.h08v04.005.2008117094839.hdf
@@ -1184,7 +1186,7 @@ vector<string> obtainSatFileNames (string dataDir, string startDateTime, string 
                     tmp_str.find( "MISR_AS_AEROSOL_F12_0022" ) != string::npos ||
                     tmp_str.find( "MCD12Q1.A" ) != string::npos || tmp_str.find( "MOD12Q1.A" ) != string::npos || 
                     tmp_str.find( "MOD15A2GFS.A" ) != string::npos  || tmp_str.find( "MOD15A2.A" ) != string::npos ||
-                    tmp_str.find( "MCD15A2.A" ) != string::npos ||
+                    tmp_str.find( "MCD15A2.A" ) != string::npos || tmp_str.find( "MCD15A2H.A" ) != string::npos ||
                     tmp_str.find( "MCD43A3.A" ) != string::npos || tmp_str.find( "MCD43A1.A" ) != string::npos ||
                     tmp_str.find( "MCD43A2.A" ) != string::npos )  
                     && tmp_str.find( ".hdf" ) != string::npos ) ||
@@ -1327,6 +1329,11 @@ string getDayTimeStrFromSatFileName ( string imageFileName, string satType )
           imageFileName.find( "MCD43A2.A" ) != string::npos )  //MODIS land cover products 500m and 1km
      {
         dayStr = imageFileName.substr(9, 7);
+        timeStr = string ( "0000" ); //yearly products
+     }
+     else if ( imageFileName.find( "MCD15A2H.A" ) != string::npos )
+     {
+        dayStr = imageFileName.substr(10, 7);
         timeStr = string ( "0000" ); //yearly products
      }
      else if ( imageFileName.find( "MOD15A2GFS.A" ) != string::npos )  //filled MODIS LAI/FPAR 1km

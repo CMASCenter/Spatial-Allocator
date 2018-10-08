@@ -154,7 +154,8 @@ int main( int nArgc,  char* papszArgv[] )
 /* -------------------------------------------------------------------- */
     printf( "\nObtain weight raster file projection, cell size, and extent:  %s\n",pszWRstFilename.c_str() );
     
-    poRDataset_std = (GDALDataset *) GDALOpen( pszWRstFilename.c_str(), GA_ReadOnly );
+//    poRDataset_std = (GDALDataset *) GDALOpen( pszWRstFilename.c_str(), GA_ReadOnly );
+    poRDataset_std = (GDALDataset*) GDALOpenEx( pszWRstFilename.c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL );
     if( poRDataset_std == NULL )
     {
        printf( "\tOpen raster file failed: %s.\n", pszWRstFilename.c_str() );
@@ -225,7 +226,8 @@ int main( int nArgc,  char* papszArgv[] )
       //get projection, cell size and extent from the image
       printf( "\tObtain rasterized polygon file cell size, extent, and projection  %s\n",pszDstFilename.c_str() );
 
-      poRDataset = (GDALDataset *) GDALOpen( pszDstFilename.c_str(), GA_ReadOnly );
+//      poRDataset = (GDALDataset *) GDALOpen( pszDstFilename.c_str(), GA_ReadOnly );
+       poRDataset = (GDALDataset*) GDALOpenEx( pszDstFilename.c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL );
       if( poRDataset == NULL )
       {
          printf( "\tOpen raster file failed: %s.\n", pszDstFilename.c_str() );
@@ -335,7 +337,8 @@ int main( int nArgc,  char* papszArgv[] )
        //delete tmp projected shapefile if exists
        if (stat(psztmpFilename.c_str(), &stFileInfo) == 0) 
        {
-           poDS = OGRSFDriverRegistrar::Open( psztmpFilename.c_str(), FALSE );
+//           poDS = OGRSFDriverRegistrar::Open( psztmpFilename.c_str(), FALSE );
+	    poDS = (GDALDataset*) GDALOpenEx( psztmpFilename.c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL );
            if( poDS == NULL )
            {
               printf( "\tOpen shapefile file failed: %s.\n", psztmpFilename.c_str() );
@@ -353,7 +356,9 @@ int main( int nArgc,  char* papszArgv[] )
        }
 
        //check polygon shapefile's projection
-       poDS = OGRSFDriverRegistrar::Open( pszSrcFilename.c_str(), FALSE );
+       //
+//       poDS = OGRSFDriverRegistrar::Open( pszSrcFilename.c_str(), FALSE );
+        poDS = (GDALDataset*) GDALOpenEx( psztmpFilename.c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL );
        if( poDS == NULL )
        {
            printf( "\tOpen shapefile file failed: %s.\n", pszSrcFilename.c_str() );
@@ -483,7 +488,8 @@ int main( int nArgc,  char* papszArgv[] )
    printf( "\nAllocating raster weight to polygons...\n" );
 
    //open rasterized polygon file
-   poRDataset = (GDALDataset *) GDALOpen( pszDstFilename.c_str(), GA_ReadOnly );
+//   poRDataset = (GDALDataset *) GDALOpen( pszDstFilename.c_str(), GA_ReadOnly );
+   poDS = (GDALDataset*) GDALOpenEx( pszDstFilename.c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL );
    if( poRDataset == NULL )
    {
        printf( "\tOpen raster file failed: %s.\n", pszDstFilename.c_str() );
@@ -494,7 +500,8 @@ int main( int nArgc,  char* papszArgv[] )
    GUInt32 *poImage = (GUInt32 *) CPLCalloc(sizeof(GUInt32),xCells_std);
 
    //open weight raster file
-   poRDataset_std = (GDALDataset *) GDALOpen( pszWRstFilename.c_str(), GA_ReadOnly );
+//   poRDataset_std = (GDALDataset *) GDALOpen( pszWRstFilename.c_str(), GA_ReadOnly );
+    poRDataset_std = (GDALDataset*) GDALOpenEx( pszWRstFilename.c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL );
    if( poRDataset_std == NULL )
    {
        printf( "\tOpen raster file failed: %s.\n", pszWRstFilename.c_str() );
@@ -648,7 +655,8 @@ int main( int nArgc,  char* papszArgv[] )
 
    /*
    //open output text file
-   poDS = OGRSFDriverRegistrar::Open( out_polyFile.c_str(), TRUE );
+//   poDS = OGRSFDriverRegistrar::Open( out_polyFile.c_str(), TRUE );
+   poDS = (GDALDataset*) GDALOpenEx( out_polyFile.c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL );
    if( poDS == NULL )
    {
        printf( "\tOpen shapefile file failed: %s.\n", out_polyFile.c_str() );

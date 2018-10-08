@@ -97,8 +97,8 @@ string  createGridShapes ( gridInfo grid )
 {
     string shapeName;
 
-    OGRSFDriver *poDriver = NULL;
-    OGRDataSource *poDS = NULL;
+    GDALDriver  *poDriver = NULL;
+    GDALDataset *poDS = NULL;
     OGRSpatialReference oSRS;
     OGRLayer *poLayer = NULL;
     char szName[33];
@@ -137,7 +137,8 @@ string  createGridShapes ( gridInfo grid )
 /* -------------------------------------------------------------------- */
 /*      Register format(s).                                             */
 /* -------------------------------------------------------------------- */
-   OGRRegisterAll();
+   GDALAllRegister();
+   
 
    //check the output shapefile.  If it exists delete it
    deleteShapeFile ( shapeName );
@@ -145,15 +146,15 @@ string  createGridShapes ( gridInfo grid )
 /* -------------------------------------------------------------------- */
 /*      Open output shapefile.                                          */
 /* -------------------------------------------------------------------- */
-    poDriver = OGRSFDriverRegistrar::GetRegistrar()->GetDriverByName(
-                pszDriverName );
+    poDriver = GetGDALDriverManager()->GetDriverByName( pszDriverName );
     if( poDriver == NULL )
     {
         printf( "\t%s driver not available.\n", pszDriverName );
         exit( 1 );
     }
 
-    poDS = poDriver->CreateDataSource( shapeName.c_str(), NULL );
+
+    poDS = poDriver->Create( shapeName.c_str(), 0, 0, 0, GDT_Unknown, NULL );
     if( poDS == NULL )
     {
         printf( "\tCreating Shapefile file failed.\n" );
@@ -244,7 +245,7 @@ string  createGridShapes ( gridInfo grid )
       }
     }
 
-    OGRDataSource::DestroyDataSource( poDS );
+    GDALClose( poDS );
     printf ("\tCompleted in creating the grid shapefile.\n\n");
     
     return shapeName;
@@ -633,7 +634,7 @@ string projectShape (string gdalBinDir, string shapeFile, char *toProj4 )
     string tmp_str;           //store projected shapefile
     int    i;
     const char  *psztmpFilename = NULL;    //projected Shapefile name 
-    OGRSFDriver *poDriver = NULL;
+    GDALDriver  *poDriver = NULL;
     string      cmd_str;              //comand to call an executable program
   
     printf("\nProjecting Shapefile...\n" );
@@ -651,19 +652,21 @@ string projectShape (string gdalBinDir, string shapeFile, char *toProj4 )
 /* -------------------------------------------------------------------- */
 /*      Register format(s).                                             */
 /* -------------------------------------------------------------------- */
-    OGRRegisterAll();
+    GDALAllRegister();
 
     //if the file does exist delete it
     if (stat(psztmpFilename, &stFileInfo) == 0)
     {
        printf( "\tTemp projected shapefile exists and delete it: %s\n", psztmpFilename );
-       poDriver = OGRSFDriverRegistrar::GetRegistrar()->GetDriverByName( pszDriverName );
+
+       poDriver = GetGDALDriverManager()->GetDriverByName( pszDriverName );
        if( poDriver == NULL )
        {
           printf( "%s driver not available.\n", pszDriverName );
           exit( 1 );
        }
-       if ( (poDriver->DeleteDataSource( psztmpFilename )) != OGRERR_NONE )
+
+       if ( (poDriver->Delete( psztmpFilename )) != CE_None )
        {
           printf( "\tError in deleting temp shapefile: %s\n\n", psztmpFilename );
        }
@@ -798,8 +801,8 @@ gridInfo computeNewRasterInfo (string shapeFile, double rasterResolution, gridIn
     gridInfo            newRasterInfo;
 
     //OGR variables
-    OGRDataSource       *poDS = NULL;
-    OGRSFDriver         *poDriver = NULL;
+    GDALDataset         *poDS = NULL;
+    GDALDriver          *poDriver = NULL;
     OGRLayer            *poLayer = NULL;
     OGREnvelope         oExt;
     OGRSpatialReference *oSRS;
@@ -868,13 +871,13 @@ gridInfo computeNewRasterInfo (string shapeFile, double rasterResolution, gridIn
 /* -------------------------------------------------------------------- */
 /*      Register format(s).                                             */
 /* -------------------------------------------------------------------- */
-    OGRRegisterAll();
+     GDALAllRegister ();
 
 /* -------------------------------------------------------------------- */
 /*      Open projected shapfile file.                                   */
 /* -------------------------------------------------------------------- */
 
-    poDS = OGRSFDriverRegistrar::Open( shapeFile.c_str(), FALSE );
+    poDS = (GDALDataset*) GDALOpenEx( shapeFile.c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL );
     if( poDS == NULL )
     {
        printf( "\tError:  Opening Shapefile file failed -  %s.\n", shapeFile.c_str() );
@@ -934,7 +937,7 @@ gridInfo computeNewRasterInfo (string shapeFile, double rasterResolution, gridIn
     oSRS->exportToProj4( &newRasterInfo.strProj4 );
     printf ( "\tProj4 projection string is: %s\n", newRasterInfo.strProj4);
 
-    OGRDataSource::DestroyDataSource( poDS );
+     GDALClose ( poDS );
 
     //assign info to newRasterInfo
     newRasterInfo.xCellSize = rasterResolution;
@@ -1042,24 +1045,26 @@ string toRasterFile (string gdalBinDir, gridInfo newRasterInfo, string srcRaster
 /****************************************/       
 void deleteShapeFile ( string shapeFile )
 {
-   OGRSFDriver *poDriver = NULL;
+   GDALDriver *poDriver = NULL;
 
 /* -------------------------------------------------------------------- */
 /*      Register format(s).                                             */
 /* -------------------------------------------------------------------- */
-   OGRRegisterAll();
+   GDALAllRegister ();
 
    //check the shapefile.  If it exists delete it
    if (stat(shapeFile.c_str(), &stFileInfo) == 0)
    {
        printf( "\nShapefile exists and delete it: %s\n", shapeFile.c_str() );
-       poDriver = OGRSFDriverRegistrar::GetRegistrar()->GetDriverByName( pszDriverName );
+
+       poDriver = GetGDALDriverManager()->GetDriverByName( pszDriverName );
        if( poDriver == NULL )
        {
           printf( "\n%s driver not available.\n", pszDriverName );
           exit( 1 );
        }
-       if ( (poDriver->DeleteDataSource( shapeFile.c_str() )) != OGRERR_NONE )
+
+       if ( (poDriver->Delete( shapeFile.c_str() )) != OGRERR_NONE )
        {
           printf( "\nError in deleting Shapefile: %s\n\n", shapeFile.c_str() );
           exit ( 1 );
@@ -2373,6 +2378,11 @@ gridInfo getHDF4VarInfo ( string imageFile, string varName )
        valueStr = string ("None");
     }
 
+    if ( imageFile.find( "MCD15A2H" ) != string::npos )
+    {
+       valueStr = string ("Fraction");
+    }
+
     imageInfo.attsStr.push_back ( valueStr );
     //printf("\tunits=%s\n", valueStr.c_str() );
    
@@ -2425,6 +2435,7 @@ gridInfo getHDF4VarInfo ( string imageFile, string varName )
 
     if ( imageFile.find( "MCD12Q1" ) != string::npos || imageFile.find( "MOD12Q1" ) != string::npos || 
          imageFile.find( "MOD15A2GFS" ) != string::npos || imageFile.find( "MOD15A2" ) != string::npos ||
+         imageFile.find( "MCD15A2H" ) != string::npos ||
          imageFile.find( "MCD43A3" ) != string::npos || imageFile.find( "MCD43A1" ) != string::npos || 
          imageFile.find( "MCD43A2" ) != string::npos ) 
     {
@@ -2456,6 +2467,10 @@ gridInfo getHDF4VarInfo ( string imageFile, string varName )
           else if ( imageFile.find( "MOD15A2" ) != string::npos )
           {
              imageInfo.name = string ( "MOD15A2" );
+          }
+          else if ( imageFile.find( "MCD15A2H" ) != string::npos )
+          {
+             imageInfo.name = string ( "MCD15A2H" );
           }
           else if ( imageFile.find( "MCD43A3" ) != string::npos )
           {
@@ -2573,8 +2588,17 @@ gridInfo getHDF4VarInfo ( string imageFile, string varName )
 
           if ( ( pos = attStr.find ( "CHARACTERISTICBINSIZE" ) ) != string::npos )
           {
-             valueStr = attStr.substr( pos+78, 11 );
-             printf ("\t\t\tAttribute:  %s\n", valueStr.c_str() );
+
+            if ( attStr.find ( "CHARACTERISTICBINSIZE500M" )  != string::npos )
+             {
+                valueStr = attStr.substr( pos+82, 11 );
+             }
+             else
+             {
+                valueStr = attStr.substr( pos+78, 11 );
+             }
+
+             printf ("\t\t\tAttribute:  CHARACTERISTICBINSIZE=%s\n", valueStr.c_str() );
              double cellSize = atof (valueStr.c_str() );
              imageInfo.xCellSize = cellSize;
              imageInfo.yCellSize = cellSize;
@@ -2883,6 +2907,12 @@ gridInfo getHDF5VarInfo ( string imageFile, string varName )
         printf ( "\t\t\tNot suppported native data type and add it to getHDF5VarInfo in geo_function.cpp\n");
         exit ( 1 );
     }
+
+
+    //add LONGNAME 7
+    valueStr = getHDF5VarAttrInfo (dataset_id, "Title");
+    imageInfo.attsStr.push_back ( valueStr );
+
 
     anyHDF5Errors ( H5Tclose ( ndtype_id ) );
     anyHDF5Errors ( H5Tclose ( dtype_id ) );
@@ -3280,6 +3310,8 @@ void  setWRFNetCDFSatVarDimIndex ( int ncid, size_t *dims_len, int *dims_id, int
    //image data: rowsXcolsXd3Xd4... -- first two geolocation dimensions
    //NetCDF var: timeXrowsXcolsXd3Xd4... -- first 3 time + geolocation dimensions
 
+      
+   //printf( "\t\tDimension: image dims=%d  numADims=%d\n", imageInfo.dims.size(), *numADims);
    for ( j=2; j<imageInfo.dims.size(); j++)
    {
       //check defined dimention
@@ -3292,20 +3324,22 @@ void  setWRFNetCDFSatVarDimIndex ( int ncid, size_t *dims_len, int *dims_id, int
          {
             dimIndex[1+j] = dims_id[k];  //assign defined dimension 
             find_dim = true;              //found it
+            //printf( "\t\tDimension: j=%d  k=%d  %d\n", dims_id[k],j,k  );
             break;
          }
       } //k
+
 
       //adding new dimension
       if ( ! find_dim )
       {
          dims_len[*numADims] = imageInfo.dims[j];
-         //printf( "\t\tAdding dimension: %d\n", 4+*numADims );
+         printf( "\t\tAdding dimension: %d\n", 4+*numADims );
 
          sprintf (tmp_char, "%d\0", 4+*numADims );
          string tmp_str = string ( "dim" ) + string ( tmp_char );
 
-         //printf( "\t\tDimension: %s\n", tmp_str.c_str() );
+         printf( "\t\tDimension: %s\n", tmp_str.c_str() );
 
          anyErrors( nc_def_dim(ncid, tmp_str.c_str(), imageInfo.dims[j], &dimID) );
          dims_id[*numADims] = dimID;
@@ -3333,17 +3367,22 @@ int defineWRFNetCDFSatVar ( int ncid, string satVarName, int numDims, int *dimIn
 
    fieldtype[0] = 104;
 
+   printf ("\tDefine varName=%s numDims=%d\n",satVarName.c_str(), numDims);
+
    anyErrors( nc_def_var(ncid, satVarName.c_str(), NC_FLOAT, numDims, dimIndex, &satV_id) );
 
    anyErrors( nc_put_att_int(ncid, satV_id, "FieldType", NC_INT, 1, fieldtype) );
+
    anyErrors( nc_put_att_text(ncid, satV_id, "MemoryOrder", 3, "XY ") );
+
    anyErrors( nc_put_att_text(ncid, satV_id, "description", imageInfo.attsStr[6].size(), imageInfo.attsStr[6].c_str() ));
+
    anyErrors( nc_put_att_text(ncid, satV_id, "units", imageInfo.attsStr[1].size(), imageInfo.attsStr[1].c_str() ) );
 
 
    if ( satVarName.find ("_LAI") != string::npos || satVarName.find ("_FPAR") != string::npos || 
         satVarName.find ("Albedo") != string::npos ||
-        satVarName.find ("ALBEDO") != string::npos || satVarName.find ("Lai_1km") != string::npos || satVarName.find ("MODIS_ALB_") != string::npos )
+        satVarName.find ("ALBEDO") != string::npos || satVarName.find ("Lai_1km") != string::npos || satVarName.find ("MODIS_ALB_") != string::npos  || satVarName.find ("Lai_500m") != string::npos || satVarName.find ("Fpar_500m") != string::npos )
    {
       attValue[0] = 1.0;
       anyErrors( nc_put_att_float(ncid, satV_id, "scale_factor", NC_FLOAT, 1, attValue) );
@@ -5034,8 +5073,8 @@ string  createEPICSiteShapeFile (gridInfo grid, std::vector<int> epicSiteIDs )
 
     string shapeName;
 
-    OGRSFDriver *poDriver = NULL;
-    OGRDataSource *poDS = NULL;
+    GDALDriver  *poDriver = NULL;
+    GDALDataset *poDS = NULL;
     OGRSpatialReference oSRS;
     OGRLayer *poLayer = NULL;
     char szName[33];
@@ -5059,7 +5098,7 @@ string  createEPICSiteShapeFile (gridInfo grid, std::vector<int> epicSiteIDs )
 /* -------------------------------------------------------------------- */
 /*      Register format(s).                                             */
 /* -------------------------------------------------------------------- */
-   OGRRegisterAll();
+     GDALAllRegister ();
 
    //check the output shapefile.  If it exists delete it
    deleteShapeFile ( shapeName );
@@ -5067,15 +5106,14 @@ string  createEPICSiteShapeFile (gridInfo grid, std::vector<int> epicSiteIDs )
 /* -------------------------------------------------------------------- */
 /*      Open output shapefile.                                          */
 /* -------------------------------------------------------------------- */
-    poDriver = OGRSFDriverRegistrar::GetRegistrar()->GetDriverByName(
-                pszDriverName );
+    poDriver = GetGDALDriverManager()->GetDriverByName( pszDriverName );
     if( poDriver == NULL )
     {
         printf( "\t%s driver not available.\n", pszDriverName );
         exit( 1 );
     }
 
-    poDS = poDriver->CreateDataSource( shapeName.c_str(), NULL );
+    poDS = poDriver->Create( shapeName.c_str(), 0, 0, 0, GDT_Unknown, NULL );
     if( poDS == NULL )
     {
         printf( "\tCreating Shapefile file failed.\n" );
@@ -5152,7 +5190,7 @@ string  createEPICSiteShapeFile (gridInfo grid, std::vector<int> epicSiteIDs )
         OGRFeature::DestroyFeature( poFeature );
     } //sites
 
-    OGRDataSource::DestroyDataSource( poDS );
+    GDALClose( poDS );
 
     printf ( "\tCompleted creating EPIC site shapefile:%s\n\n", shapeName.c_str() );
     
@@ -5170,8 +5208,8 @@ string  identity2SHPFiles (string shpFile1, string shpFile2 )
     string       gdalBinDir;           //GDAL directory
     string       shapeName;
 
-    OGRSFDriver *poDriver = NULL;
-    OGRDataSource *poDS = NULL, *poDS1 = NULL,*poDS2 = NULL;
+    GDALDriver  *poDriver = NULL;
+    GDALDataset *poDS = NULL, *poDS1 = NULL,*poDS2 = NULL;
     OGRSpatialReference *oSRS1, *oSRS2;
     OGRLayer *poLayer = NULL,*poLayer1 = NULL, *poLayer2 = NULL;
 
@@ -5201,7 +5239,7 @@ string  identity2SHPFiles (string shpFile1, string shpFile2 )
 /* -------------------------------------------------------------------- */
 /*      Register format(s).                                             */
 /* -------------------------------------------------------------------- */
-   OGRRegisterAll();
+    GDALAllRegister ();
 
    //check the output shapefile.  If it exists delete it
    deleteShapeFile ( shapeName );
@@ -5210,22 +5248,21 @@ string  identity2SHPFiles (string shpFile1, string shpFile2 )
 /* -------------------------------------------------------------------- */
 /*      Open input shapefiles.                                          */
 /* -------------------------------------------------------------------- */
-    poDriver = OGRSFDriverRegistrar::GetRegistrar()->GetDriverByName(
-                pszDriverName );
+    poDriver = GetGDALDriverManager()->GetDriverByName( pszDriverName );
     if( poDriver == NULL )
     {
         printf( "\t%s driver not available.\n", pszDriverName );
         exit( 1 );
     }
 
-    poDS1 = poDriver->Open ( shpFile1.c_str(), FALSE );    
+    poDS1 = (GDALDataset*) GDALOpenEx( shpFile1.c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL );
     if( poDS1 == NULL )
     {
         printf( "\tOpening Shapefile file failed: %s\n", shpFile1.c_str() );
         exit( 1 );
     }
 
-    poDS2 = poDriver->Open ( shpFile2.c_str(), FALSE ); 
+    poDS2 = (GDALDataset*) GDALOpenEx( shpFile2.c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL );
     if( poDS2 == NULL )
     {
         printf( "\tOpening Shapefile file failed: %s\n", shpFile2.c_str() );
@@ -5288,14 +5325,14 @@ string  identity2SHPFiles (string shpFile1, string shpFile2 )
        
 
        //close the second file
-        OGRDataSource::DestroyDataSource( poDS2 );
+        GDALClose ( poDS2 );
 
         string shpFile2_prj  =  projectShape ( gdalBinDir, shpFile2, pszProj4_1 );      
 
         shpFile2 = shpFile2_prj;
    
         //reopen the created shapefile
-        poDS2 = poDriver->Open ( shpFile2.c_str(), FALSE );
+        poDS2 = (GDALDataset*) GDALOpenEx( shpFile2.c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL );
         if( poDS2 == NULL )
         {
            printf( "\tOpening Shapefile file failed: %s\n", shpFile2.c_str() );
@@ -5315,7 +5352,8 @@ string  identity2SHPFiles (string shpFile1, string shpFile2 )
 /* ----------------------------------------------------------- */
 /*      Create output shapefile                                */
 /* ----------------------------------------------------------- */
-    poDS = poDriver->CreateDataSource( shapeName.c_str(), NULL );
+    poDS = poDriver->Create( shapeName.c_str(), 0, 0, 0, GDT_Unknown, NULL );
+
     if( poDS == NULL )
     {  
         printf( "\tCreating shapefile file failed.\n" );
@@ -5342,9 +5380,9 @@ string  identity2SHPFiles (string shpFile1, string shpFile2 )
     }
 */
 
-    OGRDataSource::DestroyDataSource( poDS );
-    OGRDataSource::DestroyDataSource( poDS1 );
-    OGRDataSource::DestroyDataSource( poDS2 );
+    GDALClose ( poDS );
+    GDALClose ( poDS1 );
+    GDALClose ( poDS2 );
 
     printf ( "\tCompleted creating EPIC site shapefile:%s\n\n", shapeName.c_str() );
     
@@ -5361,8 +5399,8 @@ void getPointsInPolyItems (gridInfo grid,  std::vector<int> epicSiteIDs, std::ma
 
     string       gdalBinDir;           //GDAL directory
 
-    OGRSFDriver *poDriver = NULL;
-    OGRDataSource *poDS = NULL;
+    GDALDriver  *poDriver = NULL;
+    GDALDataset *poDS = NULL;
 
     OGRSpatialReference *oSRS1, *oSRS2;
     OGRLayer *poLayer = NULL;
@@ -5386,14 +5424,13 @@ void getPointsInPolyItems (gridInfo grid,  std::vector<int> epicSiteIDs, std::ma
 /* -------------------------------------------------------------------- */
 /*      Register format(s).                                             */
 /* -------------------------------------------------------------------- */
-   OGRRegisterAll();
+    GDALAllRegister ();
 
 
 /* -------------------------------------------------------------------- */
 /*      Open input shapefiles.                                          */
 /* -------------------------------------------------------------------- */
-    poDriver = OGRSFDriverRegistrar::GetRegistrar()->GetDriverByName(
-                pszDriverName );
+    poDriver = GetGDALDriverManager()->GetDriverByName( pszDriverName );
     if( poDriver == NULL )
     {
         printf( "\t%s driver not available.\n", pszDriverName );
@@ -5401,7 +5438,7 @@ void getPointsInPolyItems (gridInfo grid,  std::vector<int> epicSiteIDs, std::ma
     }
 
 
-    poDS = poDriver->Open ( polySHP.c_str(), FALSE ); 
+    poDS = (GDALDataset*) GDALOpenEx( polySHP.c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL );
     if( poDS == NULL )
     {
         printf( "\tOpening Shapefile file failed: %s\n", polySHP.c_str() );
@@ -5475,7 +5512,7 @@ void getPointsInPolyItems (gridInfo grid,  std::vector<int> epicSiteIDs, std::ma
        printf ( "\tPolygon shapefile has different projection and reprojecting it...\n" );
        
        //close the second file
-       OGRDataSource::DestroyDataSource( poDS );
+       GDALClose ( poDS );
 
        string polySHP_prj  =  projectShape ( gdalBinDir, polySHP, grid.strProj4 );      
 
@@ -5670,7 +5707,7 @@ void getPointsInPolyItems (gridInfo grid,  std::vector<int> epicSiteIDs, std::ma
 
 
 
-    OGRDataSource::DestroyDataSource( poDS );
+    GDALClose ( poDS );
 
     printf ( "\tCompleted extracting attributes from shapefile:%s\n\n", polySHP.c_str() );
 

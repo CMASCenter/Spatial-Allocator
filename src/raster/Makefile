@@ -3,44 +3,51 @@ CC = gcc
 CPP = g++
 
 #Optional flags - uncomment one OPTFLAGS line
-OPTFLAGS = -O2
+OPTFLAGS = -O2 -fpermissive
 #OPTFLAGS = -O -DDEBUG 
 
 #set SA HOME
-SA_HOME = /nas01/depts/ie/cempd/apps/sallocator/sa_052014/src
+#SA_HOME = /work/MOD3APP/festc/sa_052014/src
+SA_HOME = /proj/ie/proj/staff/lizadams/test_SA/Spatial-Allocator/src/
 
 #set GDAL library and include directory compiled using gcc
-GDAL = ${SA_HOME}/libs/gdal-1.11.0/local
+#GDAL = ${SA_HOME}/libs/gdal-2.0.2/local
+GDAL = ${SA_HOME}/libs/gdal-2.0.2/local
 GDAL_LIB = ${GDAL}/lib
 GDAL_INCLUDE = ${GDAL}/include
 
 #set PROJ4 libary and share data directories compiled using gcc
-PROJ4 = ${SA_HOME}/libs/proj-4.8.0/local
+#PROJ4 = ${SA_HOME}/libs/proj-4.9.3/local
+#PROJ4 = ${SA_HOME}/libs/proj-4.8.0/local
+PROJ4 = ${SA_HOME}/libs/proj-4.9.3/local
 PROJ_LIB = ${PROJ4}/lib
 PROJ_INCLUDE = ${PROJ4}/include
 
 #set GEOS libary and share data directories compiled using gcc
-GEOS = ${SA_HOME}/libs/geos-3.4.2/local
+#GEOS = ${SA_HOME}/libs/geos-3.5.0/local
+GEOS = ${SA_HOME}/libs/geos-3.5.1/local
 GEOS_LIB = ${GEOS}/lib
 GEOS_INCLUDE = ${GEOS}/include
 
 # Set netCDF library and include directory compiled using gcc
-NETCDF = ${SA_HOME}/libs/netcdf-4.0.1/local
+NETCDF = /nas/longleaf/home/lizadams/.linuxbrew/
 NETCDF_LIB = ${NETCDF}/lib 
 NETCDF_INCLUDE = ${NETCDF}/include
 
 # Set HDF4 library and include directory compiled using gcc
-HDF4 = ${SA_HOME}/libs/hdf-4.2.10/local
+#HDF4 = ${SA_HOME}/libs/hdf-4.2.11/local
+HDF4 = ${SA_HOME}/libs/hdf-4.2.13/local
 HDF4_LIB = ${HDF4}/lib
 HDF4_INCLUDE = ${HDF4}/include
 
 # Set HDF5 library and include directory compiled using gcc
-HDF5 = ${SA_HOME}/libs/hdf5-1.8.13/local
+#HDF5 = ${SA_HOME}/libs/hdf5-1.8.16/local
+HDF5 = /nas/longleaf/home/lizadams/.linuxbrew/
 HDF5_LIB = ${HDF5}/lib
 HDF5_INCLUDE = ${HDF5}/include
 
 #set ANN libary compiled using gcc
-ANN111 = ${SA_HOME}/libs/ann_1.1.1
+ANN111 = ${SA_HOME}/libs/ann_1.1.2
 ANN_LIB = ${ANN111}/lib
 ANN_INCLUDE = ${ANN111}/include
 
@@ -70,7 +77,7 @@ CPPFLAGS = -g $(OPTFLAGS) -I${GDAL_INCLUDE} -I${PROJ_INCLUDE} -I${GEOS_INCLUDE} 
 #	$(CC) $(CFLAGS) -c $<
 
 
-all: create_gridPolygon.exe toNLCDRaster.exe preProcessNLCD.exe computeGridLandUse.exe computeGridLandUse_beld4.exe rasterWtoPolygons.exe txt2ncf.exe toDataAssimilationFMT.exe computeGridGOES.exe computeGridOMI.exe computeGridOMIL2.exe computeGridMODISL2Clouds.exe computeSiteDailyWeather.exe compute_EPICSiteData.exe extractEPIC2CMAQ.exe extractEPICYearlyAverage2CMAQ.exe
+all: create_gridPolygon.exe toNLCDRaster.exe preProcessNLCD.exe computeGridLandUse.exe computeGridLandUse_LAI_MODIS.exe computeGridLandUse_beld4.exe rasterWtoPolygons.exe txt2ncf.exe toDataAssimilationFMT.exe computeGridGOES.exe computeGridOMI.exe computeGridOMIL2.exe computeGridMODISL2Clouds.exe computeSiteDailyWeather.exe compute_EPICSiteData.exe extractEPIC2CMAQ.exe extractEPICYearlyAverage2CMAQ.exe
 
 create_gridPolygon.exe:  create_gridPolygon.o geo_functions.o utilities.o
 	$(CPP) -o $@  create_gridPolygon.o geo_functions.o utilities.o $(LIBS)
@@ -83,6 +90,9 @@ preProcessNLCD.exe:  preProcessNLCD.o utilities.o
 
 computeGridLandUse.exe:  computeGridLandUse.o geo_functions.o  utilities.o
 	$(CPP) -o $@ computeGridLandUse.o geo_functions.o  utilities.o $(LIBS)
+
+computeGridLandUse_LAI_MODIS.exe:  computeGridLandUse_LAI_MODIS.o geo_functions.o  utilities.o
+	$(CPP) -o $@ computeGridLandUse_LAI_MODIS.o geo_functions.o  utilities.o $(LIBS)
 
 computeGridLandUse_beld4.exe:  computeGridLandUse_beld4.o geo_functions.o  utilities.o
 	$(CPP) -o $@ computeGridLandUse_beld4.o geo_functions.o  utilities.o $(LIBS)
@@ -136,6 +146,8 @@ preProcessNLCD.o: preProcessNLCD.cpp
 	$(CPP) $(CPPFLAGS) -c preProcessNLCD.cpp
 computeGridLandUse.o: computeGridLandUse.cpp
 	$(CPP) $(CPPFLAGS) -c computeGridLandUse.cpp
+computeGridLandUse_LAI_MODIS.o: computeGridLandUse_LAI_MODIS.cpp
+	$(CPP) $(CPPFLAGS) -c computeGridLandUse_LAI_MODIS.cpp
 computeGridLandUse_beld4.o: computeGridLandUse_beld4.cpp
 	$(CPP) $(CPPFLAGS) -c computeGridLandUse_beld4.cpp
 rasterWtoPolygons.o: rasterWtoPolygons.cpp
