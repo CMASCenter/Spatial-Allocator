@@ -35,7 +35,7 @@ raster_scripts directory of the installed Spatial Allocator system.
 <a id="compiling"><a/>
 ## Compiling and Installation ##
 
-Users who have difficulties running the tools with the compiled libraries contained within the downloaded Spatial Allocator systemshould do the following:
+Users who have difficulties running the tools with the compiled libraries contained within the downloaded Spatial Allocator system should do the following:
 
 -   delete installed open-source library directories under the ./src/libs directory
 -   download new source packages and install them under the ./libs directory
@@ -621,9 +621,14 @@ line window:
 **generateEPICsiteDailyWeatherNdep.csh**
 
 The following are two versions of the tool **computeSiteDailyWeather.cpp**
+
 **computeSiteDailyWeather.cpp_beforecmaq52**
+
 **computeSiteDailyWeather.cpp_cmaq52**
-The default version is linked to the version: **computeSiteDailyWeatehr.cpp_cmaq52**. Users should change the link to the **computeSiteDailyWeather.cpp_beforecmaq52** if a version of CMAQ prior to CMAQv5.2 was used to generate the N deposition input files.
+
+The default version is linked to the version: **computeSiteDailyWeatehr.cpp_cmaq52**. 
+
+Users should change the link to the **computeSiteDailyWeather.cpp_beforecmaq52** if a version of CMAQ prior to CMAQv5.2 was used to generate the N deposition input files.
 
 ### EPIC-to-CMAQ Tool
 
