@@ -9,7 +9,7 @@ Getting the Spatial Allocator from GitHub
 ---
 
 ```
-git clone https://github.com/CMASCenter/Spatial-Allocator.git
+git clone -b 4.3.2 https://github.com/CMASCenter/Spatial-Allocator.git
 ```
 
 Getting Test Data for the Spatial Allocator
