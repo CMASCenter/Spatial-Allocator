@@ -14,7 +14,7 @@
 	*   [BELD4 Land Cover Generation](#beld4)
 	*   [Current and Future Development fo rthe Land Cover Data Processing Tools](#plans)
 -   [Satellite Cloud and Aerosol Product Processing Tools](#satdat)
-	*   [GEOS Cloud Product Processing Tool](#geos)
+	*   [GOES Cloud Product Processing Tool](#goes)
 	*   [MODIS Level 2 Cloud/Aerosol Products Tool](#modis)
 	*   [OMI Level 2 Product Tool](#omi)
 	*   [OMI L2G and L3 Product Tools](#omil2g)
@@ -385,17 +385,12 @@ grid cell.
 <a id="satdat"><a/>
 ## Satellite Cloud and Aerosol Product Processing Tools
 
-<a id="geos"><a/>
+<a id="goes"><a/>
 ### GOES Cloud Product Processing Tool
-SA Script: allocateGOES2WRFGrids.csh
 
-The GOES data tool processes the Geostationary Operational Environmental
-Satellite (GOES) data downloaded from the Earth System Science Center
-(ESSC) at the University of Alabama in Huntsville.
-
-#### Data Access
-Contact Dr. Arastoo Pour Biazar at UAH's Earth System Science Center (ESSC) for the GOES data which can be processed by the tool.
-
+The GOES data tool processes the Geostationary Operational Environmental Satellite (GOES) 
+data downloaded from the Earth System Science Center (ESSC) at the University of Alabama in Huntsville. 
+The GEOS data web site is <http://satdas.nsstc.nasa.gov>
 
 Downloaded GOES data need to be stored under subdirectories named using
 this format: gp_YYYYMMDD. The ./util/goes_untar.pl utility can be used
@@ -403,7 +398,9 @@ to unzip downloaded GOES data (daily tar files) into the daily
 directories required by the tool.
 
 The following sample script file contains all of the required
-environment variables for running the tool: **allocateGOES2WRFGrids.csh**.
+environment variables for running the tool: 
+
+**allocateGOES2WRFGrids.csh**.
 
 The tool contains the following three programs:
 
@@ -433,7 +430,6 @@ ignored.
 
 <a id="modis"><a/>
 ### MODIS Level 2 Cloud/Aerosol Products Tool
-SA Script: allocateMODISL2CloudVars2Grids.csh
 
 The MODIS Level 2 (swath) cloud and aerosol products tool processes
 MODIS L2 cloud or aerosol products for a defined grid domain. MODIS data
@@ -448,18 +444,26 @@ Level 1 Geolocation 1-km data into the input directory:
 -   MOD06_L2 and MOD03 (Level 1 Geolocation 1-km ) for Terra, or
 -   MYD06_L2 and MYD03 (Level 1 Geolocation 1-km ) for Aqua
 
-#### Cloud Product Data Access:
--   URL: https://ladsweb.nascom.nasa.gov/search/
--   Select Terra MODIS
--   Select Atmosphere Level 2 products
--   MOD06_L2
--   Select time
--   Collection: 5.1
--   Select Latitude/Longitude
--   Coverage options: select day, night, and both (all)
--   all other defaults and Click search
--   Display all files
--   Download all files into one directory
+The following download options can be selected during the download process:
+
+MODIS Cloud:
+- Select Level 2 products and select L2 Cloud products
+- Select time: "your download time period"
+- Collection 5
+- Select Latitude/Longitude with the above geographic extent
+- Coverage options: select day, night, and both (all)
+- Select all other defaults and click search
+- Display all files
+- Download files into one directory
+
+MODIS Geolocation 1-km:
+- Select Level 1 products and select O3 Geolocation - 1km
+- Select time: "same as cloud products"
+- Collection 5
+- Select Latitude/Longitude with the above geographic extent
+- Coverage options: select day, night,and both (all)
+- Display all files
+- Download all files into the MODIS Cloud file directory
 
 MODIS aerosol products contain variable data at 10-km resolution
 (nadir). Users need to download MOD04 for Terra or MYD04 for Aqua into
@@ -469,37 +473,21 @@ products involves similar options. The tool generates one NetCDF file
 for the defined domain.
 
 #### Aerosol Product Data Access:
--   URL: https://ladsweb.nascom.nasa.gov/search/
 -   Select Terra MODIS
--   Select Atmosphere Level 2 products
--   MOD04_L2
--   Select time
--   Collection: 5.1
--   Select Latitude/Longitude
+-   MODIS Aerosol products
+-   Select Level 2 products and select L2 aerosol poduct
+-   Select time: "your download time period"
+-   Collection: 5
+-   Select Latitude/Longitude with area longitude and latitude extent
 -   Coverage options: select day, night, and both (all)
--   all other defaults and Click search
+-   Select all other defaults and click search
 -   Display all files
 -   Download all files into one directory
 
-MODIS Geolocation data are needed for the MODIS cloud product regridding.
+Users can modify the following sample script file provided for regridding the MODIS cloud data:
 
-#### Geolocation Product Data Access:
--   URL: https://ladsweb.nascom.nasa.gov/search/
--   Select Terra MODIS
--   Select Level 1 products
--   MOD03 Geolocation - 1km
--   Select time: same as cloud
--   Collection: 5
--   Select Latitude/Longitude: same as cloud
--   Coverage options: select day, night, and both (all)
--   all other defaults and Click search
--   Display all files
--   Download all files into the MODIS cloud data directory
+**allocateMODISL2CloudVars2Grids.csh**
 
-Follow the same process for these other products: Aqua MODIS, Aqua Atmosphere Level 2 Products, MYD04_L2, MYD06_L2, MYD03
-
-Users can modify the **allocateMODISL2CloudVars2Grids.csh** sample script for
-regridding the MODIS cloud data.
 
 <a id="omi"><a/>
 ### OMI Level 2 Product Tool
@@ -507,18 +495,15 @@ SA Script: allocateOMIL2vars2Grids.csh
 
 The OMI Level 2 product (swath) tool is used to regrid Ozone Monitoring
 Instrument (OMI) L2 aerosol and NO~2~ products for a defined grid
-domain.
+domain. The input data can be downloaded from the NASA mirador site: 
 
-#### Data Access:
--   URL: http://mirador.gsfc.nasa.gov/cgi-bin/mirador/presentNavigation.pl?tree=project&project=OMI
--   Click L2_V003
--   Select Spatial and Temporal Search and choose location and time period
--   Under Data Set: Check only OMAERO.033, and OMNO2.003
--   Search GES-DISC
--   Put downloaded data in one directory and define in the run script.
+[http://mirador.gsfc.nasa.gov/cgi-bin/mirador/presentNavigation.pl?tree=
+project\&project=OMI](http://mirador.gsfc.nasa.gov/cgi-bin/mirador/presentNavigation.pl?tree=project&project=OMI).
 
 The downloaded data are in HDF5 format and should be stored in one
-directory, which is defined in the **allocateOMIL2vars2Grids.csh** sample script.
+directory, which is defined in the following sample script file:
+
+**allocateOMIL2vars2Grids.csh**
 
 <a id="omil2g"><a/>
 ### OMI L2G and L3 Product Tools
@@ -530,17 +515,18 @@ The OMI L2G and L3 product tools process the following OMI products:
 -   OMI NO2 L2G products (OMNO2G) in HDF4
 -   OMI NO2 L3 products (NO2TropCS30) in HDF5
 
-#### Data Access:
--   URL: http://mirador.gsfc.nasa.gov/cgi-bin/mirador/presentNavigation.pl?tree=project&project=OMI
--   Click L2G_V003
--   Select Temporal Search and choose time period
--   Under Data Set: Check only OMAEROG.033, and OMNO2G.003
--   Search GES-DISC
--   Put downloaded data in one directory and define in the run script.
+The data can be downloaded from the NASA Giovanni web site:
+<http://gdata1.sci.gsfc.nasa.gov/daac-bin/G3/gui.cgi?instance_id=omi>
 
-Follow the same procedure for L3_V003
+OMI product information can be viewed from
+[http://disc.sci.gsfc.nasa.gov/giovanni/additional/
+users-manual/G3\_manual\_Chapter\_10\_OMIL2G.shtml\#what\_l2g](http://disc.sci.gsfc.nasa.gov/giovanni/additional/users-manual/G3_manual_Chapter_10_OMIL2G.shtml#what_l2g)
+and from [ftp://aurapar2u.ecs
+.nasa.gov/data/s4pa//Aura\_OMI\_Level2/OMAERUV.003/doc/README.OMI\_DUG.pdf](ftp://aurapar2u.ecs.nasa.gov/data/s4pa/Aura_OMI_Level2/OMAERUV.003/doc/README.OMI_DUG.pdf)
 
-The **allocateOMIvar2Grids.csh** sample script can be modified for regridding the OMI L2 and L3 data.
+The following sample script can be modified for regridding:
+
+**allocateOMIvar2Grids.csh**
 
 ---
 <a id="agtools"><a/>
@@ -585,6 +571,7 @@ from the CMAS:
 Users can follow the sample script file below, which has all of the
 environment variables required for running the tool from the command
 line:
+
 **generateEPICSiteData.csh**
 
 <a id="toepic"><a/>
