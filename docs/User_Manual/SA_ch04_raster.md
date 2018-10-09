@@ -491,7 +491,6 @@ Users can modify the following sample script file provided for regridding the MO
 
 <a id="omi"><a/>
 ### OMI Level 2 Product Tool
-SA Script: allocateOMIL2vars2Grids.csh
 
 The OMI Level 2 product (swath) tool is used to regrid Ozone Monitoring
 Instrument (OMI) L2 aerosol and NO~2~ products for a defined grid
@@ -507,7 +506,6 @@ directory, which is defined in the following sample script file:
 
 <a id="omil2g"><a/>
 ### OMI L2G and L3 Product Tools
-SA Script: allocateOMIvar2Grids.csh
 
 The OMI L2G and L3 product tools process the following OMI products:
 
