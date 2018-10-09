@@ -165,6 +165,7 @@ This tool requires the following data sets:
 - List of land cover data sets to be processed – this file has to have fixed header formats.  Provided in the data directory are sample files for CMAQ 12-km domain 2001, 2006 and 2011 modeling: nlcd_modis_files_2001.txt, nlcd_modis_files_2006.txt, and nlcd_modis_files_2011.txt.  Users have to modify the list file based on their NLCD and MODIS data location and names.
 
 To run the computeGridLandUse tool, users can use the following script file, which has all of the required environment variables:
+
 **NLCD_MODIS_processor.csh**
 
 The tool generates one ASCII file and one NetCDF file:
