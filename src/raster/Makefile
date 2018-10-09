@@ -3,12 +3,12 @@ CC = gcc
 CPP = g++
 
 #Optional flags - uncomment one OPTFLAGS line
-OPTFLAGS = -O2 -fpermissive
+OPTFLAGS = -O2
 #OPTFLAGS = -O -DDEBUG 
 
 #set SA HOME
 #SA_HOME = /work/MOD3APP/festc/sa_052014/src
-SA_HOME = /proj/ie/proj/staff/lizadams/test_SA/Spatial-Allocator/src/
+SA_HOME = /proj/ie/apps/dogwood/SA/Spatial-Allocator/src
 
 #set GDAL library and include directory compiled using gcc
 #GDAL = ${SA_HOME}/libs/gdal-2.0.2/local
