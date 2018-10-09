@@ -162,7 +162,15 @@ This tool requires the following data sets:
         -   View All
         -   Order Files Now
 
-- List of land cover data sets to be processed – this file has to have fixed header formats.  Provided in the data directory are sample files for CMAQ 12-km domain 2001, 2006 and 2011 modeling: nlcd_modis_files_2001.txt, nlcd_modis_files_2006.txt, and nlcd_modis_files_2011.txt.  Users have to modify the list file based on their NLCD and MODIS data location and names.
+- List of land cover data sets to be processed – this file has to have fixed header formats.  Provided in the data directory are sample files for CMAQ 12-km domain 2001, 2006 and 2011 modeling: 
+
+```
+nlcd_modis_files_2001.txt
+nlcd_modis_files_2006.txt
+nlcd_modis_files_2011.txt.  
+```
+
+Users have to modify the list file based on their NLCD and MODIS data location and names.
 
 To run the computeGridLandUse tool, users can use the following script file, which has all of the required environment variables:
 
@@ -674,6 +682,7 @@ The 13 variables contained in the soil output file are listed in [Table 5](#Tabl
 EPIC daily output files for CMAQ contain the 41 variables listed in [Table 6](#Table-6).
 
 The following sample script file with all of the required environment variables can be modified and run at the command line:
+
 **epic2CMAQ.csh**
 
 
@@ -703,6 +712,7 @@ The following sample script file with all of the required environment variables 
 |19|L2_BD|Layer2 Bulk Density (t/m**3)|40|CPHT|Crop Height(m)|
 |20|L2_SW|Layer2 Soil Moisture (mm)|41|FBARE|Bare Land Fraction for Wind Erosion (Fraction)
 |21|L2_NO3|Layer2 N - Nitrate (kg/ha)|
+
 Note: EPIC is a daily timestep model while the CMAQ bidirectional NH3 flux model is at a time scale which could be less than 10 minutes.
 
 <a id="epic-yearly"><a/>
