@@ -5,7 +5,7 @@
 
 ## Contents
 -   [Introduction](#intro4)
--   [Compiling and Installation]
+-   [Compiling and Installation](#compiling)
 -   [Defining Domains](#domains)
 -   [Land Cover Data Processing Tools](#landcover)
 -   [Satellite Cloud and Aerosol Product Processing Tools](#satdat)
@@ -32,8 +32,8 @@ All sample script files for the SA Raster Tools are stored in the
 raster_scripts directory of the installed Spatial Allocator system.
 
 ----
-<a id="trouble"><a/>
-## Troubleshooting##
+<a id="compiling"><a/>
+## Compiling and Installation ##
 
 Users who have difficulties running the tools with the compiled libraries contained within the downloaded Spatial Allocator systemshould do the following:
 
