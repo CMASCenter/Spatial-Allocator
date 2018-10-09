@@ -251,8 +251,10 @@ The BELD4 data with land cover, tree, and crop percentages can be
 computed using the computeGridLandUse_beld4.exe tool with directly
 downloaded USGS NLCD data sets, NASA MODIS land cover (MCD12Q1 or
 MOD12Q1) data tiles and tree and crop fractions at the county level. The
-follow­ing sample script file contains all of the required environment
-variables for running the tool **landuseTool_WRFCMAQ_BELD4.csh**.
+following sample script file contains all of the required environment
+variables for running the tool: 
+
+**landuseTool_WRFCMAQ_BELD4.csh**.
 
 This tool requires the following data sets:
 
@@ -534,8 +536,8 @@ The following sample script can be modified for regridding:
 There are four tools that can be used when performing Environmental
 Policy Integrated Climate (EPIC) modeling; they generate gridded
 agricultural fertilizer data to be used in CMAQ bidirectional NH~3~ flux
-modeling. These tools are the EPIC site information generation tool, the
-[MCIP/CMAQ-to-EPIC tool](#epic), the [EPIC-to-CMAQ tool](#tocmaq), and the EPIC yearly
+modeling. These tools are the [EPIC site information generation tool](#epic), the
+[MCIP/CMAQ-to-EPIC tool](#toepic), the [EPIC-to-CMAQ tool](#tocmaq), and the EPIC yearly
 extraction tool](#epic_yearly). They can be called from the
 Fertilizer Emission Scenario Tool for CMAQ (FEST-C) interface
 (<http://www.cmascenter.org/fest-c/>) based on user input information,
@@ -587,7 +589,7 @@ formats:
 `YYYYMMDD *or* YYMMDD *or* YYYYDDD *or* YYDDD`
 
 CMAQ dry and wet deposition files must have names of the format
-*DRYDEP*{date} and *WETDEP*{date} (e.g.,
+\*DRYDEP\*{date} and \*WETDEP\*{date} (e.g.,
 CCTM_N4a_06emisv2soa_12km_wrf.DRYDEP.20020630 and
 CCTM_N4a_06emisv2soa_12km_wrf.WETDEP1.20020630). The date can be in
 any of the formats listed above.
