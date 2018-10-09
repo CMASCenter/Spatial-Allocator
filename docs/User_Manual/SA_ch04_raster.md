@@ -119,10 +119,11 @@ GRID_YMIN = -1793999.28 - GRID_YCELLSIZE / 2
 <a id="landcover"><a/>
 ## Land Cover Data Processing Tools
 
-There are two land cover processing tools in the SA Raster Tools:
+There are three land cover processing tools in the SA Raster Tools:
 
--   NLCD and MODIS land cover generation tool
--   Biogenic Emissions Landcover Database, version 4 (BELD4) land cover generation tool.
+-   [NLCD and MODIS land cover generation tool](#nlcd_LC)
+-   [NLCD and MODIS land cover and MODIS LAI generation tool](#nlcd_LC_LAI)
+-   [Biogenic Emissions Landcover Database, version 4 (BELD4) land cover generation tool.](#beld4)
 
 All of the example scripts listed in this section are in the SA_HOME/raster_scripts directory.
 
