@@ -1,0 +1,68 @@
+#!/bin/sh
+CONFIG_LIBS="-L/work/MOD3APP/festc/sa432_092018/src/libs/gdal-2.0.2/local/lib -lgdal"
+CONFIG_DEP_LIBS=" -L/work/MOD3APP/festc/sa432_092018/src/libs/proj-4.9.3/local/lib -lproj -L/work/MOD3APP/festc/sa_052014/src/libs/geos-3.5.0/local/lib -lgeos_c -lopenjp2 -lpthread -lm -lrt -ldl  -lpcre                -lxml2 -lz -lm -ldl  "
+CONFIG_PREFIX="/work/MOD3APP/festc/sa432_092018/src/libs/gdal-2.0.2/local"
+CONFIG_CFLAGS="-I/work/MOD3APP/festc/sa432_092018/src/libs/gdal-2.0.2/local/include"
+CONFIG_DATA="/work/MOD3APP/festc/sa432_092018/src/libs/gdal-2.0.2/local/share/gdal"
+CONFIG_VERSION="2.0.2"
+CONFIG_OGR_ENABLED=yes
+CONFIG_FORMATS="gxf gtiff hfa aigrid aaigrid ceos ceos2 iso8211 xpm sdts raw dted mem jdem envisat elas fit vrt usgsdem l1b nitf bmp pcidsk airsar rs2 ilwis rmf leveller sgi srtmhgt idrisi gsg ingr ers jaxapalsar dimap gff cosar pds adrg coasp tsx terragen blx msgn til r northwood saga xyz hf2 kmlsuperoverlay ctg e00grid zmap ngsgeoid iris map grib bsb openjpeg gif jpeg png pcraster zlib  rik ozi pdf arg"
+usage()
+{
+	cat <<EOF
+Usage: gdal-config [OPTIONS]
+Options:
+	[--prefix[=DIR]]
+	[--libs]
+	[--dep-libs]
+	[--cflags]
+	[--datadir]
+	[--version]
+	[--ogr-enabled]
+	[--formats]
+EOF
+	exit $1
+}
+
+if test $# -eq 0; then
+	usage 1 1>&2
+fi
+
+case $1 in 
+  --libs)
+    echo $CONFIG_LIBS
+    ;;
+
+  --dep-libs)
+    echo $CONFIG_DEP_LIBS
+    ;;
+
+  --cflags)
+    echo $CONFIG_CFLAGS
+    ;;
+
+  --datadir)
+    echo $CONFIG_DATA
+    ;;
+
+  --prefix)
+    echo $CONFIG_PREFIX
+    ;;
+
+  --version)
+    echo $CONFIG_VERSION
+    ;;
+
+  --ogr-enabled)
+    echo $CONFIG_OGR_ENABLED
+    ;;
+
+  --formats)
+    echo $CONFIG_FORMATS
+    ;;
+
+  *)
+    usage 1 1>&2
+    ;;
+
+esac

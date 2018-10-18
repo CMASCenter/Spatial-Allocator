@@ -17,7 +17,7 @@ old_library='libnetcdf_c++.a'
 inherited_linker_flags=''
 
 # Libraries that this one depends upon.
-dependency_libs=' /nas01/depts/ie/cempd/apps/sallocator/sa_052013/src/libs/netcdf-4.0.1/local/lib/libnetcdf.la'
+dependency_libs=' /work/MOD3APP/festc/sa_052014/src/libs/netcdf-4.0.1/local/lib/libnetcdf.la'
 
 # Names of additional weak libraries provided by this library
 weak_library_names=''
@@ -38,4 +38,4 @@ dlopen=''
 dlpreopen=''
 
 # Directory that this library needs to be installed in:
-libdir='/nas01/depts/ie/cempd/apps/sallocator/sa_052013/src/libs/netcdf-4.0.1/local/lib'
+libdir='/work/MOD3APP/festc/sa_052014/src/libs/netcdf-4.0.1/local/lib'

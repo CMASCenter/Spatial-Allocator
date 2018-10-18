@@ -3,16 +3,16 @@
 # Borrowed the idea for this script (and some code) from libcurl.
 #
 
-prefix=/nas01/depts/ie/cempd/apps/sallocator/sa_052013/src/libs/netcdf-4.0.1/local
+prefix=/work/MOD3APP/festc/sa_052014/src/libs/netcdf-4.0.1/local
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include
 
 cc="cc"
 cxx="c++"
-fc="ifort"
+fc="gfortran"
 cflags=" -I${includedir}"
-fflags="-g -I${includedir}"
+fflags="-g -O2 -I${includedir}"
 libs="-L${libdir} -lnetcdf"
 flibs="-L${libdir} -lnetcdf"
 has_dap="no"

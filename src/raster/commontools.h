@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string>
+#include <cstring>
 #include <vector>
 #include <map>
 #include <algorithm>
@@ -88,6 +89,7 @@ int getTimeSteps ( string startDate, string endDate );
 void fillCharArray ( int charLen, char *nameChar, vector<string> nameStr );
 void checkSelectionYesNo ( string sel );
 int write_geogrid(
+      char  * fname,           /* file name to be created */
       float * rarray,          /* The array to be written */
       int * nx,                /* x-dimension of the array */
       int * ny,                /* y-dimension of the array */
@@ -100,3 +102,4 @@ short * allocateShortDataArrayMemory ( int  totalSize );
 bool comparePROJ4GDALPRJ (string prjPROJ4, string prjGDAL );
 string  stringVector2string (vector<string> strV, const char *sep);
 void fillFloatArrayMissingValueVar ( int totalSize, float *varV, float missVal );
+int   dayofweek( string  dateStr );

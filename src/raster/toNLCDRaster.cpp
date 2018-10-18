@@ -88,9 +88,9 @@ int main( int nArgc,  char* papszArgv[] )
     double          adfMinMax[2];
 
     //OGR related
-    OGRDataSource       *poDS = NULL;
+    GDALDataset         *poDS = NULL;
     const char          *pszDriverName = "ESRI Shapefile";
-    OGRSFDriver         *poDriver = NULL;
+    GDALDriver          *poDriver = NULL;
     const char          *layername = NULL;
     OGRLayer            *poLayer = NULL;
     OGREnvelope         oExt;
@@ -107,7 +107,6 @@ int main( int nArgc,  char* papszArgv[] )
 /* -------------------------------------------------------------------- */
 /*      Register format(s).                                             */
 /* -------------------------------------------------------------------- */
-    OGRRegisterAll();
     GDALAllRegister();
     
 /* -------------------------------------------------------------------- */
@@ -311,13 +310,14 @@ int main( int nArgc,  char* papszArgv[] )
     if (stat(psztmpFilename, &stFileInfo) == 0) 
     {
        printf( "\tTemp projected shapefile exists and delete it: %s\n", psztmpFilename );
-       poDriver = OGRSFDriverRegistrar::GetRegistrar()->GetDriverByName( pszDriverName );
+
+       poDriver = GetGDALDriverManager()->GetDriverByName( pszDriverName );
        if( poDriver == NULL )
        {
           printf( "%s driver not available.\n", pszDriverName );
           exit( 1 );
        } 
-       if ( (poDriver->DeleteDataSource( psztmpFilename )) != OGRERR_NONE )
+       if ( (poDriver->Delete( psztmpFilename )) == CE_Failure )
        {
           printf( "\tError in deleting temp shapefile: %s\n\n", psztmpFilename );
        }
@@ -356,13 +356,13 @@ int main( int nArgc,  char* papszArgv[] )
 /* -------------------------------------------------------------------- */
 /*      Register format(s).                                             */
 /* -------------------------------------------------------------------- */
-    OGRRegisterAll();
+     GDALAllRegister ();
 
 /* -------------------------------------------------------------------- */
 /*      Open projected shapfile file.                                   */
 /* -------------------------------------------------------------------- */
 
-    poDS = OGRSFDriverRegistrar::Open( psztmpFilename, FALSE );
+    poDS = (GDALDataset*) GDALOpenEx( psztmpFilename, GDAL_OF_VECTOR, NULL, NULL, NULL );
     if( poDS == NULL )
     {
       printf( "\tOpen shapefile file failed: %s.\n", psztmpFilename );
@@ -397,7 +397,8 @@ int main( int nArgc,  char* papszArgv[] )
     printf("\tModified extent min_xy: (%f, %f) max_xy: (%f, %f)\n", xMin, yMin, xMax, yMax);
     printf("\txcells = %d   ycells = %d\n",xcells,ycells);
 
-    OGRDataSource::DestroyDataSource( poDS );
+    
+     GDALClose ( poDS );
 
 /* -------------------------------------------------------------------- */
 /*      Create a domain raster data set to store rasterized grid data   */
@@ -455,13 +456,13 @@ int main( int nArgc,  char* papszArgv[] )
     }    
   
     //delete temp projected file
-    poDriver = OGRSFDriverRegistrar::GetRegistrar()->GetDriverByName( pszDriverName );
+    poDriver = GetGDALDriverManager()->GetDriverByName( pszDriverName );
     if( poDriver == NULL )
     {
        printf( "%s driver not available.\n", pszDriverName );
        exit( 1 );
     }
-    if ( (poDriver->DeleteDataSource( psztmpFilename )) != OGRERR_NONE )
+    if ( (poDriver->Delete( psztmpFilename )) == CE_Failure )
     {
        printf( "\tError in deleting temp shapefile: %s\n\n", psztmpFilename );
     }

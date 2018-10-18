@@ -79,8 +79,8 @@ int main( int nArgc,  char* papszArgv[] )
     string          cmd_str;  //comand to call an executable program
 
     //OGR related
-    OGRDataSource       *poDS = NULL;
-    OGRSFDriver         *poOGRDrive = NULL;
+    GDALDataset         *poDS = NULL;
+    GDALDriver          *poOGRDrive = NULL;
     OGRLayer            *poLayer = NULL;
     OGRSpatialReference *oSRS_poly;      //projection from input polygon shapefile
     OGREnvelope         oExt;
@@ -110,7 +110,6 @@ int main( int nArgc,  char* papszArgv[] )
 /* -------------------------------------------------------------------- */
 /*      Register format(s).                                             */
 /* -------------------------------------------------------------------- */
-    OGRRegisterAll();
     GDALAllRegister();
     
 /* -------------------------------------------------------------------- */
@@ -335,16 +334,16 @@ int main( int nArgc,  char* papszArgv[] )
        //delete tmp projected shapefile if exists
        if (stat(psztmpFilename.c_str(), &stFileInfo) == 0) 
        {
-           poDS = OGRSFDriverRegistrar::Open( psztmpFilename.c_str(), FALSE );
+           poDS = (GDALDataset*) GDALOpenEx( psztmpFilename.c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL );
            if( poDS == NULL )
            {
               printf( "\tOpen shapefile file failed: %s.\n", psztmpFilename.c_str() );
               exit( 1 );
            }
            poOGRDrive = poDS->GetDriver(); 
-           OGRDataSource::DestroyDataSource( poDS );
+           GDALClose ( poDS );
 
-           if ( poOGRDrive->DeleteDataSource( psztmpFilename.c_str() ) != OGRERR_NONE )
+           if ( poOGRDrive->Delete ( psztmpFilename.c_str() ) != CE_None )
            {
               printf( "\tDeleting the file failed: %s\n", psztmpFilename.c_str() );
               exit( 1 );
@@ -353,7 +352,7 @@ int main( int nArgc,  char* papszArgv[] )
        }
 
        //check polygon shapefile's projection
-       poDS = OGRSFDriverRegistrar::Open( pszSrcFilename.c_str(), FALSE );
+       poDS = (GDALDataset*) GDALOpenEx( pszSrcFilename.c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL ); 
        if( poDS == NULL )
        {
            printf( "\tOpen shapefile file failed: %s.\n", pszSrcFilename.c_str() );
@@ -397,7 +396,8 @@ int main( int nArgc,  char* papszArgv[] )
           psztmpFilename = pszSrcFilename;   //will rasterized from the input shapefile
           printf("\tPolygon shapefile has the same projection as weight image's.\n\n");
        }
-       OGRDataSource::DestroyDataSource( poDS );
+
+       GDALClose ( poDS );
    }  
      
 /* -------------------------------------------------------------------- */
