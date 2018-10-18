@@ -66,7 +66,6 @@
 #include <fstream>
 #include <sstream>
 #include "commontools.h"
-#include <cstring>
 
 
 float PRJ_MISSIING_VALUE=-9999.0;

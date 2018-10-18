@@ -7,42 +7,36 @@ OPTFLAGS = -O2
 #OPTFLAGS = -O -DDEBUG 
 
 #set SA HOME
-#SA_HOME = /work/MOD3APP/festc/sa_052014/src
-SA_HOME = /proj/ie/apps/dogwood/SA/Spatial-Allocator/src
+#SA_HOME = /work/MOD3APP/festc/sa432_092018//src
+SA_HOME = /proj/ie/apps/longleaf/sallocator/sa432_092018_finalrelease/src
 
 #set GDAL library and include directory compiled using gcc
-#GDAL = ${SA_HOME}/libs/gdal-2.0.2/local
 GDAL = ${SA_HOME}/libs/gdal-2.0.2/local
 GDAL_LIB = ${GDAL}/lib
 GDAL_INCLUDE = ${GDAL}/include
 
 #set PROJ4 libary and share data directories compiled using gcc
-#PROJ4 = ${SA_HOME}/libs/proj-4.9.3/local
-#PROJ4 = ${SA_HOME}/libs/proj-4.8.0/local
 PROJ4 = ${SA_HOME}/libs/proj-4.9.3/local
 PROJ_LIB = ${PROJ4}/lib
 PROJ_INCLUDE = ${PROJ4}/include
 
 #set GEOS libary and share data directories compiled using gcc
-#GEOS = ${SA_HOME}/libs/geos-3.5.0/local
-GEOS = ${SA_HOME}/libs/geos-3.5.1/local
+GEOS = ${SA_HOME}/libs/geos-3.5.0/local
 GEOS_LIB = ${GEOS}/lib
 GEOS_INCLUDE = ${GEOS}/include
 
 # Set netCDF library and include directory compiled using gcc
-NETCDF = /nas/longleaf/home/lizadams/.linuxbrew/
+NETCDF = ${SA_HOME}/libs/netcdf-4.0.1/local
 NETCDF_LIB = ${NETCDF}/lib 
 NETCDF_INCLUDE = ${NETCDF}/include
 
 # Set HDF4 library and include directory compiled using gcc
-#HDF4 = ${SA_HOME}/libs/hdf-4.2.11/local
-HDF4 = ${SA_HOME}/libs/hdf-4.2.13/local
+HDF4 = ${SA_HOME}/libs/hdf-4.2.11/local
 HDF4_LIB = ${HDF4}/lib
 HDF4_INCLUDE = ${HDF4}/include
 
 # Set HDF5 library and include directory compiled using gcc
-#HDF5 = ${SA_HOME}/libs/hdf5-1.8.16/local
-HDF5 = /nas/longleaf/home/lizadams/.linuxbrew/
+HDF5 = ${SA_HOME}/libs/hdf5-1.8.16/local
 HDF5_LIB = ${HDF5}/lib
 HDF5_INCLUDE = ${HDF5}/include
 

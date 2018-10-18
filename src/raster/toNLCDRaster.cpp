@@ -88,9 +88,9 @@ int main( int nArgc,  char* papszArgv[] )
     double          adfMinMax[2];
 
     //OGR related
-    OGRDataSource       *poDS = NULL;
+    GDALDataset         *poDS = NULL;
     const char          *pszDriverName = "ESRI Shapefile";
-    OGRSFDriver         *poDriver = NULL;
+    GDALDriver          *poDriver = NULL;
     const char          *layername = NULL;
     OGRLayer            *poLayer = NULL;
     OGREnvelope         oExt;
@@ -107,7 +107,6 @@ int main( int nArgc,  char* papszArgv[] )
 /* -------------------------------------------------------------------- */
 /*      Register format(s).                                             */
 /* -------------------------------------------------------------------- */
-    OGRRegisterAll();
     GDALAllRegister();
     
 /* -------------------------------------------------------------------- */
@@ -151,8 +150,7 @@ int main( int nArgc,  char* papszArgv[] )
    if (stat(tmp_str.c_str(), &stFileInfo) == 0)
    {
        printf( "\tOutput 30m grid file exists and delete it: %s\n", pszDstFilename );
-//       poRDataset = (GDALDataset *) GDALOpen( pszDstFilename, GA_ReadOnly );
-         poRDataset = (GDALDataset*) GDALOpenEx( pszDstFilename, GDAL_OF_VECTOR, NULL, NULL, NULL );
+       poRDataset = (GDALDataset *) GDALOpen( pszDstFilename, GA_ReadOnly );
        if( poRDataset == NULL )
        {
           printf( "\tOpen raster file failed: %s.\n", pszDstFilename );
@@ -183,8 +181,7 @@ int main( int nArgc,  char* papszArgv[] )
    if (stat(out_modisFile.c_str(), &stFileInfo) == 0)
    {
        printf( "\tOutput MODIS File exists and delete it: %s\n", out_modisFile.c_str() );
-//       poRDataset = (GDALDataset *) GDALOpen( out_modisFile.c_str(), GA_ReadOnly );
-         poRDataset = (GDALDataset*) GDALOpenEx( out_modisFile.c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL );
+       poRDataset = (GDALDataset *) GDALOpen( out_modisFile.c_str(), GA_ReadOnly );
        if( poRDataset == NULL )
        {
           printf( "\tOpen raster file failed: %s.\n", out_modisFile.c_str() );
@@ -248,8 +245,7 @@ int main( int nArgc,  char* papszArgv[] )
     printf( "\nObtain NLCD projection and cell information from image:  %s\n",rDataFile.c_str() );
 
     
-//    poRDataset = (GDALDataset *) GDALOpen( rDataFile.c_str(), GA_ReadOnly );
-    poRDataset = (GDALDataset*) GDALOpenEx( rDataFile.c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL );
+    poRDataset = (GDALDataset *) GDALOpen( rDataFile.c_str(), GA_ReadOnly );
     if( poRDataset == NULL )
     {
        printf( "\tOpen raster file failed: %s.\n", rDataFile.c_str() );
@@ -314,13 +310,14 @@ int main( int nArgc,  char* papszArgv[] )
     if (stat(psztmpFilename, &stFileInfo) == 0) 
     {
        printf( "\tTemp projected shapefile exists and delete it: %s\n", psztmpFilename );
-       poDriver = OGRSFDriverRegistrar::GetRegistrar()->GetDriverByName( pszDriverName );
+
+       poDriver = GetGDALDriverManager()->GetDriverByName( pszDriverName );
        if( poDriver == NULL )
        {
           printf( "%s driver not available.\n", pszDriverName );
           exit( 1 );
        } 
-       if ( (poDriver->DeleteDataSource( psztmpFilename )) != OGRERR_NONE )
+       if ( (poDriver->Delete( psztmpFilename )) == CE_Failure )
        {
           printf( "\tError in deleting temp shapefile: %s\n\n", psztmpFilename );
        }
@@ -359,15 +356,13 @@ int main( int nArgc,  char* papszArgv[] )
 /* -------------------------------------------------------------------- */
 /*      Register format(s).                                             */
 /* -------------------------------------------------------------------- */
-    OGRRegisterAll();
+     GDALAllRegister ();
 
 /* -------------------------------------------------------------------- */
 /*      Open projected shapfile file.                                   */
 /* -------------------------------------------------------------------- */
 
-//    poDS = OGRSFDriverRegistrar::Open( psztmpFilename, FALSE );
-//    https://www.gdal.org/ogr_apitut.html
-     poDS = (GDALDataset*) GDALOpenEx( psztmpFilename, GDAL_OF_VECTOR, NULL, NULL, NULL ); 
+    poDS = (GDALDataset*) GDALOpenEx( psztmpFilename, GDAL_OF_VECTOR, NULL, NULL, NULL );
     if( poDS == NULL )
     {
       printf( "\tOpen shapefile file failed: %s.\n", psztmpFilename );
@@ -402,7 +397,8 @@ int main( int nArgc,  char* papszArgv[] )
     printf("\tModified extent min_xy: (%f, %f) max_xy: (%f, %f)\n", xMin, yMin, xMax, yMax);
     printf("\txcells = %d   ycells = %d\n",xcells,ycells);
 
-    OGRDataSource::DestroyDataSource( poDS );
+    
+     GDALClose ( poDS );
 
 /* -------------------------------------------------------------------- */
 /*      Create a domain raster data set to store rasterized grid data   */
@@ -460,13 +456,13 @@ int main( int nArgc,  char* papszArgv[] )
     }    
   
     //delete temp projected file
-    poDriver = OGRSFDriverRegistrar::GetRegistrar()->GetDriverByName( pszDriverName );
+    poDriver = GetGDALDriverManager()->GetDriverByName( pszDriverName );
     if( poDriver == NULL )
     {
        printf( "%s driver not available.\n", pszDriverName );
        exit( 1 );
     }
-    if ( (poDriver->DeleteDataSource( psztmpFilename )) != OGRERR_NONE )
+    if ( (poDriver->Delete( psztmpFilename )) == CE_Failure )
     {
        printf( "\tError in deleting temp shapefile: %s\n\n", psztmpFilename );
     }
@@ -481,8 +477,7 @@ int main( int nArgc,  char* papszArgv[] )
     //open MODIS image to get cell size and projection info
     printf ("Projecting and clipping MODIS image to NLCD projection and grid domain.\n");
 
-//    poRDataset = (GDALDataset *) GDALOpen( in_modisFile.c_str(), GA_ReadOnly );
-      poRDataset = (GDALDataset*) GDALOpenEx( in_modisFile.c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL );
+    poRDataset = (GDALDataset *) GDALOpen( in_modisFile.c_str(), GA_ReadOnly );
     if( poRDataset == NULL )
     {
        printf( "\tOpen raster file failed: %s.\n", in_modisFile.c_str() );   

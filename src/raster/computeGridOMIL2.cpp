@@ -372,20 +372,20 @@ int main(int nArgc, char *argv[])
           dimIndex[2] = west_east_dim;
           int  varDims = 3;
 
+
           //set defined dimensions
           if ( imageInfo.dims.size() > 2 )
           {
              setWRFNetCDFSatVarDimIndex ( ncid, dims_len, dims_id, &numADims, dimIndex, imageInfo );
 
-             /*
-             printf ("\nTest print numADims=%d\n",numADims);
+             /*printf ("\nTest print numADims=%d\n",numADims);
              for (j=0; j<numADims;j++)
              {
                 printf ("\tdims_len=%d     dims_id=%d\n",dims_len[j],dims_id[j]);
              }
-             */
 
              varDims = imageInfo.dims.size() + 1;
+             */
           }
 
           //define Sat variable in the WRF NetCDF output file
