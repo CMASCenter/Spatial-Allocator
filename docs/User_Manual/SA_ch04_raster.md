@@ -646,9 +646,9 @@ line window:
 
 The following are two versions of the tool **computeSiteDailyWeather.cpp**
 
-**computeSiteDailyWeather.cpp_beforecmaq52**
+**1. computeSiteDailyWeather.cpp_beforecmaq52**
 
-**computeSiteDailyWeather.cpp_cmaq52**
+**2. computeSiteDailyWeather.cpp_cmaq52**
 
 The default version is linked to the version: **computeSiteDailyWeatehr.cpp_cmaq52**. 
 
