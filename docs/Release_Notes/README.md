@@ -8,7 +8,7 @@ The Spatial Allocator is now being distributed through GitHub (https://github.co
 * Releases available on github: 4.3 and 4.3.2. 
 * Past releases are available from the [CMAS Center](http://www.cmascenter.org).
 
-### 09/2018 Update Release Notes for SA 4.3.2
+### 10/2018 Update Release Notes for SA 4.3.2
 updated Raster tools for EPIC 
 * extractEPIC2CMAQ.cpp - added additional variable FBARE: Bare Land Fraction for Wind Erosion
 * computeGridGOES.cpp - removed hardcoded dimenstions so that program can be used to read new or old versions of GEOS               Imager data. The coverage was extended in the new retrievals (from 1500x800 to 1552x1300). 
