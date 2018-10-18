@@ -32,6 +32,7 @@ The system comes with open source packages.  If users have problems running the 
 ****************************
 Install PROJ4 for Raster Tools
 (http://trac.osgeo.org/proj/)
+proj-4.9.3.tar.gz
 
 1. Go to proj4 directory and do:
    >make clean
@@ -63,6 +64,7 @@ Installed: proj-4.6.1_32bits is used for compiling Vector Tools
 ***************************************
 Install netCDF for C and C++ 
 (http://www.unidata.ucar.edu/software/netcdf/)
+netcdf-4.0.1
 
 1. Go to netcdf directory and do:
    >make clean
@@ -75,6 +77,7 @@ Install netCDF for C and C++
 ***************************************
 Install HDF5 
 (http://www.hdfgroup.org/ftp/HDF5/current/src/)
+hdf5-1.8.16.tar
 
 1. GO to hdf5 directory and do:
         >make clean
@@ -89,6 +92,7 @@ Install HDF5
 ***************************************
 Install HDF4 
 (http://www.hdfgroup.org/ftp/HDF/HDF_Current/src/)
+hdf-4.2.11.tar
 
 1. Go to hdf4 directory and do:
         >make clean
@@ -101,6 +105,7 @@ Install HDF4
 ***************************************
 Install GEOS - Geometry Engine, Open Source
 (http://trac.osgeo.org/geos/)
+geos-3.5.0.tar.bz2
 
 1. Go ro geos directory and do:
    >make clean
@@ -124,6 +129,7 @@ Notes:
 ***************************************
 Install GDAL for raster Spatial Allocator
 (http://download.osgeo.org/gdal/daily/gdal-svn-trunk*.tar.gz)
+gdal202.zip
 
 1. Go to gdal directory and do:
    >make clean
@@ -170,7 +176,7 @@ gdalwarp --formats
 
 
 ***************************************
-Install ann_1.1.1
+Install ann_1.1.2
 (http://www.cs.umd.edu/~mount/ANN/)
 
 1. Go to ann directory and do:
