@@ -13,7 +13,15 @@ NETCDF
 ann
 ========================
 
-All libraried under ./libs were compiled in gcc.  Howerver, ioapi and netcdf libraries needed in ../src/Makefile 
+Note: Github won't upload files that are larger than 100.00 MB into the repository
+The following libraries were removed:
+src/libs/gdal-2.0.2/local/lib/libgdal.a
+src/libs/geos-3.5.0/local/lib/libgeos.a
+The SA executables are provided in this repository. 
+If you need to recompile the SA code using either of the above libraries, 
+you will need to download and build them following the instructions below.
+
+All libraries under ./libs were compiled in gcc.  Howerver, ioapi and netcdf libraries needed in ../src/Makefile 
 for vector Spatial Allocator compiling are pointed to files compiled using pgcc compiler.       
 
 The system comes with open source packages.  If users have problems running the tools using existing libraries, do:
