@@ -7,7 +7,8 @@ OPTFLAGS = -O2
 #OPTFLAGS = -O -DDEBUG 
 
 #set SA HOME
-SA_HOME = /proj/ie/apps/longleaf/sallocator/sa432_092018_finalrelease/src
+#SA_HOME = /proj/ie/apps/longleaf/sallocator/sa432_092018_finalrelease/src
+SA_HOME = /proj/ie/proj/staff/lizadams/Spatial_Allocator_after_merge/Spatial-Allocator/src
 
 #set GDAL library and include directory compiled using gcc
 GDAL = ${SA_HOME}/libs/gdal-2.0.2/local

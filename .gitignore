@@ -13,6 +13,8 @@ src/libs
 !src/libs/gdal-2.0.2/local
 !src/libs/geos-3.5.0/local
 !src/libs/hdf-4.2.11/local
+src/libs/gdal-2.0.2/.libs/libgdal.a
+src/libs/gdal-2.0.2/local/lib/libgdal.a
 scripts/aa.txt
 scripts/diff
 scripts/filter_shapefile.csh
