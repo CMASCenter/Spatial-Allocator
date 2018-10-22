@@ -7,7 +7,6 @@ OPTFLAGS = -O2
 #OPTFLAGS = -O -DDEBUG 
 
 #set SA HOME
-#SA_HOME = /work/MOD3APP/festc/sa432_092018//src
 SA_HOME = /proj/ie/apps/longleaf/sallocator/sa432_092018_finalrelease/src
 
 #set GDAL library and include directory compiled using gcc
