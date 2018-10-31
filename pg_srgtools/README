@@ -1,0 +1,98 @@
+# Instruction to How to Run PostgreSQL/PostGIS SA Tool
+# Created by UNC (9/20/2018)
+
+0. Prerequisites
+   - Install the Postgres database server and the PostGIS extension. Make sure the Postgres server is running.
+   - Create a new database for the surrogates work. This document uses a database named "surrogates" or "NEI2014" by default.
+     > From the psql command line, run "CREATE DATABASE surrogates;"
+     > Connect to the new database with the command "\c surrogates"
+     > Add the PostGIS extension to the new database: "CREATE EXTENSION postgis;"
+
+   - For the surrogates tool to run, you will need to have a database user with all privileges on the new database.
+     :The following psql commands create a new user and assign the appropriate priveleges.
+     > CREATE USER <username> WITH PASSWORD '<password>';
+     > GRANT ALL PRIVILEGES ON DATABASE surrogates TO <username>;
+     > GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO <username>;
+
+   - Install the Java Runtime Environment (if needed).
+   - Install the tcsh package (if needed).
+   - Download the Spatial Allocator package.
+
+1. Update "pg_setup.csh" based on your location in your server and then "source" it (create/start the PostgreSQL Database)
+   > setenv SA_HOME    /opt/srgtool
+   > setenv PGHOME     /usr/bin
+   > setenv PGBIN      /usr/bin
+   > setenv PGDATA     /opt/srgtool/data
+
+2. Load the output modeling projection:
+   - Go to ./util directory
+   - Invoke the following command to insert the output projection into your DB. Note: User can use a different number than 900921 if this number is already taken in spatial_ref_sys table in your DB. 
+
+     > "psql -h localhost -d surrogates -U $user -f create_900921.sql"
+
+3. Load modeling grid domain:
+   - Update the following settings and variables to load the modeling domain in the PostgreSQL DB using the "generate_modeling_grid.sh" script
+     : Update $dbname, $schemaname, $server, $user
+     : Add your own modeling domain information (see the example)
+   - Invoke "generate_modeling_grid.sh"
+
+4. Load data and multiple weight shape files first and then transform them to the output projection (ex: 900921)
+   - Update the following settings and variables in the "load_shapefile_reproject_multi.csh" script
+       : Add new weight shape files and/or remove already loaded shape files by commentting out.
+       : Set "srid" to the output projection (e.g., 900921)
+       : Update $dbname, $schemaname, $server, $user
+   - Invoke "load_shapefile_reproject_multi.csh"
+
+5. Create Surrogates
+   - Update the following settings in the "control_variables_pg.csv" input file.
+     > SRGCREATE EXECUTABLE
+     > GRIDDESC  (Note: grid name can't be larger than 16 chars. ) 
+     > OUTPUT_GRID_NAME
+     > SURROGATE SPECIFICATION FILE
+     > SHAPEFILE CATALOG
+     > OUTPUT DIRECTORY
+     > OUTPUT SRGDESC FILE
+     > PGSCRIPT DIRECTORY
+     > PG_SERVER
+     > PG_USER
+     > PGBIN
+     > SRID_FINAL
+     > DBNAME
+     > COMPUTE SURROGATES,YES  (Note: set this to YES to create surrogate)
+     > GAPFILL SURROGATES,NO   (Note: set this to NO since Gapfill will be done by another java tool, not by PostgreSQL/PostGIS (PG) SA tool) 
+
+6.  Update the "surrogate_generation_pg.csv" input file to specify which surrogates to be created
+
+7.  Update the "surrogate_specification_pg.csv" input file
+    : Note that all identifiers (including column names) that are not double-quoted are folded to lower case in PostgreSQL. 
+    : Column names that were created with double-quotes and thereby retained upper-case letters
+      ex:  weight_function="moves2014=4", then moves2014 is case sensitive 
+           weight_shape=Hpms2016, "Hpms2016" will be recognized as hpms2016
+
+   - Update the following settings:
+     > DATA SHAPEFILE ( same name as in shapefile_catalog_pg.csv )
+     > DATA ATTRIBUTE ( better use lower case )
+     > WEIGHT SHAPEFILE ( same name as in shapefile_catalog_pg.csv )
+     > WEIGHT ATTRIBUTE ( better use lower case )
+     > WEIGHT FUNCTION  ( better use lower case )
+     > FILTER FUNCTION  ( better use lower case )
+
+8.  Update the "run_pg_srgcreate.csh" script
+     : Make sure to use the PG SA tool version of Java tool (SurrogateTools-2.1.jar) that came with this PG SA tool package
+
+     > Invoke the "run_pg_srgcreate.csh" run script
+
+9.  Check out the PG SA templates for various types of surrogates (MultyPoly, Point, Line,,,)
+    -  Go to the directory "pgscripts"
+    -  These templates will be used to generate the internal PG SA run scripts to create surrogates.
+   - weight shapefile cut by data(county) shape file table
+
+10. Gap filling
+   -  Once the surrogates are created by PG SA Tool, update the "control_variables_pg.csv" input file
+      > COMPUTE SURROGATES,NO
+      > GAPFILL SURROGATES,YES
+   -  Invoke the "run_srgtool_fill.csh" run script
+
+11. Create summary tables
+   -  Invoke the "qa_srg.csh" run script
+
