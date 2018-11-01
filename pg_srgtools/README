@@ -1,5 +1,7 @@
 # Instruction to How to Run PostgreSQL/PostGIS SA Tool
-# Created by UNC (9/20/2018)
+# Created by UNC (11/1/2018)
+
+Notes: This is a beta version, only 2xx, and polygon type of surrogates in 1xx, 3xx, 5xx, and 8xx can be created currently. 
 
 0. Prerequisites
    - Install the Postgres database server and the PostGIS extension. Make sure the Postgres server is running.
