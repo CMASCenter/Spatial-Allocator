@@ -15,7 +15,7 @@ USA,Urban Restricted Road Miles,201,NO,NO,template_line_withFF.csh
 USA,Urban Restricted AADT,202,NO,NO,template_line_withFF.csh
 USA,Extended Idle Locations,205,NO,NO,template_point_withFF_withWA.csh
 USA,Rural Restricted Road Miles,211,NO,NO,template_line_withFF.csh
-USA,Rural Restricted AADT,212,YES,YES,template_line_withFF.csh
+USA,Rural Restricted AADT,212,NO,NO,template_line_withFF.csh
 USA,Urban Unrestricted Road Miles,221,YES,YES,template_line_withFF.csh
 USA,Urban Unrestricted AADT,222,YES,YES,template_line_withFF.csh
 USA,Rural Unrestricted Road Miles,231,YES,YES,template_line_withFF.csh

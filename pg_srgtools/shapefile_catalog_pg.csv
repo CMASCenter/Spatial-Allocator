@@ -4,7 +4,7 @@ cty_pophu2k_revised,public,"+a=6370997.0,+b=6370997.0","proj=lcc,+lat_1=33,+lat_
 vi_pophu2k_updated,public,"+a=6370997.0,+b=6370997.0","proj=lcc,+lat_1=33,+lat_2=45,+lat_0=40,+lon_0=-97",US county boundary GIS data from EPA pophu2k with CO and VA counties revised,,
 NTAD_2014_County_Pol,public,#NAME?,proj=latlong,2014 Bureau of Transportation Stats county boundaries extending to offshore political boundaries,,
 ACS_2014_5YR_PopHousing,public,#NAME?,proj=latlong,2014 US Census American Community Survey 5-year product with population and housing related features,,
-hpms2016_major_roads,public,"+datum=WGS84","proj=latlong",,,
+hpms2016,public,"+datum=WGS84","proj=latlong",,,
 TIGER_2014_Rail,public,#NAME?,proj=latlong,2014 TIGER Line rail,,
 NTAD_2014_Rail,public,#NAME?,proj=latlong,2014 National Transportation Atlas Line rail,,
 NTAD_2014_Waterway,public,"+datum=NAD83",proj=latlong,2014 National Transportation Atlas Line navigable waterways,,
