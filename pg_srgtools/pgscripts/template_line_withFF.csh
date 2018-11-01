@@ -13,41 +13,6 @@ set geom_grid=$grid_table.gridcell
 set data_table=$schema.$data_shape
 set weight_table=$schema.$weight_shape
 
-printf "DROP TABLE IF EXISTS public.wp_cty_${surg_code}_${grid}; \n" > ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
-printf "CREATE TABLE public.wp_cty_${surg_code}_${grid}\n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
-printf "        (${data_attribute} varchar(5) not null,\n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
-if ( "$weight_attribute" == "" ) then
-  printf "        length_wp_cty double precision default 0.1);\n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
-else
-  printf "        $weight_attribute double precision default 0.1);\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
-endif
-printf "SELECT AddGeometryColumn('public', 'wp_cty_${surg_code}_${grid}', 'geom_${grid_proj}', ${grid_proj},'MultiLineString', 2);\n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
-printf "insert into public.wp_cty_${surg_code}_${grid} \n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
-printf "SELECT ${data_attribute},\n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
-if ( "$weight_attribute" == "" ) then
-  printf "        0.0,\n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
-else
-  printf "        $weight_attribute,\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
-endif
-printf "        CASE \n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
-printf "        when ST_CoveredBy(${weight_table}.geom_${grid_proj}, ${data_table}.geom_${grid_proj}) \n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
-printf "        THEN ${weight_table}.geom_${grid_proj} \n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
-printf "        ELSE \n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
-printf "                ST_Multi(ST_Intersection(${weight_table}.geom_${grid_proj}, ${data_table}.geom_${grid_proj})) \n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
-printf "        END AS geom_${grid_proj} \n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
-printf "  FROM ${data_table}\n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
-printf "  JOIN  ${weight_table} \n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
-printf "    ON (NOT ST_Touches(${weight_table}.geom_${grid_proj}, ${data_table}.geom_${grid_proj}) \n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
-printf "        AND ST_Intersects(${weight_table}.geom_${grid_proj}, ${data_table}.geom_${grid_proj})) \n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
-printf "    where ${weight_table}.${filter_function}; \n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
-printf "create index on public.wp_cty_${surg_code}_${grid} using GIST(geom_${grid_proj}); \n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
-printf "vacuum analyze public.wp_cty_${surg_code}_${grid}; \n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
-if ( "$weight_attribute" == "" ) then
-  printf "UPDATE public.wp_cty_${surg_code}_${grid} \n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
-  printf "  SET length_wp_cty = ST_Length(geom_${grid_proj}); \n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
-endif
-$PGBIN/psql -h $server -d $dbname -U $user -f ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
-
 
 # intersect with grid table
 printf "DROP TABLE IF EXISTS $schema.wp_cty_cell_${surg_code}_${grid}; \n" > ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
@@ -70,15 +35,15 @@ else
   printf "\t$weight_attribute,\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
 endif
 printf "\tCASE\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
-printf "\twhen ST_CoveredBy(public.wp_cty_${surg_code}_${grid}.geom_${grid_proj},${grid_table}.gridcell)\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
-printf "\tTHEN wp_cty_${surg_code}_${grid}.geom_${grid_proj}\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
+printf "\twhen ST_CoveredBy(${weight_table}.geom_${grid_proj},${grid_table}.gridcell)\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
+printf "\tTHEN ${weight_table}.geom_${grid_proj}\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
 printf "\tELSE	\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
-printf "\t\tST_Multi(ST_Intersection(public.wp_cty_${surg_code}_${grid}.geom_${grid_proj},${grid_table}.gridcell)) \n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
+printf "\t\tST_Multi(ST_Intersection(${weight_table}.geom_${grid_proj},${grid_table}.gridcell)) \n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
 printf "\tEND AS geom_${grid_proj} \n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
-printf "  FROM ${grid_table}\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
-printf "  JOIN public.wp_cty_${surg_code}_${grid}\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
-printf "    ON (NOT ST_Touches(public.wp_cty_${surg_code}_${grid}.geom_${grid_proj},${grid_table}.gridcell)\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
-printf "    	AND ST_Intersects(public.wp_cty_${surg_code}_${grid}.geom_${grid_proj},${grid_table}.gridcell));\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
+printf "  FROM ${weight_table}\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
+printf "  JOIN ${grid_table} \n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
+printf "    ON (NOT ST_Touches(${weight_table}.geom_${grid_proj},${grid_table}.gridcell)\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
+printf "    	AND ST_Intersects(${weight_table}.geom_${grid_proj},${grid_table}.gridcell));\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
 printf "create index on $schema.wp_cty_cell_${surg_code}_${grid} using GIST(geom_${grid_proj});\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
 printf "vacuum analyze $schema.wp_cty_cell_${surg_code}_${grid};\n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
 if ( $weight_attribute == "" ) then
