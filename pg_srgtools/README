@@ -5,6 +5,7 @@ Notes: This is a beta version, only 2xx, and polygon type of surrogates in 1xx, 
 
 0. Prerequisites
    - Install the Postgres database server and the PostGIS extension. Make sure the Postgres server is running.
+      - for Mac, follow instructions https://medium.com/@Umesh_Kafle/postgresql-and-postgis-installation-in-mac-os-87fa98a6814d
    - Create a new database for the surrogates work. This document uses a database named "surrogates" or "NEI2014" by default.
      > From the psql command line, run "CREATE DATABASE surrogates;"
      > Connect to the new database with the command "\c surrogates"
