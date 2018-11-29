@@ -26,7 +26,7 @@ printf "\t($data_attribute varchar(5),\n" >> ${output_dir}/temp_files/${surg_cod
 printf "\tlatitude double precision,\n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
 printf "\tlongitude double precision,\n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
 printf "\t$weight_attribute integer);\n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
-printf "SELECT AddGeometryColumn('${schema}', 'wp_cty_${surg_code}_${grid}', 'geom_${grid_proj}', ${grid_proj}, 'POINT', 2);\n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
+printf "SELECT AddGeometryColumn('${schema}', 'wp_cty_${surg_code}_${grid}', 'geom_${grid_proj}', ${grid_proj}, 'MULTIPOINT', 2);\n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
 
 printf "INSERT INTO $schema.wp_cty_${surg_code}_${grid} (latitude, longitude, $weight_attribute, geom_${grid_proj}) \n">> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
 printf "SELECT ${weight_table}.latitude, \n">> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
@@ -51,19 +51,19 @@ printf "\t($data_attribute varchar(5) not null, \n" >>  ${output_dir}/temp_files
 printf "\tcolnum integer not null,\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
 printf "\trownum integer not null,\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
 printf "\t$weight_attribute double precision) ;\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
-printf "SELECT AddGeometryColumn('${schema}', 'wp_cty_cell_${surg_code}_${grid}', 'geom_${grid_proj}', ${grid_proj}, 'POINT', 2);\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
+printf "SELECT AddGeometryColumn('${schema}', 'wp_cty_cell_${surg_code}_${grid}', 'geom_${grid_proj}', ${grid_proj}, 'MULTIPOINT', 2);\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
 
 printf "insert into $schema.wp_cty_cell_${surg_code}_${grid} ( $data_attribute, colnum, rownum, $weight_attribute, geom_${grid_proj}) \n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
-printf "SELECT $schema.wp_cty_${surg_code}.${data_attribute},\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
+printf "SELECT $schema.wp_cty_${surg_code}_${grid}.${data_attribute},\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
 printf "\tcolnum,\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
 printf "\trownum,\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
 printf "\t$weight_attribute,\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
-printf "\t$schema.wp_cty_${surg_code}.geom_${grid_proj} \n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
-printf "  FROM $schema.wp_cty_${surg_code} \n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
+printf "\t$schema.wp_cty_${surg_code}_${grid}.geom_${grid_proj} \n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
+printf "  FROM $schema.wp_cty_${surg_code}_${grid} \n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
 printf "  JOIN ${grid_table}\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
-printf "    ON (ST_Contains(${geom_grid}, $schema.wp_cty_${surg_code}.geom_${grid_proj}));\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
+printf "    ON (ST_Contains(${geom_grid}, $schema.wp_cty_${surg_code}_${grid}.geom_${grid_proj}));\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
 printf "create index on public.wp_cty_cell_${surg_code}_${grid} using GIST(geom_${grid_proj});\n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
-printf "vacuum analyze $schema.wp_cty_cell_${surg_code}_${grid_proj};\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
+printf "vacuum analyze $schema.wp_cty_cell_${surg_code}_${grid};\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
 $PGBIN/psql -h $server -d $dbname -U $user -f ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
 
 # Create denominator table

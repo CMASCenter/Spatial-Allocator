@@ -10,7 +10,7 @@
  dbname=surrogates
  schemaname=public
  server=localhost
- user=dyang
+ user=lizadams
 
 ######################################################################
 # '4CALIF1'
@@ -102,7 +102,7 @@ rows=336			# number of rows (y)
 # do not modify below this line
 ######################################################################
 
-PGPASSWORD="sepia6#vibes" $PGBIN/psql -h $server -U $user -q $dbname << END		# start PostgreSQL session on dbname from shell, quiet mode, submit commands until END
+PGPASSWORD="sepia6#vibes" $PGBIN/psql -h $server -U $user $dbname << END		# start PostgreSQL session on dbname from shell, quiet mode, submit commands until END
 DROP TABLE IF EXISTS $schemaname.$tblname;
 CREATE TABLE $schemaname.$tblname (	-- create a table tblname in schema schemaname with colnum (x-dir), rownum (y-dir)
   colnum INT NOT NULL,
@@ -136,7 +136,7 @@ do
     y4=$y1
  
 # must start and stop psql process around each SQL insert statement
-PGPASSWORD="sepia6#vibes" $PGBIN/psql -h $server -U $user -q $dbname << END1
+PGPASSWORD="sepia6#vibes" $PGBIN/psql -h $server -U $user $dbname << END1
 INSERT INTO $schemaname.$tblname (colnum, rownum, gridcell) VALUES ($colnum, $rownum, ST_GeomFromText('POLYGON(($x1 $y1, $x2 $y2, $x3 $y3, $x4 $y4, $x1 $y1))', $proj));
 END1
 

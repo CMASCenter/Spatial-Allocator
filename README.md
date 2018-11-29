@@ -27,7 +27,8 @@ The SA code, scripts, and executables are organized in the following directories
 - **ref** - location of reference data for verifying the SA installation (download from the [CMAS Center](http://www.cmascenter.org))
 - **scripts** - C-shell scripts for running the [Vector Tools](docs/User_Manual/SA_ch03_vector.md)
 - **src** - SA source code and 3rd-party libraries
-- **srgtools** - C-shell scripts for running the [Surrogate Tools](docs/User_Manual/SA_ch05_surrogate.md)
+- **srgtools** - C-shell scripts for running the Java version of [Surrogate Tools](docs/User_Manual/SA_ch05_surrogate.md)
+- **pgsrgtools** - C-shell scripts for running the PostgreSQL version of [Surrogate Tools](docs/User_Manual/SA_ch05_surrogate_pg.md)
 - **util** - miscellaneous utility scripts to support the SA tools
 
 Documentation

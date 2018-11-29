@@ -13,13 +13,13 @@ USA,Residential Heating - Coal,180,NO,NO,template_polygon_noFF_withWA.csh
 USA,Residential Heating - LP Gas,190,NO,NO,template_polygon_noFF_withWA.csh
 USA,Urban Restricted Road Miles,201,NO,NO,template_line_withFF.csh
 USA,Urban Restricted AADT,202,NO,NO,template_line_withFF.csh
-USA,Extended Idle Locations,205,NO,NO,template_point_withFF_withWA.csh
+USA,Extended Idle Locations,205,YES,YES,template_point_withFF_withWA.csh
 USA,Rural Restricted Road Miles,211,NO,NO,template_line_withFF.csh
 USA,Rural Restricted AADT,212,NO,NO,template_line_withFF.csh
-USA,Urban Unrestricted Road Miles,221,YES,YES,template_line_withFF.csh
-USA,Urban Unrestricted AADT,222,YES,YES,template_line_withFF.csh
-USA,Rural Unrestricted Road Miles,231,YES,YES,template_line_withFF.csh
-USA,Rural Unrestricted AADT,232,YES,YES,template_line_withFF.csh
+USA,Urban Unrestricted Road Miles,221,NO,NO,template_line_withFF.csh
+USA,Urban Unrestricted AADT,222,NO,NO,template_line_withFF.csh
+USA,Rural Unrestricted Road Miles,231,NO,NO,template_line_withFF.csh
+USA,Rural Unrestricted AADT,232,NO,NO,template_line_withFF.csh
 USA,Total Road AADT,239,NO,NO,template_line_withFF.csh
 USA,Total Road Miles,240,NO,NO,template_line_withFF.csh
 USA,Total Restricted Road Miles,241,NO,NO,template_line_withFF.csh

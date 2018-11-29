@@ -10,11 +10,11 @@
 #setenv GDALBIN ${GDALHOME}/bin
 #setenv PGBIN
 #setenv PGDATA
-setenv PGDATA /proj/ie/proj/EMAQ/Platform/Surrogates/2014/Spatial-Allocator/pg_srgcreate/pg_srgtools/pg_shapefiles
+setenv PGDATA /Users/lizadams/Spatial-Allocator/data/pg_shapefiles
 
-set user=zeadelma
+set user=lizadams
 set server=localhost
-set dbname=NEI2014
+set dbname=surrogates
 set schema=public
 set srid=900921
 set newfield=geom_${srid}          # geom_90021
@@ -25,7 +25,7 @@ set indir=$PGDATA/emiss_shp2014/Census/
 set shapefile=cb_2014_us_county_500k_Poly
 set table=`echo $shapefile | tr "[:upper:]" "[:lower:]"`
 set geomtype=MultiPolygon          # retrieve the exact geopmetry type from the table.
-#source load_shapefile.csh
+source load_shapefile.csh
 
 ### Load population and housing shapefile, and calculate density
 set indir=$PGDATA/emiss_shp2014/Census/
@@ -45,12 +45,12 @@ set geomtype=MultiLineString       # retrieve the exact geopmetry type from the 
 set indir=$PGDATA/emiss_shp2018/PIL
 set shapefile=pil_2018_08_17
 set table=`echo $shapefile | tr "[:upper:]" "[:lower:]"`
-set geomtype=Point       # retrieve the exact geopmetry type from the table.
+set geomtype=MultiPoint       # retrieve the exact geopmetry type from the table.
 #source load_shapefile.csh
 
 # for 350,807,820 data shapefile: NTAD_2014_County_Pol ?
-#set indir=$PGDATA/emiss_shp2014/NTAD
-set indir=$PGDATA/emiss_shp2014/NTAD_tem
+set indir=$PGDATA/emiss_shp2014/NTAD
+#set indir=$PGDATA/emiss_shp2014/NTAD_tem
 set shapefile=NTAD_2014_County_Pol
 set table=`echo $shapefile | tr "[:upper:]" "[:lower:]"`
 set geomtype=MultiPolygon          # retrieve the exact geopmetry type from the table.
@@ -101,13 +101,13 @@ set indir=$PGDATA/emiss_shp2014/NLCD
 set shapefile=nlcd2011_500mv2
 set table=`echo $shapefile | tr "[:upper:]" "[:lower:]"`
 set geomtype=MultiPolygon          # retrieve the exact geopmetry type from the table.
-source load_shapefile.csh
+#source load_shapefile.csh
 
 set indir=$PGDATA/emiss_shp2010/fema
 set shapefile=fema_bsf_2002bnd
 set table=`echo $shapefile | tr "[:upper:]" "[:lower:]"`
 set geomtype=MultiPolygon          # retrieve the exact geopmetry type from the table.
-source load_shapefile.csh
+#source load_shapefile.csh
 
 
 
