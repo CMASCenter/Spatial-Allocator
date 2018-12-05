@@ -16,7 +16,7 @@ about a set of surrogates.  Four reports (not1, gapfill, nodata, and summary)
 are generated for each region in the specified SRGDESC file. Run the QATool using 
 the command:
 
-java -classpath SurrogateTools.jar gov.epa.surrogate.qa.Main SRGDESC_file
+java -classpath SurrogateTools.jar gov.epa.surrogate.qa.Main SRGDESC_file tolerance
 
 3. Normalization tool: A program that "normalizes" surrogates for counties that 
 do not sum to 1 and makes the sum approximately 1. This should be used with care
