@@ -143,12 +143,12 @@ This tool requires the following data sets:
 
 -   NLCD land cover, canopy and imperviousness data:
     -   SA Scripts: NLCD_MODIS_processor.csh and landuseTool_WRFCMAQ_BELD4.csh
-    -   URL: http://www.mrlc.gov/nlcd2006.php
+    -   URL: https://www.mrlc.gov/data?f%5B0%5D=category%3Aland%20cover
     -   Instructions: Download NLCD 2006 Land Cover (2011 Edition)
 
 -   MODIS tiled land cover data: MCD12Q1
     -   SA Scripts: NLCD_MODIS_processor.csh and landuseTool_WRFCMAQ_BELD4.csh
-    -   URL: https://ladsweb.nascom.nasa.gov/data/search.html
+    -   URL: https://ladsweb.modaps.eosdis.nasa.gov/search/
     -   Instructions:  Select the following from the download page:
         -   Combined Terra & Aqua MODIS
         -   Combined Land Level 3/Level4 yearly Tiled Products
