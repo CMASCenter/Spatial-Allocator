@@ -8,7 +8,7 @@ ref
 CVS
 src/libs
 !src/libs/netcdf-4.0.1/local
-!src/libs/proj-4.8.0/local
+!src/libs/proj-4.9.3/local
 !src/libs/hdf5-1.8.13/local
 !src/libs/gdal-2.0.2/local
 !src/libs/geos-3.5.0/local
@@ -33,3 +33,5 @@ data_old
 output
 pg_srgcreate
 tmp
+pg_srgtools/LOGS/
+pg_srgtools/outputs/

@@ -357,7 +357,7 @@ int checkIncludeExclude(int includesOrExcludes,
     int returnVal = 0, cindex, ctotal, insideQuote = FALSE;
     char *regexCompileDone;
 
-    struct re_pattern_buffer pbuf;
+    /* struct re_pattern_buffer pbuf; */
 
     if(includesOrExcludes == 1)   /* do the includes*/
     {
@@ -394,99 +394,6 @@ int checkIncludeExclude(int includesOrExcludes,
 
     if(strcmp(attribArray[index].type, "DISCRETE") == 0)
     {
-         while(ptr[0] != '\0')
-         {
-
-              /* check if there are quotes around the string*/
-              if(ptr[0] == '"')
-              {
-                   insideQuote = (insideQuote == TRUE) ? FALSE : TRUE;
-                   ptr++;
-              }
-
-              if(ptr[0] == ',' && insideQuote == FALSE)
-              {
-                  pbuf.syntax = RE_SYNTAX_GREP;  /* use USE_DW_FILE-style r.e. syntax*/
-                  pbuf.allocated = 8;
-                  pbuf.buffer = malloc(pbuf.allocated);
-                  pbuf.fastmap = 0;
-                  pbuf.translate = 0;
-
-                  #ifdef DEBUG
-                  printf("regex buffer=%s\n", buffer);
-                  #endif
-
-                  regexCompileDone = (char *) re_compile_pattern(buffer,
-                       strlen(buffer), &pbuf);
-                  #ifdef DEBUG
-                  printf("regexCompileDone=%d\n", regexCompileDone);
-                  #endif
-
-                  regexMatch =  re_match(&pbuf, convertToUpper(val),
-                       strlen(val), 0, 0);
-
-                  if(regexMatch > 0)
-                  {
-                      #ifdef DEBUG
-                      fprintf(stderr,"Regular Expression matched\n");
-                      #endif
-                      return TRUE;
-                  }
-                  /* reset for next item */
-                  bufCount = 0;
-                }
-                /* 1/6/2005 BB --can't do this or regex is busted */
-                /*else if(ptr[0] == '<' || ptr[0] == '>')
-                {
-                    if(includesOrExcludes == 1)
-                    {
-                         sprintf(mesg, 
-                             "ATTRIBUTE_NAME=%s contains non-discrete operators, mismatched ATTRIBUTE_TYPE and INCLUDE_VALUES", 
-                             attribArray[index].name);
-                         ERROR("in filter file", mesg, 1);
-                    }
-                    else
-                    {
-
-                         sprintf(mesg, 
-                             "ATTRIBUTE_NAME=%s contains non-discrete operators, mismatched ATTRIBUTE_TYPE and EXCLUDE_VALUES", 
-                             attribArray[index].name);
-                         ERROR("in filter file", mesg, 1);
-                    }
-
-                }*/
-                else
-                {
-                     buffer[bufCount] = ptr[0];
-                     bufCount++;
-                     buffer[bufCount] = '\0';
-                }
-                ptr++;
-           } /* end while */
-
-           /* process the last one (no commas or no more commas) */
-
-           pbuf.syntax = RE_SYNTAX_GREP;   /* use USE_DW_FILE-style r.e. syntax */
-           pbuf.allocated = 8;
-           pbuf.buffer = malloc(pbuf.allocated);
-           pbuf.fastmap = 0;
-           pbuf.translate = 0;
-
-           #ifdef DEBUG
-           printf("regex buffer=%s\n", buffer);
-           #endif
-
-           regexCompileDone = (char *) re_compile_pattern(buffer, strlen(buffer), &pbuf);
-           #ifdef DEBUG
-           printf("regexCompileDone=%d\n", regexCompileDone);
-           #endif
-
-           regexMatch = re_match(&pbuf, (char *) convertToUpper(val), strlen(val), 0, 0);
-           #ifdef DEBUG
-           printf("regexMatch=%d\n", regexMatch);
-           #endif
-
-           if(regexMatch > 0)
            {
                #ifdef DEBUG
                fprintf(stderr,"Regular Expression matched\n");

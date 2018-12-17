@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
   /* fixed size arrays */
   char var_names[MAX_VARS][NAMLEN3+1];    /* variable names */
   int  var_files[MAX_VARS][MAX_TILES]; /* variable-to-file mapping array */
-  int  tilelist[MAX_TILES]=0;               /* list of tiles to process */
+  int  tilelist[MAX_TILES];               /* list of tiles to process */
   int i;
 
   /* other local variables */

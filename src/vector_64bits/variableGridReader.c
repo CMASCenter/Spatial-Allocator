@@ -13,7 +13,11 @@
 #include <stdlib.h> 
 #include <string.h>
 #include <math.h>
+#if defined(__MACH__)
+#include <stdlib.h>
+#else
 #include <malloc.h>
+#endif
 
 #include "shapefil.h"
 #include "mims_spatl.h"

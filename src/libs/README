@@ -72,6 +72,7 @@ Installed: proj-4.6.1_32bits is used for compiling Vector Tools
 ***************************************
 Install netCDF for C and C++ 
 (http://www.unidata.ucar.edu/software/netcdf/)
+(ftp://ftp.unidata.ucar.edu/pub/netcdf/old/)
 netcdf-4.0.1
 
 1. Go to netcdf directory and do:
@@ -85,9 +86,10 @@ netcdf-4.0.1
 ***************************************
 Install HDF5 
 (http://www.hdfgroup.org/ftp/HDF5/current/src/)
+(https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.8/hdf5-1.8.16/src/)
 hdf5-1.8.16.tar
 
-1. GO to hdf5 directory and do:
+1. Go to hdf5 directory and do:
         >make clean
 	>rm -rf ./local
 	>./configure --prefix={HDF5_PATH}/local --enable-cxx 
@@ -100,14 +102,16 @@ hdf5-1.8.16.tar
 ***************************************
 Install HDF4 
 (http://www.hdfgroup.org/ftp/HDF/HDF_Current/src/)
+(https://support.hdfgroup.org/ftp/HDF/releases/HDF4.2.11/src/)
 hdf-4.2.11.tar
 
 1. Go to hdf4 directory and do:
         >make clean
         >rm -rf ./local
 	>./configure --prefix={HDF4_PATH}/local --disable-netcdf --disable-fortran
-	>gmake check >& check.out
-	>gmake install
+        >make
+	>make check >& check.out
+	>make install
 
 
 ***************************************
@@ -137,6 +141,7 @@ Notes:
 ***************************************
 Install GDAL for raster Spatial Allocator
 (http://download.osgeo.org/gdal/daily/gdal-svn-trunk*.tar.gz)
+http://download.osgeo.org/gdal/2.0.2/
 gdal202.zip
 
 1. Go to gdal directory and do:
@@ -158,6 +163,12 @@ gdal202.zip
    # >./configure --prefix={GDAL_PATH}/local --with-static-proj4={PROP4_PATH}/local --with-geos={GEOS_PATH}/local/bin/geos-config  --with-libtiff=internal --with-png=internal --with-jpeg=internal --with-libz=internal --enable-static  --without-curl --without-expat --without-mysql --without-dwgdirect --without-odbc --with-python --with-pymoddir={GDAL_PATH}/local_py --without-oci --without-sqlite3 --without-oci-include --without-oci-lib --without-ld-shared
 
    >make
+note, ran into an error when doing make
+ogrgeojsonwriter.cpp 'json_object_private.h' file not found
+changed
+#include "json_object_private.h"
+to
+#include "libjson/json_object_private.h"
    >make install
 
 
