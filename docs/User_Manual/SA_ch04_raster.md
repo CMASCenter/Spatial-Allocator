@@ -151,7 +151,7 @@ This tool requires the following data sets:
     -   URL: https://ladsweb.modaps.eosdis.nasa.gov/search/
     -   Instructions:  Select the following from the download page:
         -   Combined Terra & Aqua MODIS
-        -   Combined Land Level 3/Level4 yearly Tiled Products
+        -   Combined Land Level 3/Level4 yearly Tiled Products (keyword: MCD12Q1)
         -   MCD12Q1 - MODIS/Terra+Aqua Land Cover Type Yearly L3 Global 500m SIN Grid
         -   Temporal Type: Date and Time Range
         -    Set time period for downloading
