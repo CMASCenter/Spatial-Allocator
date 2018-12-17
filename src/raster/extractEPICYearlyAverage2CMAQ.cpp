@@ -48,13 +48,15 @@ const char  *cropFVarName = "CROPF";   //crop fraction array variable in BELD4 n
 string                   cropNamesStr = string ( "Hay,Hay_ir,Alfalfa,Alfalfa_ir,Other_Grass,Other_Grass_ir,Barley,Barley_iri,BeansEdible,BeansEdible_ir,CornGrain,CornGrain_ir,CornSilage,CornSilage_ir,Cotton,Cotton_ir,Oats,Oats_ir,Peanuts,Peanuts_ir,Potatoes,Potatoes_ir,Rice,Rice_ir,Rye,Rye_ir,SorghumGrain,SorghumGrain_ir,SorghumSilage,SorghumSilage_ir,Soybeans,Soybeans_ir,Wheat_Spring,Wheat_Spring_ir,Wheat_Winter,Wheat_Winter_ir,Other_Crop,Other_Crop_ir,Canola,Canola_ir,Beans,Beans_ir" );   //crop number from 22 to 63
 
 int                      numCrops;            //number of crops in EPIC modeling
-int                      numFileItems = 73;   //title has 316 items  CHECK with Verel
+int                      numFileItems = 77;   //title has 131 items
 
 
-string                   epicVarsStr = string ("GMN,NMN,NFIX,NITR,AVOL,  DN,YON,QNO3,SSFN,PRKN,  FNO,FNO3,FNH3,OCPD,TOC,  TNO3,DN2,YLDG,YLDF,YLN,  YLP,FTN,FTP,IRGA,WS,  NS,IPLD,IGMD,IHVD,YP,  QAP,YW,Q");  //29+4 varaibles
+string                   epicVarsStr = string ("GMN,NMN,NFIX,NITR,AVOL,  DN,YON,QNO3,SSFN,PRKN,  FNO,FNO3,FNH3,OCPD,TOC,  TNO3,DN2,YLDG,YLDF,YLN,  YLP,FTN,FTP,IRGA,WS,  NS,IPLD,IGMD,IHVD,YP,  QAP,YW,Q,SSF,PRK,  PRCP,PET,ET,QDRN,MUSL,  DRNN,DRNP,PRKP,FPO,FPL,  MNP");  //29+4+13 varaibles
 
 
-static int               epicVarsPos[] = {20,21,22,23,24,  25,26,27,28,29,  30,31,32,41,43,  45,46,48,49,52,  53,54,55,56,63,  64,71,72,73,36,  37,19,14};  //start from 1
+static int               epicVarsPos[] = {20,21,22,23,24,  25,26,27,28,29,  30,31,32,41,43,  45,46,52,53,56,  57,58,59,60,67,  68,75,76,77,36,  37,19,14,15,16,  11,12,13,47,48,  49,50,38,33,34,  35};  //start from 1
+
+
 int                      numEpicVars;
 
 
@@ -68,7 +70,10 @@ const Name variableNames[ ] = { "GMN", "NMN", "NFIX", "NITR", "AVOL",
                                 "TNO3", "DN2", "YLDG", "T_YLDG", "YLDF", "T_YLDF", "YLN", 
                                 "YLP", "FTN", "FTP", "IRGA", "WS", 
                                 "NS", "IPLD", "IGMD", "IHVD", "YP",
-                                "QAP", "YW", "Q" };
+                                "QAP", "YW", "Q", "SSF", "PRK",
+                                "PRCP", "PET", "ET", "QDRN", "MUSL",
+                                "DRNN", "DRNP", "PRKP", "FPO", "FPL",
+                                "MNP" };
 
 
 const Name variableUnits[ ] = { "kg/ha", "kg/ha", "kg/ha", "kg/ha", "kg/ha",
@@ -77,7 +82,10 @@ const Name variableUnits[ ] = { "kg/ha", "kg/ha", "kg/ha", "kg/ha", "kg/ha",
                                 "kg/ha", "kg/ha", "ton/ha", "1000ton", "ton/ha", "1000ton", "kg/ha", 
                                 "kg/ha", "kg/ha", "kg/ha", "mm", "days", 
                                 "days", "Julian Date", "Julian Date", "Julian Date", "kg/ha",
-                                "kg/ha", "ton/ha", "mm" };
+                                "kg/ha", "ton/ha", "mm", "mm", "mm",
+                                "mm", "mm", "mm", "mm", "ton/ha",
+                                "kg/ha", "kg/ha", "kg/ha", "kg/ha", "kg/ha",
+                                "kg/ha" };
 
 
 const Line variableDescriptions[ ] = { "N Mineralized", "Humus Mineralization", "N Fixation", "Nitrification", "N Volitilization", 
@@ -86,8 +94,11 @@ const Line variableDescriptions[ ] = { "N Mineralized", "Humus Mineralization", 
                                        "Total NO3 in Soil Profile", "Denitrification_N2", "Grain Yield", "T - Grain Yield", "Forage Yield", "T - Forage Yield", "N Used by Crop",
                                        "P Used by Crop", "N Applied", "P Applied", "Irrigation Volume Applied", "Water Stress Days", 
                                        "N Stress Days", "Planting Date", "Germination Date", "Harvest Date", "P Loss with Sediment", 
-                                       "Labile P Loss in Runoff", "Wind Erosion", "Runoff" };
-
+                                       "Labile P Loss in Runoff", "Wind Erosion", "Runoff", "Subsurface Flow", "Percolation",
+                                       "Rainfall", "Potential ET", "Evapotranspiration", "Drain Tile Flow", "Water erosion (MUSL)",
+                                       "Nitrogen in drain tile flow", "P in drain tile flow", "P in percolation", "Organic P fertilizer", "Organic P fertilizer",
+                                       "P mineralized" };
+                          
 
 //output total
 const Name TvariableNames[ ] = { "T_GMN", "T_NMN", "T_NFIX", "T_NITR", "T_AVOL",
@@ -95,21 +106,33 @@ const Name TvariableNames[ ] = { "T_GMN", "T_NMN", "T_NFIX", "T_NITR", "T_AVOL",
                                 "T_FNO", "T_FNO3", "T_FNH3", "T_OCPD", "T_TOC",
                                 "T_TNO3", "T_DN2", "T_YLN",
                                 "T_YLP", "T_FTN", "T_FTP", "T_IRGA",
-                                "T_YP", "T_QAP", "T_YW", "T_Q" };
+                                "T_YP", "T_QAP", "T_YW", "T_Q",
+                                "T_SSF", "T_PRK",
+                                "T_PRCP", "T_PET", "T_ET", "T_QDRN", "T_MUSL",
+                                "T_DRNN", "T_DRNP", "T_PRKP", "T_FPO", "T_FPL",
+                                "T_MNP" };
 
 const Name TvariableUnits[ ] = { "mt", "mt", "mt", "mt", "mt",
                                  "mt", "mt", "mt", "mt", "mt",
                                  "mt", "mt", "mt", "mt", "mt",
                                  "mt", "mt", "mt",
                                  "mt", "mt", "mt", "mm",
-                                 "mt", "mt", "1000ton", "mm" };
+                                 "mt", "mt", "1000ton", "mm",
+                                 "mm", "mm",
+                                 "mm", "mm", "mm", "mm", "1000ton",
+                                 "mt", "mt", "mt", "mt", "mt",
+                                 "mt" };
 
 const Line TvariableDescriptions[ ] = { "T - N Mineralized", "T - Humus Mineralization", "T - N Fixation", "T - Nitrification", "T - N Volitilization",
                                         "T - Denitrification", "T - N Loss with Sediment", "T - N Loss in Surface Runoff", "T - N in Subsurface Flow", "T - N Loss in Percolate", 
                                         "T - Organic N Fertilizer", "T - N Fertilizer Nitrate", "T - N Fertilizer Ammonia", "T - Organic Carbon in Plow Layer", "T - Organic Carbon in Soil Profile",
                                         "T - Total NO3 in Soil Profile", "T - Denitrification_N2", "T - N Used by Crop",
                                         "T - Used by Crop", "T - N Applied", "T - P Applied", "Crop Weighted Irrigation Volume Applied",
-                                        "T - P Loss with Sediment", "T - Labile P Loss in Runoff", "T - Wind Erosion", "T - Runoff" };
+                                        "T - P Loss with Sediment", "T - Labile P Loss in Runoff", "T - Wind Erosion", "T - Runoff",
+                                        "T - Subsurface Flow", "T - Percolation",
+                                        "T - Rainfall", "T - Potential ET", "T - Evapotranspiration", "T - Drain Tile Flow", "T - Water erosion (MUSL)",
+                                       "T - Nitrogen in drain tile flow", "T - P in drain tile flow", "T - P in percolation", "T - Organic P fertilizer", "T - Organic P fertilizer",
+                                       "T - P mineralized" };
 
 
 
@@ -350,7 +373,7 @@ int main(int nArgc, char *argv[])
        /*  read BELD4 file info      */
        /******************************/
        float     *cropV, *dataP;
-       int        totalVarT = 22+4;    //total chemical variables, add 4 swat vars
+       int        totalVarT = 22+4+13;    //total chemical variables, add 4 swat vars, add 13 new vars for eco-analysis
        int        totalVarC = 2;     //total yield variables
 
        float     *TdataV[totalVarT];
@@ -410,7 +433,7 @@ int main(int nArgc, char *argv[])
            }
            else
            {
-              dataP = dataV[i+5];   //last 4 vars from 33 vars total          
+              dataP = dataV[i+5];   // skip 5 day varaibles to be not in total         
            }
 
            for (j=0; j<grid.rows; j++)
@@ -430,9 +453,9 @@ int main(int nArgc, char *argv[])
 
                        float cellValue;
 
-                       if ( Tcount == 21 || Tcount == 25 ) 
+                       if ( Tcount == 21 || ( Tcount >= 25 && Tcount <= 31) ) 
                        {
-                          cellValue = dataP[index3D] * cropV[index3D];  //Tcount=21 for IRGA Tcount=25 for Q
+                          cellValue = dataP[index3D] * cropV[index3D];  //Tcount=21 for IRGA; Tcount=25 for Q to Tcount=31 for QDRN -- unit "mm"
                           total_cropP += cropV[index3D];
                        } 
                        else
@@ -461,7 +484,7 @@ int main(int nArgc, char *argv[])
 
                  } //n crop
 
-                 if ( (Tcount == 21 || Tcount == 25 ) && total_cropP > 0.0 )
+                 if ( (Tcount == 21 || ( Tcount >= 25 && Tcount <= 31) ) && total_cropP > 0.0 )
                  {
                     TdataV[Tcount][index2D] = TdataV[Tcount][index2D] / total_cropP; //weighted by total crop area for IRGA or Q
                  }
@@ -842,6 +865,11 @@ void extractEpicData (gridInfo grid, float *dataV[], vector<string> epicFiles)
                   int pos = epicVarsPos [j] - 1;  //EPIC Var Position count starts from 1
                   tmp_str = vecString [pos];
 
+                  if ( tmp_str.find ("*") != string::npos ) 
+                  {
+                     printf ("\nError: *** in EPIC yearly file- %s\n", epicFiles[i].c_str() ); 
+                     exit ( 1 );
+                  }
                   double epicValue = atof ( tmp_str.c_str() ) ;
 
                   dataV[j][index] = epicValue;

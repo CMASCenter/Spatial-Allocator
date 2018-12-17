@@ -128,7 +128,7 @@ There are three land cover processing tools in the SA Raster Tools:
 All of the example scripts listed in this section are in the SA_HOME/raster_scripts directory.
 
 <a id="nlcd_LC"><a/>
-### NLCD and MODIS Land Cover Generation
+### 1. NLCD and MODIS Land Cover Generation
 
 The computeGridLandUse.exe tool is used to generate land cover data for
 the upgraded WRF/CMAQ Pleim-Xiu Land Surface Model (PX LSM) in the
@@ -143,24 +143,35 @@ This tool requires the following data sets:
 
 -   NLCD land cover, canopy and imperviousness data:
     -   SA Scripts: NLCD_MODIS_processor.csh and landuseTool_WRFCMAQ_BELD4.csh
-    -   URL: http://www.mrlc.gov/nlcd2006.php
+    -   URL: https://www.mrlc.gov/data?f%5B0%5D=category%3Aland%20cover
     -   Instructions: Download NLCD 2006 Land Cover (2011 Edition)
 
 -   MODIS tiled land cover data: MCD12Q1
     -   SA Scripts: NLCD_MODIS_processor.csh and landuseTool_WRFCMAQ_BELD4.csh
-    -   URL: https://ladsweb.nascom.nasa.gov/data/search.html
+    -   URL: https://ladsweb.modaps.eosdis.nasa.gov/search/
     -   Instructions:  Select the following from the download page:
-        -   Combined Terra & Aqua MODIS
-        -   Combined Land Level 3/Level4 yearly Tiled Products
-        -   MCD12Q1 - MODIS/Terra+Aqua Land Cover Type Yearly L3 Global 500m SIN Grid
+    
+    -   PRODUCTS:
+    	-   Combined Terra & Aqua MODIS
+    	-   Combined Land Level 3/Level4 yearly Tiled Products (keyword: MCD12Q1)
+                -   MCD12Q1 - MODIS/Terra+Aqua Land Cover Type Yearly L3 Global 500m SIN Grid
+    - TIME
         -   Temporal Type: Date and Time Range
-        -    Set time period for downloading
-        -   Collection: 51 - MODIS Collection 5.1
-        -   Coordinate System: Latitude/Longitude
-        -   Type in extents in degree or use a predefined region
-        -   Search
-        -   View All
-        -   Order Files Now
+        -    Set time period for downloading (typically 1 year, example Jan 1, 2011 - Dec. 31, 2011)
+		
+    - LOCATION (Choose either)
+    	-   Coordinate System: Latitude/Longitude
+            -   Type in extents in degree or use a predefined region
+    	-   or
+    	-   Country
+                -  (example United States)
+	
+     - FILES:
+          -   Select All
+	
+     - REVIEW and ORDER:
+          -   Select Delivery Method
+				-   Submit Order
 
 - List of land cover data sets to be processed – this file has to have fixed header formats.  Provided in the data directory are sample files for CMAQ 12-km domain 2001, 2006 and 2011 modeling: 
 
@@ -210,7 +221,7 @@ computeGridLandUse tool.**
 
 
 <a id="nlcd_LC_LAI"><a/>
-### NLCD and MODIS Land Cover and MODIS LAI Generation
+### 2. NLCD and MODIS Land Cover and MODIS LAI Generation
 
 
 The computeGridLandUse\_LAI\_MODIS.exe tool is used to generate land
@@ -253,7 +264,7 @@ The tool generates one ASCII file and one NetCDF file:
   The NetCDF file contains imperviousness, canopy, and land cover fraction variables plus land/water mask and other variables that are similar to those in the WRF GEOGRID land cover output files. The land cover percentage variable contains the 40 classes as listed in Table 1. In addition, MODIS LAI and FPAR variables for each landcover type and average at each grid cell are included in the NetCDF file.
 
 <a id="beld4"><a/>
-### BELD4 Land Cover Generation
+### 3. BELD4 Land Cover Generation
 
 The BELD4 data with land cover, tree, and crop percentages can be
 computed using the computeGridLandUse_beld4.exe tool with directly
@@ -382,7 +393,7 @@ the crop percentage variable contains the 42 crops listed in [Table 3](#Table-3)
 
 
 <a id="plans"><a/>
-### Current and Future Development for the Land Cover Data Processing Tools
+### 4. Current and Future Development for the Land Cover Data Processing Tools
 
 -   Enhance the tool to use the released NLCD 2011 data sets with
 created 2011 crop tables for both US and Canada.
@@ -397,7 +408,7 @@ grid cell.
 ## Satellite Cloud and Aerosol Product Processing Tools
 
 <a id="goes"><a/>
-### GOES Cloud Product Processing Tool
+### 1. GOES Cloud Product Processing Tool
 
 The GOES data tool processes the Geostationary Operational Environmental Satellite (GOES) 
 data downloaded from the Earth System Science Center (ESSC) at the University of Alabama in Huntsville. 
@@ -440,7 +451,7 @@ These messages do not indicate any errors in regridding and so can be
 ignored.
 
 <a id="modis"><a/>
-### MODIS Level 2 Cloud/Aerosol Products Tool
+### 2. MODIS Level 2 Cloud/Aerosol Products Tool
 
 The MODIS Level 2 (swath) cloud and aerosol products tool processes
 MODIS L2 cloud or aerosol products for a defined grid domain. MODIS data
@@ -501,7 +512,7 @@ Users can modify the following sample script file provided for regridding the MO
 
 
 <a id="omi"><a/>
-### OMI Level 2 Product Tool
+### 3. OMI Level 2 Product Tool
 
 The OMI Level 2 product (swath) tool is used to regrid Ozone Monitoring
 Instrument (OMI) L2 aerosol and NO~2~ products for a defined grid
@@ -516,7 +527,7 @@ directory, which is defined in the following sample script file:
 **allocateOMIL2vars2Grids.csh**
 
 <a id="omil2g"><a/>
-### OMI L2G and L3 Product Tools
+### 4. OMI L2G and L3 Product Tools
 
 The OMI L2G and L3 product tools process the following OMI products:
 
@@ -553,7 +564,7 @@ and can be run by script files with defined environment variables at the
 command line.
 
 <a id="epic"><a/>
-### EPIC Site Information Generation Tool
+### 1. EPIC Site Information Generation Tool
 
 This tool generates three CSV data files that are needed to create EPIC
 site databases for a user-defined domain:
@@ -584,7 +595,7 @@ line:
 **generateEPICSiteData.csh**
 
 <a id="toepic"><a/>
-### MCIP/CMAQ-to-EPIC Tool
+### 2. MCIP/CMAQ-to-EPIC Tool
 
 This tool generates EPIC daily weather and nitrogen deposition data files from MCIP meteorology 
 and CMAQ nitrogen deposition files for EPIC modeling sites. The input MCIP and CMAQ data are stored in two
@@ -646,16 +657,16 @@ line window:
 
 The following are two versions of the tool **computeSiteDailyWeather.cpp**
 
-**computeSiteDailyWeather.cpp_beforecmaq52**
+**1. computeSiteDailyWeather.cpp_beforecmaq52**
 
-**computeSiteDailyWeather.cpp_cmaq52**
+**2. computeSiteDailyWeather.cpp_cmaq52**
 
 The default version is linked to the version: **computeSiteDailyWeatehr.cpp_cmaq52**. 
 
 Users should change the link to the **computeSiteDailyWeather.cpp_beforecmaq52** if a version of CMAQ prior to CMAQv5.2 was used to generate the N deposition input files.
 
 <a id="toCMAQ"><a/>
-### EPIC-to-CMAQ Tool
+### 3. EPIC-to-CMAQ Tool
 
 This tool processes merged daily output from EPIC simulations for the 42
 crops defined for the BELD4 tool output. It generates two types of
@@ -716,7 +727,7 @@ The following sample script file with all of the required environment variables 
 Note: EPIC is a daily timestep model while the CMAQ bidirectional NH3 flux model is at a time scale which could be less than 10 minutes.
 
 <a id="epic-yearly"><a/>
-### EPIC Yearly Extraction Tool
+### 4. EPIC Yearly Extraction Tool
 
 This tool is used primarily to provide data for performing quality
 assurance (QA) for EPIC runs.
@@ -796,7 +807,7 @@ The following sample script file, which is contained in the Raster Tools script 
 <a id="othertools"><a/>
 ## Other Tools and Utilities
 
-### Domain Grid Shapefile Generation Tool
+### 1. Domain Grid Shapefile Generation Tool
 
 Users can apply the domain grid shapefile generation tool to generate a
 polygon shapefile for a defined grid domain with the GRIDID attribute.
@@ -808,7 +819,7 @@ The following sample script file can be modified for domain shapefile generation
 
 **generateGridShapefile.csh** 
 
-### Other Utilities
+### 2. Other Utilities
 
 The following utility programs are stored in the SA_HOME/util directory:
 

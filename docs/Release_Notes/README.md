@@ -5,15 +5,19 @@ Institute for the Environment, UNC-Chapel Hill
 
 
 The Spatial Allocator is now being distributed through GitHub (https://github.com/CMASCenter/Spatial-Allocator). 
-* Releases available on github: 4.3 and 4.3.2. 
-* Past releases are available from the [CMAS Center](http://www.cmascenter.org).
+* Releases available on github: 4.3, 4.3.1 and 4.3.2. 
+* Releases are also available from the [CMAS Center](http://www.cmascenter.org).
 
-### 09/2018 Update Release Notes for SA 4.3.2
-updated Raster tools for EPIC 
-* extractEPIC2CMAQ.cpp - added additional variable FBARE: Bare Land Fraction for Wind Erosion
-* computeGridGOES.cpp - removed hardcoded dimenstions so that program can be used to read new or old versions of GEOS               Imager data. The coverage was extended in the new retrievals (from 1500x800 to 1552x1300). 
-* computeSiteDailyWeather.cpp - increase the number of wet and dry deposition variables available from CMAQ
-* compute_EPICSiteData.cpp -  Changed how a crop_acre is defined:  crop_acre > cropArea_threshold && waterP < 50.
+### 10/2018 Update Release Notes for SA 4.3.2
+* Updated FEST-C tools for the new release of FEST-C v1.4
+* Updated GOES data processing tool for input directory
+* Updated all geoprocessing classes based on the change of GDAL library
+* Added new land use processing tool with MODIS vegetation product
+* Updated Raster tools for EPIC 
+  - extractEPIC2CMAQ.cpp - added additional variable FBARE: Bare Land Fraction for Wind Erosion
+  - computeGridGOES.cpp - removed hardcoded dimenstions so that program can be used to read new or old versions of GEOS                   Imager data. The coverage was extended in the new retrievals (from 1500x800 to 1552x1300). 
+  - computeSiteDailyWeather.cpp - increase the number of wet and dry deposition variables available from CMAQ
+  - compute_EPICSiteData.cpp -  Changed how a crop_acre is defined:  crop_acre > cropArea_threshold && waterP < 50.
 
 ### 06/2017 Update Release Notes for SA 4.3.1
 
