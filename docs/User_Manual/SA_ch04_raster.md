@@ -150,25 +150,28 @@ This tool requires the following data sets:
     -   SA Scripts: NLCD_MODIS_processor.csh and landuseTool_WRFCMAQ_BELD4.csh
     -   URL: https://ladsweb.modaps.eosdis.nasa.gov/search/
     -   Instructions:  Select the following from the download page:
-<br>PRODUCTS:</br>
-        -   Combined Terra & Aqua MODIS
-        -   Combined Land Level 3/Level4 yearly Tiled Products (keyword: MCD12Q1)
-        	-   MCD12Q1 - MODIS/Terra+Aqua Land Cover Type Yearly L3 Global 500m SIN Grid
-<br>TIME:</br>
+    
+    -   PRODUCTS:
+    	-   Combined Terra & Aqua MODIS
+    	-   Combined Land Level 3/Level4 yearly Tiled Products (keyword: MCD12Q1)
+                -   MCD12Q1 - MODIS/Terra+Aqua Land Cover Type Yearly L3 Global 500m SIN Grid
+    - TIME
         -   Temporal Type: Date and Time Range
-        	-    Set time period for downloading (typically 1 year, example Jan 1, 2011 - Dec. 31, 2011)
-<br>LOCATION:</br>
-      Choose either
-        -   Coordinate System: Latitude/Longitude
-             -   Type in extents in degree or use a predefined region
-        or
-	-   Country
-	     -  (example United States)
-<br>FILES:</br>
-        -   Select All
-<br>REVIEW and ORDER:</br>
-        -   Select Delivery Method
-	-   Submit Order
+        -    Set time period for downloading (typically 1 year, example Jan 1, 2011 - Dec. 31, 2011)
+		
+    - LOCATION (Choose either)
+    	-   Coordinate System: Latitude/Longitude
+            -   Type in extents in degree or use a predefined region
+    	-   or
+    	-   Country
+                -  (example United States)
+	
+     - FILES:
+          -   Select All
+	
+     - REVIEW and ORDER:
+          -   Select Delivery Method
+				-   Submit Order
 
 - List of land cover data sets to be processed – this file has to have fixed header formats.  Provided in the data directory are sample files for CMAQ 12-km domain 2001, 2006 and 2011 modeling: 
 
