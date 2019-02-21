@@ -74,7 +74,7 @@ echo "Gridding weight data to modeling domain"
 $PGBIN/psql -h $server -d $dbname -U $user -f ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
 
 # Create numerater table
-printf "DROP TABLE IF EXISTS $schema.numer_${surg_code}_${grid}; \n" > ${surg_code}_numer.sql
+printf "DROP TABLE IF EXISTS $schema.numer_${surg_code}_${grid}; \n" > ${output_dir}/temp_files/${surg_code}_numer.sql
 printf "CREATE TABLE $schema.numer_${surg_code}_${grid} ($data_attribute varchar(5) not null,\n" >> ${output_dir}/temp_files/${surg_code}_numer.sql
 printf "\tcolnum integer not null,\n" >> ${output_dir}/temp_files/${surg_code}_numer.sql
 printf "\trownum integer not null,\n" >> ${output_dir}/temp_files/${surg_code}_numer.sql
@@ -91,7 +91,7 @@ echo "CREATE TABLE $schema.numer_${surg_code}_${grid}"
 $PGBIN/psql -h $server -d $dbname -U $user -f ${output_dir}/temp_files/${surg_code}_numer.sql
 
 # Calculate donominator
-printf "DROP TABLE IF EXISTS $schema.denom_${surg_code}_${grid}; \n" > ${surg_code}_denom.sql
+printf "DROP TABLE IF EXISTS $schema.denom_${surg_code}_${grid}; \n" > ${output_dir}/temp_files/${surg_code}_denom.sql
 printf "CREATE TABLE $schema.denom_${surg_code}_${grid} ($data_attribute varchar(5) not null,\n" >> ${output_dir}/temp_files/${surg_code}_denom.sql
 printf "\tdenom double precision,\n" >> ${output_dir}/temp_files/${surg_code}_denom.sql
 printf "\tprimary key ($data_attribute));\n" >> ${output_dir}/temp_files/${surg_code}_denom.sql
