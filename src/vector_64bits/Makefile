@@ -27,9 +27,9 @@
 
 #####   Default I/O API binary-type:
 
-#SA_HOME := /nas01/depts/ie/cempd/SMOKE/dyang/sa
+#module add pgi 
 
-BIN := Linux2_x86_64pg
+BIN := Linux2_x86_64pg16.10
 #BIN := Linux2_x86pg_pgcc_nomp
 
 
@@ -39,12 +39,13 @@ BLDDIR := ${PWD}/${BIN}
 ######   Location of PROJ, I/O API and NetCDF libraries compiled using pgcc
 
 PROJDIR := /nas02/apps/proj-4.7.0
+#PROJDIR := /proj/ie/apps/longleaf/sallocator/git/Spatial-Allocator/src/libs/proj-4.9.3/local
 PROJLIB := ${PROJDIR}/lib
 PROJINC := ${PROJDIR}/include
 
 #Linux2_x86_64pg
-IODIR :=  /nas01/depts/ie/cempd/coats/apps/ioapi
-IOLIB :=  /nas01/depts/ie/cempd/coats/apps/${BIN}
+IODIR :=  /proj/ie//apps/longleaf/ioapi-3.2/ioapi
+IOLIB :=  /proj/ie//apps/longleaf/ioapi-3.2/${BIN}
 
 # Linux2_x86pg_pgcc_nomp
 #IODIR := /nas01/depts/ie/cempd/apps/ioapi_30/ioapi
@@ -69,7 +70,7 @@ FORTLIBS := -lpgf90 -lpgf90_rpm1 -lpgf902 -lpgf90rtl -lpgftnrtl -lpgmp -lrt -lpt
 
 LIBPATH = -L. -L$(BLDDIR) -L$(PROJLIB) -L$(IOLIB)
 
-LIBS := -Bstatic $(LIBPATH) -lspatial -lm -lproj -lioapi -lnetcdf $(FORTLIBS) $(OMPLIBS)
+LIBS := -Bstatic $(LIBPATH) -lspatial -lm -lproj -lioapi -lnetcdff -lnetcdf $(FORTLIBS) $(OMPLIBS)
 
 IOAPIFLAGS := -DFLDMN=1 -DUSE_IOAPI
 
@@ -79,7 +80,7 @@ IOAPIFLAGS := -DFLDMN=1 -DUSE_IOAPI
 #IOAPIFLAGS=
 
 
-CFLAGS := ${MFLAGS} ${COPTFLAGS} ${IOAPIFLAGS} ${ARCHFLAGS} -I$(PROJINC) -I${IODIR} -pgf90libs -g -traceback
+CFLAGS := -D_GNU_SOURCE ${MFLAGS} ${COPTFLAGS} ${IOAPIFLAGS} ${ARCHFLAGS} -I$(SRCDIR) -I$(PROJINC) -I${IODIR} -pgf90libs -g -traceback
 
 
 CSRC := mims_spatial.c srg_main.c beld3smk.c PointFileReader.c  \

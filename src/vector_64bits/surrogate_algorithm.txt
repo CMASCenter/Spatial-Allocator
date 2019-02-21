@@ -1,0 +1,20 @@
+-- sum1Poly
+Computes the denominator for the surrogate calculation
+ ps = plist->ps;         /* the intersected weight-data polygon */
+ pp = plist->pp;         /* the parent poly (= the county polygon) */
+ id = pp->p2->index; /* this id corresponds to the county */
+
+denomenator: 
+/* p1 is the parent weight poly, p2 is the parent data poly */
+ frac = val * PolyLength(ps) / PolyLength(pp->p1->ps);
+
+/* accumulate the sum based on the data poly ID */
+sum[id] += frac;
+
+
+-- sum2Poly
+Computes the numerator for the surrogate computation
+ ps = plist->ps;
+ pp = pp->p2->pp;
+
+sum[data_poly_idx][grid_cell_idx] += frac;

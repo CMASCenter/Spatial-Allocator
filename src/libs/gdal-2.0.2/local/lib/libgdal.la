@@ -17,7 +17,7 @@ old_library='libgdal.a'
 inherited_linker_flags=''
 
 # Libraries that this one depends upon.
-dependency_libs=' -L/work/MOD3APP/festc/sa432_092018/src/libs/proj-4.9.3/local/lib /work/MOD3APP/festc/sa_052014/src/libs/proj-4.9.3/local/lib/libproj.la -L/work/MOD3APP/festc/sa_052014/src/libs/geos-3.5.0/local/lib /work/MOD3APP/festc/sa_052014/src/libs/geos-3.5.0/local/lib/libgeos_c.la /work/MOD3APP/festc/sa_052014/src/libs/geos-3.5.0/local/lib/libgeos.la -lopenjp2 -lpthread -lrt -lpcre -lxml2 -lz -ldl'
+dependency_libs=' -L/proj/ie/apps/longleaf/sallocator/git/Spatial-Allocator/src/libs/proj-4.9.3/local/lib /proj/ie/apps/longleaf/sallocator/git/Spatial-Allocator/src/libs/proj-4.9.3/local/lib/libproj.la -L/proj/ie/apps/longleaf/sallocator/git/Spatial-Allocator/src/libs/geos-3.5.0/local/lib /proj/ie/apps/longleaf/sallocator/git/Spatial-Allocator/src/libs/geos-3.5.0/local/lib/libgeos_c.la /proj/ie/apps/longleaf/sallocator/git/Spatial-Allocator/src/libs/geos-3.5.0/local/lib/libgeos.la -lxerces-c -ljasper -lnetcdf -lhdf5 -L/usr/lib64/hdf -lmfhdf -ldf -L/proj/ie/apps/SA/Spatial-Allocator/pg_srgcreate/postgresql-9.5.3/lib -lpq -lpthread -lrt -lpcre -lxml2 -lz -ldl'
 
 # Names of additional weak libraries provided by this library
 weak_library_names=''
@@ -38,4 +38,4 @@ dlopen=''
 dlpreopen=''
 
 # Directory that this library needs to be installed in:
-libdir='/work/MOD3APP/festc/sa432_092018/src/libs/gdal-2.0.2/local/lib'
+libdir='/proj/ie/apps/longleaf/sallocator/git/Spatial-Allocator/src/libs/gdal-2.0.2/local/lib'

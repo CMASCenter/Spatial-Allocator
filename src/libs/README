@@ -150,6 +150,9 @@ gdal202.zip
    >setenv CFLAGS "-fPIC"    //for Linux 64bits
    >./configure -help
 
+   #configuration on longleaf, with pg
+   >./configure --prefix={GDAL_PATH}/local --with-static-proj4={PROP4_PATH}/local --with-geos={GEOS_PATH}/local/bin/geos-config --with-pg={PG_PATH}/bin/pg_config --with-libtiff=internal --with-png=internal --with-jpeg=internal --with-gif=internal --with-libz=internal --enable-static  --without-curl --without-expat --without-mysql --without-dwgdirect --without-odbc --without-python --without-oci --without-sqlite3 --without-oci-include --without-oci-lib --without-ld-shared
+
    #without orcale and not shared - current configuration on atmos, terra and killdevil
    >./configure --prefix={GDAL_PATH}/local --with-static-proj4={PROP4_PATH}/local --with-geos={GEOS_PATH}/local/bin/geos-config  --with-libtiff=internal --with-png=internal --with-jpeg=internal --with-gif=internal --with-libz=internal --enable-static  --without-curl --without-expat --without-mysql --without-dwgdirect --without-odbc --without-python --without-oci --without-sqlite3 --without-oci-include --without-oci-lib --without-ld-shared
 

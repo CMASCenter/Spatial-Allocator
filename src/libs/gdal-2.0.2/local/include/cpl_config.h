@@ -17,7 +17,7 @@
 #define HAVE_5ARGS_MREMAP 1
 
 /* --prefix directory for GDAL install */
-#define GDAL_PREFIX "/work/MOD3APP/festc/sa432_092018/src/libs/gdal-2.0.2/local"
+#define GDAL_PREFIX "/proj/ie/apps/longleaf/sallocator/git/Spatial-Allocator/src/libs/gdal-2.0.2/local"
 
 /* Define to 1 if you have the <assert.h> header file. */
 #define HAVE_ASSERT_H 1
@@ -85,7 +85,7 @@
 #define HAVE_LIBM 1
 
 /* Define to 1 if you have the `pq' library (-lpq). */
-/* #undef HAVE_LIBPQ */
+#define HAVE_LIBPQ 1
 
 /* Define to 1 if you have the `rt' library (-lrt). */
 #define HAVE_LIBRT 1
