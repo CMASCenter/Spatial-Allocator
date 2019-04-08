@@ -23,13 +23,11 @@ echo "CREATE TABLE $schema.wp_cty_${surg_code} "
 printf "DROP TABLE IF EXISTS $schema.wp_cty_${surg_code}; \n" > ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
 printf "CREATE TABLE $schema.wp_cty_${surg_code}(\n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
 printf "\t$data_attribute varchar(5),\n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
-printf "\t$weight_attribute double precision);\n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
+printf "\tcount_wp_cty integer default 1);\n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
 printf "SELECT AddGeometryColumn('${schema}', 'wp_cty_${surg_code}', 'geom_${grid_proj}', ${grid_proj}, 'MULTIPOINT', 2);\n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
 
-printf "INSERT INTO $schema.wp_cty_${surg_code} ($weight_attribute, geom_${grid_proj}) \n">> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
-printf "SELECT  \n">> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
-printf "\t${weight_table}.$weight_attribute, \n">> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
-printf "\t${weight_table}.geom_${grid_proj} \n">> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
+printf "INSERT INTO $schema.wp_cty_${surg_code} (geom_${grid_proj}) \n">> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
+printf "SELECT ${weight_table}.geom_${grid_proj} \n">> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
 printf "FROM ${weight_table} \n">> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
 printf "where ${filter_function}; \n">> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
 
@@ -37,6 +35,8 @@ printf "update $schema.wp_cty_${surg_code} \n">> ${output_dir}/temp_files/${surg
 printf "set $data_attribute=${data_table}.$data_attribute\n">> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
 printf "FROM ${data_table}\n">> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
 printf "WHERE ST_Contains(${data_table}.geom_$grid_proj, $schema.wp_cty_${surg_code}.geom_${grid_proj});\n">> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
+printf "DELETE FROM $schema.wp_cty_${surg_code} where $schema.wp_cty_${surg_code}.$data_attribute IS NULL;\n">> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
+printf "\\echo Warning:  delete rows with null geiod! \n">> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
 printf "create index on ${schema}.wp_cty_${surg_code} using GIST(geom_${grid_proj});\n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
 printf "vacuum analyze $schema.wp_cty_${surg_code};\n">> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
 $PGBIN/psql -h $server -d $dbname -U $user -f ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
@@ -47,14 +47,13 @@ printf "CREATE TABLE $schema.wp_cty_cell_${surg_code}_${grid}(\n" >> ${output_di
 printf "\t$data_attribute varchar(5) not null, \n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
 printf "\tcolnum integer not null,\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
 printf "\trownum integer not null,\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
-printf "\t$weight_attribute double precision) ;\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
+printf "\tcount_wp_cty_cell integer default 1);\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
 printf "SELECT AddGeometryColumn('${schema}', 'wp_cty_cell_${surg_code}_${grid}', 'geom_${grid_proj}', ${grid_proj}, 'MULTIPOINT', 2);\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
 
-printf "insert into $schema.wp_cty_cell_${surg_code}_${grid} ( $data_attribute, colnum, rownum, $weight_attribute, geom_${grid_proj}) \n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
+printf "insert into $schema.wp_cty_cell_${surg_code}_${grid} ( $data_attribute, colnum, rownum, geom_${grid_proj}) \n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
 printf "SELECT $schema.wp_cty_${surg_code}.${data_attribute},\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
 printf "\tcolnum,\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
 printf "\trownum,\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
-printf "\t$weight_attribute,\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
 printf "\t$schema.wp_cty_${surg_code}.geom_${grid_proj} \n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
 printf "  FROM $schema.wp_cty_${surg_code} \n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
 printf "  JOIN ${grid_table}\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
@@ -70,7 +69,7 @@ printf "\tdenom double precision,\n" >> ${output_dir}/temp_files/${surg_code}_de
 printf "\tprimary key ($data_attribute));\n" >> ${output_dir}/temp_files/${surg_code}_denom.sql
 printf "insert into $schema.denom_${surg_code}_${grid}\n" >> ${output_dir}/temp_files/${surg_code}_denom.sql
 printf "SELECT $data_attribute,\n" >> ${output_dir}/temp_files/${surg_code}_denom.sql
-printf "       SUM($weight_attribute) AS denom\n" >> ${output_dir}/temp_files/${surg_code}_denom.sql
+printf "       SUM(count_wp_cty_cell) AS denom\n" >> ${output_dir}/temp_files/${surg_code}_denom.sql
 printf "  FROM $schema.wp_cty_cell_${surg_code}_${grid}\n" >> ${output_dir}/temp_files/${surg_code}_denom.sql
 printf " GROUP BY $data_attribute;\n" >> ${output_dir}/temp_files/${surg_code}_denom.sql
 echo "CREATE TABLE $schema.denom_${surg_code}_${grid}; create primary key"
@@ -87,7 +86,7 @@ printf "insert into $schema.numer_${surg_code}_${grid}\n" >> ${output_dir}/temp_
 printf "SELECT $data_attribute,\n" >> ${output_dir}/temp_files/${surg_code}_numer.sql
 printf "\tcolnum,\n" >> ${output_dir}/temp_files/${surg_code}_numer.sql
 printf "\trownum,\n" >> ${output_dir}/temp_files/${surg_code}_numer.sql
-printf "\tSUM($weight_attribute) AS numer\n" >> ${output_dir}/temp_files/${surg_code}_numer.sql
+printf "\tSUM(count_wp_cty_cell) AS numer\n" >> ${output_dir}/temp_files/${surg_code}_numer.sql
 printf "  FROM $schema.wp_cty_cell_${surg_code}_${grid}\n" >> ${output_dir}/temp_files/${surg_code}_numer.sql
 printf " GROUP BY $data_attribute, colnum, rownum;\n" >> ${output_dir}/temp_files/${surg_code}_numer.sql
 echo "CREATE TABLE $schema.numer_${surg_code}_${grid}"

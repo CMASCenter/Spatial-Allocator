@@ -78,7 +78,6 @@
 #SRGDESC=590,Heavy Industrial (IND1)
 #SRGDESC=595,Light Industrial (IND2)
 #SRGDESC=596,Industrial plus Institutional plus Hospitals
-#SRGDESC=600,Gas Stations
 #SRGDESC=650,Refineries and Tank Farms
 #SRGDESC=670,Spud Count - CBM Wells
 #SRGDESC=671,Spud Count - Gas Wells
@@ -109,14 +108,13 @@
 #SRGDESC=711,Airport Areas
 #SRGDESC=801,Port Areas
 #SRGDESC=802,Shipping Lanes
-#SRGDESC=8022,2013 Shipping Density
 #SRGDESC=803,Gulf Shipping Lanes
 #SRGDESC=805,Offshore Shipping Area
 #SRGDESC=806,Offshore Shipping NEI2014 Activity
 #SRGDESC=807,Navigable Waterway Miles
+#SRGDESC=808,2013 Shipping Density
 #SRGDESC=812,Great Lakes Shipping Lanes
 #SRGDESC=820,Ports NEI2014 Activity
 #SRGDESC=850,Golf Courses
 #SRGDESC=860,Mines
-#SRGDESC=870,Wastewater Treatment Facilities
 #SRGDESC=890,Commercial Timber

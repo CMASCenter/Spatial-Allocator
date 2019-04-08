@@ -5,8 +5,7 @@ Notes: This is a beta version, only 2xx, and polygon type of surrogates in 1xx, 
 
 0. Prerequisites
    - Install the Postgres database server and the PostGIS extension. Make sure the Postgres server is running.
-      - for Mac, follow instructions https://medium.com/@Umesh_Kafle/postgresql-and-postgis-installation-in-mac-os-87fa98a6814d
-   - Create a new database for the surrogates work. This document uses a database named "surrogates" by default.
+   - Create a new database for the surrogates work. This document uses a database named "surrogates" or "NEI2014" by default.
      > From the psql command line, run "CREATE DATABASE surrogates;"
      > Connect to the new database with the command "\c surrogates"
      > Add the PostGIS extension to the new database: "CREATE EXTENSION postgis;"
@@ -20,31 +19,6 @@ Notes: This is a beta version, only 2xx, and polygon type of surrogates in 1xx, 
    - Install the Java Runtime Environment (if needed).
    - Install the tcsh package (if needed).
    - Download the Spatial Allocator package.
-   - Compile the libraries required by the Spatial Allocator Package if not using default linux libraries
-   - Edit and run makefile to build vector_tools: Spatial-Allocator/src/vector_64bits/Makefile
-   - Download shapefile data for pg_srgtools: 
-     pg_shapefiles.emiss_shp2014.tar.gz, pg_shapefiles.emiss_shp2016.tar.gz, pg_shapefiles.emiss_shp2018.tar.gz
-   - Understand basic psql commands for inspecting database
-   - Example psql commands provided below
-
-   -  Start postgres
-     > psql postgres
-     psql (10.5)
-     Type "help" for help.
-   - List databases
-     postgres=# \list
-   - Connect to the database surrogates
-     postgres=#\c surrogates 
-     You are now connected to database "surrogates" as user "lizadams".
-     surrogates=# 
-   
-   - Notice that the prompt changes from your default command prompt which we denoted above as >
-   - To the database that you are connected to:
-     surrogates=#
-
-   - To quit out of the psql command line interface use the \q command
-     surrogates=#\q
-     
 
 1. Update "pg_setup.csh" based on your location in your server and then "source" it (create/start the PostgreSQL Database)
    > setenv SA_HOME    /opt/srgtool
@@ -57,35 +31,6 @@ Notes: This is a beta version, only 2xx, and polygon type of surrogates in 1xx, 
    - Invoke the following command to insert the output projection into your DB. Note: User can use a different number than 900921 if this number is already taken in spatial_ref_sys table in your DB. 
 
      > "psql -h localhost -d surrogates -U $user -f create_900921.sql"
- 
-   - To verify that this worked, use the following commands:
-     > psql postgres
-     List the databases available
-     postgres=# \list
-     Connect to the surrogate database
-     postgres=# \c surrogates
-     Show tables in the surrogate database
-     surrogates=# \dt
-              List of relations
- Schema |      Name       | Type  |  Owner   
---------+-----------------+-------+----------
- public | spatial_ref_sys | table | lizadams
-
-   - Show one line from the spatial_ref_sys table
-     > select * from spatial_ref_sys limit 1;     
-srid | auth_name | auth_srid |                                                                                                                                                                    srtext                                                                                                                                                                    |                                           proj4text                                            
-------+-----------+-----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------
- 3819 | EPSG      |      3819 | GEOGCS["HD1909",DATUM["Hungarian_Datum_1909",SPHEROID["Bessel 1841",6377397.155,299.1528128,AUTHORITY["EPSG","7004"]],TOWGS84[595.48,121.69,515.35,4.115,-2.9383,0.853,-3.408],AUTHORITY["EPSG","1024"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","3819"]] | +proj=longlat +ellps=bessel +towgs84=595.48,121.69,515.35,4.115,-2.9383,0.853,-3.408 +no_defs 
-(1 row)
-
-   - Show all values where srid=900921
-     > select * from spatial_ref_sys where srid=900921;
-
-  srid  | auth_name | auth_srid |                                                                                                              srtext                                                                                                              |                                                proj4text                                                 
---------+-----------+-----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------
- 900921 |           |           | PROJCS["Lambert_Conformal_Conic",GEOGCS["GCS_Sphere_WRF",DATUM["Sphere_WRF",SPHEROID["Sphere_WRF",6370000.0,0.0]],PRIMEM["Greenwich",0.0],UNIT["Degree",0.0174532925199433]],PROJECTION["Lambert_Conformal_Conic_2SP"],PARAMETER+| +proj=lcc +lat_1=33 +lat_2=45 +lat_0=40 +lon_0=-97 +x_0=0 +y_0=0 +a=6370000 +b=6370000 +units=m +no_defs
-        |           |           |  ["false_easting",0.0],PARAMETER["false_northing",0.0],PARAMETER["central_meridian",-97.0],PARAMETER["standard_parallel_1",33.0],PARAMETER["standard_parallel_2",45.0],PARAMETER["latitude_of_origin",40.0],UNIT["Meter",1.0"]]  | 
-(1 row)
 
 3. Load modeling grid domain:
    - Update the following settings and variables to load the modeling domain in the PostgreSQL DB using the "generate_modeling_grid.sh" script
@@ -93,70 +38,12 @@ srid | auth_name | auth_srid |                                                  
      : Add your own modeling domain information (see the example)
    - Invoke "generate_modeling_grid.sh"
 
-   - List tables to see that the modeling grid domain has been added
-   surrogates=# \dt
-
-              List of relations
- Schema |      Name       | Type  |  Owner   
---------+-----------------+-------+----------
- public | spatial_ref_sys | table | lizadams
- public | us12k_444x336   | table | lizadams
-(2 rows)
-
 4. Load data and multiple weight shape files first and then transform them to the output projection (ex: 900921)
    - Update the following settings and variables in the "load_shapefile_reproject_multi.csh" script
        : Add new weight shape files and/or remove already loaded shape files by commentting out.
-        (to get started comment out all source commands except for under the following section: 
-         ### Load pil shapefile for surrogate 205, Potential Idling Locations
        : Set "srid" to the output projection (e.g., 900921)
        : Update $dbname, $schemaname, $server, $user
    - Invoke "load_shapefile_reproject_multi.csh"
-
-   - List tables to see that the pil table has been added
-surrogates=# \dt
-              List of relations
- Schema |      Name       | Type  |  Owner   
---------+-----------------+-------+----------
- public | pil_2018_08_17  | table | lizadams
- public | spatial_ref_sys | table | lizadams
- public | us12k_444x336   | table | lizadams
-(3 rows)
-
-    - List one line from the pil table
-     > select * from pil_2018_08_17 limit 1;
- ogc_fid |         name         |      address       | city  | state |  latitude   |  longitude   | site_cat | rev_truck | rev_fips |  rev_county  |   rev_state   |                             wkb_geometry                             |                             geom_900921                              
----------+----------------------+--------------------+-------+-------+-------------+--------------+----------+-----------+----------+--------------+---------------+----------------------------------------------------------------------+----------------------------------------------------------------------
-      72 | Wal-Mart Supercenter | 100 Mcginnis Drive | Wayne | WV    | 38.25600224 | -82.43095079 | Retail   |         2 | 54099    | Wayne County | West Virginia | 0104000020E6100000010000000101000000104F9FB2949B54C05B4070AEC4204340 | 010400002039BF0D000100000001010000000775DFC98A3833415625B5CC0D60F6C0
-(1 row)
-
-   - Show the number of records in the pil table
-     surrogates=# select count(*) from pil_2018_08_17;
- count 
--------
-  7518
-(1 row)
-
-   - Update the following settings and variables in the "load_shapefile_reproject_multi.csh" script
-       : Add new weight shape files and/or remove already loaded shape files by commenting it out.
-        (to get started comment out all source commands except for under the following section:
-         ### Load county shapefile 
-       : Set "srid" to the output projection (e.g., 900921)
-       : Update $dbname, $schemaname, $server, $user
-       : Update location of data directory by setting $PGDATA
-       : Be sure that the shapefiles are available under the $PGDATA directory
-         > cd $SA_HOME
-         > find . -name cb_2014_us_county_500k_Poly.shp
-   - Invoke "load_shapefile_reproject_multi.csh"
-
-   - List one line from the county shapefile table
-     surrogates=#select * from cb_2014_us_county_500k_poly limit 1;
-   - Show the number of records in the county shapefile table
-     surrogates=#select count(*) from cb_2014_us_county_500k_poly;
- count 
--------
-  3233
-(1 row)
-
 
 5. Create Surrogates
    - Update the following settings in the "control_variables_pg.csv" input file.
@@ -177,15 +64,14 @@ surrogates=# \dt
      > GAPFILL SURROGATES,NO   (Note: set this to NO since Gapfill will be done by another java tool, not by PostgreSQL/PostGIS (PG) SA tool) 
 
 6.  Update the "surrogate_generation_pg.csv" input file to specify which surrogates to be created
-    - In this example, use only the 205 surrogate, as we have only loaded shapefile data for surrogate 205 and the county boundary data
 
 7.  Update the "surrogate_specification_pg.csv" input file
     : Note that all identifiers (including column names) that are not double-quoted are folded to lower case in PostgreSQL. 
     : Column names that were created with double-quotes and thereby retained upper-case letters
-      ex:  weight_function="moves2014=4", then moves2014 is case sensitive 
+      ex:  filter_function="moves2014=4", then moves2014 is case sensitive 
            weight_shape=Hpms2016, "Hpms2016" will be recognized as hpms2016
 
-   - Update the following settings:  (do these actually need to be modified for a quickstart case?)
+   - Update the following settings:
      > DATA SHAPEFILE ( same name as in shapefile_catalog_pg.csv )
      > DATA ATTRIBUTE ( better use lower case )
      > WEIGHT SHAPEFILE ( same name as in shapefile_catalog_pg.csv )
@@ -195,23 +81,10 @@ surrogates=# \dt
 
 8.  Update the "run_pg_srgcreate.csh" script
      : Make sure to use the PG SA tool version of Java tool (SurrogateTools-2.1.jar) that came with this PG SA tool package
-     > remove comment in front of the line to source pg_setup.csh, so that the proper environment variables are used
+
      > Invoke the "run_pg_srgcreate.csh" run script
-     > ./run_pg_srgcreate.csh
 
-
-    Output:
-
-    Finished writing srgDesc file and total surrogate file
-    End Date: Thu Nov 29 13:38:14 EST 2018
-    Elapsed time in minutes: 0.010066666666666666
-    SUCCESS -- The Program Run Completed. See log file for details.
-
-    - Check the outputs directory for the surrogate file
-    $SA_HOME/pg_srgtools/outputs/us12k_444x336/USA_205_NOFILL.txt
-
-
-9.  If there is any error, check out the PG SA templates for various types of surrogates (MultyPoly, Point, Line,,,)
+9.  Check out the PG SA templates for various types of surrogates (MultyPoly, Point, Line,,,)
     -  Go to the directory "pgscripts"
     -  These templates will be used to generate the internal PG SA run scripts to create surrogates.
    - weight shapefile cut by data(county) shape file table
@@ -224,8 +97,44 @@ surrogates=# \dt
 
 11. Create summary tables
    -  Invoke the "qa_srg.csh" run script
-      >cd $SA_HOME/pg_srgtools/
-      > ./qa_srg.csh
 
-   -  Review the summary csv files
-      > ls $SA_HOME/pg_srgtools/outputs/srgdesc_us12k_usa_*.csv
+
+12. postgresql and postgis
+   - Deleted line segments or points exactly on border
+     (PGSRGCREATE script_OUTPUT>DELETE 11
+       PGSRGCREATE script_OUTPUT>Warning: delete rows with null geiod!)
+
+  - some records has no fips
+NEI2014=# select * from ertac_railyard_wrf where fips='00000';
+ ogc_fid |                    wkb_geometry                    | objectid | owner1 | o
+wner2 | owner3 | state | fips  | yardname  | longitude  | latitude  |    nox     |
+pm25   |  noxpmtot  |                    geom_900921
+---------+----------------------------------------------------+----------+--------+--
+------+--------+-------+-------+-----------+------------+-----------+------------+---
+-------+------------+----------------------------------------------------
+     833 | 01010000203ABF0D00FC97A8B50CC7214174C99D40B55730C1 |      833 | CN     |
+      |        | LA    | 00000 | Geismar   |    -90.972 |   30.1737 | 125.204276 | 3.
+358152 | 128.562428 | 010100002039BF0D00FB97A8B50CC7214178C99D40B55730C1
+     836 | 01010000203ABF0D0001A26072DB282741007D93ED91090D41 |      836 | CN     |
+      |        | IL    | 00000 | Glenn     |   -87.7874 |   41.8022 | 156.505345 |  4
+.19769 | 160.703035 | 010100002039BF0D0000A26072DB282741E37C93ED91090D41
+     837 | 01010000203ABF0D003F9871FC03E02341E0B1413BDD2C0D41 |      837 | UP     |
+      |        | IL    | 00000 | Global 3  | -89.085622 | 41.903842 | 176.349262 |  4
+.84187 | 181.191132 | 010100002039BF0D003F9871FC03E02341AAB1413BDD2C0D41
+     849 | 01010000203ABF0D00AE27F99C97462C410037DCE23A05DC40 |      849 | CSXT   |
+      |        | IN    | 00000 | Hawthorne | -86.074344 | 39.755189 | 162.449836 | 4.
+658666 | 167.108502 | 010100002039BF0D00AC27F99C97462C41DA35DCE23A05DC40
+     946 | 01010000203ABF0D003A2E2F5435B12441901FC286372A1E41 |      946 | CN     |
+      |        | WI    | 00000 | Neenah    |   -88.4718 |   44.1751 | 156.505345 |  4
+.19769 | 160.703035 | 010100002039BF0D00382E2F5435B12441C21FC286372A1E41
+     986 | 01010000203ABF0D0084BE8781931E3641D0FD24C0DF1218C1 |      986 | CSXT   |
+      |        | NC    | 00000 | Pinoca    |   -80.8923 |   35.2706 | 118.145335 | 3.
+388121 | 121.533456 | 010100002039BF0D0083BE8781931E3641D5FD24C0DF1218C1
+     994 | 01010000203ABF0D002B72ABC742321641807CB8CD912A2741 |      994 | CN     |
+      |        | MN    | 00000 | Proctor   |   -92.2417 |   46.7558 | 125.204276 | 3.
+358152 | 128.562428 | 010100002039BF0D002A72ABC742321641867CB8CD912A2741
+
+  - run interactive job
+    srun -t 8:00:00 -p interact -N 1 -n 1 --x11=first --pty /bin/bash
+
+  - surrogate 137 has very big values
