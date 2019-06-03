@@ -32,7 +32,7 @@ printf "\tCASE\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.s
 printf "\twhen ST_CoveredBy(${weight_table}.geom_${grid_proj},${grid_table}.gridcell)\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
 printf "\tTHEN ${weight_table}.geom_${grid_proj}\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
 printf "\tELSE	\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
-printf "\t\tST_Multi(ST_Intersection(${weight_table}.geom_${grid_proj},${grid_table}.gridcell)) \n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
+printf "\t\tST_CollectionExtract(ST_Multi(ST_Intersection(${weight_table}.geom_${grid_proj},${grid_table}.gridcell)),2) \n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
 printf "\tEND AS geom_${grid_proj} \n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
 printf "  FROM ${weight_table}\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
 printf "  JOIN ${grid_table} \n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql

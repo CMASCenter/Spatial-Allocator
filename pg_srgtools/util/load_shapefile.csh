@@ -68,18 +68,6 @@ endif
 #END1
 #endif
 
-if ( $table == "cmv_2013_vessel_density_conus1km" ) then
-$PGBIN/psql -h $server -U $user -q $dbname << END1
-  ALTER TABLE $schema.$table 
-        add column area_900921 double precision,
-        add column mean_dens double precision;
-  update $schema.$table
-        set area_900921=ST_Area(geom_900921);
-  update $schema.$table
-        set mean_dens=mean / area_900921;
-END1
-endif
-
 
 # Calculate density
 if ( $table == "acs_2014_5yr_pophousing" ) then

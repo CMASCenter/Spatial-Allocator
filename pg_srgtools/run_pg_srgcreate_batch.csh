@@ -14,7 +14,7 @@ sleep 20
 
 #source pg_setup.csh
 #java -classpath ./SurrogateTools-2.1.jar gov.epa.surrogate.ppg.Main control_variables_pg_36km.csv
-./util/generate_modeling_grid.sh
+#./util/generate_modeling_grid.sh
 java -classpath ./SurrogateTools-2.1.jar gov.epa.surrogate.ppg.Main control_variables_pg_4km.csv
 
 # For merge and gapfilling

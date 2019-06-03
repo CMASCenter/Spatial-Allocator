@@ -102,6 +102,7 @@ rows=1008			# number of rows (y)
 # do not modify below this line
 ######################################################################
 
+echo " ==== Creating $schemaname.$tblname"
 psql -h $server -U $user -q $dbname << END		# start PostgreSQL session on dbname from shell, quiet mode, submit commands until END
 
 DROP TABLE IF EXISTS $schemaname.$tblname;
@@ -145,3 +146,4 @@ END1
   done
 done
 
+echo " ==== Finished creating $schemaname.$tblname"

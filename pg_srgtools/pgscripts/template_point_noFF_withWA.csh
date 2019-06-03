@@ -19,7 +19,7 @@ set geom_wp="$weight_table.geom_$grid_proj"
 
 # Create wp_cty intersection table
 echo "CREATE TABLE $schema.wp_cty_${surg_code} "
-#printf "DROP TABLE IF EXISTS $schema.wp_cty_${surg_code}; \n" > ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
+
 printf "DROP TABLE IF EXISTS $schema.wp_cty_${surg_code}; \n" > ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
 printf "CREATE TABLE $schema.wp_cty_${surg_code}(\n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
 printf "\t$data_attribute varchar(5),\n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql

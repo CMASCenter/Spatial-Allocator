@@ -13,14 +13,14 @@ set data_table=$schema.$data_shape
 set weight_table=$schema.$weight_shape
 
 # - roads split by county boundaries 
-#printf "DROP TABLE IF EXISTS ${schema}.wp_cty_${surg_code}; \n" > ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
+printf "DROP TABLE IF EXISTS ${schema}.wp_cty_${surg_code}; \n" > ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
 printf "CREATE TABLE ${schema}.wp_cty_${surg_code} AS (\n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
 printf "SELECT $data_attribute,\n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
 printf "       CASE \n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
 printf "       WHEN ST_CoveredBy(${weight_table}.geom_${grid_proj}, ${data_table}.geom_${grid_proj}) \n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
 printf "       THEN ${weight_table}.geom_${grid_proj} \n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
 printf "       ELSE \n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
-printf "                ST_Multi(ST_Intersection(${weight_table}.geom_${grid_proj}, ${data_table}.geom_${grid_proj})) \n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
+printf "                ST_CollectionExtract(ST_Multi(ST_Intersection(${weight_table}.geom_${grid_proj}, ${data_table}.geom_${grid_proj})),2)\n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
 printf "       END AS geom_${grid_proj} \n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
 printf "  FROM ${data_table}\n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
 printf "  JOIN  ${weight_table} \n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
@@ -51,7 +51,7 @@ printf "\tCASE\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.s
 printf "\twhen ST_CoveredBy(wp_cty_${surg_code}.geom_${grid_proj},${grid_table}.gridcell)\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
 printf "\tTHEN wp_cty_${surg_code}.geom_${grid_proj}\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
 printf "\tELSE  \n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
-printf "\t\tST_Multi(ST_Intersection(wp_cty_${surg_code}.geom_${grid_proj},${grid_table}.gridcell)) \n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
+printf "\t\tST_CollectionExtract(ST_Multi(ST_Intersection(wp_cty_${surg_code}.geom_${grid_proj},${grid_table}.gridcell)),2)\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
 printf "\tEND AS geom_${grid_proj} \n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
 printf "  FROM wp_cty_${surg_code}\n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
 printf "  JOIN ${grid_table} \n" >>  ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql

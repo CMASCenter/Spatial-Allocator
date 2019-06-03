@@ -94,6 +94,14 @@ set attr=""
 set geomtype=MultiPolygon        # retrieve the exact geopmetry type from the table.
 #source load_shapefile.csh
 
+### Load fema shapefile for 5xx
+set indir=$shpdir/FEMA
+set shapefile=fema_bsf_2002bnd
+set table=`echo $shapefile | tr "[:upper:]" "[:lower:]"`
+set attr=""
+set geomtype=MultiPolygon
+#source load_shapefile.csh
+
 ###  Load Waterway shapefile for surrogates 807
 set indir=$shpdir/TIGER
 set shapefile=TIGER_2014_Rail #under emiss_shp2014
