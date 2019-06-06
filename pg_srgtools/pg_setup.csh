@@ -1,6 +1,8 @@
 #set  SA installtion directory and open source libraries used by Raster Tools
 setenv SA_HOME /proj/ie/apps/longleaf/sallocator/Spatial-Allocator
 setenv PGBIN  /proj/ie/apps/SA/Spatial-Allocator/pg_srgcreate/postgresql-9.5.3/bin
+setenv PG_USER zeadelma
+setenv DBNAME  NEI2014
 
 #set PROJ4 libary and share data directories
 setenv PROJDIR  ${SA_HOME}/src/libs/proj-4.9.3/local
@@ -44,8 +46,8 @@ setenv LD_LIBRARY_PATH ${GEOS_LIB}:${LD_LIBRARY_PATH}
 
 # Set Postgres library and include directory
 # PGHOME is the location that user installed postgres
-setenv PGHOME   /proj/ie/proj/EMAQ/Platform/Surrogates/2014/Spatial-Allocator/pg_srgcreate/pg_srgtools
-setenv PGDATA   $PGHOME/pg_shapefiles
+setenv PGHOME   /proj/ie/proj/EMAQ/Platform/Surrogates/2014/Spatial-Allocator/pg_srgcreate
+setenv PGDATA   $PGHOME/shapefiles
 
 #set alias
 alias  ncdump   "${NETCDF}/bin/ncdump"

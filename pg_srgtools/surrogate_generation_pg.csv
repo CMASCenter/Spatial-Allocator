@@ -1,7 +1,7 @@
 REGION,SURROGATE,SURROGATE CODE,GENERATE,QUALITY ASSURANCE,PG SCRIPT
-USA,Population,100,YES,YES,template_polygon_noFF_withWA.csh
+USA,Population,100,NO ,NO ,template_polygon_noFF_withWA.csh
 USA,Housing,110,NO ,NO ,template_polygon_noFF_withWA.csh
-USA,Urban Housing,131,YES,YES,template_polygon_withFF_noWA.csh
+USA,Urban Housing,131,NO ,NO ,template_polygon_withFF_noWA.csh
 USA,Suburban Housing,132,NO ,NO ,template_polygon_withFF_noWA.csh
 USA,Rural Housing,134,NO ,NO ,template_polygon_withFF_noWA.csh
 USA,Housing Change,137,NO ,NO ,template_polygon_noFF_withWA.csh
@@ -11,9 +11,9 @@ USA,0.5 Residential Heating - Wood plus 0.5 Low Intensity Residential,165,NO ,NO
 USA,Residential Heating - Distillate Oil,170,NO ,NO ,template_polygon_noFF_withWA.csh
 USA,Residential Heating - Coal,180,NO ,NO ,template_polygon_noFF_withWA.csh
 USA,Residential Heating - LP Gas,190,NO ,NO ,template_polygon_noFF_withWA.csh
-USA,Urban Restricted Road Miles,201,YES,YES,template_line_withFF_noWA.csh
-USA,Urban Restricted AADT,202,YES,YES,template_line_withFF_withWA.csh
-USA,Extended Idle Locations,205,YES,YES,template_point_withFF_withWA.csh
+USA,Urban Restricted Road Miles,201,NO ,NO ,template_line_withFF_noWA.csh
+USA,Urban Restricted AADT,202,NO ,NO ,template_line_withFF_withWA.csh
+USA,Extended Idle Locations,205,NO ,NO ,template_point_withFF_withWA.csh
 USA,Rural Restricted Road Miles,211,NO ,NO ,template_line_withFF_noWA.csh
 USA,Rural Restricted AADT,212,NO ,NO ,template_line_withFF_withWA.csh
 USA,Urban Unrestricted Road Miles,221,NO ,NO ,template_line_withFF_noWA.csh
@@ -26,15 +26,15 @@ USA,Total Restricted Road Miles,241,NO ,NO ,template_line_withFF_noWA.csh
 USA,All Restricted AADT,242,NO ,NO ,template_line_withFF_withWA.csh
 USA,Total Unrestricted Road Miles,243,NO ,NO ,template_line_withFF_noWA.csh
 USA,All Unrestricted AADT,244,NO ,NO ,template_line_withFF_withWA.csh
-USA,Intercity Bus Terminals,258,YES,YES,template_point_withFF_noWA.csh
+USA,Intercity Bus Terminals,258,NO ,NO ,template_point_withFF_noWA.csh
 USA,Transit Bus Terminals,259,NO ,NO ,template_point_withFF_noWA.csh
-USA,Total Railroad Miles,260,YES,YES,template_line_noFF_noWA_nofips.csh
+USA,Total Railroad Miles,260,NO ,NO ,template_line_noFF_noWA_nofips.csh
 USA,NTAD Total Railroad Density,261,NO ,NO ,template_line_withFF_noWA.csh
 USA,NTAD Class 1 2 3 Railroad Density,271,NO ,NO ,template_line_withFF_noWA.csh
 USA,NTAD Amtrak Railroad Density,272,NO ,NO ,template_line_withFF_noWA.csh 
 USA,NTAD Commuter Railroad Density,273,NO ,NO ,template_line_withFF_noWA.csh  
-USA,ERTAC Rail Yards,275,YES,YES,template_point_noFF_withWA.csh
-USA,Class 2 and 3 Railroad Miles,280,YES,YES,template_line_withFF_noWA_nofips.csh
+USA,ERTAC Rail Yards,275,NO ,NO ,template_point_noFF_withWA.csh
+USA,Class 2 and 3 Railroad Miles,280,NO ,NO ,template_line_withFF_noWA_nofips.csh
 USA,NLCD Low Intensity Development,300,NO,NO,template_polygon_withFF_noWA.csh
 USA,NLCD Med Intensity Development,301,NO,NO,template_polygon_withFF_noWA.csh
 USA,NLCD High Intensity Development,302,NO,NO,template_polygon_withFF_noWA.csh
@@ -73,7 +73,7 @@ USA,Metals and Minerals Industrial (IND4),585,NO ,NO ,template_polygon_noFF_with
 USA,Heavy Industrial (IND1),590,NO ,NO ,template_polygon_noFF_withWA.csh
 USA,Light Industrial (IND2),595,NO ,NO ,template_polygon_noFF_withWA.csh
 USA,Industrial plus Institutional plus Hospitals,596,NO ,NO ,template_polygon_noFF_withWA.csh
-USA,Refineries and Tank Farms,650,YES,YES,template_point_noFF_noWA.csh    
+USA,Refineries and Tank Farms,650,NO ,NO ,template_point_noFF_noWA.csh    
 USA,Spud Count - CBM Wells,670,NO ,NO ,template_polygon_noFF_withWA.csh
 USA,Spud Count - Gas Wells,671,NO ,NO ,template_polygon_noFF_withWA.csh
 USA,Gas Production at Oil Wells,672,NO ,NO ,template_polygon_noFF_withWA.csh
@@ -92,7 +92,7 @@ USA,Well Counts -  CBM Wells,691,NO ,NO ,template_polygon_noFF_withWA.csh
 USA,Spud Count - All Wells,692,NO ,NO ,template_polygon_noFF_withWA.csh
 USA,Well Count - All Wells,693,NO ,NO ,template_polygon_noFF_withWA.csh
 USA,Oil Production at Oil Wells,694,NO ,NO ,template_polygon_noFF_withWA.csh
-USA,Well Count - Oil Wells,695,NO ,NO ,template_polygon_noFF_withWA.csh
+USA,Well Count - Oil Wells,695,YES,YES,template_polygon_noFF_withWA.csh
 USA,Gas Production at Gas Wells,696,NO ,NO ,template_polygon_noFF_withWA.csh
 USA,Oil Production at Gas Wells,697,NO ,NO ,template_polygon_noFF_withWA.csh
 USA,Well Count - Gas Wells,698,NO ,NO ,template_polygon_noFF_withWA.csh
@@ -100,7 +100,6 @@ USA,Gas Production at CBM Wells,699,NO ,NO ,template_polygon_noFF_withWA.csh
 USA,Airport Points,710,NO ,NO ,template_point_noFF_withWA.csh
 USA,Airport Areas,711,NO ,NO ,template_polygon_noFF_withWA.csh
 USA,Port Areas,801,NO ,NO ,template_polygon_noFF_withWA.csh
-USA,Shipping Lanes,802,NO ,NO ,template_polygon_noFF_withWA.csh
 USA,Offshore Shipping Area,805,NO ,NO ,template_polygon_noFF_withWA.csh
 USA,Offshore Shipping NEI2014 Activity,806,NO ,NO ,template_polygon_noFF_withWA.csh
 USA,Navigable Waterway Miles,807,NO ,NO ,template_line_noFF_noWA_nofips.csh
@@ -108,4 +107,4 @@ USA,2013 Shipping Density,808,NO ,NO ,template_polygon_noFF_withWA.csh
 USA,Ports NEI2014 Activity,820,NO ,NO ,template_polygon_noFF_withWA.csh
 USA,Golf Courses,850,NO ,NO ,template_point_noFF_noWA.csh
 USA,Mines,860,NO ,NO ,template_point_withFF_noWA.csh
-USA,Commercial Timber,890,YES,YES,template_polygon_noFF_noWA.csh
+USA,Commercial Timber,890,NO ,NO ,template_polygon_noFF_noWA.csh

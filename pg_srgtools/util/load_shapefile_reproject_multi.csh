@@ -4,12 +4,7 @@
 # Tranform to a new projection (from original 900922 to new 900921) and create gist index on it
 # Check whether the shapefile data are imported correclty or not.
 
-#setenv SA_HOME
-#setenv GDALHOME
-#setenv PGHOME
-#setenv GDALBIN ${GDALHOME}/bin
-#setenv PGBIN
-
+source ../pg_setup.csh
 set user=zeadelma
 set server=localhost
 set dbname=NEI2014
@@ -59,7 +54,6 @@ set geomtype=MultiPoint       # retrieve the exact geopmetry type from the table
 #source load_shapefile.csh
 
 # for 350,807,820 data shapefile: NTAD_2014_County_Pol ?
-#set indir=/proj/ie/proj/EMAQ/Platform/Surrogates/2014/Spatial-Allocator/data/emiss_shp2014/NTAD
 set indir=$shpdir/NTAD
 set shapefile=NTAD_2014_County_Pol
 set table=`echo $shapefile | tr "[:upper:]" "[:lower:]"`
@@ -94,14 +88,6 @@ set attr=""
 set geomtype=MultiPolygon        # retrieve the exact geopmetry type from the table.
 #source load_shapefile.csh
 
-### Load fema shapefile for 5xx
-set indir=$shpdir/FEMA
-set shapefile=fema_bsf_2002bnd
-set table=`echo $shapefile | tr "[:upper:]" "[:lower:]"`
-set attr=""
-set geomtype=MultiPolygon
-#source load_shapefile.csh
-
 ###  Load Waterway shapefile for surrogates 807
 set indir=$shpdir/TIGER
 set shapefile=TIGER_2014_Rail #under emiss_shp2014
@@ -110,7 +96,6 @@ set geomtype=MultiLineString       # retrieve the exact geopmetry type from the 
 #source load_shapefile.csh
 
 # Losd  Refineries and Tank Farms
-#set indir=/proj/ie/proj/EMAQ/Platform/Surrogates/2014/Spatial-Allocator/data/emiss_shp2014/EIA
 set indir=$shpdir/EIA
 set shapefile=EIA_2015_US_Oil
 set table=`echo $shapefile | tr "[:upper:]" "[:lower:]"`
@@ -270,21 +255,6 @@ set attr="PRODUCED_1"
 set geomtype=MultiPolygon       # retrieve the exact geopmetry type from the table.
 #source load_shapefile.csh
 
-#set shapefile=ProducedWater_CBM
-#set table=`echo $shapefile | tr "[:upper:]" "[:lower:]"`
-#set geomtype=MultiPolygon       # retrieve the exact geopmetry type from the table.
-#source load_shapefile.csh
-
-#set shapefile=ProducedWater_Gas
-#set table=`echo $shapefile | tr "[:upper:]" "[:lower:]"`
-#set geomtype=MultiPolygon       # retrieve the exact geopmetry type from the table.
-#source load_shapefile.csh
-
-#set shapefile=ProducedWater_Oil
-#set table=`echo $shapefile | tr "[:upper:]" "[:lower:]"`
-#set geomtype=MultiPolygon       # retrieve the exact geopmetry type from the table.
-#source load_shapefile.csh
-  
 set shapefile=SpudCount_CBM  # 670, SPUD_COU_1
 set table=`echo $shapefile | tr "[:upper:]" "[:lower:]"`
 set geomtype=MultiPolygon       # retrieve the exact geopmetry type from the table.
