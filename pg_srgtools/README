@@ -39,7 +39,7 @@ Only support regular grid surrogates creation, not support Egrid or census track
     > Update the table_list_2014.txt file to only list the tables you want to restore
    
 4. load projection and shapefiles 
-   Instead of step 3, a user can choose to load all shapefiles and domain definitions from shapefiles. If a user need to used a different projection then what are available in pg_tables.
+   Instead of step 3, a user can choose to load all shapefiles and domain definitions by following the following steps using a different projection or domain. 
  a. Load the output modeling projection:
    - Go to ./util directory
    - Invoke the following command to insert the output projection into your DB. Note: User can use a different number than 900921 if this number is already taken in spatial_ref_sys table in your DB. 

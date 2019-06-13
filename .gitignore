@@ -31,7 +31,7 @@ pg_srgtools/LOGS
 pg_srgtools/outputs
 git/
 old/
-data_old
+data.old
 output
 pg_srgcreate
 .gitignore

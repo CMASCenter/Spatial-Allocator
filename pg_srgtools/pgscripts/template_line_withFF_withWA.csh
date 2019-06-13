@@ -13,7 +13,6 @@ set geom_grid=$grid_table.gridcell
 set data_table=$schema.$data_shape
 set weight_table=$schema.$weight_shape
 
-
 # intersect with grid table
 printf "DROP TABLE IF EXISTS $schema.wp_cty_cell_${surg_code}_${grid}; \n" > ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
 printf "CREATE TABLE $schema.wp_cty_cell_${surg_code}_${grid}  ($data_attribute varchar(5) not null,\n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
@@ -115,7 +114,7 @@ $PGBIN/psql -h $server -d $dbname -U $user -f ${output_dir}/temp_files/${surg_co
 # Export surrogate
 echo "Exporting surrogates $schema.surg_${surg_code}_${grid}; "
 echo "#GRID" > ${output_dir}/USA_${surg_code}_NOFILL.txt
-$PGBIN/psql -U $user --field-separator '	' -t --no-align ${dbname} << END >> ${output_dir}/USA_${surg_code}_NOFILL.txt 
+$PGBIN/psql -h $server -d $dbname -U $user --field-separator '	' -t --no-align ${dbname} << END >> ${output_dir}/USA_${surg_code}_NOFILL.txt 
 
 SELECT surg_code, ${data_attribute}, colnum, rownum, surg, '!', numer, denom
   FROM $schema.surg_${surg_code}_${grid}
