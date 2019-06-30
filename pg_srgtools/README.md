@@ -92,7 +92,7 @@ Note that the Postgres Surrogate Tool currently only supports creating surrogate
    cd /opt/srgtool/pg_srgtools
    ../bin/64bits/diffsurr.exe outputs/us12k_444x336/USA_100_NOFILL.txt 100 outputs/us12k_444x336_example/USA_100_NOFILL.txt 100 0.000001
    ```
-   If the newly generate surrogates match the sample outputs, you'll see the message "The surrogate comparison was successful!"
+   If the newly generated surrogates match the sample outputs, you'll see the message "The surrogate comparison was successful!"
 
 ---
 
