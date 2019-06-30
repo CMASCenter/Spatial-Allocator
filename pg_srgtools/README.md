@@ -33,81 +33,68 @@ Note that the Postgres Surrogate Tool currently only supports creating surrogate
    ```
    To avoid being asked repeatedly for the Postgres user account password, you can create a password file in your home directory. See the Postgres documentation, https://www.postgresql.org/docs/current/libpq-pgpass.html, for more details.
 
-2. Download shapefiles or pg shapefile tables
-   All shapefiles are dumped to directory pg_tables to facilitate tables restore. 
-   - Location? 
-   unc location: /proj/ie/proj/EMAQ/Platform/Surrogates/2014/Spatial-Allocator/pg_srgcreate/shapefiles/pg_tables
+2. Download the archive PG_SurrogateTool_Shapefiles.tar.gz (12.5 GB) from https://drive.google.com/drive/folders/1gFI4VZlojyLnhTKiSRS6l3Tb0MJGJTBb and unpack it in /opt/srgtool/data/. The full unpacked archive is about 58 GB.
+   ```
+   cd /opt/srgtool/data
+   tar xvf PG_SurrogateTool_Shapefiles.tar.gz
+   ```
+   For this guide, we are only using two shapefiles from the archive. To extract only those shapefiles, run the following commands:
+   ```
+   tar xvf PG_SurrogateTool_Shapefiles.tar.gz shapefiles/Census/ACS_2014_5YR_PopHousing*
+   tar xvf PG_SurrogateTool_Shapefiles.tar.gz shapefiles/Census/cb_2014_us_county_500k_Poly*
+   ```
 
-3. Load pg shapefile tables  
-   - Go to ./util directory;
-   - Modify pg_restore_tables.csh to restore postgres tables that you need.
-    > Update the table_list_2014.txt file to only list the tables you want to restore
+3. Add the output modeling projection to the Postgres database.
+   ```
+   cd /opt/srgtool/pg_srgtools/util
+   psql -h $DBSERVER -d $DBNAME -U $PG_USER -f create_900921.sql
+   ```
+   This command will add a new Lambert conformal conic projection with the ID 900921 to the spatial_ref_sys table in the database.
+
+4. Load the shapefiles into tables in the database.
+   ```
+   cd /opt/srgtool/pg_srgtools/util
+   ./load_shapefile_reproject_multi.csh
+   ```
+   This script will load the county boundaries shapefile (cb_2014_us_county_500k_Poly) and the population and housing shapefile (ACS_2014_5YR_PopHousing) into the database. To load additional shapefiles, edit the script and uncomment the line `source load_shapefile.csh` for the shapefiles you're interested in.
+
+5. Create a database table representing the modeling grid.
+   ```
+   cd /opt/srgtool/pg_srgtools/util
+   ./generate_modeling_grid.sh
+   ```
+   This script creates a 12 km grid using the Lambert projection added earlier.
+
+6. Update the settings files in /opt/srgtool/pg_srgtools/ used by the surrogate tool (if needed).
+   - control_variables_pg.csv
    
-4. load projection and shapefiles 
-   Instead of step 3, a user can choose to load all shapefiles and domain definitions by following the following steps using a different projection or domain. 
- a. Load the output modeling projection:
-   - Go to ./util directory
-   - Invoke the following command to insert the output projection into your DB. Note: User can use a different number than 900921 if this number is already taken in spatial_ref_sys table in your DB. 
+   | Setting | Default value | Description |
+   | - | - | - |
+   | PG_SERVER | localhost | Database host |
+   | PG_USER | pgsurg | Postgres username |
+   | DBNAME | surrogates | Database name |
+   | PGBIN | /usr/bin | Location of Postgres executables |
+   | OUTPUT DIRECTORY | ./outputs/us12k_444x336 | Directory for individual surrogate files |
+   | LOG FILE NAME | ./LOGS/srg_conus12k.log | Log file to store all information from running the program |
 
-     > "psql -h localhost -d surrogates -U $user -f create_900921.sql"
+   - surrogate_generation_pg.csv: Specifies which surrogates will be created. For this guide, only the population surragate (code 100) will be generated.
+   
+   - surrogate_specification_pg.csv: Details how each surrogate should be created, including which data and weight shapefiles should be used, which attributes to use, and any weighting or filtering functions that should be applied.
 
- b. Load modeling grid domain:
-   - Update the following settings and variables to load the modeling domain in the PostgreSQL DB using the "generate_modeling_grid.sh" script
-     : Update $dbname, $schemaname, $server, $user
-     : Add your own modeling domain information (see the example)
-   - Invoke "generate_modeling_grid.sh"
+7. Run the Postgres Surrogate Tool to generate surrogates.
+   ```
+   cd /opt/srgtool/pg_srgtools
+   ./run_pg_srgcreate.csh
+   ```
 
- c. Load data and multiple weight shape files first and then transform them to the output projection (ex: 900921)
-   - Update the following settings and variables in the "load_shapefile_reproject_multi.csh" script
-       : Add new weight shape files and/or remove already loaded shape files by commentting out.
-       : Set "srid" to the output projection (e.g., 900921)
-       : Update $dbname, $schemaname, $server, $user
-   - Invoke "load_shapefile_reproject_multi.csh"
-)
+8. Compare your outputs to the sample outputs using the `diffsurr` tool.
+   ```
+   cd /opt/srgtool/pg_srgtools
+   ../bin/64bits/diffsurr.exe outputs/us12k_444x336/USA_100_NOFILL.txt 100 outputs/us12k_444x336_example/USA_100_NOFILL.txt 100 0.000001
+   ```
+   If the newly generate surrogates match the sample outputs, you'll see the message "The surrogate comparison was successful!"
 
-5. Create Surrogates
-   - Update the following settings in the "control_variables_pg.csv" input file.
-     > SRGCREATE EXECUTABLE
-     > GRIDDESC  (Note: grid name can't be larger than 16 chars. ) 
-     > OUTPUT_GRID_NAME
-     > SURROGATE SPECIFICATION FILE
-     > SHAPEFILE CATALOG
-     > OUTPUT DIRECTORY
-     > OUTPUT SRGDESC FILE
-     > PGSCRIPT DIRECTORY
-     > PG_SERVER
-     > PG_USER
-     > PGBIN
-     > SRID_FINAL
-     > DBNAME
-     > COMPUTE SURROGATES,YES  (Note: set this to YES to create surrogate)
-     > GAPFILL SURROGATES,NO   (Note: set this to NO since Gapfill will be done by another java tool, not by PostgreSQL/PostGIS (PG) SA tool) 
-
-6.  Update the "surrogate_generation_pg.csv" input file to specify which surrogates to be created
-
-7.  Update the "shapefile_catalog_pg.csv" to specify  schema name under "DIRECTORY" column if it is other than "public". The schema name is determined by data shapefile used in surrogate specification. 
-
-8.  Update the "surrogate_specification_pg.csv" input file
-    : Note that all identifiers (including column names) that are not double-quoted are folded to lower case in PostgreSQL. 
-    : Column names that were created with double-quotes and thereby retained upper-case letters
-      ex:  filter_function="moves2014=4", then moves2014 is case sensitive 
-           weight_shape=Hpms2016, "Hpms2016" will be recognized as hpms2016
-
-   - Update the following settings:
-     > DATA SHAPEFILE ( same name as in shapefile_catalog_pg.csv )
-     > DATA ATTRIBUTE ( better use lower case )
-     > WEIGHT SHAPEFILE ( same name as in shapefile_catalog_pg.csv )
-     > WEIGHT ATTRIBUTE ( better use lower case )
-     > WEIGHT FUNCTION  ( better use lower case )
-     > FILTER FUNCTION  ( better use lower case )
-
-9.  Update the "run_pg_srgcreate.csh" script
-     : Make sure to use the PG SA tool version of Java tool (SurrogateTools-2.1.jar) that came with this PG SA tool package
-
-     > Invoke the "run_pg_srgcreate.csh" run script
-     java -classpath ./SurrogateTools-2.1.jar gov.epa.surrogate.ppg.Main control_variables_pg.csv
-
-     > Script "run_pg_srgcreate_batch.csh" can be used to submit jobs on cluster machine.  
+---
 
 10. Check out the PG SA templates for various types of surrogates (MultyPoly, Point, Line,,,)
     -  Go to the directory "pgscripts"
@@ -129,14 +116,4 @@ Note that the Postgres Surrogate Tool currently only supports creating surrogate
    -  Invoke the "normalize_srg.csh" run script 
    java -classpath SurrogateTools-2.1.jar gov.epa.surrogate.normalize.Main SRGDESC_file exclude_list tolerance
    java -classpath SurrogateTools-2.1.jar gov.epa.surrogate.normalize.Main SRGDESC_file tolerance
-
-14. Problems and notes
-   - Deleted line segments or points exactly on border 
-   - Run interactive job for testing
-     srun -t 8:00:00 -p interact -N 1 -n 1 --x11=first --pty /bin/bash
-   - surrogate 137 has very big values, but this surrogate seems not used in SMOKE gridding. 
-
-15. Notes
-geometry ST_CollectionExtract(geometry collection, integer type);
-Type numbers are 1 == POINT, 2 == LINESTRING, 3 == POLYGON.
 
