@@ -5,8 +5,11 @@ Institute for the Environment, UNC-Chapel Hill
 
 
 The Spatial Allocator is now being distributed through GitHub (https://github.com/CMASCenter/Spatial-Allocator). 
-* Releases available on github: 4.3, 4.3.1 and 4.3.2. 
+* Releases available on github: 4.3, 4.3.1, 4.3.2, and 4.4.
 * Releases are also available from the [CMAS Center](http://www.cmascenter.org).
+
+### 06/2019 Release Notes for Spatial Allocator v4.4
+* Includes the new Postgres Surrogate Tool, for generating surrogates using a PostgreSQL database with the PostGIS extension
 
 ### 10/2018 Update Release Notes for SA 4.3.2
 * Updated FEST-C tools for the new release of FEST-C v1.4
