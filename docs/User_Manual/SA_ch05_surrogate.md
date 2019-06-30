@@ -766,7 +766,7 @@ where threshold is a real number between 0 and 1.0.
 <a id="postgres"><a/>
 ## The PostgreSQL Surrogate Tool 
 ### Introduction
-**Add content**
+To get started with the Postgres Surrogate Tool, please read the [Quick Start Guide](https://github.com/CMASCenter/Spatial-Allocator/blob/master/pg_srgtools/README.md).
 
 ### System Requirements and Recommendations
 This section introduces aspects of the computer system on which the PostgreSQL (PG) Surrogate Tool will operate. Specific hardware brands, model numbers, and specifications (e.g., hard disk drive speed) are not given because the technology changes rapidly. However, the database software is a requirement because the PG Surrogate Tool is written in PostgreSQL/PostGIS and is not guaranteed to work with a different relational database language.
