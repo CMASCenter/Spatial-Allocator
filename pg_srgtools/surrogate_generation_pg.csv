@@ -1,7 +1,7 @@
 REGION,SURROGATE,SURROGATE CODE,GENERATE,QUALITY ASSURANCE,PG SCRIPT
 USA,Population,100,YES,YES,template_polygon_noFF_withWA.csh
-USA,Housing,110,YES,YES,template_polygon_noFF_withWA.csh
-USA,Urban Housing,131,YES,YES,template_polygon_withFF_noWA.csh
+USA,Housing,110,NO,YES,template_polygon_noFF_withWA.csh
+USA,Urban Housing,131,NO,YES,template_polygon_withFF_noWA.csh
 USA,Suburban Housing,132,NO ,NO ,template_polygon_withFF_noWA.csh
 USA,Rural Housing,134,NO ,NO ,template_polygon_withFF_noWA.csh
 USA,Housing Change,137,NO ,NO ,template_polygon_noFF_withWA.csh

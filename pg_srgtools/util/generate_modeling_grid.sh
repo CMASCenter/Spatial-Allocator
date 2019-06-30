@@ -7,10 +7,66 @@
 # grid can be rectangular (xcellsize, ycellsize) instead of square (cellsize)
 # conus12km_082016 schema
  
- dbname=NEI2014
+ dbname=$DBNAME
  schemaname=public
- server=localhost
- user=zeadelma
+ server=$DBSERVER
+ user=$PG_USER
+
+######################################################################
+# 'us12k_444x336'
+# 'LAM_40N97W'    -2736000.000   -2088000.00    12000.000     12000.000  444 336   1
+
+tblname='us12k_444x336'	# name of table in schema
+
+proj=900921			# value of srid in spatial_ref_sys data table
+xorig=-2736000			# x-coordinate of lower-left corner (LLC) of grid 
+yorig=-2088000			# y-coordinate of LLC of grid
+xcellsize=12000			# cell size in x-direction
+ycellsize=12000			# cell size in y-direction
+cols=444			# number of columns (x)
+rows=336			# number of rows (y)
+
+######################################################################
+#'us4k'
+#'LAM_40N97W'    -2736000.000   -2088000.00     4000.000     4000.000  1332 1008   1
+
+# tblname='us4k_1332x1008'	# name of table in schema
+
+# proj=900921			# value of srid in spatial_ref_sys data table
+# xorig=-2736000			# x-coordinate of lower-left corner (LLC) of grid 
+# yorig=-2088000			# y-coordinate of LLC of grid
+# xcellsize=4000			# cell size in x-direction
+# ycellsize=4000			# cell size in y-direction
+# cols=1332			# number of columns (x)
+# rows=1008			# number of rows (y)
+
+######################################################################
+#'CONUS36KM_172x148'
+#'LAM_40N97W' -2952000 -2772000 36000 36000 172 148 1
+
+#tblname='conus36k_172x148'	# name of table in schema
+
+# proj=900921			# value of srid in spatial_ref_sys data table
+# xorig=-2952000		# x-coordinate of lower-left corner (LLC) of grid 
+# yorig=-2772000		# y-coordinate of LLC of grid
+# xcellsize=36000		# cell size in x-direction
+# ycellsize=36000		# cell size in y-direction
+# cols=172			# number of columns (x)
+# rows=148			# number of rows (y)
+
+######################################################################
+# 'CONUS36KM_148x112'
+# 'LAM_40N97W' -2736000 -2088000 36000 36000 148 112 1
+
+#tblname='conus36km_148x112'	# name of table in schema
+
+#proj=900921			# value of srid in spatial_ref_sys data table
+#xorig=-2736000		# x-coordinate of lower-left corner (LLC) of grid 
+#yorig=-2088000		# y-coordinate of LLC of grid
+#xcellsize=36000		# cell size in x-direction
+#ycellsize=36000		# cell size in y-direction
+#cols=148			# number of columns (x)
+#rows=112			# number of rows (y)
 
 ######################################################################
 # '4CALIF1'
@@ -39,65 +95,6 @@
 # rows=187
 # 
 # tblname='hemi108km_187x187'
-
-######################################################################
-#'CONUS36KM_172x148'
-#'LAM_40N97W' -2952000 -2772000 36000 36000 172 148 1
-
-#tblname='conus36k_172x148'	# name of table in schema
-
-# proj=900921			# value of srid in spatial_ref_sys data table
-# xorig=-2952000		# x-coordinate of lower-left corner (LLC) of grid 
-# yorig=-2772000		# y-coordinate of LLC of grid
-# xcellsize=36000		# cell size in x-direction
-# ycellsize=36000		# cell size in y-direction
-# cols=172			# number of columns (x)
-# rows=148			# number of rows (y)
-######################################################################
-# 'CONUS36KM_148x112'
-# 'LAM_40N97W' -2736000 -2088000 36000 36000 148 112 1
-
-#tblname='conus36km_148x112'	# name of table in schema
-
-#proj=900921			# value of srid in spatial_ref_sys data table
-#xorig=-2736000		# x-coordinate of lower-left corner (LLC) of grid 
-#yorig=-2088000		# y-coordinate of LLC of grid
-#xcellsize=36000		# cell size in x-direction
-#ycellsize=36000		# cell size in y-direction
-#cols=148			# number of columns (x)
-#rows=112			# number of rows (y)
-
-######################################################################
-# begin new section
-
-# 'us12k_444x336'
-# 'LAM_40N97W'    -2736000.000   -2088000.00    12000.000     12000.000  444 336   1
-
-#tblname='us12k_444x336'	# name of table in schema
-
-#proj=900921			# value of srid in spatial_ref_sys data table
-#xorig=-2736000			# x-coordinate of lower-left corner (LLC) of grid 
-#yorig=-2088000			# y-coordinate of LLC of grid
-#xcellsize=12000			# cell size in x-direction
-#ycellsize=12000			# cell size in y-direction
-#cols=444			# number of columns (x)
-#rows=336			# number of rows (y)
-
-######################################################################
-# begin new section
-
-#'us4k'
-#'LAM_40N97W'    -2736000.000   -2088000.00     4000.000     4000.000  1332 1008   1
-
-tblname='us4k_1332x1008'	# name of table in schema
-
-proj=900921			# value of srid in spatial_ref_sys data table
-xorig=-2736000			# x-coordinate of lower-left corner (LLC) of grid 
-yorig=-2088000			# y-coordinate of LLC of grid
-xcellsize=4000			# cell size in x-direction
-ycellsize=4000			# cell size in y-direction
-cols=1332			# number of columns (x)
-rows=1008			# number of rows (y)
 
 # do not modify below this line
 ######################################################################

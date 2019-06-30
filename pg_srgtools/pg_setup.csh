@@ -1,8 +1,9 @@
-#set  SA installtion directory and open source libraries used by Raster Tools
-setenv SA_HOME /proj/ie/apps/longleaf/sallocator/Spatial-Allocator
-setenv PGBIN  /proj/ie/apps/SA/Spatial-Allocator/pg_srgcreate/postgresql-9.5.3/bin
-setenv PG_USER zeadelma
-setenv DBNAME  NEI2014
+#set SA installation directory and open source libraries used by Raster Tools
+setenv SA_HOME /opt/srgtool
+setenv PGBIN  /usr/bin
+setenv PG_USER pgsurg
+setenv DBNAME  surrogates
+setenv DBSERVER localhost
 
 #set PROJ4 libary and share data directories
 setenv PROJDIR  ${SA_HOME}/src/libs/proj-4.9.3/local
@@ -18,7 +19,7 @@ setenv LD_LIBRARY_PATH ${GDAL_LIB}:${LD_LIBRARY_PATH}
 
 #set envronment to run GDAL application programs
 setenv GDALBIN ${GDALHOME}/bin
-#setenv GDALBIN /usr/bin
+setenv GDAL_DATA ${GDALHOME}/share/gdal
 
 # Set netCDF library and include directory
 setenv NETCDF  ${SA_HOME}/src/libs/netcdf-4.0.1/local
@@ -43,11 +44,6 @@ setenv GEOS  ${SA_HOME}/src/libs/geos-3.5.0/local
 setenv GEOS_LIB  ${GEOS}/lib
 setenv GEOS_INC  ${GEOS}/include
 setenv LD_LIBRARY_PATH ${GEOS_LIB}:${LD_LIBRARY_PATH}
-
-# Set Postgres library and include directory
-# PGHOME is the location that user installed postgres
-setenv PGHOME   /proj/ie/proj/EMAQ/Platform/Surrogates/2014/Spatial-Allocator/pg_srgcreate
-setenv PGDATA   $PGHOME/shapefiles
 
 #set alias
 alias  ncdump   "${NETCDF}/bin/ncdump"

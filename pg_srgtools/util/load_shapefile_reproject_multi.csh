@@ -5,22 +5,22 @@
 # Check whether the shapefile data are imported correclty or not.
 
 source ../pg_setup.csh
-set user=zeadelma
-set server=localhost
-set dbname=NEI2014
+set user=$PG_USER
+set server=$DBSERVER
+set dbname=$DBNAME
 set schema=public
 set srid=900921
 set newfield=geom_${srid}          # geom_90021
 set org_geom_field=wkb_geometry
 
-set shpdir=/proj/ie/proj/EMAQ/Platform/Surrogates/2014/Spatial-Allocator/pg_srgcreate/shapefiles/
+set shpdir=$SA_HOME/data/shapefiles/
 ### Load county shapefile
 set indir=$shpdir/Census
 set shapefile=cb_2014_us_county_500k_Poly
 set table=`echo $shapefile | tr "[:upper:]" "[:lower:]"`
 set attr=""
 set geomtype=MultiPolygon          # retrieve the exact geopmetry type from the table.
-#source load_shapefile.csh
+source load_shapefile.csh
 
 set shapefile=cty_pophu2k_revised
 set table=`echo $shapefile | tr "[:upper:]" "[:lower:]"`
@@ -31,14 +31,14 @@ set geomtype=MultiPolygon          # retrieve the exact geopmetry type from the 
 set shapefile=ACS_2014_5YR_PopHousing
 set table=`echo $shapefile | tr "[:upper:]" "[:lower:]"`
 set geomtype=MultiPolygon          # retrieve the exact geopmetry type from the table.
-#source load_shapefile.csh
+source load_shapefile.csh
 
 ### Load hpms shapefile, transfer column move2014 to integer
 set indir=$shpdir/HPMS
 set shapefile=hpms2016
 set table=`echo $shapefile | tr "[:upper:]" "[:lower:]"`
 set geomtype=MultiLineString       # retrieve the exact geopmetry type from the table.
-source load_shapefile.csh
+#source load_shapefile.csh
 
 ### Load pil shapefile for surrogate 205, Potential Idling Locations
 set indir=$shpdir/PIL
