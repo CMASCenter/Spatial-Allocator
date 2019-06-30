@@ -103,47 +103,22 @@ rows=1008			# number of rows (y)
 ######################################################################
 
 echo " ==== Creating $schemaname.$tblname"
-psql -h $server -U $user -q $dbname << END		# start PostgreSQL session on dbname from shell, quiet mode, submit commands until END
+psql -h $server -U $user -q $dbname << END
 
 DROP TABLE IF EXISTS $schemaname.$tblname;
-CREATE TABLE $schemaname.$tblname (	-- create a table tblname in schema schemaname with colnum (x-dir), rownum (y-dir)
+CREATE TABLE $schemaname.$tblname (
   colnum INT NOT NULL,
   rownum INT NOT NULL,
-  gridcell geometry(Polygon, $proj),	-- and a geometry column of type polygon
-  PRIMARY KEY (colnum, rownum)		-- define primary key as multifield key
+  gridcell geometry(Polygon, $proj),
+  PRIMARY KEY (colnum, rownum)
 );
-CREATE INDEX ON $schemaname.$tblname USING GIST (gridcell);	-- create spatial index on the geometry column
+CREATE INDEX ON $schemaname.$tblname USING GIST (gridcell);
+INSERT INTO $schemaname.$tblname
+(SELECT (gv).x colnum, (gv).y colnum, (gv).geom
+FROM (SELECT ST_PixelAsPolygons(
+  ST_AddBand(ST_MakeEmptyRaster($cols, $rows, $xorig, $yorig, $xcellsize, $ycellsize, 0, 0, $proj), '8BUI'::text, 1, 0)
+) gv) v
+);
 END
-
-# ended psql process so back to bash script
-
-for colnum in `seq 1 $cols`;		# outer loop: step across x-direction 
-do
-  for rownum in `seq 1 $rows`;		# inner loop: step across y-direction
-  do					# compute coordinates of the 4 corners of the grid cell
-    # bottom-left corner
-    x1=$[xorig + (colnum - 1) * xcellsize]	# subtract 1 to make base 1 calculation
-    y1=$[yorig + (rownum - 1) * ycellsize]
-    
-    # top-left corner
-    x2=$x1
-    y2=$[y1 + ycellsize]
-    
-    # top-right corner
-    x3=$[x1 + xcellsize]
-    y3=$y2
-    
-    # bottom-right corner
-    x4=$x3
-    y4=$y1
- 
-# must start and stop psql process around each SQL insert statement
-psql -h $server -U $user -q $dbname << END1
-INSERT INTO $schemaname.$tblname (colnum, rownum, gridcell) VALUES ($colnum, $rownum, ST_GeomFromText('POLYGON(($x1 $y1, $x2 $y2, $x3 $y3, $x4 $y4, $x1 $y1))', $proj));
-END1
-
-# SQL insert statement finished, so back to nested loops in bash script
-  done
-done
 
 echo " ==== Finished creating $schemaname.$tblname"
