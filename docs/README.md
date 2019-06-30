@@ -1,4 +1,4 @@
-Spatial Allocator v4.3.1 (June 20, 2017 release)
+Spatial Allocator v4.4 (June 30, 2019 release)
 ======
 
 Documentation
@@ -6,4 +6,4 @@ Documentation
 
 [Spatial Allocator User's Guide](User_Manual/README.md)
 
-[Spatial Allocator version 4.3.1 Release Notes](Release_Notes/README.md)
+[Spatial Allocator version 4.4 Release Notes](Release_Notes/README.md)
