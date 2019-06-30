@@ -93,27 +93,3 @@ Note that the Postgres Surrogate Tool currently only supports creating surrogate
    ../bin/64bits/diffsurr.exe outputs/us12k_444x336/USA_100_NOFILL.txt 100 outputs/us12k_444x336_example/USA_100_NOFILL.txt 100 0.000001
    ```
    If the newly generated surrogates match the sample outputs, you'll see the message "The surrogate comparison was successful!"
-
----
-
-10. Check out the PG SA templates for various types of surrogates (MultyPoly, Point, Line,,,)
-    -  Go to the directory "pgscripts"
-    -  These templates will be used to generate the internal PG SA run scripts to create surrogates, 4 or 5 steps are included in these templates: 1. weight shapefile cut by data(county) shapefile to combine weight fips with calculated weight attribute in output shapefile, this step can be skipped if weight shapefile already has fips as an attribute; 2. the output from first step or weight shape file cut by grid/domain shapefile to combine grid ids with calculated weight attribute; 3. calculate numerater table by summing weight attribute based on county; 4. calculate denominator by summing weight attribute based on county and grid cell; 5. calculate surrogate for based on county and grid cell.  
-
-11. Gap filling and merge surrogate
-   -  Once the surrogates are created by PG SA Tool, update the "control_variables_pg.csv" input file
-      > COMPUTE SURROGATES,NO
-      > MERGE SURROGATES,YES  #for 165 and 525
-      > GAPFILL SURROGATES,YES
-   -  Invoke the "run_srgtool_fill.csh" run script
-   java -classpath ./SurrogateTools-2.1.jar gov.epa.surrogate.SurrogateTool control_variables_pg.csv
-
-12. Create summary tables
-   -  Invoke the "qa_srg.csh" run script
-   java -classpath ./SurrogateTools-2.1.jar  gov.epa.surrogate.qa.Main ./outputs/srgdesc_us12k.txt tolerance
-
-13. Normalization tool
-   -  Invoke the "normalize_srg.csh" run script 
-   java -classpath SurrogateTools-2.1.jar gov.epa.surrogate.normalize.Main SRGDESC_file exclude_list tolerance
-   java -classpath SurrogateTools-2.1.jar gov.epa.surrogate.normalize.Main SRGDESC_file tolerance
-
