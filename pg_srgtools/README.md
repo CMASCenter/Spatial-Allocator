@@ -1,32 +1,37 @@
-# Instruction to How to Run PostgreSQL/PostGIS SA Tool
-# Created by UNC (11/1/2018)
+# How to Run the Postgres Surrogate Tool
+Last updated: 6/30/2019
 
-Only support regular grid surrogates creation, not support Egrid or census track(polygon) surrogates
+Note that the Postgres Surrogate Tool currently only supports creating surrogates for regular grids. For E-Grid or census track (polygon) surrogates, please use the Java version.
 
 0. Prerequisites
    - Install the Postgres database server and the PostGIS extension. Make sure the Postgres server is running.
-   - Create a new database for the surrogates work. This document uses a database named "surrogates" or "NEI2014" by default.
-     > From the psql command line, run "CREATE DATABASE surrogates;"
-     > Connect to the new database with the command "\c surrogates"
-     > Add the PostGIS extension to the new database: "CREATE EXTENSION postgis;"
+   - Create a new database for the surrogates work. This document uses a database named "surrogates" by default. The following commands can be executed from the `psql` command line, and will create a database named "surrogates", connect to that database, and add the PostGIS extension.
+   ```
+   CREATE DATABASE surrogates;
+   \c surrogates
+   CREATE EXTENSION postgis;
+   ```
 
-   - For the surrogates tool to run, you will need to have a database user with all privileges on the new database.
-     :The following psql commands create a new user and assign the appropriate priveleges.
-     > CREATE USER <username> WITH PASSWORD '<password>';
-     > GRANT ALL PRIVILEGES ON DATABASE surrogates TO <username>;
-     > GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO <username>;
+   - For the surrogate tool to run, you will need to have a database user with all privileges on the new database. The following `psql` commands create a new user named "pgsurg" and assign the appropriate privileges.
+   ```
+   CREATE USER pgsurg WITH PASSWORD '<password>';
+   GRANT ALL PRIVILEGES ON DATABASE surrogates TO pgsurg;
+   GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO pgsurg;
+   ```
 
    - Install the Java Runtime Environment (if needed).
    - Install the tcsh package (if needed).
-   - Download the Spatial Allocator package.
+   - Download the Spatial Allocator package. This guide uses the installation location /opt/srgtool/.
 
-1. Update "pg_setup.csh" based on your location in your server and then "source" it (create/start the PostgreSQL Database)
-   > setenv SA_HOME    /opt/srgtool
-   > setenv PGHOME     /usr/bin
-   > setenv PGBIN      /usr/bin
-   > setenv PGDATA     /opt/srgtool/data
-   > setenv PG_USER zeadelma
-   > setenv DBNAME  NEI2014
+1. Update "pg_setup.csh" (located in /opt/srgtool/pg_srgtools) for your server and then run `source pg_setup.csh`.
+   ```
+   setenv SA_HOME    /opt/srgtool
+   setenv PGBIN      /usr/bin
+   setenv PG_USER    pgsurg
+   setenv DBNAME     surrogates
+   setenv DBSERVER   localhost
+   ```
+   To avoid being asked repeatedly for the Postgres user account password, you can create a password file in your home directory. See the Postgres documentation, https://www.postgresql.org/docs/current/libpq-pgpass.html, for more details.
 
 2. Download shapefiles or pg shapefile tables
    All shapefiles are dumped to directory pg_tables to facilitate tables restore. 
