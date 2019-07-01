@@ -23,12 +23,12 @@ The SA code, scripts, and executables are organized in the following directories
 - **bin** - SA 32-bit and 64-bit Linux executables
 - **data** - Input data for testing the SA installation (download from the [CMAS Center](http://www.cmascenter.org))
 - **docs** - SA Documentation
-- **pg_srgtools** - C-shell scripts for running the PostgreSQL version of [Surrogate Tools](docs/User_Manual/SA_ch05_surrogate.md#postgres)
+- **pg_srgtools** - C-shell scripts for running the PostgreSQL and Java driver version of [Surrogate Tools](docs/User_Manual/SA_ch05_surrogate.md#postgres)
 - **raster_scripts** - C-shell scripts for running the [Raster Tools](docs/User_Manual/SA_ch04_raster.md)
 - **ref** - location of reference data for verifying the SA installation (download from the [CMAS Center](http://www.cmascenter.org))
 - **scripts** - C-shell scripts for running the [Vector Tools](docs/User_Manual/SA_ch03_vector.md)
 - **src** - SA source code and 3rd-party libraries
-- **srgtools** - C-shell scripts for running the Java version of [Surrogate Tools](docs/User_Manual/SA_ch05_surrogate.md)
+- **srgtools** - C-shell scripts for running the C/C++ and Java driver version of [Surrogate Tools](docs/User_Manual/SA_ch05_surrogate.md)
 - **util** - miscellaneous utility scripts to support the SA tools
 
 Documentation
