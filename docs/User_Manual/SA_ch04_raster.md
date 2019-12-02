@@ -105,7 +105,15 @@ the GEOGRID output file attributes
 use the cs2cs utility in the PROJ4 library directly at the command line (after installing the SA system):
 
 ```
-cs2cs +proj=latlong +a=6370000.0 +b=6370000.0 +to +proj=lcc +a=6370000.0 +b=6370000.0 +lat_1=33 +lat_2=45 +lat_0=40 +lon_0=-97 -121.4918 20.85681 -2622003.85 -1793999.28 0.00
+cs2cs +proj=latlong +a=6370000.0 +b=6370000.0 +to +proj=lcc +a=6370000.0 +b=6370000.0 +lat_1=33 +lat_2=45 +lat_0=40 +lon_0=-97 
+```
+Then input the following long/lat as input
+```
+-121.4918 20.85681 
+```
+the cs2c program will output the following x/y value as output:
+```
+-2622003.85 -1793999.28 0.00
 ```
 
 Minimum *x* and *y* for the domain would be computed as follows:
