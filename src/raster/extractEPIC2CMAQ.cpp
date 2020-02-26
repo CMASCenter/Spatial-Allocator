@@ -612,6 +612,7 @@ int main(int nArgc, char *argv[])
           //write output by day for each file
           string currentDay = stepTimeStr; 
 
+
           for (i=0; i<timeStepsM; i++)
           {
 
@@ -629,6 +630,10 @@ int main(int nArgc, char *argv[])
              const int step_YYYYDDD = atoi ( stepTimeStr_julian.c_str() );
              const int timeStepsM_att = 240000;
 
+             // leap year -- EPIC only simulates 365 days
+             bool  leapYearDay = false;  //not 0229
+             string mmDD = currentDay.substr(4, 4);  //get mmdd 
+             if (mmDD.compare ("0229") == 0 )  leapYearDay = true;
 
              string  outNetcdfFilem = outNetcdfFile_d + currentDay + string ( ".nc" );
 
@@ -703,7 +708,16 @@ int main(int nArgc, char *argv[])
              
              for (j=0; j<numEpicVars; j++)
              {
-                ok = writeM3IODataForTimestep ( fileM, 0, variableNamesM[j], dataVM[i*numEpicVars+j] );
+
+                if (leapYearDay)
+                {
+                   int i_leap = i - 1;  //use previous day 0228 data, otherwise all NA
+                   ok = writeM3IODataForTimestep ( fileM, 0, variableNamesM[j], dataVM[i_leap*numEpicVars+j] );
+                }
+                else
+                {
+                   ok = writeM3IODataForTimestep ( fileM, 0, variableNamesM[j], dataVM[i*numEpicVars+j] );
+                }
              }
 
              ok = closeM3IOFile( fileM ) && ok;

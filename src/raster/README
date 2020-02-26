@@ -1,46 +1,163 @@
-10/2018
-SA 4.3.2 release
-updated Raster tools for EPIC
+Spatial Allocator Tools on a Linux Server
+L.Ran and D. Yang,  EPA and IE UNC-Chapel Hill
 
-    extractEPIC2CMAQ.cpp - added additional variable FBARE: Bare Land Fraction for Wind Erosion
-    computeGridGOES.cpp - removed hardcoded dimenstions so that program can be used to read new or old versions of GEOS Imager data. The coverage was extended in the new retrievals (from 1500x800 to 1552x1300).
-    computeSiteDailyWeather.cpp - increase the number of wet and dry deposition variables available from CMAQ
-    compute_EPICSiteData.cpp - Changed how a crop_acre is defined: crop_acre > cropArea_threshold && waterP < 50.
+02/14/2020 (last update at EPA by Limei Ran)
+Updated:
+	Raster Tools:
+	(1) Updated land use tools for MODIS IGBP land cover name change in MODIS collection 6,
+ 	(2) WRF/CMAQ to EPIC tool update for CMAQ5.3 - added species and get rid of orgnaic Ndep output
+	(3) EPIC to CMAQ tool update to handle leap year day
+	(4) Utility tool updates 
 
-09/2015
-SA 4.2 update release
-        1. Modified the extraction tools for FEST-C.
+06/2019 Release Notes for Spatial Allocator v4.4
 
-05/2014
-SA 4.2 release
-	1. Updated computeGridLandUse_beld4.cpp for 2001 BELD4 generation
-	2. Updated extractEPICYearlyAverage2CMAQ.cpp for crop area weighted variables
+        (1) Includes the new Postgres Surrogate Tool, for generating surrogates using a PostgreSQL database with the PostGIS extension
+
+10/2018 Update Release Notes for SA 4.3.2
+
+        (1) Updated FEST-C tools for the new release of FEST-C v1.4
+        (2) Updated GOES data processing tool for input directory
+        (3) Updated all geoprocessing classes based on the change of GDAL library
+        (4) Added new land use processing tool with MODIS vegetation product
+        (5) Updated Raster tools for EPIC
+            extractEPIC2CMAQ.cpp - added additional variable FBARE: Bare Land Fraction for Wind Erosion
+            computeGridGOES.cpp - removed hardcoded dimenstions so that program can be used to read new or old versions of GEOS Imager data. The coverage was extended in the new retrievals (from 1500x800 to 1552x1300).
+            computeSiteDailyWeather.cpp - increase the number of wet and dry deposition variables available from CMAQ
+            compute_EPICSiteData.cpp - Changed how a crop_acre is defined: crop_acre > cropArea_threshold && waterP < 50.
+
+06/2017 Update Release Notes for SA 4.3.1
+
+        Raster Tools:  
+        (1) Added input data files for the FESTC release, includes crop fraction data for US and Canada for 42 different crops for the year 2011 which is used for 2011 BELD4 data generation within FEST-C.
+        (2) Updated executables and source code for extractEPIC2CMAQ and extractEPICYearlyAverage2CMAQ
+        (3) (Minor modification of the source code/executables for the averaging and the extraction of EPIC output for CMAQ)
+
+02/2017 Update Release Notes for SA 4.3
+
+       Vector Tools: 
+       (1) Update Earth Radius to 6370000
+       (2) Correct bug in Polar Stereographic grid description format
+       (3) Added Beld4SMK tool to the release
+       (4) Added 64-bit executables
+       (5) Update reference data
+
+       Documentation
+       (1) All documentation ported to GitHub Markdown
+
+### 05/31/2016 Update notes for SA 4.2:
+
+       Raster Tools:
+       (1) EPIC site info tool update for elevation output
+
+       Vector Tools:
+       (1) Update projection radius to WRF 6370000
+       (2) Bug fix for makefile
+
+02/05/2016
+Update Update Release Notes for SA 4.2:
+
+	Raster Tools:
+	(1) Updated elevation output format for EPIC site information 
+        (2) Modified EPIC extraction tools for added EPIC output variables
+
+	Vector Tools:
+        (1) Fixed an error in polygon surrogate computation
 
 
-05/2012
-1. preProcessNLCD.exe
-   (1) Images have to be GByte format.
-   (2) Created no-overlapping images in ESRI BIL format - EHdr -- ESRI .hdr Labelled inlimited size.
+09/30/2015
 
-2. gl_sin  -- global MODIS data.  If you convert it to NLCD Albers projection.  It shift to NW around 25km.  
-          Extract out NA area from gl_sin, then project it to Laea and then to NLCD aea.  It got rid of shift.
-          Use projected MODIS data in NLCD for North American and check the shifting.
-          Defined the data projection by (due to error in reading projection )
-          ../src/libs/gdal-1.5.2/local/bin/gdal_translate -of EHdr -a_srs "+proj=aea +lat_1=29.5 +lat_2=45.5 +lat_0=23 +lon_0=-96 +x_0=0 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs" na_modis.bil na_modis_nlcd.bil
+Update Release Notes for SA 4.2:
+	This update release has the following updates:
 
-3 Processed NOAA wa_01 image by ../src/libs/gdal-1.5.2/local/bin/gdal_translate -a_ullr -2144475 3177765 -1736265 2777085 -outsize 13607 13356  wa_01.img wa_01_regrided.img
+        Vector Tools:
+        (1) Fixed an error in re-gridding the BELD3 data for CMAQ.
+        (2) Fixed an error in surroagte computation related to holes in polyogns.
 
-4. toNLCDRaster program needs at least one image file in DATADIR to obtain the standard NLCD projection info.
+	Raster Tools:
+	(1) Updated extraction tools for FEST-C output because of changed format and 
+            variable name definitions.
 
-5. src/libs/gdal-1.5.2/local/bin/gdal_rasterize -a GRIDID -l temp_grdshape_nlcd.shp ../output/wrf12km_nc_30m.bil can not take input
-   shapefile in other directory (ONLY CURRENT).
-
-6. test test_geos.cpp
-g++ -I/nas01/depts/ie/cempd/SA/sa_06_2009/src/libs/gdal-1.9.1/local/include -I/nas01/depts/ie/cempd/SA/sa_06_2009/src/libs/geos-3.3.6/local/include test_geos.cpp -o test_geos -L/nas01/depts/ie/cempd/SA/sa_06_2009/src/libs/gdal-1.9.1/local/lib -lgdal -L/nas01/depts/ie/cempd/SA/sa_06_2009/src/libs/geos-3.3.6/local/lib -lgeos_c
-
-
-g++ -I/nas01/depts/ie/cempd/SA/sa_06_2009/src/libs/gdal-1.9.1/local/include -I/nas01/depts/ie/cempd/SA/sa_06_2009/src/libs/geos-3.3.6/local/include -I/nas01/depts/ie/cempd/SA/sa_06_2009/src/libs/proj-4.8.0/local/include test_geos.cpp -o test_geos -static -pthread -L/nas01/depts/ie/cempd/SA/sa_06_2009/src/libs/gdal-1.9.1/local/lib -lgdal -L/nas01/depts/ie/cempd/SA/sa_06_2009/src/libs/geos-3.3.6/local/lib -lgeos_c -lgeos -L/nas01/depts/ie/cempd/SA/sa_06_2009/src/libs/proj-4.8.0/local/lib -lproj -ldl
+        Surrogate Tools:
+        (1) Fixed a bug related with polygon surrogate normaliztion when st+county code is 4 digit.
+ 	(2) Fixed a bug in surrogate normalization in reading surrogate data lines with leading spaces and no "!" sign.
+        (3) Added QA threshold for reporting.
+        (4) Updated the surrogate Merging Tool to output QA information on the source surrogates.
+        (5) Added leading "0" for one digit state codes in both merging and normalization tools.
 
 
 
-http://trac.osgeo.org/geos/browser/trunk/tests/unit/geom/
+1. Set the system:
+	(1) Modify ./bin/sa_setup.csh
+
+	(2) Include  sa_setup.csh in your .cshrc
+
+        (3) Troubleshooting for library errors in the SA Raster Tools:
+            >Recompile all libraries under src/libs following instructions in the src/libs/README file.
+            >Modiy src/raster/Makefile for correct paths.
+            >Type "make clean" to clean previous compiled programs.
+            >Type "make" to compile the tools.
+            >Type "make -B install" or "make install" to install compiled tools.
+
+        (4) Troubleshooting for library errors in the SA Vector Tools:
+            >Modiy src/vector/Makefile for correct library paths. Users can use src/vector/libs_32bits
+            >Type "make clean" to clean previous compiled programs.
+            >Type "make" to compile the tools.
+            >Type "make install" to install compiled tools.
+          
+
+2. Vector tools are stored in: bin/32bits and sample vector script files are in sa_052014/scripts.  
+   Users normally do not need to recompile the Vector Tools as they are statically compiled.
+   The Raster Tools often need to be re-compiled as they are not statically built.
+
+
+3. Important Notes:
+   tmp*.* files created under ./raster_script can be deleted after the completion of the run
+
+
+4. Sample land use and satellite data can be stored in ./data/sat.  See ./data/sat/README for data download.
+   Sample Raster Tools running script files in ./raster_scripts:
+
+
+5. SA Raster Tools for Satellite data and land use data processing:
+
+(1) allocateGOES2WRFGrids.csh -- GOES data processing tool. Modify it based on your inputs.
+	Download GOES data and put all data under one directory which is defined in the script.  
+	Under this directory, each day is a subdirectory as YYYYMMDD 
+	which contains GOES files for that day.  
+	Contact: Dr. Arastoo Pour Biazar (biazar@nsstc.uah.edu) at 
+	UAH's Earth System Science Center (ESSC) for the GOES data which can be processed by the tool.
+
+
+(2) allocateMODISL2CloudVars2Grids.csh -- MODIS L2 cloud and aerosol product processing tool. Modify it for your inputs.
+	Down load data from the NASA LAADS web site:  http://ladsweb.nascom.nasa.gov/data/search.html
+
+	MODIS Cloud Products:
+	Cloud product variables contain 5km and 1km data.  To use this re-gridding tool,
+	users have to download two sets data: MOD06_L2 and MOD03 (Level 1 Geolocation 1km) into the input directory.
+	for Terra or MYD06_L2 and MYD03 for Aqua in input data directory.
+
+	MODIS Aerosol Products:
+	Aerosol products contain variable data at 10km resolution (nadir).  Users have
+	to download MOD04 for Terra or MYD04 for Aqua in the input data directory.
+
+
+(3) allocateOMIL2vars2Grids.csh - OMI L2 aerosol and NO2 product processing tool.  Modify it for your inputs.
+	Download data from the NASA mirador site: 
+	http://mirador.gsfc.nasa.gov/cgi-bin/mirador/presentNavigation.pl?tree=project&project=OMI
+        Put downloaded data in one directory which is defined in the script file.
+
+
+(4) allocateOMIvar2Grids.csh - OMI L2G and L3 aerosol and NO3 processing tool.  Modify it for your inputs.
+	Download data from the NASA Geonanni web site:
+		http://gdata1.sci.gsfc.nasa.gov/daac-bin/G3/gui.cgi?instance_id=omi
+        The tool is also may also be used process MODIS L3 products (not tested well) from NASA MODIS web site.
+
+
+(5) NLCD_MODIS_processor.csh - generate WRF grid NLCD and MODIS landuse data.  
+	Download NLCD data from: http://www.mrlc.gov/nlcd06_data.php
+        Download MODIS tiled data (MCD12Q1) from: https://lpdaac.usgs.gov/products/modis_products_table
+
+(6) landuseTool_WRFCMAQ_BELD4.csh - generate BELD4 data from 2001 or 2006 NLCD/MODIS and crop tables.  
+	Processed crop and tree tables and shapefiles are stored under "data" directory.   
+	Download NLCD data from: http://www.mrlc.gov/nlcd06_data.php
+        Download MODIS tiled data (MCD12Q1) from: https://lpdaac.usgs.gov/products/modis_products_table

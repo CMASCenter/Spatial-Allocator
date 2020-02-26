@@ -51,6 +51,7 @@
  * 49. stringVector2string - convert string vector to string separated by ","
  * 50. fillFloatArrayMissingValueVar - fill missing value variable 
  * 51. dayofweek - find the day of week (1-monday ... 7-sunday)
+ * 52. fillTimeArrays_Day - fill day time array
  *
  * Written by the Institute for the Environment at UNC, Chapel Hill
  * in support of the EPA NOAA CMAS Modeling, 2007-2008.
@@ -1141,7 +1142,7 @@ vector<string> obtainSatFileNames (string dataDir, string startDateTime, string 
         timeEndStr = endDateTime.substr(8, 4);
         dayEndStr = dayEndStr_julian + timeEndStr;
      }
-     else if ( satType.compare ("OMI") == 0 )
+     else if ( satType.compare ("OMI") == 0 || satType.compare ("TROPOMI") == 0 )
      {
         dayStartStr = startDateTime;
         dayEndStr = endDateTime;
@@ -1163,7 +1164,8 @@ vector<string> obtainSatFileNames (string dataDir, string startDateTime, string 
      //MODIS LAIFPAR: MOD15A2GFS 1km: MOD15A2GFS.A2006001.h07v03.005.2009023132100.hdf
      //MODIS LAIFPAR: MOD15A2 1km: MOD15A2.A2006057.h10v06.005.2008077144707.hdf
      //MODIS LAIFPAR: MCD15A2 1km: MCD15A2.A2011089.h09v03.005.2011103004948.hdf
-     //MODIS LAIFPAR: MCD15A2H 500m 8-day: MCD15A2H.A2016241.h15v03.006.2016250072611.hdf
+     //MODIS LAIFPAR: MCD15A2H 500m: MCD15A2H.A2016241.h15v03.006.2016250072611.hdf
+     //MODIS LAIFPAR: MCD15A3H 500m: MCD15A3H.A2016073.h11v04.006.2016110203715.hdf 
      //MODIS albedo: MCD43A3 500km: MCD43A3.A2006177.h14v03.005.2008134144426.hdf
      //MODIS albedo: MCD43A1 500km: MCD43A1.A2006121.h08v04.005.2008117094839.hdf
      //MODIS albedo: MCD43A2 500km: MCD43A2.A2006121.h08v04.005.2008117094839.hdf
@@ -1181,16 +1183,18 @@ vector<string> obtainSatFileNames (string dataDir, string startDateTime, string 
            tmp_str = string(dirpFiles->d_name);
            tmp_str = trim(tmp_str);
 
+
            if ( ( ( tmp_str.find( "D06_L2.A" ) != string::npos || tmp_str.find( "D04_L2.A" ) != string::npos ||
                     tmp_str.find( "MISR_AS_AEROSOL_F12_0022" ) != string::npos ||
                     tmp_str.find( "MCD12Q1.A" ) != string::npos || tmp_str.find( "MOD12Q1.A" ) != string::npos || 
                     tmp_str.find( "MOD15A2GFS.A" ) != string::npos  || tmp_str.find( "MOD15A2.A" ) != string::npos ||
-                    tmp_str.find( "MCD15A2.A" ) != string::npos || tmp_str.find( "MCD15A2H.A" ) != string::npos ||
+                    tmp_str.find( "MCD15A2.A" ) != string::npos || tmp_str.find( "MCD15A3H.A" ) != string::npos || 
+                    tmp_str.find( "MCD15A2H.A" ) != string::npos  ||
                     tmp_str.find( "MCD43A3.A" ) != string::npos || tmp_str.find( "MCD43A1.A" ) != string::npos ||
                     tmp_str.find( "MCD43A2.A" ) != string::npos )  
                     && tmp_str.find( ".hdf" ) != string::npos ) ||
                 ( tmp_str.find( "OMI-Aura_L2-OM" ) != string::npos && tmp_str.find( ".he5" ) != string::npos && 
-                  tmp_str.find( ".he5.xml" ) == string::npos) )
+                  tmp_str.find( ".he5.xml" ) == string::npos) || (tmp_str.find( "S5P_OFFL_L2" ) != string::npos) )
            {
               imageDate = getDayTimeStrFromSatFileName ( tmp_str, satType );
               dayTimeMid = atol ( imageDate.c_str() );
@@ -1306,6 +1310,9 @@ string getDayTimeStrFromSatFileName ( string imageFileName, string satType )
 
      string    dayStr, timeStr;
 
+     char     numChars[10];
+
+
      i = imageFileName.rfind("/", imageFileName.length() );
      if (i != string::npos)
      {
@@ -1323,14 +1330,14 @@ string getDayTimeStrFromSatFileName ( string imageFileName, string satType )
      }
      else if ( imageFileName.find( "MCD12Q1.A" ) != string::npos ||
           imageFileName.find( "MOD12Q1.A" ) != string::npos || imageFileName.find( "MOD15A2.A" ) != string::npos || 
-          imageFileName.find( "MCD15A2.A" ) != string::npos ||
+          imageFileName.find( "MCD15A2.A" ) != string::npos || 
           imageFileName.find( "MCD43A3.A" ) != string::npos || imageFileName.find( "MCD43A1.A" ) != string::npos ||
           imageFileName.find( "MCD43A2.A" ) != string::npos )  //MODIS land cover products 500m and 1km
      {
         dayStr = imageFileName.substr(9, 7);
         timeStr = string ( "0000" ); //yearly products
      }
-     else if ( imageFileName.find( "MCD15A2H.A" ) != string::npos )
+     else if ( imageFileName.find( "MCD15A3H.A" ) != string::npos || imageFileName.find( "MCD15A2H.A" ) != string::npos )
      {
         dayStr = imageFileName.substr(10, 7);
         timeStr = string ( "0000" ); //yearly products
@@ -1361,6 +1368,30 @@ string getDayTimeStrFromSatFileName ( string imageFileName, string satType )
         dayStr = imageFileName.substr(18, 9);
         dayStr.erase (4,1); //get rid of m in time: 2006m0422
         timeStr = imageFileName.substr(28, 4);
+     }
+     else if ( imageFileName.find( "S5P_OFFL_L2" ) != string::npos )
+     {
+       dayStr = imageFileName.substr(20, 8);
+    
+       //get mid of HH MM
+       string tempH1 = imageFileName.substr(29, 2);
+       string tempM1 = imageFileName.substr(31, 2);
+       
+       string tempH2 = imageFileName.substr(45, 2);
+       string tempM2 = imageFileName.substr(47, 2);
+
+       int tempH1_V = atoi ( tempH1.c_str() );
+       int tempM1_V = atoi ( tempM1.c_str() );
+       int tempH2_V = atoi ( tempH2.c_str() );
+       int tempM2_V = atoi ( tempM2.c_str() );
+
+       float tempMV_f = (tempH1_V + tempM1_V/60.0 + tempH2_V + tempM2_V/60.0) / 2;
+       int  tempHM_V = floor ( tempMV_f );
+       int  tempMM_V = (tempMV_f - tempHM_V) * 60;
+
+       timeStr =  convert2NumsTo2Chars (tempHM_V) + convert2NumsTo2Chars(tempMM_V);
+
+       printf ("dayStr=%s  timeStr=%s   file=%s\n", dayStr.c_str(), timeStr.c_str(), imageFileName.c_str() );
      }
      else
      {
@@ -1720,7 +1751,20 @@ string findOneDataFile ( string dataDir, string nameType, string dayMidStr, stri
            //get format
            if ( firstDataFile == 0 )
            {
-               for (i=tmp_str.size()-1; i>=0; i--)
+               //May need to change depending on the file naming
+               int datePos = tmp_str.size()-1;
+
+               if ( tmp_str.find( ".ncf" ) !=string::npos )
+               {
+                  datePos = datePos - 4 ;
+               }
+               else if ( tmp_str.find( ".nc" ) !=string::npos )
+               {
+                  datePos = datePos - 3;
+               }
+
+
+               for (i=datePos; i>=0; i--)
                {
                   if ( isdigit(tmp_str.at(i)) == 0 )  break;   //is not number
                   j++;
@@ -2319,3 +2363,71 @@ int   dayofweek( string  dateStr )
 
     return day;
 }
+
+
+/************************************************************************/
+/*    52.  Fill day time arrays for WRF Netcdf file output                     */
+/************************************************************************/
+map<string, int>  fillTimeArrays_Day (float *times, char *timesStr, string startTime, string endTime, int timeStep, int startMins)
+{
+   int      numTimeSteps = 0;   //every timeStep minutes
+   int      mRange0;            //starting minute input;
+   string   tmp_str;
+   string   time_str;
+   long     minutesPass;
+   string   datetimeStr;        //date and time string at the step
+   map<string,int> timeIndexHash;
+  
+   //get starting minutes
+   string tmp_hhmm = startTime.substr(8, 4);
+   string tmp_date = startTime.substr(0, 8);
+
+   //set the first time step 
+   datetimeStr = string (startTime );
+
+   while (! isStepTimePassEndTime (datetimeStr, endTime) )
+   {
+      times[numTimeSteps] = numTimeSteps * 24 * 60 * 60;
+   
+      //printf ( "\t Fill time times=%f    step=%d     day time string=%s\n",times[numTimeSteps],numTimeSteps,datetimeStr.c_str() );
+      tmp_str = datetimeStr.substr(0, 4);  //get year
+      time_str = tmp_str; 
+      time_str.append ( "-" );
+       
+      tmp_str = datetimeStr.substr(4, 2);  //get month
+      time_str.append ( tmp_str );
+      time_str.append ( "-" );
+
+      tmp_str = datetimeStr.substr(6, 2);  //get day
+      time_str.append ( tmp_str );
+      time_str.append ( "_" );
+
+      tmp_str = datetimeStr.substr(8, 2);  //get hour
+      time_str.append ( tmp_str );
+      time_str.append ( ":" );
+
+      tmp_str = datetimeStr.substr(10, 2);  //get minute
+      time_str.append ( tmp_str );
+      time_str.append ( ":00" );
+
+      strcat ( timesStr, time_str.c_str() );   //append the time string to time string array
+
+
+      //file timeIndexHash table
+      timeIndexHash[datetimeStr] = numTimeSteps;
+
+      numTimeSteps++;
+           
+
+      string tmp_date = datetimeStr.substr(0, 8);
+
+      datetimeStr = getNextDayStr ( tmp_date );
+      datetimeStr.append (tmp_hhmm );
+   }   
+ 
+   printf ( "total time step = %d\n", numTimeSteps);
+  
+
+   return timeIndexHash;
+}
+

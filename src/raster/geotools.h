@@ -141,3 +141,8 @@ void getPointsInRasterValues (gridInfo grid,  std::vector<int> epicSiteIDs, std:
 int getNetCDFDim ( char * dimName, string fileName );
 string   extractDomainLAIData ( std::vector<string> modisFiles, std::vector<string> satVars, gridInfo grid);
 string   extractDomainALBData ( std::vector<string> modisFiles, std::vector<string> satVars, gridInfo grid);
+void getShapeFile_Extent ( gridInfo *grid );
+std::map<int,int> readGridCoordinates ( gridInfo *grid, string polyCenterFile);
+void readHDF5SatVarDataInt (string imageFile, string varName, int *poImage);
+void  computeGridSatValues_hour ( GUInt32 *poImage_grd, int *grdIndex, float *satV, float *hourV, double *poImage, int *poImage_qa, int *poImage_time, gridInfo imageInfo, gridInfo newRasterInfo, gridInfo grid, int qa_value_Min );
+

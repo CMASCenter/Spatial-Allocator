@@ -131,14 +131,14 @@ const char    *dryNDName = "DNDEP";
 const char    *wetNDName = "WNDEP";
 
 //CMAQ dry deposition variables
-const int   numDryDVars = 17;   //15 CMAQ variables related to dry N
-std::string cmaqDryDVarNames[] = {"NO2","NO","HNO3","ANO3I","ANO3J","ANO3K","PAN","PANX","NTR1","NTR2","INTR","N2O5","HONO","ANH4I","ANH4J","ANH4K","NH3"};
-double   cmaqDryDVarFactors[] = {0.30435, 0.46667, 0.22222, 0.22581, 0.22581, 0.22581, 0.11570, 0.11570, 0.11696, 0.10366, 0.09519, 0.25926, 0.29787,1.00000, 1.00000, 1.00000, 1.05900};
+const int   numDryDVars = 18;   //18 CMAQ variables related to dry N
+std::string cmaqDryDVarNames[] = {"NO2","NO","HNO3","ANO3I","ANO3J","ANO3K","PAN","PANX","OPAN","NTR1","NTR2","INTR","N2O5","HONO","ANH4I","ANH4J","ANH4K","NH3_DDEP"};
+double   cmaqDryDVarFactors[] = {0.30435, 0.46667, 0.22222, 0.22581, 0.22581, 0.22581, 0.11570, 0.11570, 0.11570, 0.11696, 0.10366, 0.09519, 0.25926, 0.29787,1.00000, 1.00000, 1.00000, 1.05900};
 
 //CMAQ wet deposition variables
-const int   numWetDVars = 18;  //16 CMAQ variables related to wet N
-std::string cmaqWetDVarNames[] = {"NO2","NO","ANO3I","ANO3J","ANO3K","HNO3","PAN","PANX","NTR1","NTR2","INTR","N2O5","HONO","PNA","ANH4I","ANH4J","ANH4K","NH3"};
-double   cmaqWetDVarFactors[] = {0.30435, 0.46667, 1.00000, 1.00000, 1.00000, 0.98400, 0.11570, 0.11570, 0.11696, 0.10366, 0.09519, 0.25926, 0.29787, 0.177720, 1.00000, 1.00000, 1.00000, 1.05900};
+const int   numWetDVars = 19;  //19 CMAQ variables related to wet N
+std::string cmaqWetDVarNames[] = {"NO2","NO","ANO3I","ANO3J","ANO3K","HNO3","PAN","PANX","OPAN", "NTR1","NTR2","INTR","N2O5","HONO","PNA","ANH4I","ANH4J","ANH4K","NH3"};
+double   cmaqWetDVarFactors[] = {0.30435, 0.46667, 1.00000, 1.00000, 1.00000, 0.98400, 0.11570, 0.11570, 0.11570, 0.11696, 0.10366, 0.09519, 0.25926, 0.29787, 0.177720, 1.00000, 1.00000, 1.00000, 1.05900};
 
 const double sigmaLevels[] = {0.50, 1.0};
 
@@ -1316,7 +1316,7 @@ void readCMAQDryDFile ( gridInfo grid, string cmaqDryDFile, int julianDateInt, s
         int ncStatus;
         ncStatus = nc_inq_varid (ncid, cmaqDryDVarNames[i].c_str(), &var_id);     
 
-         //handle last variable: NH3_Dep or NH3
+         //handle last variable: NH3_DDEP or NH3_Dep, NH3
         if ( ncStatus != NC_NOERR && i != numDryDVars-1 )
         {
            printf ("\tError: getting netCDF variable ID for variable: %s.\n", cmaqDryDVarNames[i].c_str() );
@@ -1325,15 +1325,23 @@ void readCMAQDryDFile ( gridInfo grid, string cmaqDryDFile, int julianDateInt, s
   
         if ( ncStatus != NC_NOERR && i == numDryDVars-1 )
         {
-           //try NH3
-           string  diffNH3Str = string ( "NH3" );
+           //try NH3_Dep
+           string  diffNH3Str = string ( "NH3_Dep" );
            cmaqDryDVarNames[i] = diffNH3Str;
              
            ncStatus = nc_inq_varid (ncid, cmaqDryDVarNames[i].c_str(), &var_id);
            if ( ncStatus != NC_NOERR )
            {
-              printf ("\tError: getting netCDF variable ID for variable: %s.\n", cmaqDryDVarNames[i].c_str() );
-              exit ( 1 );
+              //try NH3
+              diffNH3Str = string ( "NH3" );
+              cmaqDryDVarNames[i] = diffNH3Str;
+
+              ncStatus = nc_inq_varid (ncid, cmaqDryDVarNames[i].c_str(), &var_id);
+              if ( ncStatus != NC_NOERR )
+              {
+                 printf ("\tError: getting netCDF variable ID for variable: %s.\n", cmaqDryDVarNames[i].c_str() );
+                 exit ( 1 );
+              }
            }
         }
 
@@ -1672,12 +1680,14 @@ double   cmaqDryDVarFactors[] = {0.30435, 0.46667, 0.22222, 0.22581, 0.22581, 0.
             varItemPos = 7;
          	 
             double ddepNHX = 0.0;
-            for ( k=0; k<=12; k++)
+            for ( k=0; k<=13; k++)
             {
+               if ( mcipVars[k][index] < 0.0 )  mcipVars[k][index] = 0.0;
                oNDep += mcipVars[k][index] * cmaqDryDVarFactors[k];
             } 
-            for (k=13; k<=16; k++)
+            for (k=14; k<=17; k++)
             {
+               if ( mcipVars[k][index] < 0.0 )  mcipVars[k][index] = 0.0;
                ddepNHX += mcipVars[k][index] * cmaqDryDVarFactors[k];   
             }
             rNDep += ddepNHX * 0.77778;                 
@@ -1708,12 +1718,12 @@ double   cmaqWetDVarFactors[] = {0.30435, 0.46667, 1.00000, 1.00000, 1.00000, 0.
             }
             oNDep += wdepTNO3 * 0.22581;
 
-            for ( k=6; k<=13; k++)
+            for ( k=6; k<=14; k++)
             {
                oNDep += mcipVars[k][index] * cmaqWetDVarFactors[k];
             }
             
-            for ( k=14; k<=17; k++)
+            for ( k=15; k<=18; k++)
             {
                wdepNHX += mcipVars[k][index] * cmaqWetDVarFactors[k];
             }
@@ -1757,7 +1767,8 @@ double   cmaqWetDVarFactors[] = {0.30435, 0.46667, 1.00000, 1.00000, 1.00000, 0.
          maxDep = max (maxDep, epicValue);
          if ( strcmp (mcipVarName, wetNDName) == 0 )
          {
-            gNDep = 0.33 *  epicValue;
+            //gNDep = 0.33 *  epicValue;  //get grid it for CMAQ5.3
+            gNDep = 0.0;
          }
       }
 
