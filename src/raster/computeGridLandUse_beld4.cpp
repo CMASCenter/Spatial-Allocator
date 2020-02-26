@@ -115,6 +115,7 @@ GByte MODIS_NODATAVALUE = 255;   //245: unclassified water and 0,17: water
 
 //MODIS tile land cover class variable: may change depending on NASA MODIS LC products
 string modisVarName = string ( "Land_Cover_Type_1" );   //IGBP NASA type
+string modisVarName_v6 = string ( "LC_Type1" );
 
 
 //match NLCD classes by array index: 0 or 127 is background
@@ -579,6 +580,12 @@ int main( int nArgc,  char* papszArgv[] )
        //Get MODIS land cover file info
 
        imageFile = modisFiles.at(0);    //use the first MODIS image files
+      
+       if ( imageFile.find( "MCD12Q1" ) != string::npos && imageFile.find( ".006." ) != string::npos )
+       {
+           modisVarName = modisVarName_v6;
+       }
+
        imageInfo = getHDF4VarInfo (imageFile, modisVarName);
     } 
     else

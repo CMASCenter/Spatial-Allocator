@@ -2,11 +2,15 @@
 
 Institute for the Environment, UNC-Chapel Hill
 
-
-
 The Spatial Allocator is now being distributed through GitHub (https://github.com/CMASCenter/Spatial-Allocator). 
 * Releases available on github: 4.3, 4.3.1, 4.3.2, and 4.4.
 * Releases are also available from the [CMAS Center](http://www.cmascenter.org).
+
+### 02/14/2020 (last update at EPA by Limei Ran)
+* Updated land use tools for MODIS IGBP land cover name change in MODIS collection 6,
+* WRF/CMAQ to EPIC tool update for CMAQ5.3 - added species and get rid of orgnaic Ndep output
+* EPIC to CMAQ tool update to handle leap year day
+* Utility tool updates
 
 ### 06/2019 Release Notes for Spatial Allocator v4.4
 * Includes the new Postgres Surrogate Tool, for generating surrogates using a PostgreSQL database with the PostGIS extension
