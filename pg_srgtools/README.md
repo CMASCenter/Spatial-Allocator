@@ -1,5 +1,5 @@
 # How to Run the Postgres Surrogate Tool
-Last updated: 7/29/2019
+Last updated: 7/29/2020
 
 Note that the Postgres Surrogate Tool currently only supports creating surrogates for regular grids. For E-Grid or census track (polygon) surrogates, please use the C/C++ and Java driver version (srgtools).
 
