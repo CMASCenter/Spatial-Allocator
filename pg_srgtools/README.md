@@ -85,6 +85,29 @@ Note that the Postgres Surrogate Tool currently only supports creating surrogate
    cd /opt/srgtool/pg_srgtools
    ./run_pg_srgcreate.csh
    ```
+   Various messages will be displayed as the tool runs. If there are no problems encountered, the last message will be
+   ```
+   SUCCESS -- The Program Run Completed. See log file for details.
+   ```
+   and you can continue to Step 8. If there is a problem, the last message will be
+   ```
+   ERROR -- The Program Run Stopped. See log file for details.
+   ```
+   The log file location is controlled by the LOG FILE NAME setting in the control_variables_pg.csv file. If you didn't change this in Step 6, the default location is /opt/srgtool/pg_srgtools/LOGS/. If your log file shows an error like the following:
+   ```
+   ERROR IN RUNNING THE EXECUTABLE: SRGCREATE
+   SRGCREATE_ERROR>WARNING: Environment variable: MAX_LINE_SEG, not set
+   SRGCREATE_ERROR>Illegal instruction
+   ```
+   you can try a different version of the SRGCREATE EXECUTABLE specified in the control_variables_pg.csv file. Edit control_variables_pg.csv and find the line:
+   ```
+   SRGCREATE EXECUTABLE,../bin/64bits/srgcreate.exe,Location of srgcreate executable
+   ```
+   Change "64bits" to "32bits" like so:
+   ```
+   SRGCREATE EXECUTABLE,../bin/32bits/srgcreate.exe,Location of srgcreate executable
+   ```
+   Save your changes and re-run the run_pg_srgcreate.csh script.
 
 8. Compare your outputs to the sample outputs using the `diffsurr` tool.
    ```
