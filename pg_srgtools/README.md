@@ -1,5 +1,5 @@
 # How to Run the Postgres Surrogate Tool
-Last updated: 6/30/2019
+Last updated: 7/29/2019
 
 Note that the Postgres Surrogate Tool currently only supports creating surrogates for regular grids. For E-Grid or census track (polygon) surrogates, please use the C/C++ and Java driver version (srgtools).
 
@@ -10,6 +10,10 @@ Note that the Postgres Surrogate Tool currently only supports creating surrogate
    CREATE DATABASE surrogates;
    \c surrogates
    CREATE EXTENSION postgis;
+   ```
+   - For PostGIS version 3 or newer, add the separate PostGIS raster extension.
+   ```
+   CREATE EXTENSION postgis_raster;
    ```
 
    - For the surrogate tool to run, you will need to have a database user with all privileges on the new database. The following `psql` commands create a new user named "pgsurg" and assign the appropriate privileges.
