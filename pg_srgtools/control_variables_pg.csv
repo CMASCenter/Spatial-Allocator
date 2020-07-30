@@ -3,21 +3,21 @@ GENERATION CONTROL FILE,./surrogate_generation_pg.csv,File containing surrogates
 SURROGATE SPECIFICATION FILE,./surrogate_specification_pg.csv,File containing settings for generating surrogates
 SHAPEFILE CATALOG,./shapefile_catalog_pg.csv,Shapefile names and map projection information
 SURROGATE CODE FILE,./surrogate_codes.csv,List of surrogate codes and names
-SHAPEFILE DIRECTORY,../data/emiss_shp2010,Directory containing all shapefiles needed ((only used in SA)
+SHAPEFILE DIRECTORY,../data/emiss_shp2016,Directory containing all shapefiles needed ((only used in SA)
 SRGCREATE EXECUTABLE,../bin/64bits/srgcreate.exe,Location of srgcreate executable
 SRGMERGE EXECUTABLE,Java,Location of srgmerge executable - set to Java to use Java gapfilling and merging
 DEBUG_OUTPUT,Y,Output debug control
 OUTPUT_FORMAT,SMOKE,outputs files used for SMOKE
 OUTPUT_FILE_TYPE,RegularGrid,Type of output shapes being generated - RegularGrid or Polygon 
-OUTPUT_GRID_NAME,us12k_444x336,This is a grid name for output area.
+OUTPUT_GRID_NAME,us12k_516x444,This is a grid name for output area.
 GRIDDESC,./GRIDDESC.txt,It is the file containing the list of available of grids (only used in SA).
 OUTPUT_FILE_ELLIPSOID,"+a=6370000.0,+b=6370000.0",Output grid projection ellipsoid for the grid.
-OUTPUT DIRECTORY,./outputs/us12k_444x336,Directory for individual surrogate files
-OUTPUT SURROGATE FILE,./outputs/agpro_us12k.txt,name and path for the final merged surrogate file output from srgtool
-OUTPUT SRGDESC FILE,./outputs/srgdesc_us12k.txt,file with surrogate codes and description
+OUTPUT DIRECTORY,./outputs/us12k_516x444,Directory for individual surrogate files
+OUTPUT SURROGATE FILE,./outputs/agpro_12US3.txt,name and path for the final merged surrogate file output from srgtool
+OUTPUT SRGDESC FILE,./outputs/srgdesc_12US3.txt,file with surrogate codes and description
 PGSCRIPT DIRECTORY, ./pgscripts, Directory for all pg script templates
 OVERWRITE OUTPUT FILES,YES,Users can choose YES to overwrite the individual and total output surrogate ratio files
-LOG FILE NAME,./LOGS/srg_conus12k.log,log file to store all information from running the program
+LOG FILE NAME,./LOGS/srg_12US3.log,log file to store all information from running the program
 PG_SERVER,localhost,database host
 PG_USER,pgsurg,database user name
 PGBIN,/usr/bin,postgresql scripts
