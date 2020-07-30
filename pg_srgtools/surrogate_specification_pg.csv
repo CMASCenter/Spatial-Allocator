@@ -13,7 +13,7 @@ USA,Residential Heating - Coal,180,cb_2014_us_county_500k_Poly,GEOID,ACS_2014_5Y
 USA,Residential Heating - LP Gas,190,cb_2014_us_county_500k_Poly,GEOID,ACS_2014_5YR_PopHousing,LP_GAS,,,,Housing,,,Number of Housing Units using Bottled Gas for primary heating: ACS 5-year 2014 survey data,
 USA,Urban Restricted Road Miles,201,hpms2016,fips,hpms2016,,,"moves2014=4",,Total Road Miles,,,HPMS 2013 road miles for restricted/primary roads in Census urbanized areas,
 USA,Urban Restricted AADT,202,hpms2016,fips,hpms2016,aadt_dens,,"moves2014=4",,Total Road Miles,,,HPMS 2013 road miles for restricted/primary roads in Census urbanized areas,
-USA,Extended Idle Locations,205,cb_2014_us_county_500k_Poly,geoid,pil_2018_08_17,rev_truck,,rev_truck>0,,Total Road Miles,,,Potential idling locations for long-haul diesel trucks,
+USA,Extended Idle Locations,205,cb_2014_us_county_500k_Poly,geoid,pil_2019_06_24,rev_truck,,rev_truck>0,,Total Road Miles,,,Potential idling locations for long-haul diesel trucks,
 USA,Rural Restricted Road Miles,211,hpms2016,fips,hpms2016,,,"moves2014=2",,Total Road Miles,,,HPMS 2013 road miles for restricted/primary roads outside of Census urbanized areas,
 USA,Rural Restricted AADT,212,hpms2016,fips,hpms2016,aadt_dens,,"moves2014=2",,Total Road Miles,,,HPMS 2013 Annual Average Daily Traffic for restricted/primary roads outside of Census urbanized areas,
 USA,Urban Unrestricted Road Miles,221,hpms2016,fips,hpms2016,,,"moves2014=5",,Total Road Miles,,,HPMS 2013 road miles for unrestricted/secondary roads in Census urbanized areas,

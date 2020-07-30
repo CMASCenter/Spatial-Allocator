@@ -42,7 +42,7 @@ set geomtype=MultiLineString       # retrieve the exact geopmetry type from the 
 
 ### Load pil shapefile for surrogate 205, Potential Idling Locations
 set indir=$shpdir/PIL
-set shapefile=pil_2018_08_17
+set shapefile=pil_2019_06_24
 set table=`echo $shapefile | tr "[:upper:]" "[:lower:]"`
 set geomtype=MultiPoint       # retrieve the exact geopmetry type from the table.
 #source load_shapefile.csh
