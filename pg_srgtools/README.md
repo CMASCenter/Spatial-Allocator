@@ -1,5 +1,5 @@
 # How to Run the Postgres Surrogate Tool
-Last updated: 6/30/2019
+Last updated: 7/29/2020
 
 Note that the Postgres Surrogate Tool currently only supports creating surrogates for regular grids. For E-Grid or census track (polygon) surrogates, please use the C/C++ and Java driver version (srgtools).
 
@@ -10,6 +10,10 @@ Note that the Postgres Surrogate Tool currently only supports creating surrogate
    CREATE DATABASE surrogates;
    \c surrogates
    CREATE EXTENSION postgis;
+   ```
+   - For PostGIS version 3 or newer, add the separate PostGIS raster extension.
+   ```
+   CREATE EXTENSION postgis_raster;
    ```
 
    - For the surrogate tool to run, you will need to have a database user with all privileges on the new database. The following `psql` commands create a new user named "pgsurg" and assign the appropriate privileges.
@@ -33,15 +37,10 @@ Note that the Postgres Surrogate Tool currently only supports creating surrogate
    ```
    To avoid being asked repeatedly for the Postgres user account password, you can create a password file in your home directory. See the Postgres documentation, https://www.postgresql.org/docs/current/libpq-pgpass.html, for more details.
 
-2. Download the archive PG_SurrogateTool_Shapefiles.tar.gz (12.5 GB) from https://drive.google.com/drive/folders/1gFI4VZlojyLnhTKiSRS6l3Tb0MJGJTBb and unpack it in /opt/srgtool/data/. The full unpacked archive is about 58 GB.
+2. Download the archive PG_surgtool.shapefiles.quick_guide.July2019.tar.gz (785 MB) from https://drive.google.com/drive/folders/1jEWk2-fECzOg2UZmJkkWw85L9wJa7A17 and unpack it in /opt/srgtool/data/. The full unpacked archive is about 1.8 GB.
    ```
    cd /opt/srgtool/data
-   tar xvf PG_SurrogateTool_Shapefiles.tar.gz
-   ```
-   For this guide, we are only using two shapefiles from the archive. To extract only those shapefiles, run the following commands:
-   ```
-   tar xvf PG_SurrogateTool_Shapefiles.tar.gz shapefiles/Census/ACS_2014_5YR_PopHousing*
-   tar xvf PG_SurrogateTool_Shapefiles.tar.gz shapefiles/Census/cb_2014_us_county_500k_Poly*
+   tar xvf PG_surgtool.shapefiles.quick_guide.July2019.tar.gz
    ```
 
 3. Add the output modeling projection to the Postgres database.
@@ -86,6 +85,29 @@ Note that the Postgres Surrogate Tool currently only supports creating surrogate
    cd /opt/srgtool/pg_srgtools
    ./run_pg_srgcreate.csh
    ```
+   Various messages will be displayed as the tool runs. If there are no problems encountered, the last message will be
+   ```
+   SUCCESS -- The Program Run Completed. See log file for details.
+   ```
+   and you can continue to Step 8. If there is a problem, the last message will be
+   ```
+   ERROR -- The Program Run Stopped. See log file for details.
+   ```
+   The log file location is controlled by the LOG FILE NAME setting in the control_variables_pg.csv file. If you didn't change this in Step 6, the default location is /opt/srgtool/pg_srgtools/LOGS/. If your log file shows an error like the following:
+   ```
+   ERROR IN RUNNING THE EXECUTABLE: SRGCREATE
+   SRGCREATE_ERROR>WARNING: Environment variable: MAX_LINE_SEG, not set
+   SRGCREATE_ERROR>Illegal instruction
+   ```
+   you can try a different version of the SRGCREATE EXECUTABLE specified in the control_variables_pg.csv file. Edit control_variables_pg.csv and find the line:
+   ```
+   SRGCREATE EXECUTABLE,../bin/64bits/srgcreate.exe,Location of srgcreate executable
+   ```
+   Change "64bits" to "32bits" like so:
+   ```
+   SRGCREATE EXECUTABLE,../bin/32bits/srgcreate.exe,Location of srgcreate executable
+   ```
+   Save your changes and re-run the run_pg_srgcreate.csh script.
 
 8. Compare your outputs to the sample outputs using the `diffsurr` tool.
    ```
