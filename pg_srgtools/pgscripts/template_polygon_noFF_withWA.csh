@@ -53,7 +53,7 @@ printf "\t${weight_attribute}=${weight_attribute}_dens * area_${srid_final};\n" 
 printf "create index on ${schema}.wp_cty_${surg_code} using GIST(geom_${grid_proj});\n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
 printf "\tvacuum analyze ${schema_name}.wp_cty_${surg_code};" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
 echo "Cutting by data shapefile boundaries"
-$PGBIN/psql -h $server -d $dbname -U $user password='sepia6#vibes' -f ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
+$PGBIN/psql -h $server -d $dbname -U $user -f ${output_dir}/temp_files/${surg_code}_create_wp_cty.sql
 
 
 # create query to grid weight data

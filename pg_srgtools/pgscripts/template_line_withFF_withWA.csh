@@ -48,7 +48,6 @@ printf "UPDATE $schema.wp_cty_cell_${surg_code}_${grid}\n" >> ${output_dir}/temp
 printf "   SET length_wp_cty_cell = ST_Length(geom_${grid_proj});\n" >> ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
 
 echo "CREATE TABLE $schema.wp_cty_cell_${surg_code}_${grid}; insert geometries, create index GIST; vacuum & analyze; compute length"
-#PGPASSWORD=sepia6#vibes $PGBIN/psql -h $server -d $dbname -U $user -f ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
 $PGBIN/psql -h $server -d $dbname -U $user -f ${output_dir}/temp_files/${surg_code}_create_wp_cty_cell.sql
 
 # Create numerater table
