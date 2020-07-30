@@ -22,11 +22,6 @@ set attr=""
 set geomtype=MultiPolygon          # retrieve the exact geopmetry type from the table.
 source load_shapefile.csh
 
-set shapefile=cty_pophu2k_revised
-set table=`echo $shapefile | tr "[:upper:]" "[:lower:]"`
-set geomtype=MultiPolygon          # retrieve the exact geopmetry type from the table.
-#source load_shapefile.csh
-
 ### Load population and housing shapefile, and calculate density
 set shapefile=ACS_2014_5YR_PopHousing
 set table=`echo $shapefile | tr "[:upper:]" "[:lower:]"`
