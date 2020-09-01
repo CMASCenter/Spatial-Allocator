@@ -115,6 +115,8 @@ GByte MODIS_NODATAVALUE = 255;   //245: unclassified water and 0,17: water
 
 //MODIS tile land cover class variable: may change depending on NASA MODIS LC products
 string modisVarName = string ( "Land_Cover_Type_1" );   //IGBP NASA type
+//string modisVarName = string ( "LC_Type1" );   //IGBP NASA type
+string modisVarName_v6 = string ( "LC_Type1" );
 
 
 //match NLCD classes by array index: 0 or 127 is background
@@ -564,7 +566,7 @@ int main( int nArgc,  char* papszArgv[] )
 /*------------------------------------------*/
     string     createdGridImage;   //grid raster file
     string     gridRasterFile;     //projected grid raster file
-    string     shapeFile, imageFile;
+    string     shapeFile, imageFile, temFile;
     gridInfo   imageInfo;
 
     //get image grid info
@@ -573,12 +575,18 @@ int main( int nArgc,  char* papszArgv[] )
        imageFile = landFiles.at(0);    //use the first NLCD image files
        imageInfo = getImageInfo ( imageFile );
     }
+
     else if ( inNASALand.compare("YES") == 0 && modisFiles.size() > 0 )
     {  
        //!!! may need to change based on MODIS data sets
        //Get MODIS land cover file info
 
        imageFile = modisFiles.at(0);    //use the first MODIS image files
+       if ( imageFile.find( "MCD12Q1" ) != string::npos && imageFile.find( ".006." ) != string::npos )
+       {
+           modisVarName = modisVarName_v6;
+       }
+
        imageInfo = getHDF4VarInfo (imageFile, modisVarName);
     } 
     else
@@ -603,6 +611,14 @@ int main( int nArgc,  char* papszArgv[] )
 
     if ( inNASALand.compare("YES") == 0 && modisFiles.size() > 0 )
     {
+        // for nlcd2016
+       temFile = modisFiles.at(0);    //use the first MODIS image files
+       if ( temFile.find( "MCD12Q1" ) != string::npos && temFile.find( ".006." ) != string::npos )
+       {
+           modisVarName = modisVarName_v6;
+       }
+       //printf ( "test1: inNASALand, modis, imageInfo ");
+
        //obtain extent of MODIS tile files.  Loop through each file
        extModisInfo = getAllMODISTileInfo ( modisFiles, modisVarName);
 
@@ -2062,15 +2078,16 @@ void   computeImpe_Cano( std::vector<string> imageFiles, string fileType )
      oSRS.exportToProj4( &pszProj4 );    
      oSRS_grd.exportToProj4 (&tmpProj4);
       
+     //projected rasterized data set has slight different projection specification in GDAL 1.9.1
      //make sure that the image has the same projection as the first image's
-     if ( strcmp (pszProj4, tmpProj4) != 0 )
+     //if ( strcmp (pszProj4, tmpProj4) != 0 )
      //if (! oSRS.IsSame (&oSRS_grd) )  -- did not work in GDAL 1.9.1
-     {
-         printf( "\tError: This image's projection is different from the domain grid image's.\n" );
-         printf( "\tProjection for this image = %s\n", pszProj4);
-         printf( "\tProject it using gdalwarp utility to: %s\n", pszProj4_grd );
-         exit ( 1 );
-     }
+     //{
+     //    printf( "\tWarning: This image's projection is different from the domain grid image's.\n" );
+      //   printf( "\tProjection for this image = %s\n", pszProj4);
+      //  printf( "\tProject it using gdalwarp utility to: %s\n", pszProj4_grd );
+         //exit ( 1 );
+     //}
  
 
 
@@ -2461,16 +2478,16 @@ void   computeLandUse( std::vector<string> imageFiles, string fileType )
      oSRS.importFromWkt( &pszWKT_nc );
      oSRS.exportToProj4( &pszProj4 );    
      oSRS_grd.exportToProj4 (&tmpProj4);
-
+ 
      //make sure that the image has the same projection as the first image's
-     if ( strcmp (pszProj4, tmpProj4) != 0 )
+     //if ( strcmp (pszProj4, tmpProj4) != 0 )
      //if (! oSRS.IsSame (&oSRS_grd) )  -- did not work in GDAL 1.9.1
-     {
-         printf( "\tError: This image's projection is different from the domain grid image's.\n" );
-         printf( "\tProjection for this image = %s\n", pszProj4);
-         printf( "\tProject it using gdalwarp utility to: %s\n", pszProj4_grd );
-         exit ( 1 );
-     }
+     //{
+      //   printf( "\tError: This image's projection is different from the domain grid image's.\n" );
+       //  printf( "\tProjection for this image = %s\n", pszProj4);
+       // printf( "\tProject it using gdalwarp utility to: %s\n", pszProj4_grd );
+       //exit ( 1 );
+     //}
 
 
 /* -------------------------------------------------------------------- */

@@ -66,6 +66,10 @@
  *  63. getNetCDFDim - get netcdf dimension by name
  *  64. extractDomainLAIData - extract LAI image into one
  *  65. extractDomainALBData - extract Albedo image into one
+ *  66. getShapeFile_Extent - get shapefile extent to grid structure
+ *  67. readGridCoordinates - read in grid coordinates from a csv file  
+ *  68. readHDF5SatVarDataInt  - read int data from HDF5
+ *  69. computeGridSatValues_hour - compute tropomi data with time
  *
  * Written by the Institute for the Environment at UNC, Chapel Hill
  * in support of the EPA CMAS Modeling and NASA Grants, 2009.
@@ -78,6 +82,10 @@
 #include <dirent.h>
 #include <ctime> 
 #include <cstdlib>
+#include <sstream>
+#include <iostream>
+#include <fstream>
+
 
 #include  "geotools.h"
 #include  "commontools.h"
@@ -95,7 +103,7 @@ int           MODIS_ALB_PARAMS = 3;   //3 albedo MCD43A1 variable parameters
 /****************************************/
 string  createGridShapes ( gridInfo grid )
 {
-    string shapeName;
+    string shapeName, polyName;
 
     GDALDriver  *poDriver = NULL;
     GDALDataset *poDS = NULL;
@@ -108,7 +116,7 @@ string  createGridShapes ( gridInfo grid )
 
     double xmin,xmax;
     double ymin,ymax;
-    int i,j;
+    int i,j,k,m;
     int gid = 0;
     char *pszProj4;
 
@@ -116,7 +124,7 @@ string  createGridShapes ( gridInfo grid )
     printf("\nGenerating grid shapefile for a given domain...\n");
 
     //get Shapefile Name
-    if ( grid.name.empty() )
+    if ( grid.name.empty() || grid.name.find(".shp") == string::npos )
     {
        //create temp Shapefile name 
 
@@ -134,6 +142,23 @@ string  createGridShapes ( gridInfo grid )
     }
 
 
+   // for polygon text file
+   ifstream     imageStream;             //stream to read input polygon text file
+   if ( (! grid.polyID.empty()) && grid.polyID.find("GRIDID") == string::npos ) 
+   {
+       polyName = grid.polyID;
+       
+       imageStream.open( polyName.c_str() );
+
+       if (! imageStream.good() )
+       {
+          printf( "\tError: opening text file stream - %s\n", polyName.c_str() );
+          exit ( 1 );
+       }
+   }
+
+
+   
 /* -------------------------------------------------------------------- */
 /*      Register format(s).                                             */
 /* -------------------------------------------------------------------- */
@@ -188,7 +213,7 @@ string  createGridShapes ( gridInfo grid )
 /*      Create Polygon Attribute Name.                                  */
 /* -------------------------------------------------------------------- */
 
-    OGRFieldDefn oField( grid.polyID.c_str(), OFTInteger);
+    OGRFieldDefn oField( "GRIDID", OFTInteger);
     printf ("\tCreated item.\n");
 
     if( poLayer->CreateField( &oField ) != OGRERR_NONE )
@@ -201,52 +226,345 @@ string  createGridShapes ( gridInfo grid )
 /*      Assign each polygon attribute and geometry.                     */
 /* -------------------------------------------------------------------- */
 
-    for ( i = 0; i < grid.rows; i++ )
+    if ( grid.polyID.empty() || grid.polyID.compare("GRIDID") == 0)
     {
-      ymin = grid.ymin + i * grid.yCellSize;
-      ymax = ymin + grid.yCellSize;
+       for ( i = 0; i < grid.rows; i++ )
+       {
+         ymin = grid.ymin + i * grid.yCellSize;
+         ymax = ymin + grid.yCellSize;
 
-      for( j = 0; j < grid.cols; j++ )
-      {
-         //printf ("\trow=%d  col=%d\n",i,j);
-
-         gid ++;
-
-         poFeature = OGRFeature::CreateFeature( poLayer->GetLayerDefn() );
-         poFeature->SetField( grid.polyID.c_str(), gid );
-
-         xmin = grid.xmin + j * grid.xCellSize;
-         xmax = xmin + grid.xCellSize;
-
-         oRing.addPoint( xmin, ymin );
-         oRing.addPoint( xmin, ymax );
-         oRing.addPoint( xmax, ymax );
-         oRing.addPoint( xmax, ymin );
-         oRing.addPoint( xmin, ymin );
-         //printf("ID = %d   x: %lf   %lf, y: %lf   %lf\n",gid,xmin,xmax,ymin,ymax);
-
-         oPoly.addRing( &oRing );
-
-         if ( poFeature->SetGeometry( &oPoly ) != OGRERR_NONE )
+         for( j = 0; j < grid.cols; j++ )
          {
-            printf( "\tSetting a polygon feature failed.\n" );
-            exit( 1 );
-         }
+            //printf ("\trow=%d  col=%d\n",i,j);
 
-         if( poLayer->CreateFeature( poFeature ) != OGRERR_NONE )
-         {
-            printf( "\tFailed to create feature in shapefile.\n" );
-            exit( 1 );
-         }
+            gid ++;
 
-         oRing.empty();
-         oPoly.empty();
-         OGRFeature::DestroyFeature( poFeature );
-      }
+            poFeature = OGRFeature::CreateFeature( poLayer->GetLayerDefn() );
+            poFeature->SetField( "GRIDID", gid );
+
+            xmin = grid.xmin + j * grid.xCellSize;
+            xmax = xmin + grid.xCellSize;
+
+            oRing.addPoint( xmin, ymin );
+            oRing.addPoint( xmin, ymax );
+            oRing.addPoint( xmax, ymax );
+            oRing.addPoint( xmax, ymin );
+            oRing.addPoint( xmin, ymin );
+            //printf("ID = %d   x: %lf   %lf, y: %lf   %lf\n",gid,xmin,xmax,ymin,ymax);
+
+            oPoly.addRing( &oRing );
+
+            if ( poFeature->SetGeometry( &oPoly ) != OGRERR_NONE )
+            {
+               printf( "\tSetting a polygon feature failed.\n" );
+               exit( 1 );
+            }
+
+            if( poLayer->CreateFeature( poFeature ) != OGRERR_NONE )
+            {
+               printf( "\tFailed to create feature in shapefile.\n" );
+               exit( 1 );
+            }
+
+            oRing.empty();
+            oPoly.empty();
+            OGRFeature::DestroyFeature( poFeature );
+         }  //j
+       } //i
     }
+    else
+    {
+       // for arcGIS polygon shapefile text format
+       
+       bool  newPoly = true;
+       string  lineStr, dataStr;
+       i = 0.0;
+       vector<string>     vecString;
+       double  x, y, x1, y1, x2, y2;
+
+
+       //get first polyID line
+       getline( imageStream, lineStr);
+
+       while ( newPoly ) 
+       {
+          lineStr = trim (lineStr);                 //get rid of spaces at edges
+          i++;  //count the line number
+
+          vecString = string2stringVector (lineStr, ",");
+      
+          if ( vecString.size() != 3 )
+          {
+              printf( "\tError: new poly has ID, Longitude, Latitude - line %d %s\n",i, lineStr.c_str() );
+              exit( 1 );
+          }
+ 
+          dataStr = vecString[0];
+          gid = atoi ( dataStr.c_str() );
+
+          dataStr = vecString[1];
+          x = atof ( dataStr.c_str() );
+
+          dataStr = vecString[2];
+          y = atof ( dataStr.c_str() );
+
+          if ( x > 180 )  x = x - 360.0; 
+          //printf ("%s\n", lineStr.c_str()); 
+          printf ("%d,%.13lf,%.13lf,%d\n", gid, x, y,gid );   //print out lable point for arcGIS 
+          //printf ("\tPoly: gid=%d  line %d:%s\n", gid, i, lineStr.c_str());
+
+
+          int  cross180 = 0;   //to check whether the polygon crosses 180 long. line
+
+          //get all points
+          vector<double>  vecX, vecY;
+          int j1, j2;
+          j = 0;
+          getline( imageStream, lineStr);
+
+          do { 
+               lineStr = trim (lineStr);                 //get rid of spaces at edges
+               i++;  //count the line number
+               j++;  //total points in each polygon
+
+               vecString = string2stringVector (lineStr, ",");
+
+               if ( vecString.size() != 2 )
+               {
+                  printf( "\tError: Poly point has Longitude, Latitude - line %d %s\n",i, lineStr.c_str() );
+                  exit( 1 );
+               }
+
+               dataStr = vecString[0];
+               x = atof ( dataStr.c_str() );
+
+               dataStr = vecString[1];
+               y = atof ( dataStr.c_str() );
+
+               //point behind from the second point
+               j1 = j - 2;
+               //checking crossing 180 from the second point
+               if ( j > 1 && ( (vecX[j1] < 180.0 && vecX[j1] > 20.0 && x > 180.0 && x < 260.0) 
+                   || (vecX[j1] > 180.0 && vecX[j1] < 260.0 && x < 180.0 && x > 100.0) ) )
+               {
+                  //crossing 180 and compute crossing point
+                  cross180 ++;
+                  double m;
+                  m = (y - vecY[j1]) / (x - vecX[j1]);
+                  double b = y - m*x;
+                  y1 = m * 180.0 + b;                     
+
+                  //add the 180 long. intersection point
+                  vecX.push_back ( 180.0 );
+                  vecY.push_back ( y1 );
+                  j++;        
+               }
+               
+
+               vecX.push_back ( x );
+               vecY.push_back ( y ); 
+
+               // printf ("\tPoint i=%d  x=%lf  y=%lf  line: %s\n", i, x, y, lineStr.c_str() );
+
+               getline( imageStream, lineStr);
+               
+          } while ( lineStr.find ( "end" ) == string::npos );
+
+         
+          //check last point again the first point
+          x = vecX[0];
+          y = vecY[0];
+          j1 = vecX.size() - 1;
+          if ( ( (vecX[j1] < 180.0 && x > 180.0 ) || (vecX[j1] > 180.0 && x < 180.0 ) ) && cross180 == 1 ) 
+          {
+              cross180 ++;
+              j++;
+ 
+              double m;
+              m = (y - vecY[j1]) / (x - vecX[j1]);
+              double b = y - m*x;
+              y1 = m * 180.0 + b;
+
+              //add the 180 long. intersection point
+              vecX.push_back ( 180.0 );
+              vecY.push_back ( y1 );
+          }
+
+           
+          //printf ("\t\t: cross180=%d\n", cross180);
+          if ( cross180 > 2 )
+          {
+             exit (1);
+          }
+          if ( cross180 ==2  )
+          {
+             //cross180 = 0;
+          }
+          else if ( cross180 == 1 )
+          {
+             printf ("\t\t: cross180=%d\n", cross180);
+             exit (1);
+          }
+          else if ( cross180 == 0 )
+          {
+             cross180 = 1;   //loop through one poly
+          }
+
+
+          if ( j != vecX.size() )
+          {
+             printf ("\t\t: j=%d not equal vecX size=%d\n", j, vecX.size());
+             exit (1);
+          }
+
+
+          int k=0;   //beginning index in m polygon
+          int k2 = vecX.size() - 1;  // end index in m polygon
+
+          int begin_j = 0;
+          int end_j = 0;
+          int jj = 0;
+          double x0, y0, x3, y3;  //keep beginning point
+
+          //write out 1 or 2 polys
+          for (m=0; m<cross180; m++)
+          {
+             poFeature = OGRFeature::CreateFeature( poLayer->GetLayerDefn() );
+             poFeature->SetField( "GRIDID", gid );
+
+             for (j=k; j<=k2; j++)
+             {
+                x = vecX[j];
+                y = vecY[j];
+
+                 if ( cross180 == 2 )
+                   {
+                      //printf ("\tPoly: gid=%d m=%d pt=%d:  x=%lf  y=%lf\n", gid,m,j,x,y);
+                   }
+
+
+                if (x == 180.0 && m == 0 )
+                {
+                   //point behind and front
+                   j1 = j - 1;
+                   j2 = j + 1;
+                   if ( j == 0 )    j1 = vecX.size() - 1;
+                   if ( j == (vecX.size() - 1) ) j2 = 0;
+
+                   x1 = vecX[j1];
+                   x2 = vecX[j2];
+
+                   if ( x1 > 180.0 ) x = -180.0; //on the left
+                   if ( x1 < 180.0 ) x = 180.0; //on the right
+
+                   if ( cross180 == 2 )
+                   {
+                      //printf ("\t\tIn1: gid=%d m=%d pt=%d:  x=%lf  y=%lf\n", gid,m,j,x,y); 
+                   }
+
+                   oRing.addPoint( x, y );
+
+                   //crossing point
+                   if ( (x1 > 180.0 && x2 < 180.0)  || (x1 < 180.0 && x2 > 180.0) )
+                   {
+                      begin_j = j;   //beginning point for next splitted polygon
+                  
+                      //find next 180 point in the same 180 side
+                      for (jj=j+1; jj<vecX.size(); jj++)
+                      {
+                         x3 = vecX[jj];
+                         y3 = vecY[jj];
+                         if ( x3 == 180.0 ) 
+                         {
+                            x3 = x;
+
+                            if ( cross180 == 2 )
+                            {
+                                //printf ("\t\tIn2: gid=%d m=%d pt=%d:  x=%lf  y=%lf\n", gid,m,jj,x3,y3);
+                            }
+
+                            oRing.addPoint( x3, y3);  
+                            j = jj;   //move to this point
+ 
+                            end_j = jj;
+                            break;
+                         }
+                      } //find next 180 point
+                   }  //crossing
+                }  //180
+                else if (x == 180.0 && m == 1 && ( j == k || j == k2 ) )
+                {
+                   x = x3 * -1.0;   //other side of poly
+
+                   if ( cross180 == 2 )
+                   {
+                      //printf ("\t\tIn3: gid=%d m=%d pt=%d:  x=%lf  y=%lf\n", gid,m,j,x,y);
+                   }
+
+                   oRing.addPoint( x, y);
+                }
+                else
+                {
+                   if ( x > 180 )  x = x - 360.0;   //get nagative -180 to 180 for longitude
+
+                   if ( cross180 == 2 )
+                   {
+                      //printf ("\t\tIn4: gid=%d m=%d pt=%d:  x=%lf  y=%lf\n", gid,m,j,x,y);
+                   }
+
+                   oRing.addPoint( x, y);
+                }
+
+                //keep first point
+                if (j == k )
+                {
+                   x0 = x;
+                   y0 = y;
+                } 
+
+             } //j
+
+             //close poly
+             oRing.addPoint( x0, y0 );
+           
+             oPoly.addRing( &oRing );
+
+             if ( poFeature->SetGeometry( &oPoly ) != OGRERR_NONE )
+             {
+                printf( "\tSetting a polygon feature failed.\n" );
+                exit( 1 );
+             }
+
+             if( poLayer->CreateFeature( poFeature ) != OGRERR_NONE )
+             {
+                 printf( "\tFailed to create feature in shapefile.\n" );
+                 exit( 1 );
+             }
+
+             oRing.empty();
+             oPoly.empty();
+             OGRFeature::DestroyFeature( poFeature );
+
+             //set index range for next poly = two splited ploys
+             k = begin_j;
+             k2 = end_j;
+             
+          }  // end of m
+
+
+          getline( imageStream, lineStr);
+
+          if ( lineStr.find ( "end" ) != string::npos )
+          {
+              newPoly = false;   //double end to end of the reading  
+          }
+       } // while new poly
+    } //reading poly text file
+
 
     GDALClose( poDS );
-    printf ("\tCompleted in creating the grid shapefile.\n\n");
+
+    printf ("\tCompleted in creating the grid shapefile: %s.\n\n", shapeName.c_str() );
     
     return shapeName;
 
@@ -286,6 +604,7 @@ gridInfo getImageInfo (string imageFile)
     {
       // GDAL image, not HDF4 image       
       isHDF4 = false;
+
     }
     else if ( strValues.size() == 2 )
     {  
@@ -306,9 +625,11 @@ gridInfo getImageInfo (string imageFile)
 /* -------------------------------------------------------------------- */
 /*      Register format(s).                                             */
 /* -------------------------------------------------------------------- */
+
        GDALAllRegister();
 
        poRDataset = (GDALDataset *) GDALOpen( imageFile.c_str(), GA_ReadOnly );
+
        if( poRDataset == NULL )
        {
           printf( "\tOpen GDAL image file failed: %s.\n", imageFile.c_str() );
@@ -1155,9 +1476,14 @@ void computeGridCornerCenterLatLong ( gridInfo *grid )
         exit ( 1 );
     }
 
-    //get the maximum x and y for the domain
-     grid->xmax = grid->xmin + grid->xCellSize*grid->cols;
-     grid->ymax = grid->ymin + grid->yCellSize*grid->rows;
+     //get the maximum x and y for the domain
+    
+     // for grid domain
+     if ( grid->name.find( ".shp" ) == string::npos )
+     {
+        grid->xmax = grid->xmin + grid->xCellSize*grid->cols;
+        grid->ymax = grid->ymin + grid->yCellSize*grid->rows;
+     }
 
      if ( pj_is_latlong(proj4DF) )
      {
@@ -1556,7 +1882,8 @@ void writeWRFGlobalAtributes ( int ncid, string title, gridInfo grid, string sta
 
 
     //for WRF simulation - 40 NLCD data
-    string gmtS = startDateTime.substr(8, 4); 
+    //string gmtS = startDateTime.substr(8, 4); 
+    string gmtS = string ("0.0");
     string yearS = startDateTime.substr(0, 4);
 
     tmp_str = startDateTime.substr(0, 8);
@@ -2346,6 +2673,7 @@ gridInfo getHDF4VarInfo ( string imageFile, string varName )
     anyHDF4Errors ( sds_id = SDselect (sd_id, index) );
     anyHDF4Errors( SDgetinfo( sds_id, sds_name, &rank, dim_sizes, &num_type, &attributes ) );
 
+
     printf("\tname = %s  dims = %d  type = %d  number of attributes = %d\n", sds_name, rank, num_type, attributes );
 
     for (int j=0; j<rank; j++)
@@ -2416,7 +2744,6 @@ gridInfo getHDF4VarInfo ( string imageFile, string varName )
 
     //if ( imageFile.find( "MCD43A3" ) != string::npos ) exit ( 1 );
 
-
     //data type  6
     sprintf (buffer, "%d\0",num_type);
     imageInfo.attsStr.push_back ( string ( buffer ) );
@@ -2425,17 +2752,19 @@ gridInfo getHDF4VarInfo ( string imageFile, string varName )
 
     //add_offset 7 
     valueStr = getHDF4VarAttrInfo (sds_id, "long_name");
+
     if ( valueStr.size() != 0)
     {
        imageInfo.attsStr.push_back ( valueStr );
        //printf("\tlong_name=%s\n", valueStr.c_str() );
     }
 
+
     anyHDF4Errors ( SDendaccess(sds_id) );
 
     if ( imageFile.find( "MCD12Q1" ) != string::npos || imageFile.find( "MOD12Q1" ) != string::npos || 
+         imageFile.find( "MCD15A3H" ) != string::npos || imageFile.find( "MCD15A2H" ) != string::npos ||
          imageFile.find( "MOD15A2GFS" ) != string::npos || imageFile.find( "MOD15A2" ) != string::npos ||
-         imageFile.find( "MCD15A2H" ) != string::npos ||
          imageFile.find( "MCD43A3" ) != string::npos || imageFile.find( "MCD43A1" ) != string::npos || 
          imageFile.find( "MCD43A2" ) != string::npos ) 
     {
@@ -2468,10 +2797,15 @@ gridInfo getHDF4VarInfo ( string imageFile, string varName )
           {
              imageInfo.name = string ( "MOD15A2" );
           }
+          else if ( imageFile.find( "MCD15A3H" ) != string::npos )
+          {
+             imageInfo.name = string ( "MCD15A3H" );
+          }
           else if ( imageFile.find( "MCD15A2H" ) != string::npos )
           {
              imageInfo.name = string ( "MCD15A2H" );
           }
+
           else if ( imageFile.find( "MCD43A3" ) != string::npos )
           {
              imageInfo.name = string ( "MCD43A3" );
@@ -2488,7 +2822,7 @@ gridInfo getHDF4VarInfo ( string imageFile, string varName )
 
           anyHDF4Errors ( SDattrinfo(sd_id, i, attr_name, &data_type, &count) );
 
-          //printf ( "\tAttribute Index: %d   Attribute name: %s   Attribute Type: %d   Attribute count: %d\n", i,attr_name,data_type, count);
+          printf ( "\tAttribute Index: %d   Attribute name: %s   Attribute Type: %d   Attribute count: %d\n", i,attr_name,data_type, count);
 
 
           if ( ( attBuff = (char *) calloc (count, sizeof(char)) ) == NULL)
@@ -2497,11 +2831,12 @@ gridInfo getHDF4VarInfo ( string imageFile, string varName )
             exit ( 1 );
           }
 
+         
           anyHDF4Errors ( SDreadattr(sd_id, i, attBuff) );
           string attStr = string ( attBuff );
  
           //printf ("\t\tAttribute: %s:\n",attBuff);   
-         
+
           metaStr = string2stringVector (attStr, "\n");
 
 
@@ -2586,10 +2921,10 @@ gridInfo getHDF4VarInfo ( string imageFile, string varName )
              }
           }  //end of lines
 
+          
           if ( ( pos = attStr.find ( "CHARACTERISTICBINSIZE" ) ) != string::npos )
           {
-
-            if ( attStr.find ( "CHARACTERISTICBINSIZE500M" )  != string::npos )
+             if ( attStr.find ( "CHARACTERISTICBINSIZE500M" )  != string::npos )
              {
                 valueStr = attStr.substr( pos+82, 11 );
              }
@@ -2688,8 +3023,11 @@ string  getHDF4VarAttrInfo (int32 sds_id, const char *attName )
        }
  
        anyHDF4Errors ( SDreadattr(sds_id, attr_index, attBuff) );
+
        attStr = string ( attBuff );
-       attStr.erase (count);
+
+       //attStr.erase (count);
+
     }
     else if ( data_type == DFNT_FLOAT64 )   //data type = 6
     {
@@ -2803,21 +3141,32 @@ gridInfo getHDF5VarInfo ( string imageFile, string varName )
     int         numDims, numMems;
     hsize_t     dims[6];     //set max dimensions to 6             
     string      valueStr;
+    string      fileType;
 
     int         j;
 
     
     //open the file
+
     anyHDF5Errors ( file_id = H5Fopen( imageFile.c_str(), H5F_ACC_RDONLY, H5P_DEFAULT ) );
+
 
     if ( imageFile.find ( ".he5" ) != string::npos )
     {
        groupPath = getHDF5VarGroups ( file_id, varName ); 
+       fileType = string ( "omi");
+    }
+    else if ( imageFile.find ( "S5P_OFFL_L2" ) != string::npos )
+    {
+       groupPath =string ("/PRODUCT/");   
+       fileType = string ( "tropomi");
     }
     else
     {
        groupPath =string ("/");   //no path
+       fileType = string ( "other");
     }
+
   
     dataSet = groupPath + varName;
 
@@ -2836,9 +3185,14 @@ gridInfo getHDF5VarInfo ( string imageFile, string varName )
     for (j=0; j<numDims; j++)
     {
        printf("\t\t\tDimension %d size: %d\n", j, dims[j] );
+       
+       //for TROPOMI data dimension 1X2DX3D
+       if ( j == 0 && dims[j] == 1 ) continue;
+
        imageInfo.dims.push_back ( dims[j] );
     }
      
+    //for OMI and MODIS
     if ( numDims >= 2 )
     {
        imageInfo.rows = dims[0];
@@ -2863,6 +3217,17 @@ gridInfo getHDF5VarInfo ( string imageFile, string varName )
        imageInfo.xCellSize = 0.05;
        imageInfo.yCellSize = 0.05;
     }
+
+    //this is TROPOMI L2 data
+    if (fileType.compare ("tropomi") == 0 )
+    {
+       imageInfo.rows = dims[1];
+       imageInfo.cols = dims[2];
+
+       // tropomi resolution is iaround 3.5x7 km, 3/111.1 degree resolution
+       imageInfo.xCellSize = 3.5/111.1;
+       imageInfo.yCellSize = 3.5/111.1;
+    }
     
 
     //Processing data set attributes
@@ -2871,15 +3236,36 @@ gridInfo getHDF5VarInfo ( string imageFile, string varName )
     imageInfo.attsStr.push_back ( varName );
 
     //Units 2
-    valueStr = getHDF5VarAttrInfo (dataset_id, "Units");
+    if (fileType.compare ("tropomi") == 0 )
+    {
+       valueStr = getHDF5VarAttrInfo (dataset_id, "units");
+    }
+    else 
+    {
+        valueStr = getHDF5VarAttrInfo (dataset_id, "Units");
+    }
     imageInfo.attsStr.push_back ( valueStr );
 
     //scale factor  3
-    valueStr = getHDF5VarAttrInfo (dataset_id, "ScaleFactor");
+    if (fileType.compare ("tropomi") == 0 )
+    {
+       valueStr = string ("1.0");
+    }
+    else
+    {
+       valueStr = getHDF5VarAttrInfo (dataset_id, "ScaleFactor");
+    }
     imageInfo.attsStr.push_back ( valueStr );
 
     //add_offset  4
-    valueStr = getHDF5VarAttrInfo (dataset_id, "Offset");
+    if (fileType.compare ("tropomi") == 0 )
+    {
+       valueStr = string ("0.0");
+    }
+    else
+    {
+       valueStr = getHDF5VarAttrInfo (dataset_id, "Offset");
+    }
     imageInfo.attsStr.push_back ( valueStr );
 
     //_FillValue  5
@@ -2910,7 +3296,14 @@ gridInfo getHDF5VarInfo ( string imageFile, string varName )
 
 
     //add LONGNAME 7
-    valueStr = getHDF5VarAttrInfo (dataset_id, "Title");
+    if (fileType.compare ("tropomi") == 0 )
+    {
+        valueStr = getHDF5VarAttrInfo (dataset_id, "long_name");
+    }
+    else
+    {
+       valueStr = getHDF5VarAttrInfo (dataset_id, "Title");
+    }
     imageInfo.attsStr.push_back ( valueStr );
 
 
@@ -3037,14 +3430,22 @@ void readHDF5SatVarData (string imageFile, string varName, double *poImage)
     hsize_t     dims[6];     //set max dimensions to 6
     string      valueStr;
 
+    string      fileType;
+
 
     //open the file
     anyHDF5Errors ( file_id = H5Fopen( imageFile.c_str(), H5F_ACC_RDONLY, H5P_DEFAULT ) );
 
      /* obtain group path under "/HDFEOS/SWATHS" */
-    if ( imageFile.find ( ".he5" ) != string::npos )
+    if ( imageFile.find ( ".he5" ) != string::npos)
     {
        groupPath = getHDF5VarGroups ( file_id, varName );
+       fileType = string ( "omi");
+    }
+    else if ( imageFile.find ( "S5P_OFFL_L2" ) != string::npos )
+    {
+       groupPath =string ("/PRODUCT/");
+       fileType = string ( "tropomi");
     }
     else
     {
@@ -3077,6 +3478,13 @@ void readHDF5SatVarData (string imageFile, string varName, double *poImage)
     printf("\t\tTotal array size to read: %d\n", totalSize );
     int   rows = dims[0];
     int   cols = dims[1];
+
+    if ( imageFile.find ( "S5P_OFFL_L2" ) != string::npos )
+    {
+        //1d is 1 for tropomi
+        rows = dims[1];
+        cols = dims[2];
+    }
 
     //Define the memory space to read dataset.
     mspace_id = H5Screate_simple(numDims,dims,NULL);
@@ -3128,6 +3536,7 @@ string getHDF5VarGroups (hid_t file_id, string varName)
     size_t      size;
  
 
+    
     string      startPath = string ( "/HDFEOS/SWATHS" );
 
     printf("\tGet variable HDF5 group path: %s\n", varName.c_str() );
@@ -3377,12 +3786,22 @@ int defineWRFNetCDFSatVar ( int ncid, string satVarName, int numDims, int *dimIn
 
    anyErrors( nc_put_att_text(ncid, satV_id, "description", imageInfo.attsStr[6].size(), imageInfo.attsStr[6].c_str() ));
 
-   anyErrors( nc_put_att_text(ncid, satV_id, "units", imageInfo.attsStr[1].size(), imageInfo.attsStr[1].c_str() ) );
+
+   //tropomi hour variable
+   if ( satVarName.find ("scanline_average_hours") != string::npos )
+   {
+      string  unitInfo = string ("hours of the day");
+      anyErrors( nc_put_att_text(ncid, satV_id, "units", unitInfo.size(), unitInfo.c_str() ) );
+   }
+   else
+   {
+      anyErrors( nc_put_att_text(ncid, satV_id, "units", imageInfo.attsStr[1].size(), imageInfo.attsStr[1].c_str() ) );
+   }
 
 
    if ( satVarName.find ("_LAI") != string::npos || satVarName.find ("_FPAR") != string::npos || 
         satVarName.find ("Albedo") != string::npos ||
-        satVarName.find ("ALBEDO") != string::npos || satVarName.find ("Lai_1km") != string::npos || satVarName.find ("MODIS_ALB_") != string::npos  || satVarName.find ("Lai_500m") != string::npos || satVarName.find ("Fpar_500m") != string::npos )
+        satVarName.find ("ALBEDO") != string::npos || satVarName.find ("Lai_1km") != string::npos || satVarName.find ("MODIS_ALB_") != string::npos || satVarName.find ("Lai_500m") != string::npos || satVarName.find ("Fpar_500m") != string::npos )
    {
       attValue[0] = 1.0;
       anyErrors( nc_put_att_float(ncid, satV_id, "scale_factor", NC_FLOAT, 1, attValue) );
@@ -3442,6 +3861,7 @@ void defineWRFNCTimeVars ( int ncid, int time_dim, int dateStr_dim, string start
 {
 
    int   dimIndex[NC_MAX_DIMS];    //dimension index array for write out array
+   const int   timeStrLength = 19;       //time string length in WRF Netcdf output
 
    printf( "Define time variables in output netcdf file...\n" );
 
@@ -3461,7 +3881,8 @@ void defineWRFNCTimeVars ( int ncid, int time_dim, int dateStr_dim, string start
    dimIndex[1] = dateStr_dim;
    anyErrors( nc_def_var(ncid, "Times", NC_CHAR, 2, dimIndex, timeStr_id) );
    anyErrors( nc_put_att_text(ncid, *timeStr_id, "description", 21, "Time string (19 char)" ) );
-   anyErrors( nc_put_att_text(ncid, *timeStr_id, "units", 15, "yyyymmddhhmm:ss") );
+   //anyErrors( nc_put_att_text(ncid, *timeStr_id, "units", 15, "yyyymmddhhmm:ss") );
+   anyErrors( nc_put_att_text(ncid, *timeStr_id, "units", timeStrLength, "yyyy-mm-dd_hh:mm:ss") );
 
 }
 
@@ -3683,6 +4104,10 @@ void  computeGridSatValues ( GUInt32 *poImage_grd, int *grdIndex, float *satV, d
 
    int             i,j,k,m;
 
+   //for tropomi
+   int             *poImage_qa = NULL;
+   int             *deltaTime_2010010 = NULL;  //millisecond
+
 
    /*******************************************
    *  get info from the model domain grid     *
@@ -3694,11 +4119,12 @@ void  computeGridSatValues ( GUInt32 *poImage_grd, int *grdIndex, float *satV, d
 
    int  totalDomainSize = gridCols*gridRows;  //for output dimensions
 
+    
    for ( i=2; i<imageInfo.dims.size(); i++ )
    {
       totalDomainSize *= imageInfo.dims[i];
    }
-   //printf ( "\tTotal domain grid dimension size = %d\n", totalDomainSize );
+   printf ( "\tTotal domain grid dimension size = %d\n", totalDomainSize );
 
    halfGridCellArea = grid.xCellSize * grid.yCellSize / 2.0 ;   //half of domain cell area
 
@@ -4147,14 +4573,25 @@ gridInfo computeNewRasterInfo_fromImage ( double rasterResolution, gridInfo grid
     double   x,y; 
     projUV   xyP;
     string   proj4Strfrom, proj4Strto, proj4Str;
-    
-    printf( "\nComputing new raster information from image to grid...\n");
 
+    string   gdalBinDir;      //GDAL directory
+    
+
+
+    printf( "\nComputing new raster information from image to grid...\n");
+    printf ( "\tGrid name is: %s\n", grid.name.c_str());
 
     printf ( "\tRaster resolution is: %.2lf\n", rasterResolution );
 
 
-    //input MODIS image projection
+    //get GDAL dir
+    gdalBinDir =   string ( getEnviVariable("GDALBIN") );
+    gdalBinDir =  processDirName( gdalBinDir );
+    printf("\tGDAL bin directory: %s\n", gdalBinDir.c_str() );
+    FileExists(gdalBinDir.c_str(), 0 );  //the dir has to exist
+
+
+    //input domain grid projection
     proj4Strfrom = string(grid.strProj4);
     printf ( "\n\tProj4From = %s\n", proj4Strfrom.c_str() );
     proj4From = pj_init_plus( proj4Strfrom.c_str() );
@@ -4164,7 +4601,7 @@ gridInfo computeNewRasterInfo_fromImage ( double rasterResolution, gridInfo grid
        exit( 1 );
     }
 
-    //output image projection in grid domain
+    //output image projection
     proj4Strto = string( imageInfo.strProj4 );
     printf ( "\tProj4To = %s\n", proj4Strto.c_str() );
     proj4To = pj_init_plus ( proj4Strto.c_str() );
@@ -4195,9 +4632,9 @@ gridInfo computeNewRasterInfo_fromImage ( double rasterResolution, gridInfo grid
        yMax = imageInfo.ymax;
 
     }
-    else
+    else if ( grid.name.find( ".shp" ) == string::npos )
     {
-       //compute four edges to find extent
+       //compute four edges of the grid domain to find extent
        double x, y;
        int    i;
  
@@ -4268,12 +4705,36 @@ gridInfo computeNewRasterInfo_fromImage ( double rasterResolution, gridInfo grid
              yMax = max (yMax, xyP.v);
           }
        }
-       
-
-       pj_free ( proj4From );
-       pj_free ( proj4To );
-
     }
+    else 
+    {
+       //compute from polygon shapefile
+       double x, y;
+       int    i;
+ 
+       string shapeFile = grid.name;
+
+       string projectedSHPFile =  projectShape ( gdalBinDir, shapeFile, imageInfo.strProj4 );
+
+       gridInfo newGrid = copyImageInfo ( grid );
+
+       newGrid.strProj4 = strdup ( proj4Strto.c_str() );
+       newGrid.name = projectedSHPFile;
+   
+       getShapeFile_Extent ( &newGrid );
+
+       deleteShapeFile ( projectedSHPFile );
+
+       xMin = newGrid.xmin;
+       xMax = newGrid.xmax;
+       yMin = newGrid.ymin; 
+       yMax = newGrid.ymax;
+    }
+
+    //free allocated proj4 
+    pj_free ( proj4From );
+    pj_free ( proj4To );
+
 
     printf("\tProjected  extent minXY: (%lf, %lf) maxXY: (%lf, %lf)\n", xMin, yMin, xMax, yMax);
 
@@ -4453,14 +4914,14 @@ gridInfo  getAllMODISTileInfo (  std::vector<string> modisFiles, string varName 
      
       if ( i == 0 )
       {
+
+
          allInfo = getHDF4VarInfo (imageFile, varName);
-         
          //printGridInfo  ( allInfo );
       }
       else
       {
          gridInfo modisInfo = getHDF4VarInfo (imageFile, varName);
-        
          //printGridInfo  ( modisInfo );
       
          allInfo.xmin = min ( allInfo.xmin, modisInfo.xmin );
@@ -5931,6 +6392,8 @@ string   extractDomainLAIData ( std::vector<string> modisFiles, std::vector<stri
    string imageName = getRandomFileName ( ext );
 
 
+   printf ( "\textracted LAI info: cols=%d  rows=%d\n", grid.cols, grid.rows);
+
    /* -------------------------------------------------------------------- */
    /*      Register format(s).                                             */
    /* -------------------------------------------------------------------- */
@@ -5969,6 +6432,8 @@ string   extractDomainLAIData ( std::vector<string> modisFiles, std::vector<stri
       poBand[j] = poDstDS->GetRasterBand(j+1);
 
       k = grid.rows*grid.cols;
+
+      printf ( "\tAllocate memory for %d: %s\n", j+1, satVars[j].c_str());
 
       poGrid[j] = (GByte *) CPLCalloc(sizeof(GByte),k);
 
@@ -6327,4 +6792,605 @@ string   extractDomainALBData ( std::vector<string> modisFiles, std::vector<stri
 }
 
 
+/*********************************************
+ *   66.   getShapeFile_Extent               *
+ * *******************************************/
+void getShapeFile_Extent ( gridInfo *grid )
+{
+    GDALDataset         *poDS = NULL;
+    GDALDriver          *poDriver = NULL;
+    OGRLayer            *poLayer = NULL;
+    OGREnvelope         oExt;
+    OGRSpatialReference *oSRS;
 
+    string   shapeFile;
+    double   xMin,xMax,yMin,yMax;
+
+/* -------------------------------------------------------------------- */
+/*      Register format(s).                                             */
+/* -------------------------------------------------------------------- */
+     GDALAllRegister ();
+
+     shapeFile = grid->name;
+
+     printf( "\nShapefile extent: get shapefile extent - %s.\n", shapeFile.c_str() );
+/* -------------------------------------------------------------------- */
+/*      Open shapefile                                                  */
+/* -------------------------------------------------------------------- */
+    poDS = (GDALDataset*) GDALOpenEx( shapeFile.c_str(), GDAL_OF_VECTOR, NULL, NULL, NULL );
+    if( poDS == NULL )
+    {
+       printf( "\tError:  Opening Shapefile file failed -  %s.\n", shapeFile.c_str() );
+       exit( 1 );
+    }
+
+/* -------------------------------------------------------------------- */
+/*      Get layer extent to make new raster domain.                      */
+/* -------------------------------------------------------------------- */
+    poLayer = poDS->GetLayer( 0 );
+    if( poLayer == NULL )
+    {
+       printf( "\tError: Couldn't fetch layer %s!\n", shapeFile.c_str() );
+       exit( 1 );
+    }
+
+    if (poLayer->GetExtent(&oExt, TRUE) == OGRERR_FAILURE)
+    {
+       printf("\tNo extent from the shapefile\n", shapeFile.c_str() );
+       exit ( 1 );
+    }
+
+    printf("\tShapefile extent min_xy: (%lf, %lf) max_xy: (%lf, %lf)\n",
+                   oExt.MinX, oExt.MinY, oExt.MaxX, oExt.MaxY);
+
+    //compute new extent to match resolution
+    xMin = oExt.MinX;
+    yMin = oExt.MinY;
+
+    xMax = oExt.MaxX;
+    yMax = oExt.MaxY;
+
+    GDALClose ( poDS );
+
+    //assign info to grid
+    grid->xmin = xMin;
+    grid->ymin = yMin;
+
+    grid->xmax = xMax;
+    grid->ymax = yMax;
+
+    grid->xCellSize = 0.0;
+    grid->yCellSize = 0.0;
+}
+
+/*********************************************
+*       67. readGridCoordinates              *
+*********************************************/
+std::map<int,int> readGridCoordinates ( gridInfo *grid, string polyCenterFile)
+{
+
+    ifstream           imageStream;             //stream to read input EPIC site file
+    double             x,y;
+    int                row,col;                 //starting from 0
+    string             lineStr,dataStr;         //for reading in site line
+    vector<string>     vecString;
+
+    vector<double>     centerX, centerY;        //center point long. and lat.
+
+    int                i,j;            
+    std::map<int,int>  mpasIDs;                 //gridID, mpasID
+    std::map<int,int>  gridIDs;                 //reading in sequence, gridID 
+    int                mpasID, gridID, gridN;
+
+
+    printf( "\nReading polygon center point locations from file - %s\n",polyCenterFile.c_str() );
+
+    i = 0;    //lines read
+
+    imageStream.open( polyCenterFile.c_str() );
+    if (imageStream.good() )
+    {
+        getline( imageStream, lineStr, '\n');
+        while ( !imageStream.eof() )
+        {
+           lineStr = trim (lineStr);                 //get rid of spaces at edges
+           i++;  //count the line number
+
+           //put data in string vector
+           vecString = string2stringVector (lineStr, ",");
+           if ( vecString.size()  < 4 )  //mpasID, long, lat, gridID
+           {
+              printf( "\tError: should contain at least 4 items: MPAS_ID,Longitude,Latitude,GRIDID.  %d - %s\n", i,lineStr.c_str() );
+              exit ( 1 );
+           }
+
+           if ( i == 1 )
+           {
+              printf( "\tFile header: %s\n", lineStr.c_str() );
+           }
+           else
+           {
+              //get mpas ID
+              dataStr = vecString[0];
+              mpasID = atoi ( dataStr.c_str() );
+
+              //get longitude
+              dataStr = vecString[1];
+              x = atof ( dataStr.c_str() );
+
+              //get latitude
+              dataStr = vecString[2];
+              y = atof ( dataStr.c_str() );
+
+              //get grid ID
+              dataStr = vecString[3];
+              gridID = atoi ( dataStr.c_str() );
+
+              printf ( "\tLine: %s\n", lineStr.c_str() );
+              printf ( "\tLine: %d: %d  %lf  %lf  %d\n", i,mpasID,x,y,gridID );
+              
+
+              //store site info in vectors
+              mpasIDs[gridID]=mpasID;   //gridID from 1
+              gridIDs[i-2]= gridID;     //keep a record on the sequence with gridID from 0
+              centerX.push_back ( x );
+              centerY.push_back ( y );
+           } //site lines
+
+           getline( imageStream, lineStr);
+        }  // while loop
+
+        printf ("\tFinished reading: %d lines\n\n", i);
+        imageStream.close();
+
+     } // if good
+     else
+     {
+        printf ("\tError: Open file - %s\n", polyCenterFile.c_str() );
+        exit ( 1 );
+     }
+
+
+     gridN = centerX.size();
+     printf ("\tNumber of polygons: %d\n\n", gridN);
+
+     //set the size for 1-D netCDF output
+     grid->cols = gridN;
+     grid->rows = 1;
+
+
+     //allocate memory
+     //x and y array 1d
+     if ( (grid->x = (float*) calloc (grid->cols, sizeof(float)) ) == NULL)
+     {
+        printf( "Calloc x failed.\n");
+        exit ( 1 );
+     }
+     if ( (grid->y = (float*) calloc (grid->rows, sizeof(float)) ) == NULL)
+     {
+        printf( "Calloc y failed.\n");
+        exit ( 1 );
+     }
+
+     //lat and long array 2d
+     if ( (grid->lat = (float*) calloc (grid->rows*grid->cols, sizeof(float)) ) == NULL)
+     {
+        printf( "Calloc lat failed.\n");
+        exit ( 1 );
+     }
+     if ( (grid->lon = (float*) calloc (grid->rows*grid->cols, sizeof(float)) ) == NULL)
+     {
+        printf( "Calloc lon failed.\n");
+        exit ( 1 );
+     }
+ 
+     //x and y array for grid is dummy values for polygon shapefile output
+     //mass x
+     for (i=0; i<grid->cols; i++)
+     { 
+         gridID = gridIDs[i];
+         grid->x[gridID] = centerX[i];
+     }
+
+     //mass y 
+     for (j=0; j<grid->rows; j++)
+     {
+        gridID = gridIDs[j];
+        grid->y[gridID] = centerY[j];
+     }
+
+     for(j=0; j<grid->rows; j++)
+     {
+        for (i=0; i<grid->cols; i++)
+        {
+            int index = j * grid->cols + i;
+            gridID = gridIDs[index];
+
+            grid->lon[gridID] = centerX[index];
+            grid->lat[gridID] = centerY[index];
+        }
+     }
+
+     centerX.clear();
+     centerY.clear();
+     gridIDs.clear();
+
+     return mpasIDs;
+}
+
+
+/*********************************************
+*       68. readHDF5SatVarDataInt            *
+*           read a HDF5 file variable data   *
+*********************************************/
+void readHDF5SatVarDataInt (string imageFile, string varName, int *poImage)
+{
+
+    string     groupPath, dataSet;
+    int        totalSize = 1;
+    int        i,j;
+
+    /*********************************
+    *     read HDF5 variable info   *
+    *********************************/
+    hid_t       file_id, dataset_id;
+    hid_t       fspace_id,  mspace_id;
+    hid_t       dtype_id, ndtype_id;  /* identifiers */
+    H5T_class_t dclass_id;
+    int         numDims, numMems;
+    hsize_t     dims[6];     //set max dimensions to 6
+    string      valueStr;
+
+    string      fileType;
+
+
+    //open the file
+    anyHDF5Errors ( file_id = H5Fopen( imageFile.c_str(), H5F_ACC_RDONLY, H5P_DEFAULT ) );
+
+     /* obtain group path under "/HDFEOS/SWATHS" */
+    if ( imageFile.find ( ".he5" ) != string::npos)
+    {
+       groupPath = getHDF5VarGroups ( file_id, varName );
+       fileType = string ( "omi");
+    }
+    else if ( imageFile.find ( "S5P_OFFL_L2" ) != string::npos )
+    {
+       groupPath =string ("/PRODUCT/");
+       fileType = string ( "tropomi");
+    }
+    else
+    {
+       groupPath =string ("/");   //no path for hdf5 file like OMI NO2 L3 0.05 grids
+    }
+
+    dataSet = groupPath + varName;
+
+    printf( "\tRead data set: %s\n", dataSet.c_str() );
+
+    //open data set
+    anyHDF5Errors ( dataset_id = H5Dopen (file_id, dataSet.c_str(), H5P_DEFAULT ) );
+
+    //get dimension size of HDF5 variable
+    anyHDF5Errors ( fspace_id = H5Dget_space(dataset_id) );    /* Get filespace handle first. */
+    anyHDF5Errors ( numDims = H5Sget_simple_extent_dims(fspace_id, dims, NULL) );
+    printf ( "\tNumber of Dimensions =%d \n", numDims );
+    if ( numDims < 2 )
+    {
+       printf ( "\tError: Variable dimension should be >= 2.  numDims = %d\n", numDims );
+       exit ( 1 );
+    }
+
+    totalSize = 1; 
+    for (i=0; i<numDims; i++)
+    {
+       totalSize *= dims[i];
+       printf("\t\tDimension %d size: %d\n", i, dims[i] );
+    }
+    printf("\t\tTotal array size to read: %d\n", totalSize );
+
+    int   rows = dims[0];
+    int   cols = dims[1];
+
+    if ( imageFile.find ( "S5P_OFFL_L2" ) != string::npos && numDims > 2 )
+    {
+        //1d is 1 for tropomi
+        rows = dims[1];
+        cols = dims[2];
+    }
+
+    //Define the memory space to read dataset.
+    mspace_id = H5Screate_simple(numDims,dims,NULL);
+ 
+    /*
+     * Read dataset back and display.
+     */
+    anyHDF5Errors ( H5Dread(dataset_id, H5T_NATIVE_INT, mspace_id, fspace_id, H5P_DEFAULT, poImage) );
+
+    /*checking
+    double  tempD[rows][cols];
+    anyHDF5Errors ( H5Dread(dataset_id, H5T_NATIVE_DOUBLE, mspace_id, fspace_id, H5P_DEFAULT, tempD) );
+    printf("Dataset: \n");
+    for (j = 0; j < dims[0]; j++) 
+    {
+       for (i = 0; i < dims[1]; i++) 
+       {   
+          int  index = j*cols + i;
+          printf("%.4lf   %.4lf", poImage[index], tempD[j][i]);
+          if ( poImage[index] != tempD[j][i] )
+          {
+              printf("\t\tDo not match\n");
+              exit ( 1 );
+          }
+          printf("\n");
+       }
+    }     
+    */
+
+   anyHDF5Errors ( H5Sclose ( mspace_id ) );
+   anyHDF5Errors ( H5Sclose ( fspace_id ) );
+   anyHDF5Errors ( H5Dclose ( dataset_id ) );
+   anyHDF5Errors ( H5Fclose ( file_id ) );
+
+   //printf ( "\tRead data: %s  |  %s\n", imageFile.c_str(), varName.c_str() );
+
+}
+
+
+
+/**********************************************************/
+/*   69. compute domain grid satellite image value        */
+/**********************************************************/
+void  computeGridSatValues_hour ( GUInt32 *poImage_grd, int *grdIndex, float *satV, float *hourV, double *poImage, 
+                                  int *poImage_qa, int *poImage_time, gridInfo imageInfo, gridInfo newRasterInfo, 
+                                  gridInfo grid, int qa_value_Min )
+{
+   double          halfGridCellArea;    //half of domain cell area
+   int             *gridIDs=NULL;       //array to store number of pixels in each modeling grids
+   double          *gridValues = NULL;  //array to store total values in each modeling grids
+   double          *gridTimes = NULL;  //array to store total Times in each modeling cells
+
+   int             i,j,k,m;
+
+
+   /*******************************************
+   *  get info from the model domain grid     *
+   *******************************************/
+   //total dimension size
+
+   int gridRows = grid.rows;
+   int gridCols = grid.cols;
+
+   int  totalDomainSize = gridCols*gridRows;  //for output dimensions
+
+    
+   for ( i=2; i<imageInfo.dims.size(); i++ )
+   {
+      totalDomainSize *= imageInfo.dims[i];
+   }
+   printf ( "\tTotal domain grid dimension size = %d\n", totalDomainSize );
+
+   halfGridCellArea = grid.xCellSize * grid.yCellSize / 2.0 ;   //half of domain cell area
+
+   /******************************
+   *   Get satllite image  Info *
+   *****************************/
+   int     xCells = imageInfo.cols;
+   int     yCells = imageInfo.rows;
+   float   SAT_MISSIING_VALUE = atof ( imageInfo.attsStr[4].c_str() );
+
+   printf ( "\tSAT_MISSIING_VALUE = %lf\n", SAT_MISSIING_VALUE);
+
+   /***********************************************************************************
+   *     Allocate memory store pixel number and total value in each modeling grid    *
+   ***********************************************************************************/
+   gridIDs = (int *) CPLCalloc(sizeof(int),totalDomainSize);
+   gridValues = (double *) CPLCalloc(sizeof(double),totalDomainSize);
+   gridTimes = (double *) CPLCalloc(sizeof(double),totalDomainSize);
+
+
+   /*************************************************
+   *  get info from rasterized grid domain image    *
+   *************************************************/
+   int xCells_grd = newRasterInfo.cols;
+   int yCells_grd = newRasterInfo.rows;
+   //printf( "\tGrid domain cells are: %dx%d\n", xCells_grd, yCells_grd );
+
+   double xCellSize_grd = newRasterInfo.xCellSize;
+   double yCellSize_grd = newRasterInfo.yCellSize;
+   //printf( "\tGrid domain re-sampled pixel size = (%.3lf,%.3lf)\n", xCellSize_grd, yCellSize_grd );
+
+   double xMin_grd = newRasterInfo.xmin;
+   double xMax_grd = newRasterInfo.xmax;
+
+   double yMax_grd = newRasterInfo.ymax;
+   double yMin_grd = newRasterInfo.ymin;
+
+   //printf( "\tDoamin UL Origin = (%.6lf,%.6lf)\n", xMin_grd, yMax_grd );
+   //printf( "\tDomain grid raster extent:  minXY(%.3lf,%.3lf)   maxXY(%.3lf,%.3lf)\n", xMin_grd,yMin_grd,xMax_grd,yMax_grd );
+
+
+   /****************************************************
+   *  re-gridding last dimension as attribute item    *
+   ****************************************************/
+   int          gridID, pixelIndex;
+   double       value, hourZ;
+   double       x,y;
+   int          col,row;   //in satellite image
+   int          geoIndex;
+   int          dmnIndex,satIndex;
+   int          qaValue;
+   float        timeD;
+
+
+   int   gridPixels = gridCols*gridRows;   //total grids in modeling domain
+
+   //loop through rasterized domain image from UL corner
+   for( i=0; i<yCells_grd; i++ )
+   {
+      for (j=0; j<xCells_grd; j++)
+      {
+         pixelIndex = i * xCells_grd + j; 
+         gridID = poImage_grd[pixelIndex];   //domain grid ID from 1
+
+         if (gridID > 0 && gridID <= gridPixels)
+         {
+            //get row and col indices in the model domain from LL corner
+            int dmnRow = (int) ( floor ( ( gridID - 1 ) / gridCols) );   //start from 0
+            int dmnCol = ( gridID - 1 ) % gridCols;                      //start from 0
+            //printf ("\t\tgridID=%d    dmnRow=%d   dmnCol=%d\n",gridID,dmnRow,dmnCol);
+
+            geoIndex = grdIndex[pixelIndex];  //get the index to get the value image rowsXcols starting from 0
+
+            if ( geoIndex != -999 )
+            {
+               //get sat image geo indices for (1st and 2nd dimensions) based on grdIndex result
+               //compute geo-site row, col
+               int satRow = (int) ( floor (geoIndex / xCells) );   //start from 0
+               int satCol = geoIndex % xCells;                     //start from 0
+               //printf ("\tgeoIndex=%d    row=%d   col=%d\n",geoIndex,satRow,satCol);
+
+               if ( imageInfo.dims.size() == 2 )
+               {
+                  satIndex = geoIndex;
+                  dmnIndex = gridID - 1;
+
+                  value = poImage[satIndex];
+                  qaValue = poImage_qa[satIndex];
+                  timeD = poImage_time[satRow];
+                  timeD = timeD / 3600000.0;   //milliseconds to hours
+                  
+                  if ( value != SAT_MISSIING_VALUE && qaValue >= qa_value_Min )
+                  {
+                     gridIDs[dmnIndex] += 1;             //count Satellite cells
+                     gridValues[dmnIndex] += value;      //sum the Satellite value for a domain grid
+                     gridTimes[dmnIndex] += timeD; 
+                  }
+               }  //2dims
+               else if ( imageInfo.dims.size() == 3 )
+               {
+                  for ( k=0; k<imageInfo.dims[2]; k++)
+                  {
+                     satIndex = satRow * xCells * imageInfo.dims[2] + satCol * imageInfo.dims[2] + k;
+                     dmnIndex = dmnRow * gridCols * imageInfo.dims[2] + dmnCol * imageInfo.dims[2] + k;
+                     value = poImage[satIndex];
+                     qaValue = poImage_qa[satIndex];
+                     timeD = poImage_time[satRow];
+                     timeD = timeD / 3600000.0;   //milliseconds to hours
+
+                     if ( value != SAT_MISSIING_VALUE )
+                     {
+                        //printf ("\t\tk=%d    value=%lf\n",k,value);
+                        gridIDs[dmnIndex] += 1;             //count Satellite cells
+                        gridValues[dmnIndex] += value;      //sum the Satellite value for a domain grid
+                        gridTimes[dmnIndex] += timeD;
+                     }
+                  }  //k
+               } //3dims
+
+               else if ( imageInfo.dims.size() == 4 )
+               {
+                  for ( k=0; k<imageInfo.dims[2]; k++)
+                  {
+                     for ( m=0; m<imageInfo.dims[3]; m++)
+                     {
+                        satIndex = satRow * xCells * imageInfo.dims[2] * imageInfo.dims[3] +
+                                   satCol * imageInfo.dims[2] * imageInfo.dims[3] + k * imageInfo.dims[3] + m;
+                        dmnIndex = dmnRow * gridCols * imageInfo.dims[2] * imageInfo.dims[3] +
+                                   dmnCol * imageInfo.dims[2] * imageInfo.dims[3] + k * imageInfo.dims[3] + m;
+                        value = poImage[satIndex];
+
+                        qaValue = poImage_qa[satIndex];
+                        timeD = poImage_time[satRow];
+                        timeD = timeD / 3600000.0;   //milliseconds to hours
+
+                        if ( value != SAT_MISSIING_VALUE )
+                        {
+                           gridIDs[dmnIndex] += 1;             //count Satellite cells
+                           gridValues[dmnIndex] += value;      //sum the Satellite value for a domain grid
+                           gridTimes[dmnIndex] += timeD;
+                        }
+                     } //m
+                  }  //k
+               }  //4 dims
+
+            }  //check missing geolocation index
+         }  //check gridID
+
+      }  //j
+   }  //i
+
+   //loop through modeling domain cells to fill netcdf array
+   for (i=0; i<gridRows; i++)
+   {
+      for (j=0; j<gridCols; j++)
+      {
+         if ( imageInfo.dims.size() == 2 )
+         {
+            dmnIndex = i * gridCols + j;
+            if ( gridIDs[dmnIndex] * xCellSize_grd * yCellSize_grd >=  halfGridCellArea )
+            {
+               value = gridValues[dmnIndex] / gridIDs[dmnIndex];    //take average for all satellite variables
+               satV[dmnIndex] = value;
+               if ( hourV != NULL )    hourV[dmnIndex] = gridTimes[dmnIndex] / gridIDs[dmnIndex]; 
+            }
+            else
+            {
+               satV[dmnIndex] = MISSIING_VALUE;
+               if ( hourV != NULL )    hourV[dmnIndex] = MISSIING_VALUE;
+            }
+         }   //2dims
+
+         else if ( imageInfo.dims.size() == 3 )
+         {
+            for ( k=0; k<imageInfo.dims[2]; k++)
+            {
+               dmnIndex = i * gridCols * imageInfo.dims[2] + j * imageInfo.dims[2] + k;
+               //make sure that at least half of domain grid has values
+               //double area_cover_ratio = gridIDs[dmnIndex] * xCellSize_grd * yCellSize_grd / (halfGridCellArea*2);
+               //printf ("\t row=%d  col=%d  k=%d  counts=%d  total=%lf  cover_ratio=%lf \n",
+               //             i, j, k,gridIDs[dmnIndex], satV[dmnIndex], area_cover_ratio);
+
+               if ( gridIDs[dmnIndex] * xCellSize_grd * yCellSize_grd >=  halfGridCellArea )
+               {
+                  value = gridValues[dmnIndex] / gridIDs[dmnIndex];    //take average for all satellite variables
+                  satV[dmnIndex] = value;
+                  if ( hourV != NULL )    hourV[dmnIndex] = gridTimes[dmnIndex] / gridIDs[dmnIndex];
+               }
+               else
+               {
+                  satV[dmnIndex] = MISSIING_VALUE;
+                  if ( hourV != NULL )    hourV[dmnIndex] = MISSIING_VALUE;
+               }
+            } //k
+         }   //3dims
+
+         else if ( imageInfo.dims.size() == 4 )
+         {
+            for ( k=0; k<imageInfo.dims[2]; k++)
+            {
+               for ( m=0; m<imageInfo.dims[3]; m++)
+               {
+                  dmnIndex = i * gridCols * imageInfo.dims[2] * imageInfo.dims[3] +
+                             j * imageInfo.dims[2] * imageInfo.dims[3] + k * imageInfo.dims[3] + m;
+                  if ( gridIDs[dmnIndex] * xCellSize_grd * yCellSize_grd >=  halfGridCellArea )
+                  {
+                     value = gridValues[dmnIndex] / gridIDs[dmnIndex];    //take average for all satellite variables
+                     satV[dmnIndex] = value;
+                     if ( hourV != NULL )    hourV[dmnIndex] = gridTimes[dmnIndex] / gridIDs[dmnIndex];
+                  }
+                  else
+                  {
+                     satV[dmnIndex] = MISSIING_VALUE;
+                     if ( hourV != NULL )    hourV[dmnIndex] = MISSIING_VALUE;
+                  }
+               } //m
+            } //k
+         }  //4 dims
+
+      }  //j
+   } //i
+
+   CPLFree (gridIDs);
+   CPLFree (gridValues);
+   CPLFree (gridTimes);
+}
